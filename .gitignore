@@ -2,3 +2,5 @@
 .DS_Store
 node_modules
 pfa-client/dist
+.env.dev
+.env.prod
