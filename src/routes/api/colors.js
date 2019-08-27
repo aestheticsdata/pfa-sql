@@ -19,8 +19,8 @@ router.post('/add', (req, res) => {
     color,
   } = req.body;
 
-  if(!catID || !color) {
-    return res.status(400).json({ msg: 'Please enter a catID and a color' });
+  if(!color) {
+    return res.status(400).json({ msg: 'Please enter a color' });
   }
 
   const newColor = new Color({

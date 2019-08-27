@@ -24,7 +24,7 @@ mongoose.connect(
 app.use('/users', require('./routes/api/users'));
 app.use('/spendings', require('./routes/api/spendings'));
 app.use('/categories', require('./routes/api/categories'));
-app.use('/colors', require('./routes/api/categoriesColors'));
+app.use('/colors', require('./routes/api/colors'));
 
 const port = process.env.PORT || 5000;
 
