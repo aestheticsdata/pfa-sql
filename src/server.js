@@ -1,27 +1,30 @@
 const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
-// const config = require('config');
-const config = require('dotenv').config();
-const path = require('path');
+const cors = require('cors');
+// const path = require('path');
 
-// const db = config.get('ATLAS_URI');
+require('dotenv').config();
+
+
+app.use(cors());
+
+// Bodyparser Middleware
+app.use(express.json());
 
 mongoose.connect(
-  process.env.ATLAS_URI,
-  { useNewUrlParser: true })
+    process.env.ATLAS_URI,
+    { useNewUrlParser: true,  useCreateIndex: true } )
   .then(
     () => {console.log('database connected')},
     err => { console.log('Can not connect to the database'+ err)}
   );
 
-const app = express();
 
-// Bodyparser Middleware
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send('pfa yeah !');
-});
+app.use('/users', require('./routes/api/users'));
+app.use('/spendings', require('./routes/api/spendings'));
+app.use('/categories', require('./routes/api/categories'));
+app.use('/colors', require('./routes/api/categoriesColors'));
 
 const port = process.env.PORT || 5000;
 
