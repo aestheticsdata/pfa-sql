@@ -6,7 +6,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    const users = fetch('/api/users').then((response) => {
+    const users = fetch('/users').then((response) => {
       return response.json();
     }).then((myJson) => {
       console.log(JSON.stringify(myJson));
