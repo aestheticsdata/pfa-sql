@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import StyledMain from './StyledMain';
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,9 @@ class Main extends Component {
 
   render() {
     return (
-      <div>Main</div>
+      <StyledMain>
+        Main
+      </StyledMain>
     );
   }
 }
