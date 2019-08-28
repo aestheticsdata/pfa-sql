@@ -1,2 +1,2 @@
-Personal Finance Assistant.
+##Personal Finance Assistant.
 React / Redux / Express / MongoDB
