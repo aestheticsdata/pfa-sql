@@ -15,10 +15,14 @@ const Login = (props) => {
   return (
     <>
       <StyledLogin>
-        <SharedLoginForm
-          onSubmit={onSubmit}
-        />
-        <NavLink to="/forgotpassword">Password forgotten</NavLink>
+        <div className="login-container">
+          <SharedLoginForm
+            onSubmit={onSubmit}
+          />
+          <div className="pwd-forgot">
+            <NavLink to="/forgotpassword">Password forgotten</NavLink>
+          </div>
+        </div>
       </StyledLogin>
     </>
   );

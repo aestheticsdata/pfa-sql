@@ -3,6 +3,8 @@ import styled from 'styled-components/macro';
 const StyledNavBar = styled.div`
   background-color: #3b4755;
   color: #aee4ff;
+  //position: fixed;
+  width: 100%;
 
   .link {
     display: inline-block;
@@ -20,7 +22,6 @@ const StyledNavBar = styled.div`
       background-color: #fff;
     }
   }
-  
 `;
 
 export default StyledNavBar;
