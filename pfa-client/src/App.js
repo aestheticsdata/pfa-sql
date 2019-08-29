@@ -5,6 +5,8 @@ import {
   Route,
 } from 'react-router-dom';
 
+import GlobaleStyle from './global-styles';
+
 import NavBar from './components/navbar/Navbar';
 import Main from './components/main/Main';
 import Login from './components/login/Login';
@@ -13,6 +15,7 @@ import Register from './components/register/Register';
 function App() {
   return (
     <div className="App">
+      <GlobaleStyle />
       <Router>
         <NavBar />
         <Switch>
