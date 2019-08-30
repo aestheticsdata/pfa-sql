@@ -40,9 +40,23 @@ router.post('/add', (req, res) => {
         registerDate,
       });
 
-      newUser.save()
-        .then(() => res.json('new user added'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
+      bcrypt.genSalt(10, (err, salt) => {
+        if (err) console.error('There was an error during salt', err);
+        else {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) console.error('There was an error during hash', err);
+            else {
+              newUser.password = hash;
+              newUser
+                .save()
+                .then(user => {
+                  res.json(user)
+                })
+                .catch(err => res.status(400).json(`Error while saving new user: ${err}`));
+            }
+          });
+        }
+      });
     }
   })
 
