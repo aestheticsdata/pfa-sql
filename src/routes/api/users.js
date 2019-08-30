@@ -1,5 +1,10 @@
 const router = require('express').Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+
 let User = require('../../models/user.model');
+
 
 router.get('/', (req, res) => {
   User.find()
@@ -20,16 +25,27 @@ router.post('/add', (req, res) => {
     return res.status(400).json({ msg: 'Please enter all fields' });
   }
 
-  const newUser = new User({
-    name,
-    email,
-    password,
-    registerDate,
-  });
+  User.findOne({
+    email
+  }).then(user => {
+    if (user) {
+      return res.status(400).json({
+        email: 'Email already exists'
+      });
+    } else {
+      const newUser = new User({
+        name,
+        email,
+        password,
+        registerDate,
+      });
 
-  newUser.save()
-    .then(() => res.json('new user added'))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+      newUser.save()
+        .then(() => res.json('new user added'))
+        .catch(err => res.status(400).json(`Error: ${err}`));
+    }
+  })
+
 });
 
 router.delete('/:id', (req, res) => {

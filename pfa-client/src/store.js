@@ -35,7 +35,7 @@ let store = createStore(
   )
 );
 
-sagaMiddleware.run(rootSaga); // pour combiner plusieurs sagas : https://github.com/redux-saga/redux-saga/issues/160#issuecomment-308529293
+sagaMiddleware.run(rootSaga); // https://redux-saga.js.org/docs/advanced/RootSaga.html
 
 export default store;
 
