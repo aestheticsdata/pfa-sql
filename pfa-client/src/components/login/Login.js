@@ -13,18 +13,16 @@ const Login = (props) => {
   };
 
   return (
-    <>
-      <StyledLogin>
-        <div className="login-container">
-          <SharedLoginForm
-            onSubmit={onSubmit}
-          />
-          <div className="pwd-forgot">
-            <NavLink to="/forgotpassword">Password forgotten</NavLink>
-          </div>
+    <StyledLogin>
+      <div className="login-container">
+        <SharedLoginForm
+          onSubmit={onSubmit}
+        />
+        <div className="pwd-forgot">
+          <NavLink to="/forgotpassword">Password forgotten</NavLink>
         </div>
-      </StyledLogin>
-    </>
+      </div>
+    </StyledLogin>
   );
 };
 

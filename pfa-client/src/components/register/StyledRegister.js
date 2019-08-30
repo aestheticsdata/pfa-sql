@@ -1,7 +1,15 @@
 import styled from 'styled-components/macro';
 
 const StyledRegister = styled.div`
-  background-color: #e2ff3b;
+  .register-container {
+    position: relative;
+    top: 100px;
+    background-color: #fff;
+    margin: 0 auto;
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+  }
 `;
 
 export default StyledRegister;
