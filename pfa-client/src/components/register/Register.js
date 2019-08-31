@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { register } from './actions';
@@ -6,22 +6,25 @@ import { register } from './actions';
 import StyledRegister from './StyledRegister';
 import SharedLoginForm from "../sharedLoginForm/SharedLoginForm";
 
-const Register = (props) => {
-  const onSubmit = (values, { setSubmitting }) => {
+class Register extends Component {
+  onSubmit = (values, { setSubmitting }) => {
     console.log('onSubmit values : ', values);
-    props.register(values.email, values.password);
+    this.props.register(values.email, values.password);
     setSubmitting(false);
+    this.props.history.push('/login');
   };
 
-  return (
-    <StyledRegister>
-      <div className="register-container">
-        <SharedLoginForm
-          onSubmit={onSubmit}
-        />
-      </div>
-    </StyledRegister>
-  );
+  render() {
+    return (
+      <StyledRegister>
+        <div className="register-container">
+          <SharedLoginForm
+            onSubmit={this.onSubmit}
+          />
+        </div>
+      </StyledRegister>
+    );
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {

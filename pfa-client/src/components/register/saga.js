@@ -1,4 +1,4 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import axios from 'axios';
 import {
@@ -18,6 +18,7 @@ export function* onRegister(user) {
       password: user.password,
     });
     console.log('saga res : ', res);
+    yield put(registerSuccess(res))
   } catch (err) {
     console.log('register error : ', err);
   }

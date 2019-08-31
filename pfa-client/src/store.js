@@ -12,6 +12,7 @@ import {
 import { createBrowserHistory } from 'history';
 
 import registerReducer from './components/register/reducer';
+import loginReducer from './components/login/reducer';
 
 import rootSaga from './rootSaga';
 
@@ -19,6 +20,7 @@ import rootSaga from './rootSaga';
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
   registerReducer,
+  loginReducer,
 });
 
 const history = createBrowserHistory();

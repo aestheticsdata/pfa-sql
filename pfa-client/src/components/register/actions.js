@@ -14,6 +14,7 @@ export function register(email, password) {
 }
 
 export function registerSuccess(payload) {
+  console.log('register success action');
   return {
     type: REGISTER_SUCCESS,
     payload,
