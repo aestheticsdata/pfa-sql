@@ -10,10 +10,10 @@ import StyledLogin from './StyledLogin';
 
 class Login extends Component {
   onSubmit = (values, { setSubmitting }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-    }, 400);
+    // setTimeout(() => {
+    //   alert(JSON.stringify(values, null, 2));
+    //   setSubmitting(false);
+    // }, 400);
   };
 
   componentDidMount() {
@@ -39,6 +39,7 @@ class Login extends Component {
 };
 
 const mapStateToProps = (state) => {
+  console.log('Login mapStateToProps state : ', state);
   return {
     isAuthenticated: state.loginReducer.isAuthenticated,
   }

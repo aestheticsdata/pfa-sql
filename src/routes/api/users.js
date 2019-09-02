@@ -6,6 +6,24 @@ const passport = require('passport');
 let User = require('../../models/user.model');
 
 
+const signIn = (res, user) => {
+  jwt.sign(
+    { id: user.id },
+    process.env.JWT_SECRET,
+    { expiresIn: '2d' },
+    (err, token) => {
+      if (err) throw err;
+      res.json({
+        token,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email
+        }
+      });
+    })
+};
+
 router.get('/', (req, res) => {
   const { email, password } = req.body;
 
@@ -23,24 +41,9 @@ router.get('/', (req, res) => {
       bcrypt.compare(password, user.password)
         .then(isMatch => {
           if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
-
-          jwt.sign(
-            { id: user.id },
-            process.env.JWT_SECRET,
-            { expiresIn: 3600 },
-            (err, token) => {
-              if (err) throw err;
-              res.json({
-                token,
-                user: {
-                  id: user.id,
-                  name: user.name,
-                  email: user.email
-                }
-              });
-            }
-          )
+          signIn(res, user);
         })
+        .catch(err => res.status(400).json(`Error while getting user : ${err}`));
     })
 });
 
@@ -89,7 +92,7 @@ router.post('/add', (req, res) => {
               newUser
                 .save()
                 .then(user => {
-                  res.json(user)
+                  signIn(res, user);
                 })
                 .catch(err => res.status(400).json(`Error while saving new user: ${err}`));
             }

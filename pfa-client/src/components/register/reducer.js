@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const registerReducer = (state = initialState, action) =>
-  produce((state, draft) => {
+  produce(state, draft => {
       if (action.type === REGISTER_FAIL) {
           draft.failed = true;
       }
