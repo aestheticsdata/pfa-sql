@@ -1,16 +1,35 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import StyledNavBar from './StyledNavBar';
 
 const NavBar = (props) => {
+  const { isAuthenticated } = props;
+
   return (
     <StyledNavBar>
-      <NavLink to='/' className="link" exact>Home</NavLink>
-      <NavLink to='/login' className="link" exact>Login</NavLink>
-      <NavLink to='/register' className="link" exact>Register</NavLink>
+      {
+        isAuthenticated ?
+          <>
+            <NavLink to='/' className="link" exact>Home</NavLink>
+            <NavLink to='/logout' className="link" exact>Logout</NavLink>
+          </>
+          :
+          <>
+            <NavLink to='/login' className="link" exact>Login</NavLink>
+            <NavLink to='/register' className="link" exact>Register</NavLink>
+          </>
+
+      }
     </StyledNavBar>
   );
 };
 
-export default NavBar;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.loginReducer.isAuthenticated,
+  }
+};
+
+export default connect(mapStateToProps, null)(NavBar);

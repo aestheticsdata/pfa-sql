@@ -3,10 +3,11 @@ import {
   REGISTER_SUCCESS,
 } from '../register/constants';
 import {
-  LOGIN,
   LOGIN_SUCCESS,
-  LOGIN_ERROR,
-} from "./constants";
+} from './constants';
+import {
+  LOG_OUT,
+} from '../logout/constants';
 
 const initialState = {
   isAuthenticated: false,
@@ -15,10 +16,19 @@ const initialState = {
 
 const loginReducer = (state = initialState, action) =>
   produce(state, draft => {
-    if (action.type === REGISTER_SUCCESS || action.type === LOGIN_SUCCESS) {
-      localStorage.setItem('pfa-token', action.payload.data.token);
-      draft.isAuthenticated = true;
-      draft.token = action.payload.data.token;
+    switch(action.type) {
+      case REGISTER_SUCCESS:
+      case LOGIN_SUCCESS:
+        localStorage.setItem('pfa-token', action.payload.data.token);
+        draft.isAuthenticated = true;
+        draft.token = action.payload.data.token;
+        break;
+      case LOG_OUT:
+        localStorage.removeItem('pfa-token');
+        draft.isAuthenticated = false;
+        break;
+      default:
+        return state;
     }
   });
 

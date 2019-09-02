@@ -10,10 +10,8 @@ import StyledLogin from './StyledLogin';
 
 class Login extends Component {
   onSubmit = (values, { setSubmitting }) => {
-    // setTimeout(() => {
-    //   alert(JSON.stringify(values, null, 2));
-    //   setSubmitting(false);
-    // }, 400);
+    this.props.login(values.email, values.password);
+    setSubmitting(false);
   };
 
   componentDidUpdate(prevProps) {

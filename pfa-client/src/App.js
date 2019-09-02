@@ -14,6 +14,7 @@ import NavBar from './components/navbar/Navbar';
 import Main from './components/main/Main';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
+import Logout from './components/logout/Logout';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Login}  />
+            <Route exact path="/logout" component={Logout}  />
             <Route exact path="/register" component={Register} />
           </Switch>
         </Router>
