@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 
-import { register } from './actions';
+import {
+  register,
+  clearRegisterFailed,
+} from './actions';
 
 import StyledRegister from './StyledRegister';
 import SharedLoginForm from "../sharedLoginForm/SharedLoginForm";
 
 class Register extends Component {
   onSubmit = (values, { setSubmitting }) => {
-    console.log('onSubmit values : ', values);
     this.props.register(values.email, values.password);
     setSubmitting(false);
-    this.props.history.push('/login');
   };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.isAuthenticated !== prevProps.isAuthenticated) {
+      this.props.history.push('/');
+    }
+    if (this.props.registerFailed) {
+      Swal.fire({
+        title: 'Error',
+        text: this.props.registerErrorMessage,
+        type: 'error',
+        confirmButtonText: 'close',
+        onClose: () => {
+          this.props.clearRegisterFailed()
+        }
+      })
+    }
+  }
 
   render() {
     return (
@@ -27,10 +46,19 @@ class Register extends Component {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
   return {
-    register: (email, password) => dispatch(register(email, password)),
+    isAuthenticated: state.loginReducer.isAuthenticated,
+    registerFailed: state.registerReducer.failed,
+    registerErrorMessage: state.registerReducer.errorMessage,
   }
 };
 
-export default connect(null, mapDispatchToProps)(Register);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    register: (email, password) => dispatch(register(email, password)),
+    clearRegisterFailed: () => dispatch(clearRegisterFailed()),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

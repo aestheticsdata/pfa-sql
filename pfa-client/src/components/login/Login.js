@@ -16,30 +16,36 @@ class Login extends Component {
     // }, 400);
   };
 
-  componentDidMount() {
-    if (this.props.isAuthenticated) {
-      console.log(this.props.history);
+  componentDidUpdate(prevProps) {
+    if (this.props.isAuthenticated !== prevProps.isAuthenticated) {
+      this.props.history.push('/');
     }
   }
 
   render() {
     return (
-      <StyledLogin>
-        <div className="login-container">
-          <SharedLoginForm
-            onSubmit={this.onSubmit}
-          />
-          <div className="pwd-forgot">
-            <NavLink to="/forgotpassword">Password forgotten</NavLink>
-          </div>
-        </div>
-      </StyledLogin>
+      <>
+      {
+        this.props.isAuthenticated ?
+          null
+          :
+          <StyledLogin>
+            <div className="login-container">
+              <SharedLoginForm
+                onSubmit={this.onSubmit}
+              />
+              <div className="pwd-forgot">
+                <NavLink to="/forgotpassword">Password forgotten</NavLink>
+              </div>
+            </div>
+          </StyledLogin>
+      }
+      </>
     );
   }
-};
+}
 
 const mapStateToProps = (state) => {
-  console.log('Login mapStateToProps state : ', state);
   return {
     isAuthenticated: state.loginReducer.isAuthenticated,
   }

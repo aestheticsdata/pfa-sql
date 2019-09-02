@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import StyledMain from './StyledMain';
 
@@ -8,11 +9,9 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    const users = fetch('/users').then((response) => {
-      return response.json();
-    }).then((myJson) => {
-      console.log(JSON.stringify(myJson));
-    });
+    if (!this.props.isAuthenticated) {
+      this.props.history.push('login');
+    }
   }
 
   render() {
@@ -24,4 +23,10 @@ class Main extends Component {
   }
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.loginReducer.isAuthenticated,
+  }
+};
+
+export default connect(mapStateToProps, null)(Main);

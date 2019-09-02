@@ -2,10 +2,10 @@ import {
   REGISTER,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  CLEAR_REGISTER_FAILED,
 } from './constants';
 
 export function register(email, password) {
-  console.log('register action');
   return {
     type: REGISTER,
     email,
@@ -14,7 +14,6 @@ export function register(email, password) {
 }
 
 export function registerSuccess(payload) {
-  console.log('register success action');
   return {
     type: REGISTER_SUCCESS,
     payload,
@@ -27,3 +26,10 @@ export function registerFail(error) {
     error,
   };
 }
+
+export function clearRegisterFailed() {
+  return {
+    type: CLEAR_REGISTER_FAILED,
+  }
+}
+

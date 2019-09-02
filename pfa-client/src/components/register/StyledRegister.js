@@ -10,6 +10,9 @@ const StyledRegister = styled.div`
     padding: 10px;
     border-radius: 5px;
   }
+  .register-error {
+    
+  }
 `;
 
 export default StyledRegister;

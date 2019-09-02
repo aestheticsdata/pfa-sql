@@ -24,7 +24,7 @@ const signIn = (res, user) => {
     })
 };
 
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
   const { email, password } = req.body;
 
   // Simple validation
@@ -71,9 +71,7 @@ router.post('/add', (req, res) => {
     email
   }).then(user => {
     if (user) {
-      return res.status(400).json({
-        email: 'Email already exists'
-      });
+      return res.status(400).json({ message: 'Email already exists' });
     } else {
       const newUser = new User({
         name,
@@ -94,7 +92,7 @@ router.post('/add', (req, res) => {
                 .then(user => {
                   signIn(res, user);
                 })
-                .catch(err => res.status(400).json(`Error while saving new user: ${err}`));
+                .catch(err => res.status(400).json({message: `Error while saving new user: ${err}`}));
             }
           });
         }
