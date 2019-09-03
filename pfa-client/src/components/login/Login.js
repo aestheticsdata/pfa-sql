@@ -14,6 +14,12 @@ class Login extends Component {
     setSubmitting(false);
   };
 
+  componentDidMount() {
+    if (localStorage.getItem('pfa-token')) {
+      this.props.history.push('/');
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.token !== prevProps.token) {
       this.props.history.push('/');
