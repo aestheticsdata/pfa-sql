@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 
 import store from './store';
-import { history } from './store';
+import { history } from './history';
 
 import GlobaleStyle from './global-styles';
 

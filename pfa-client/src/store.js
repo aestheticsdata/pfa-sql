@@ -9,12 +9,14 @@ import {
   connectRouter,
   routerMiddleware,
 } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
+
 
 import registerReducer from './components/register/reducer';
 import loginReducer from './components/login/reducer';
 
 import rootSaga from './rootSaga';
+
+import { history } from './history';
 
 
 const createRootReducer = (history) => combineReducers({
@@ -22,8 +24,6 @@ const createRootReducer = (history) => combineReducers({
   registerReducer,
   loginReducer,
 });
-
-export const history = createBrowserHistory();
 
 const sagaMiddleware = createSagaMiddleware();
 
