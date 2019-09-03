@@ -16,6 +16,7 @@ import Main from './components/main/Main';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Logout from './components/logout/Logout';
+import { PrivateRoute } from './components/privateRoute/PrivateRoute';
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
         <ConnectedRouter history={history}>
           <NavBar />
           <Switch>
-            <Route exact path="/" component={Main} />
+            <PrivateRoute exact path="/" component={Main} />
             <Route exact path="/login" component={Login}  />
             <Route exact path="/logout" component={Logout}  />
             <Route exact path="/register" component={Register} />

@@ -9,9 +9,9 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.isAuthenticated) {
-      this.props.history.push('login');
-    }
+    // if (!this.props.isAuthenticated) {
+    //   this.props.history.push('login');
+    // }
   }
 
   render() {
