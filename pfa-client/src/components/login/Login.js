@@ -9,32 +9,22 @@ import StyledLogin from './StyledLogin';
 
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    console.log('Login constructor');
-  }
   onSubmit = (values, { setSubmitting }) => {
     this.props.login(values.email, values.password);
     setSubmitting(false);
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.isAuthenticated !== prevProps.isAuthenticated) {
+    if (this.props.token !== prevProps.token) {
       this.props.history.push('/');
     }
-  }
-  componentDidMount() {
-    console.log('Login isAuthenticated : ', this.props.isAuthenticated);
-  }
-  componentWillUnmount() {
-    console.log('Login unmount');
   }
 
   render() {
     return (
       <>
       {
-        this.props.isAuthenticated ?
+        this.props.token ?
           null
           :
           <StyledLogin>
@@ -55,7 +45,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.loginReducer.isAuthenticated,
+    token: state.loginReducer.token,
   }
 };
 

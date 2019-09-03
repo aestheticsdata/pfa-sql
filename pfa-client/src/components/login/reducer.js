@@ -26,6 +26,7 @@ const loginReducer = (state = initialState, action) =>
       case LOG_OUT:
         localStorage.removeItem('pfa-token');
         draft.isAuthenticated = false;
+        draft.token = null;
         break;
       default:
         return state;

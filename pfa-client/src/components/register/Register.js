@@ -17,7 +17,7 @@ class Register extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.isAuthenticated !== prevProps.isAuthenticated) {
+    if (this.props.token !== prevProps.token) {
       this.props.history.push('/');
     }
     if (this.props.registerFailed) {
@@ -48,7 +48,7 @@ class Register extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.loginReducer.isAuthenticated,
+    token: state.loginReducer.token,
     registerFailed: state.registerReducer.failed,
     registerErrorMessage: state.registerReducer.errorMessage,
   }

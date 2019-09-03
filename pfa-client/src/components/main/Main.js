@@ -4,16 +4,6 @@ import { connect } from 'react-redux';
 import StyledMain from './StyledMain';
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    // if (!this.props.isAuthenticated) {
-    //   this.props.history.push('login');
-    // }
-  }
-
   render() {
     return (
       <StyledMain>
@@ -25,7 +15,7 @@ class Main extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.loginReducer.isAuthenticated,
+    token: state.loginReducer.tokzn,
   }
 };
 

@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import StyledNavBar from './StyledNavBar';
 
 const NavBar = (props) => {
-  const { isAuthenticated } = props;
+  const { token } = props;
 
   return (
     <StyledNavBar>
       {
-        isAuthenticated ?
+        token ?
           <>
             <NavLink to='/' className="link" exact>Home</NavLink>
             <NavLink to='/logout' className="link" exact>Logout</NavLink>
@@ -28,7 +28,7 @@ const NavBar = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.loginReducer.isAuthenticated,
+    token: state.loginReducer.token,
   }
 };
 

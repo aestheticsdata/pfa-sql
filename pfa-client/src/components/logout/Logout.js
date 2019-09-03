@@ -12,7 +12,7 @@ class Logout extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.isAuthenticated !== prevProps.isAuthenticated) {
+    if (this.props.token !== prevProps.token) {
       this.props.logoutSuccess();
     }
   }
@@ -24,7 +24,7 @@ class Logout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.loginReducer.isAuthenticated,
+    token: state.loginReducer.token,
   };
 };
 
