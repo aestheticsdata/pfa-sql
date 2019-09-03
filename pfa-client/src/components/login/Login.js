@@ -9,6 +9,10 @@ import StyledLogin from './StyledLogin';
 
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    console.log('Login constructor');
+  }
   onSubmit = (values, { setSubmitting }) => {
     this.props.login(values.email, values.password);
     setSubmitting(false);
@@ -18,6 +22,12 @@ class Login extends Component {
     if (this.props.isAuthenticated !== prevProps.isAuthenticated) {
       this.props.history.push('/');
     }
+  }
+  componentDidMount() {
+    console.log('Login isAuthenticated : ', this.props.isAuthenticated);
+  }
+  componentWillUnmount() {
+    console.log('Login unmount');
   }
 
   render() {

@@ -1,12 +1,13 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 
 import store from './store';
+import { history } from './store';
 
 import GlobaleStyle from './global-styles';
 
@@ -22,7 +23,7 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <GlobaleStyle />
-        <Router>
+        <ConnectedRouter history={history}>
           <NavBar />
           <Switch>
             <Route exact path="/" component={Main} />
@@ -30,7 +31,7 @@ function App() {
             <Route exact path="/logout" component={Logout}  />
             <Route exact path="/register" component={Register} />
           </Switch>
-        </Router>
+        </ConnectedRouter>
       </div>
     </Provider>
   );

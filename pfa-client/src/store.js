@@ -23,7 +23,7 @@ const createRootReducer = (history) => combineReducers({
   loginReducer,
 });
 
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 
 const sagaMiddleware = createSagaMiddleware();
 
