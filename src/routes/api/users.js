@@ -11,7 +11,7 @@ const signIn = (res, user) => {
   jwt.sign(
     { id: user.id },
     process.env.JWT_SECRET,
-    { expiresIn: '15m' },
+    { expiresIn: '1m' },
     (err, token) => {
       if (err) throw err;
       // console.log('token : ', token);
