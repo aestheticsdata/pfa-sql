@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
 const checkToken = require('./helpers/checkToken');
+const sendgrid = require('@sendgrid/mail');
+sendgrid.setApiKey(process.env.SENDGRID_APIKEY);
+var passwordgenerator = require('generate-password');
 
 let User = require('../../models/user.model');
 
@@ -125,6 +127,22 @@ router.put('/:id', (req, res) => {
         .then(() => res.json('User updated'))
         .catch(err => res.status(400).json(`Error: ${err}`));
     });
+});
+
+router.post('/resetpassword', (req, res) => {
+  const newPassword = passwordgenerator.generate({
+    length: 10,
+    numbers: true,
+  });
+  const msg = {
+    to: req.body.email,
+    from: 'hxf.finance@gmail.com',
+    subject: req.body.subject,
+    text: `your new password is: ${newPassword}`,
+  };
+  sendgrid.send(msg)
+    .then(() => res.json('sendgrid success'))
+    .catch((err) => res.json('sendgrid error : ', err));
 });
 
 module.exports = router;
