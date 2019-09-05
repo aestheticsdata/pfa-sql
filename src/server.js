@@ -14,7 +14,11 @@ app.use(express.json());
 
 mongoose.connect(
     process.env.ATLAS_URI,
-    { useNewUrlParser: true,  useCreateIndex: true } )
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false
+    })
   .then(
     () => {console.log('database connected')},
     err => { console.log('Can not connect to the database'+ err)}

@@ -130,19 +130,44 @@ router.put('/:id', (req, res) => {
 });
 
 router.post('/resetpassword', (req, res) => {
+  const { email, subject } = req.body;
+
   const newPassword = passwordgenerator.generate({
     length: 10,
     numbers: true,
   });
   const msg = {
-    to: req.body.email,
+    to: email,
     from: 'hxf.finance@gmail.com',
-    subject: req.body.subject,
+    subject,
     text: `your new password is: ${newPassword}`,
   };
-  sendgrid.send(msg)
-    .then(() => res.json('sendgrid success'))
-    .catch((err) => res.json('sendgrid error : ', err));
+
+  User.findOneAndUpdate({ email })
+    .then(user => {
+      user.password = newPassword;
+      // user.name = newPassword;
+      bcrypt.genSalt(10, (err, salt) => {
+        if (err) console.error('There was an error during salt', err);
+        else {
+          bcrypt.hash(newPassword, salt, (err, hash) => {
+            if (err) console.error('There was an error during hash', err);
+            else {
+              user.password = hash;
+              user.save()
+                .then(() => {
+                  console.log('user updated');
+                  sendgrid.send(msg)
+                    .then(() => res.json('sendgrid success'))
+                    .catch(err => res.json('sendgrid error : ', err))
+                })
+                .catch(err => console.log('error :', err));
+            }
+          });
+        }
+      });
+    })
+    .catch(err => console.log('error updating password : ', err));
 });
 
 module.exports = router;
