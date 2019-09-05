@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
+const checkToken = require('./helpers/checkToken');
 
 let User = require('../../models/user.model');
 
@@ -10,9 +11,10 @@ const signIn = (res, user) => {
   jwt.sign(
     { id: user.id },
     process.env.JWT_SECRET,
-    { expiresIn: '2d' },
+    { expiresIn: '15m' },
     (err, token) => {
       if (err) throw err;
+      // console.log('token : ', token);
       res.json({
         token,
         user: {
@@ -47,7 +49,7 @@ router.post('/', (req, res) => {
     })
 });
 
-router.get('/all', (req, res) => {
+router.get('/all', checkToken, (req, res) => {
   User.find()
     .then(users => res.json(users))
     .catch(err => res.status(400).json(`Error: ${err}`));

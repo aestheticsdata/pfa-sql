@@ -4,7 +4,6 @@ import {
 } from "./constants";
 
 export const login = (email, password) => {
-  console.log('login action');
   return {
     type: LOGIN,
     email,

@@ -8,7 +8,6 @@ import {
 } from './actions';
 
 export function* onLogin(user) {
-  console.log('login saga');
   try {
     const res = yield call(axios.post, '/users', {
       name: user.email,
