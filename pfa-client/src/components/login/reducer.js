@@ -4,6 +4,8 @@ import {
 } from '../register/constants';
 import {
   LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  CLEAR_LOGIN_ERROR,
 } from './constants';
 import {
   LOG_OUT,
@@ -12,6 +14,7 @@ import {
 const initialState = {
   isAuthenticated: false,
   token: localStorage.getItem('pfa-token'),
+  errorMessage: ','
 };
 
 const loginReducer = (state = initialState, action) =>
@@ -27,6 +30,12 @@ const loginReducer = (state = initialState, action) =>
         localStorage.removeItem('pfa-token');
         draft.isAuthenticated = false;
         draft.token = null;
+        break;
+      case LOGIN_ERROR:
+        draft.errorMessage = action.errorMessage;
+        break;
+      case CLEAR_LOGIN_ERROR:
+        draft.errorMessage = '';
         break;
       default:
         return state;

@@ -4,6 +4,7 @@ import {
   LOGIN,
 } from './constants';
 import {
+  loginError,
   loginSucess,
 } from './actions';
 
@@ -16,7 +17,7 @@ export function* onLogin(user) {
     });
     yield put(loginSucess(res))
   } catch (err) {
-    // yield put(loginFailed(err.response.data.message));
+    yield put(loginError(err.response.data.message))
   }
 }
 

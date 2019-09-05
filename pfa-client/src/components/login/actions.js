@@ -1,6 +1,7 @@
 import {
-  LOGIN,
-  LOGIN_SUCCESS
+  LOGIN, LOGIN_ERROR,
+  LOGIN_SUCCESS,
+  CLEAR_LOGIN_ERROR,
 } from "./constants";
 
 export const login = (email, password) => {
@@ -17,3 +18,16 @@ export const loginSucess = (payload) => {
     payload,
   }
 };
+
+export const loginError = (errorMessage) => {
+  return {
+    type: LOGIN_ERROR,
+    errorMessage,
+  }
+};
+
+export const clearLoginFailed = () => {
+  return {
+    type: CLEAR_LOGIN_ERROR,
+  }
+}
