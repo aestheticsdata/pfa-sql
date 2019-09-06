@@ -130,12 +130,13 @@ router.put('/:id', (req, res) => {
 });
 
 router.post('/resetpassword', (req, res) => {
-  const { email, subject } = req.body;
+  const { email, subject, changedPassword } = req.body;
 
-  const newPassword = passwordgenerator.generate({
+  const newPassword = changedPassword || passwordgenerator.generate({
     length: 10,
     numbers: true,
   });
+
   const msg = {
     to: email,
     from: 'hxf.finance@gmail.com',
@@ -146,7 +147,6 @@ router.post('/resetpassword', (req, res) => {
   User.findOneAndUpdate({ email })
     .then(user => {
       user.password = newPassword;
-      // user.name = newPassword;
       bcrypt.genSalt(10, (err, salt) => {
         if (err) console.error('There was an error during salt', err);
         else {
@@ -159,7 +159,7 @@ router.post('/resetpassword', (req, res) => {
                   console.log('user updated');
                   sendgrid.send(msg)
                     .then(() => res.json('sendgrid success'))
-                    .catch(err => res.json('sendgrid error : ', err))
+                    .catch(err => res.status(400).json('sendgrid error : ', err))
                 })
                 .catch(err => console.log('error :', err));
             }

@@ -4,6 +4,7 @@ import logoutSaga from './components/logout/saga';
 import loginSaga from './components/login/saga';
 import mainSaga from './components/main/saga';
 import resetPasswordSaga from './components/forgotPassword/saga';
+import changePasswordSaga from './components/changePassword/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -12,5 +13,6 @@ export default function* rootSaga() {
     loginSaga(),
     mainSaga(),
     resetPasswordSaga(),
+    changePasswordSaga(),
   ])
 }

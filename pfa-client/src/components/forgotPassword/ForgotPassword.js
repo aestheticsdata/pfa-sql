@@ -11,10 +11,6 @@ import { resetPassword } from './actions';
 import StyledForgotPassword from './StyledForgotPassword';
 
 class ForgotPassword extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   onSubmit = (values, { setSubmitting }) => {
     this.props.resetPassword(values.email);
     setSubmitting(false);

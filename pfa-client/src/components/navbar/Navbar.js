@@ -14,6 +14,8 @@ const NavBar = (props) => {
           <>
             <NavLink to='/' className="link" exact>Home</NavLink>
             <NavLink to='/logout' className="link" exact>Logout</NavLink>
+            <NavLink to='/changepassword' className="link" exact>Change password</NavLink>
+            <span>{props.user.email}</span>
           </>
           :
           <>
@@ -29,6 +31,7 @@ const NavBar = (props) => {
 const mapStateToProps = (state) => {
   return {
     token: state.loginReducer.token,
+    user: state.loginReducer.user,
   }
 };
 

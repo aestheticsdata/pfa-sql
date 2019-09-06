@@ -14,6 +14,7 @@ import {
 const initialState = {
   isAuthenticated: false,
   token: localStorage.getItem('pfa-token'),
+  user: {},
   errorMessage: ''
 };
 
@@ -25,6 +26,7 @@ const loginReducer = (state = initialState, action) =>
         localStorage.setItem('pfa-token', action.payload.data.token);
         draft.isAuthenticated = true;
         draft.token = action.payload.data.token;
+        draft.user = action.payload.data.user;
         break;
       case LOG_OUT:
         localStorage.removeItem('pfa-token');

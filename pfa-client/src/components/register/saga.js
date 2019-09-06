@@ -11,7 +11,7 @@ import  {
 export function* onRegister(user) {
   try {
     const res = yield call(axios.post, '/users/add', {
-      name: user.email,
+      name: user.email.split('@')[0],
       email: user.email,
       password: user.password,
     });
