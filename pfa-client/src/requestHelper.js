@@ -1,7 +1,8 @@
 import axios from 'axios';
 import _ from 'lodash';
-import { history } from './history';
+import Swal from 'sweetalert2';
 
+import { history } from './history';
 
 
 const privateRequest = (url, options) => {
@@ -17,7 +18,17 @@ const privateRequest = (url, options) => {
     return response;
   }, (err) => {
      if (err.response.status && err.response.status === 401) {
-       history.push('/logout');
+       Swal.fire({
+         title: 'Session has expired',
+         text: 'you will be redirected to login',
+         type: 'info',
+         grow: 'fullscreen',
+         showConfirmButton: false,
+         timer: 3000,
+         onClose: () => {
+           history.push('/logout');
+         }
+       })
      }
     // return Promise.reject(err);
   });
