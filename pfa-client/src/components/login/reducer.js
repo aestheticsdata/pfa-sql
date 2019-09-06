@@ -14,7 +14,7 @@ import {
 const initialState = {
   isAuthenticated: false,
   token: localStorage.getItem('pfa-token'),
-  errorMessage: ','
+  errorMessage: ''
 };
 
 const loginReducer = (state = initialState, action) =>
