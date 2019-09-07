@@ -10,9 +10,12 @@ import {
 import { changePassword } from './actions';
 import StyledChangePassword from './StyledChangePassword';
 
+
 class ChangePassword extends Component {
-  onSubmit = (values, { setSubmitting }) => {
-    this.props.changePassword(this.props.user.email, values.newpassword);
+  user = JSON.parse(localStorage.getItem('pfa-user'));
+  onSubmit = (values, { setSubmitting,resetForm }) => {
+    this.props.changePassword(this.user.email, values.newpassword);
+    resetForm({ newpassword: '' });
     setSubmitting(false);
   };
 
@@ -48,16 +51,10 @@ class ChangePassword extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.loginReducer.user,
-  }
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     changePassword: (email, password) => dispatch(changePassword(email, password)),
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);
+export default connect(null, mapDispatchToProps)(ChangePassword);

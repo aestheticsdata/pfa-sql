@@ -10,7 +10,6 @@ import {
   routerMiddleware,
 } from 'connected-react-router';
 
-
 import registerReducer from './components/register/reducer';
 import loginReducer from './components/login/reducer';
 

@@ -1,4 +1,6 @@
-import { CHANGE_PASSWORD } from './constants';
+import {
+  CHANGE_PASSWORD,
+} from './constants';
 
 export const changePassword = (email, changedPassword) => {
   return {

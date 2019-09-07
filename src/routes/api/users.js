@@ -139,7 +139,7 @@ router.post('/resetpassword', (req, res) => {
 
   const msg = {
     to: email,
-    from: 'hxf.finance@gmail.com',
+    from: 'hxf.finance@protonmail.com',
     subject,
     text: `your new password is: ${newPassword}`,
   };

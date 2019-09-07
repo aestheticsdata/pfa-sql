@@ -6,6 +6,7 @@ import StyledNavBar from './StyledNavBar';
 
 const NavBar = (props) => {
   const { token } = props;
+  const user = JSON.parse(localStorage.getItem('pfa-user'));
 
   return (
     <StyledNavBar>
@@ -15,7 +16,7 @@ const NavBar = (props) => {
             <NavLink to='/' className="link" exact>Home</NavLink>
             <NavLink to='/logout' className="link" exact>Logout</NavLink>
             <NavLink to='/changepassword' className="link" exact>Change password</NavLink>
-            <span>{props.user.email}</span>
+            <span>{user.email}</span>
           </>
           :
           <>
@@ -31,7 +32,6 @@ const NavBar = (props) => {
 const mapStateToProps = (state) => {
   return {
     token: state.loginReducer.token,
-    user: state.loginReducer.user,
   }
 };
 
