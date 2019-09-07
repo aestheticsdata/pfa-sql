@@ -144,7 +144,7 @@ router.post('/resetpassword', (req, res) => {
     text: `your new password is: ${newPassword}`,
   };
 
-  User.findOneAndUpdate({ email })
+  User.findOne({ email })
     .then(user => {
       user.password = newPassword;
       bcrypt.genSalt(10, (err, salt) => {
@@ -167,7 +167,10 @@ router.post('/resetpassword', (req, res) => {
         }
       });
     })
-    .catch(err => console.log('error updating password : ', err));
+    .catch(err => {
+      console.log('error updating password : ', err);
+      res.status(400).json('no users registered with this email');
+    });
 });
 
 module.exports = router;

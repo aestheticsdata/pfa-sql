@@ -15,7 +15,7 @@ export function* onResetPassword(payload) {
     });
     Swal.fire({
       title: 'Success',
-      text: 'a recovery password has been sent to your emai',
+      text: 'a recovery password has been sent to your email',
       type: 'success',
       toast: true,
       position: 'top-end',
@@ -28,12 +28,12 @@ export function* onResetPassword(payload) {
   } catch (err) {
     Swal.fire({
       title: 'recovery password error',
-      text: 'error while sending email',
+      text: err.response.data,
       type: 'error',
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 1500,
+      timer: 3000,
     });
   }
 }
