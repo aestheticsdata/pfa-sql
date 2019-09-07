@@ -22,10 +22,7 @@ export function* onChangePassword(payload) {
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 1500,
-      onClose: () => {
-        // this.props.clearLoginFailed()
-      }
+      timer: 3000,
     })
   } catch (err) {
     console.log('error while changing password');
