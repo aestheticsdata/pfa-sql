@@ -3,7 +3,7 @@ import cssSizes from '../../css-sizes';
 
 const StyledLogin = styled.div`
   min-height: calc(100vh - ${cssSizes.navbarHeight}px);
-  background: linear-gradient(90deg, rgba(47,76,99,1) 0%, rgba(131,234,210,1) 99%);
+  background: linear-gradient(-45deg, rgba(87, 156, 212) 0%, rgba(131,234,210,1) 99%);
   
   .login-container {
     position: relative;

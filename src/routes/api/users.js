@@ -13,7 +13,7 @@ const signIn = (res, user) => {
   jwt.sign(
     { id: user.id },
     process.env.JWT_SECRET,
-    { expiresIn: '1m' },
+    { expiresIn: '30m' },
     (err, token) => {
       if (err) throw err;
       // console.log('token : ', token);

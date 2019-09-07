@@ -54,7 +54,7 @@ class Login extends Component {
                 onSubmit={this.onSubmit}
               />
               <div className="pwd-forgot">
-                <NavLink to="/forgotpassword">Password forgotten</NavLink>
+                <NavLink to="/forgotpassword">Forgot Password ?</NavLink>
               </div>
             </div>
           </StyledLogin>

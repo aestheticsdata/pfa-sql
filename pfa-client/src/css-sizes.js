@@ -1,5 +1,5 @@
 const cssSizes = {
-  navbarHeight: '36',
+  navbarHeight: '60',
 };
 
 export default cssSizes;

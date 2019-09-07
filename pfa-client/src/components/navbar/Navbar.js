@@ -10,18 +10,19 @@ const NavBar = (props) => {
 
   return (
     <StyledNavBar>
+      <div className="logo" />
       {
         token ?
           <>
             <NavLink to='/' className="link" exact>Home</NavLink>
             <NavLink to='/logout' className="link" exact>Logout</NavLink>
             <NavLink to='/changepassword' className="link" exact>Change password</NavLink>
-            <span>{user.email}</span>
+            <span className="email">{user.email}</span>
           </>
           :
           <>
             <NavLink to='/login' className="link" exact>Login</NavLink>
-            <NavLink to='/register' className="link" exact>Register</NavLink>
+            <NavLink to='/register' className="link" exact>Sign up</NavLink>
           </>
 
       }
