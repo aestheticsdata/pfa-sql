@@ -3,6 +3,7 @@ import colors from './colors';
 
 /* eslint no-unused-expressions: 0 */
 const GlobalStyle = createGlobalStyle`
+  @import url(https://fonts.googleapis.com/css?family=Nunito);
   // Reset
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -53,11 +54,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: Arial, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-
-  body.fontLoaded {
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Nunito', Arial, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   #app {
@@ -68,7 +65,7 @@ const GlobalStyle = createGlobalStyle`
 
   p,
   label {
-    font-family: Arial, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Nunito', Arial, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.5em;
     margin: 0;
   }
@@ -98,7 +95,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   input {
-    font-family: Arial, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Nunito', Arial, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     border-style: none;
     font-weight: initial;
   }

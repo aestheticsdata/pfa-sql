@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { history } from './history';
 
-import GlobaleStyle from './global-styles';
+import GlobalStyle from './global-styles';
 
 import NavBar from './components/navbar/Navbar';
 import Main from './components/main/Main';
@@ -26,7 +26,7 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <GlobaleStyle />
+        <GlobalStyle />
         <ConnectedRouter history={history}>
           <NavBar />
           <Switch>
