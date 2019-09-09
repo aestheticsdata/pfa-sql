@@ -17,6 +17,7 @@ const SharedLoginForm = (props) => {
   return (
     <StyledSharedLoginForm>
       <div className="container">
+        <div className="title">Personal Finance Assistant</div>
         <Formik
           initialValues={{ email: '', password: '' }}
           validate={values => {
@@ -43,7 +44,11 @@ const SharedLoginForm = (props) => {
               <ErrorMessage name="email" component="span" />
               <Field type="password" name="password" placeholder="password"/>
               <ErrorMessage name="password" component="span" />
-              <button type="submit" disabled={isSubmitting || errors.email || errors.password}>
+              <button
+                type="submit"
+                disabled={isSubmitting || errors.email || errors.password}
+                className="shared-login-submit-btn"
+              >
                 Submit
               </button>
             </Form>

@@ -10,7 +10,7 @@ const StyledLogin = styled.div`
     top: 100px;
     background-color: #fff;
     margin: 0 auto;
-    width: 50%;
+    width: ${cssSizes.loginFormsWidth}px;
     padding: 10px;
     border-radius: 5px;
 

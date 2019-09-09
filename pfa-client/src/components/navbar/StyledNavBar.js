@@ -6,7 +6,6 @@ const StyledNavBar = styled.div`
   position: relative;
   background-color: #3b4755;
   color: #aee4ff;
-  width: 100%;
   height: ${cssSizes.navbarHeight}px;
   padding-top: 10px;
   
