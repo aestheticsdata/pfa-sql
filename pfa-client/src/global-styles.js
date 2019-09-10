@@ -1,20 +1,31 @@
 import { createGlobalStyle } from 'styled-components';
 import colors from './colors';
+// ////////////////////////////////////////////////////////////////////////////
+// https://github.com/styled-components/styled-components/issues/1593
+// https://stackoverflow.com/questions/42675725/isolated-styled-components-with-font-face/50174102#50174102
+// npm font modules are installed because embedding the fonts and @font-face in this file
+// cause a reload of each font when route change
+// most of the google fonts are maintained :
+// https://github.com/KyleAMathews/typefaces/tree/master/packages/roboto
+import 'typeface-assistant';
+// ////////////////////////////////////////////////////////////////////////////
 
 /* eslint no-unused-expressions: 0 */
 const GlobalStyle = createGlobalStyle`
   // //////////////////////////////////////////////////////////////////
   // https://github.com/styled-components/styled-components/issues/1513
-  @font-face {
-    font-family: 'Assistant';
-    src: local('Assistant'), url('fonts/Assistant/Assistant-ExtraLight.woff') format('woff');
-    font-weight: 100; 
-  }
-  @font-face {
-    font-family: 'Assistant';
-    src: local('Assistant'), url('fonts/Assistant/Assistant-Regular.woff') format('woff');
-    font-weight: 400; 
-  }
+  // https://github.com/styled-components/styled-components/issues/1593
+  // https://stackoverflow.com/questions/42675725/isolated-styled-components-with-font-face/50174102#50174102
+  //@font-face {
+  //  font-family: 'Assistant';
+  //  src: local('Assistant'), url('fonts/Assistant/Assistant-ExtraLight.woff') format('woff');
+  //  font-weight: 100; 
+  //}
+  //@font-face {
+  //  font-family: 'Assistant';
+  //  src: local('Assistant'), url('fonts/Assistant/Assistant-Regular.woff') format('woff');
+  //  font-weight: 400; 
+  //}
   // //////////////////////////////////////////////////////
   
   

@@ -8412,6 +8412,10 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
+typeface-assistant@^0.0.75:
+  version "0.0.75"
+  resolved "https://registry.yarnpkg.com/typeface-assistant/-/typeface-assistant-0.0.75.tgz#d366d3887631808dbf5bfcdf3c4116f61155353d"
+
 typescript-compare@^0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/typescript-compare/-/typescript-compare-0.0.2.tgz#7ee40a400a406c2ea0a7e551efd3309021d5f425"
