@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { NavLink } from 'react-router-dom';
-import SharedLoginForm from '../sharedLoginForm/SharedLoginForm';
 
 import {
   login,
@@ -10,6 +9,8 @@ import {
 } from './actions';
 
 import StyledLogin from './StyledLogin';
+import SharedLoginForm from '../shared/sharedLoginForm/SharedLoginForm';
+import StyledSharedLoginContainer from '../shared/sharedLoginContainer/StyledSharedLoginContainer';
 
 
 class Login extends Component {
@@ -49,14 +50,14 @@ class Login extends Component {
           null
           :
           <StyledLogin>
-            <div className="login-container">
+            <StyledSharedLoginContainer>
               <SharedLoginForm
                 onSubmit={this.onSubmit}
               />
               <div className="pwd-forgot">
                 <NavLink to="/forgotpassword">Forgot Password ?</NavLink>
               </div>
-            </div>
+            </StyledSharedLoginContainer>
           </StyledLogin>
       }
       </>

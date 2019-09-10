@@ -8,7 +8,8 @@ import {
 } from './actions';
 
 import StyledRegister from './StyledRegister';
-import SharedLoginForm from "../sharedLoginForm/SharedLoginForm";
+import SharedLoginForm from "../shared/sharedLoginForm/SharedLoginForm";
+import StyledSharedLoginContainer from '../shared/sharedLoginContainer/StyledSharedLoginContainer';
 
 class Register extends Component {
   onSubmit = (values, { setSubmitting }) => {
@@ -42,11 +43,11 @@ class Register extends Component {
   render() {
     return (
       <StyledRegister>
-        <div className="register-container">
+        <StyledSharedLoginContainer>
           <SharedLoginForm
             onSubmit={this.onSubmit}
           />
-        </div>
+        </StyledSharedLoginContainer>
       </StyledRegister>
     );
   }
