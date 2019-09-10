@@ -3,8 +3,15 @@ import colors from './colors';
 
 /* eslint no-unused-expressions: 0 */
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Nunito');
-  @import url('https://fonts.googleapis.com/css?family=Assistant:200,400&display=swap');
+  // //////////////////////////////////////////////////////////////////
+  // https://github.com/styled-components/styled-components/issues/1513
+  @font-face {
+    font-family: 'Assistant';
+    src: local('Assistant'), url('fonts/Assistant/Assistant-ExtraLight.ttf') format('truetype'); 
+  }
+  // //////////////////////////////////////////////////////
+  
+  
   // Reset
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
