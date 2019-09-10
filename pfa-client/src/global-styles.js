@@ -7,6 +7,7 @@ import colors from './colors';
 // cause a reload of each font when route change
 // most of the google fonts are maintained :
 // https://github.com/KyleAMathews/typefaces/tree/master/packages/roboto
+// there is still a problem though with flashing : https://css-tricks.com/font-display-masses/
 import 'typeface-assistant';
 // ////////////////////////////////////////////////////////////////////////////
 
