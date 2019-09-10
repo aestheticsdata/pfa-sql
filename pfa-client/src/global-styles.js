@@ -7,7 +7,13 @@ const GlobalStyle = createGlobalStyle`
   // https://github.com/styled-components/styled-components/issues/1513
   @font-face {
     font-family: 'Assistant';
-    src: local('Assistant'), url('fonts/Assistant/Assistant-ExtraLight.ttf') format('truetype'); 
+    src: local('Assistant'), url('fonts/Assistant/Assistant-ExtraLight.woff') format('woff');
+    font-weight: 100; 
+  }
+  @font-face {
+    font-family: 'Assistant';
+    src: local('Assistant'), url('fonts/Assistant/Assistant-Regular.woff') format('woff');
+    font-weight: 400; 
   }
   // //////////////////////////////////////////////////////
   
