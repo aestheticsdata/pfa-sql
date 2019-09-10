@@ -12,6 +12,7 @@ import StyledSharedLoginForm from './StyledSharedLoginForm';
 const SharedLoginForm = (props) => {
   const {
     onSubmit,
+    buttonTitle,
   } = props;
 
   return (
@@ -49,7 +50,7 @@ const SharedLoginForm = (props) => {
                 disabled={isSubmitting || errors.email || errors.password}
                 className="shared-login-submit-btn"
               >
-                Submit
+                {buttonTitle}
               </button>
             </Form>
           )}

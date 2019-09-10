@@ -46,6 +46,7 @@ class Register extends Component {
         <StyledSharedLoginContainer>
           <SharedLoginForm
             onSubmit={this.onSubmit}
+            buttonTitle="sign up"
           />
         </StyledSharedLoginContainer>
       </StyledRegister>

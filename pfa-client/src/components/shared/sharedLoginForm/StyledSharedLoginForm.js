@@ -11,6 +11,7 @@ const StyledSharedLoginForm = styled.div`
       text-align: center;
       font-weight: 100;
     }
+    
     input {
       // hack to remove in Chrome, input colors
       // https://webagility.com/posts/the-ultimate-list-of-hacks-for-chromes-forced-yellow-background-on-autocompleted-inputs
@@ -40,6 +41,7 @@ const StyledSharedLoginForm = styled.div`
     
     .shared-login-submit-btn {
       color: inherit;
+      text-transform: uppercase;
       margin: 45px 0 20px 0;
       font-size: 18px;
       background: transparent;

@@ -2,7 +2,6 @@ import styled from 'styled-components/macro';
 import cssSizes from '../../../css-sizes';
 
 const StyledSharedLoginContainer = styled.div`
-    // min-height: calc(100vh - ${cssSizes.navbarHeight}px);
     position: relative;
     box-shadow: 0 1px 5px 1px rgba(0,0,0,0.2);
     top: 100px;

@@ -53,6 +53,7 @@ class Login extends Component {
             <StyledSharedLoginContainer>
               <SharedLoginForm
                 onSubmit={this.onSubmit}
+                buttonTitle="login"
               />
               <div className="pwd-forgot">
                 <NavLink to="/forgotpassword">Forgot Password ?</NavLink>
