@@ -6,7 +6,7 @@ const StyledSharedLoginForm = styled.div`
     color: ${colors.formsGlobalColor};
     
     .title {
-      padding: 10px 0 20px 0;
+      padding: 10px 0 30px 0;
       font-size: 30px;
       text-align: center;
       font-weight: 100;
@@ -42,7 +42,7 @@ const StyledSharedLoginForm = styled.div`
     .shared-login-submit-btn {
       color: inherit;
       text-transform: uppercase;
-      margin: 45px 0 20px 0;
+      margin: 40px 0 20px 0;
       font-size: 18px;
       background: transparent;
       border: 1px solid ${colors.formsGlobalColor};
@@ -51,12 +51,23 @@ const StyledSharedLoginForm = styled.div`
       border-radius: 5px;
       cursor: pointer;
       outline: none;
+      
+      &:disabled {
+        opacity: 0.5;
+      }
+      
       &:hover {
-        box-shadow: 0 1px 10px 1px rgba(150, 150, 150, 0.6);
-        background-color: rgba(200, 200, 200, 0.1);
-        color: ${colors.formsGlobalColorHover};
-        border: 1px solid ${colors.formsGlobalColorHover};
-        transition: all .2s ease;
+        &:not(&:disabled) {
+          box-shadow: 0 1px 10px 1px rgba(150, 150, 150, 0.6);
+          background-color: rgba(200, 200, 200, 0.1);
+          color: ${colors.formsGlobalColorHover};
+          border: 1px solid ${colors.formsGlobalColorHover};
+          transition: all .2s ease;
+        }
+        
+        &:disabled {
+          cursor: not-allowed;
+        }
       }
     }
   }

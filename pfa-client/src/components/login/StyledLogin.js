@@ -1,11 +1,12 @@
 import styled from 'styled-components/macro';
-import cssSizes from '../../css-sizes';
 
 const StyledLogin = styled.div`
   .pwd-forgot {
+    text-align: center;
     margin: 5px 0;
     &:hover {
-      color: rgba(131,234,210,1);
+      color: rgb(251,255,2);
+      text-decoration: underline;
     }
   }
 `;

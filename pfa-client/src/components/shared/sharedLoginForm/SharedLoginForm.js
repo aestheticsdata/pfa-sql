@@ -13,7 +13,29 @@ const SharedLoginForm = (props) => {
   const {
     onSubmit,
     buttonTitle,
+    displayEmailField,
+    displayPasswordField,
   } = props;
+
+  const validate = values => {
+    let errors = {};
+
+    if (displayEmailField && !values.email) {
+      errors.email = 'Required';
+    } else if (
+      displayEmailField && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+    ) {
+      errors.email = 'Invalid email address';
+    }
+
+    if (displayPasswordField && !values.password) {
+      errors.password = 'Password required';
+    } else if (displayPasswordField && values.password.length < 5) {
+      errors.password = 'at least 5 chars';
+    }
+
+    return errors;
+  };
 
   return (
     <StyledSharedLoginForm>
@@ -21,30 +43,29 @@ const SharedLoginForm = (props) => {
         <div className="title">Personal Finance Assistant</div>
         <Formik
           initialValues={{ email: '', password: '' }}
-          validate={values => {
-            let errors = {};
-            if (!values.email) {
-              errors.email = 'Required';
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = 'Invalid email address';
-            }
-            if (!values.password) {
-              errors.password = 'Password required';
-            } else if (values.password.length < 5) {
-              errors.password = 'at least 5 chars';
-            }
-            return errors;
-          }}
+          validate={validate}
           onSubmit={onSubmit}
         >
           {({ isSubmitting, errors }) => (
             <Form>
-              <Field type="email" name="email" placeholder="email" />
-              <ErrorMessage name="email" component="span" />
-              <Field type="password" name="password" placeholder="password"/>
-              <ErrorMessage name="password" component="span" />
+              {
+                displayEmailField ?
+                  <>
+                    <Field type="email" name="email" placeholder="email" />
+                    <ErrorMessage name="email" component="span" />
+                  </>
+                  :
+                  null
+              }
+              {
+                displayPasswordField ?
+                  <>
+                    <Field type="password" name="password" placeholder="password"/>
+                    <ErrorMessage name="password" component="span" />
+                  </>
+                  :
+                  null
+              }
               <button
                 type="submit"
                 disabled={isSubmitting || errors.email || errors.password}

@@ -7,8 +7,8 @@ import {
   clearRegisterFailed,
 } from './actions';
 
-import StyledRegister from './StyledRegister';
 import SharedLoginForm from "../shared/sharedLoginForm/SharedLoginForm";
+import StyledRegister from './StyledRegister';
 import StyledSharedLoginContainer from '../shared/sharedLoginContainer/StyledSharedLoginContainer';
 
 class Register extends Component {
@@ -47,6 +47,8 @@ class Register extends Component {
           <SharedLoginForm
             onSubmit={this.onSubmit}
             buttonTitle="sign up"
+            displayEmailField
+            displayPasswordField
           />
         </StyledSharedLoginContainer>
       </StyledRegister>

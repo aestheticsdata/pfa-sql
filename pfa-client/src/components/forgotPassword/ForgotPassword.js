@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Formik,
-  Form,
-  Field,
-  ErrorMessage,
-} from 'formik';
 
 import { resetPassword } from './actions';
+
+import SharedLoginForm from "../shared/sharedLoginForm/SharedLoginForm";
 import StyledForgotPassword from './StyledForgotPassword';
+import StyledSharedLoginContainer from '../shared/sharedLoginContainer/StyledSharedLoginContainer';
 
 class ForgotPassword extends Component {
   onSubmit = (values, { setSubmitting }) => {
@@ -19,34 +16,15 @@ class ForgotPassword extends Component {
   render() {
     return (
       <StyledForgotPassword>
-        <div className="container">
-          <Formik
-            initialValues={{ email: '' }}
-            validate={values => {
-              let errors = {};
-              if (!values.email) {
-                errors.email = 'Required';
-              } else if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-              ) {
-                errors.email = 'Invalid email address';
-              }
-            }}
+        <StyledSharedLoginContainer>
+          <SharedLoginForm
             onSubmit={this.onSubmit}
-          >
-            {({ isSubmitting, errors }) => (
-              <Form>
-                <Field type="email" name="email" placeholder="email" />
-                <ErrorMessage name="email" component="span" />
-                <button type="submit" disabled={isSubmitting || errors.email}>
-                  Submit
-                </button>
-              </Form>
-            )}
-          </Formik>
-        </div>
+            buttonTitle={"reset password"}
+            displayEmailField
+          />
+        </StyledSharedLoginContainer>
       </StyledForgotPassword>
-    )
+    );
   }
 }
 

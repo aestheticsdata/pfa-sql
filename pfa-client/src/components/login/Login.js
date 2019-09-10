@@ -8,8 +8,8 @@ import {
   clearLoginFailed,
 } from './actions';
 
-import StyledLogin from './StyledLogin';
 import SharedLoginForm from '../shared/sharedLoginForm/SharedLoginForm';
+import StyledLogin from './StyledLogin';
 import StyledSharedLoginContainer from '../shared/sharedLoginContainer/StyledSharedLoginContainer';
 
 
@@ -54,6 +54,8 @@ class Login extends Component {
               <SharedLoginForm
                 onSubmit={this.onSubmit}
                 buttonTitle="login"
+                displayEmailField
+                displayPasswordField
               />
               <div className="pwd-forgot">
                 <NavLink to="/forgotpassword">Forgot Password ?</NavLink>
