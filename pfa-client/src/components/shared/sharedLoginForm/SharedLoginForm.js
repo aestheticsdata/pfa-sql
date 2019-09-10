@@ -1,10 +1,8 @@
 import React from 'react';
-import Swal from 'sweetalert2';
 import {
   Formik,
   Form,
   Field,
-  ErrorMessage,
 } from 'formik';
 
 import StyledSharedLoginForm from './StyledSharedLoginForm';
@@ -17,25 +15,33 @@ const SharedLoginForm = (props) => {
     displayPasswordField,
   } = props;
 
-  const validate = values => {
-    let errors = {};
+  // //////////////////////////////////////////////////////////////////////
+  // https://jaredpalmer.com/formik/docs/guides/validation#field-level-validation
+  const validateEmail = value => {
+    let error;
 
-    if (displayEmailField && !values.email) {
-      errors.email = 'Required';
+    if (!value) {
+      error = 'Required';
     } else if (
-      displayEmailField && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
     ) {
-      errors.email = 'Invalid email address';
+      error = 'Invalid email address';
     }
-
-    if (displayPasswordField && !values.password) {
-      errors.password = 'Password required';
-    } else if (displayPasswordField && values.password.length < 5) {
-      errors.password = 'at least 5 chars';
-    }
-
-    return errors;
+    return error;
   };
+
+  const validatePassword = value => {
+    let error;
+
+    if (!value) {
+      error = 'Password required';
+    } else if (displayPasswordField && value.length < 5) {
+      error = 'at least 5 chars';
+    }
+
+    return error;
+  };
+  // ////////////////////////////////////////////////////////////////////
 
   return (
     <StyledSharedLoginForm>
@@ -43,16 +49,20 @@ const SharedLoginForm = (props) => {
         <div className="title">Personal Finance Assistant</div>
         <Formik
           initialValues={{ email: '', password: '' }}
-          validate={validate}
           onSubmit={onSubmit}
         >
-          {({ isSubmitting, errors }) => (
+          {({ isSubmitting, errors, touched }) => (
             <Form>
               {
                 displayEmailField ?
                   <>
-                    <Field type="email" name="email" placeholder="email" />
-                    <ErrorMessage name="email" component="span" />
+                    <Field
+                      type="email"
+                      name="email"
+                      placeholder="email"
+                      validate={validateEmail}
+                    />
+                    {errors.email && <div>{errors.email}</div>}
                   </>
                   :
                   null
@@ -60,8 +70,13 @@ const SharedLoginForm = (props) => {
               {
                 displayPasswordField ?
                   <>
-                    <Field type="password" name="password" placeholder="password"/>
-                    <ErrorMessage name="password" component="span" />
+                    <Field
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      validate={validatePassword}
+                    />
+                    {errors.password && <div>{errors.password}</div>}
                   </>
                   :
                   null
