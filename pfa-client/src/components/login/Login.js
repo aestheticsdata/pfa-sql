@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { NavLink } from 'react-router-dom';
+import { FormattedMessage} from 'react-intl';
 
+import messages from './messages';
 import {
   login,
   clearLoginFailed,
@@ -58,7 +60,11 @@ class Login extends Component {
                 displayPasswordField
               />
               <div className="pwd-forgot">
-                <NavLink to="/forgotpassword">Forgot Password ?</NavLink>
+                <NavLink to="/forgotpassword">
+                  <FormattedMessage
+                    {...messages.forgotPassword}
+                  />
+                </NavLink>
               </div>
             </StyledSharedLoginContainer>
           </StyledLogin>

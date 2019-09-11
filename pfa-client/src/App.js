@@ -18,6 +18,7 @@ import Register from './components/register/Register';
 import Logout from './components/logout/Logout';
 import ForgotPassword from './components/forgotPassword/ForgotPassword';
 import ChangePassword from './components/changePassword/ChangePassword';
+import NotFoundComponent from './components/notFoundComponent/NotFoundComponent';
 
 import { PrivateRoute } from './components/privateRoute/PrivateRoute';
 
@@ -36,6 +37,7 @@ function App() {
             <Route exact path="/register" component={Register} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/changepassword" component={ChangePassword} />
+            <Route exact path="*" component={NotFoundComponent} />
           </Switch>
         </ConnectedRouter>
       </div>
