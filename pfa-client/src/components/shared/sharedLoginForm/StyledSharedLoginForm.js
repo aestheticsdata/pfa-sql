@@ -54,20 +54,15 @@ const StyledSharedLoginForm = styled.div`
       
       &:disabled {
         opacity: 0.5;
+        cursor: not-allowed;
       }
       
-      &:hover {
-        &:not(&:disabled) {
-          box-shadow: 0 1px 10px 1px rgba(150, 150, 150, 0.6);
-          background-color: rgba(200, 200, 200, 0.1);
-          color: ${colors.formsGlobalColorHover};
-          border: 1px solid ${colors.formsGlobalColorHover};
-          transition: all .2s ease;
-        }
-        
-        &:disabled {
-          cursor: not-allowed;
-        }
+      &:hover:enabled {
+        box-shadow: 0 1px 10px 1px rgba(150, 150, 150, 0.6);
+        background-color: rgba(200, 200, 200, 0.1);
+        color: ${colors.formsGlobalColorHover};
+        border: 1px solid ${colors.formsGlobalColorHover};
+        transition: all .2s ease;
       }
     }
   }
