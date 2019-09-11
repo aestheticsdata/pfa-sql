@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { NavLink } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import messages from './messages';
 import {
@@ -55,7 +55,7 @@ class Login extends Component {
             <StyledSharedLoginContainer>
               <SharedLoginForm
                 onSubmit={this.onSubmit}
-                buttonTitle="login"
+                buttonTitle={this.props.intl.formatMessage({ ...messages.buttonLabel })}
                 displayEmailField
                 displayPasswordField
               />
@@ -88,4 +88,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Login));

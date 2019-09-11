@@ -1,3 +1,9 @@
 {
-  "app.components.Login.forgotPassword": "mot de passe oublié ?"
+  "app.components.Login.forgotPassword": "mot de passe oublié ?",
+  "app.components.Login.buttonLabel": "Connexion",
+  "app.components.ForgotPassword.resetPasswordButtonLabel": "Réinitialiser",
+  "app.components.Navbar.login": "Connexion",
+  "app.components.Navbar.signUp": "Créer un compte",
+  "app.components.Navbar.home": "Accueil",
+  "app.components.Navbar.logout": "Déconnexion"
 }

@@ -1,3 +1,9 @@
 {
-  "app.components.Login.forgotPassword": "Forgot password ?"
+  "app.components.Login.forgotPassword": "Forgot password ?",
+  "app.components.Login.buttonLabel": "Login",
+  "app.components.ForgotPassword.resetPasswordButtonLabel": "Reset password",
+  "app.components.Navbar.login": "Login",
+  "app.components.Navbar.signUp": "Sign up",
+  "app.components.Navbar.home": "Home",
+  "app.components.Navbar.logout": "Logout"
 }

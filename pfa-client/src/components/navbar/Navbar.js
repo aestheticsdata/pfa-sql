@@ -1,8 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 
 import StyledNavBar from './StyledNavBar';
+import messages from './messages';
 
 const NavBar = (props) => {
   const { token } = props;
@@ -14,15 +16,31 @@ const NavBar = (props) => {
       {
         token ?
           <>
-            <NavLink to='/' className="link" exact>Home</NavLink>
-            <NavLink to='/logout' className="link" exact>Logout</NavLink>
+            <NavLink to='/' className="link" exact>
+              <FormattedMessage
+                {...messages.home}
+              />
+            </NavLink>
+            <NavLink to='/logout' className="link" exact>
+              <FormattedMessage
+                {...messages.logout}
+              />
+            </NavLink>
             <NavLink to='/changepassword' className="link" exact>Change password</NavLink>
             <span className="email">{user.email}</span>
           </>
           :
           <>
-            <NavLink to='/login' className="link" exact>Login</NavLink>
-            <NavLink to='/register' className="link" exact>Sign up</NavLink>
+            <NavLink to='/login' className="link" exact>
+              <FormattedMessage
+                {...messages.login}
+              />
+            </NavLink>
+            <NavLink to='/register' className="link" exact>
+              <FormattedMessage
+                {...messages.signUp}
+              />
+            </NavLink>
           </>
 
       }

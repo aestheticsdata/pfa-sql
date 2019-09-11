@@ -1,2 +1,2 @@
 ## Personal Finance Assistant.
-React / Redux / Express / MongoDB
+React / Redux / Redux-Saga / React-intl / Express / MongoDB

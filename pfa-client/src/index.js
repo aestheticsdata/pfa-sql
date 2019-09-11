@@ -8,7 +8,7 @@ import * as serviceWorker from './serviceWorker';
 
 
 // const locale = navigator.language.split('-')[0];
-const locale = 'en';
+const locale = 'fr';
 
 const messages = translations[locale];
 console.log('messages : ', messages);

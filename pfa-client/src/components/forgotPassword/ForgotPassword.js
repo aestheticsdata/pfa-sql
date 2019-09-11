@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { injectIntl } from 'react-intl';
+
 import { resetPassword } from './actions';
+import messages from './messages';
 
 import SharedLoginForm from "../shared/sharedLoginForm/SharedLoginForm";
 import StyledForgotPassword from './StyledForgotPassword';
@@ -19,7 +22,7 @@ class ForgotPassword extends Component {
         <StyledSharedLoginContainer>
           <SharedLoginForm
             onSubmit={this.onSubmit}
-            buttonTitle={"reset password"}
+            buttonTitle={this.props.intl.formatMessage({ ...messages.buttonLabel })}
             displayEmailField
           />
         </StyledSharedLoginContainer>
@@ -34,4 +37,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(null, mapDispatchToProps)(ForgotPassword);
+export default injectIntl(connect(null, mapDispatchToProps)(ForgotPassword));
