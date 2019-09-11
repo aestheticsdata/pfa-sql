@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import { NavLink } from 'react-router-dom';
-import { FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
 import {
