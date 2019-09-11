@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {injectIntl  } from 'react-intl';
 
 import { changePassword } from './actions';
 
 import SharedLoginForm from '../shared/sharedLoginForm/SharedLoginForm';
 import StyledChangePassword from './StyledChangePassword';
 import StyledSharedLoginContainer from '../shared/sharedLoginContainer/StyledSharedLoginContainer';
+import messages from './messages';
 
 
 class ChangePassword extends Component {
@@ -22,7 +24,7 @@ class ChangePassword extends Component {
         <StyledSharedLoginContainer>
           <SharedLoginForm
             onSubmit={this.onSubmit}
-            buttonTitle={"change password"}
+            buttonTitle={this.props.intl.formatMessage({ ...messages.buttonLabel })}
             displayPasswordField
           />
         </StyledSharedLoginContainer>
@@ -37,4 +39,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(null, mapDispatchToProps)(ChangePassword);
+export default injectIntl(connect(null, mapDispatchToProps)(ChangePassword));

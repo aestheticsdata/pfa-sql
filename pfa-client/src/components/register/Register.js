@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
+import { injectIntl } from 'react-intl';
 
 import {
   register,
@@ -10,6 +11,7 @@ import {
 import SharedLoginForm from "../shared/sharedLoginForm/SharedLoginForm";
 import StyledRegister from './StyledRegister';
 import StyledSharedLoginContainer from '../shared/sharedLoginContainer/StyledSharedLoginContainer';
+import messages from './messages';
 
 class Register extends Component {
   onSubmit = (values, { setSubmitting }) => {
@@ -46,7 +48,7 @@ class Register extends Component {
         <StyledSharedLoginContainer>
           <SharedLoginForm
             onSubmit={this.onSubmit}
-            buttonTitle="sign up"
+            buttonTitle={this.props.intl.formatMessage({ ...messages.buttonLabel })}
             displayEmailField
             displayPasswordField
           />
@@ -71,4 +73,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Register));

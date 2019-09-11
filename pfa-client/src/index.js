@@ -11,7 +11,6 @@ import * as serviceWorker from './serviceWorker';
 const locale = 'fr';
 
 const messages = translations[locale];
-console.log('messages : ', messages);
 
 ReactDOM.render(
   <IntlProvider
