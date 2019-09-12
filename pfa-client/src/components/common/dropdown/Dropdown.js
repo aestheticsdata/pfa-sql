@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
+import onClickOutside from "react-onclickoutside";
 
 
 class Dropdown extends Component {
@@ -18,6 +19,19 @@ class Dropdown extends Component {
     })
   };
 
+  handleClickOutside = ev => {
+    this.setState({
+      isOpen: false,
+    })
+  };
+
+  close = ev => {
+    console.log('handleCloseFromChild');
+    this.setState({
+      isOpen: false,
+    })
+  };
+
   render() {
     const { listItems } = this.props;
     const { isOpen, title } = this.state;
@@ -25,35 +39,29 @@ class Dropdown extends Component {
     return (
       <>
         <div className="container">
+          {/*<div*/}
+          {/*  className="header"*/}
+          {/*  onClick={this.toggleDropdown}*/}
+          {/*>*/}
+          {/*  <div className="title">*/}
+          {/*    {title}*/}
+          {/*  </div>*/}
+          {/*  {*/}
+          {/*    isOpen ?*/}
+          {/*      <FontAwesomeIcon icon={faAngleUp}/>*/}
+          {/*      :*/}
+          {/*      <FontAwesomeIcon icon={faAngleDown}/>*/}
+          {/*  }*/}
+          {/*</div>*/}
           <div
-            className="header"
             onClick={this.toggleDropdown}
           >
-            <div className="title">
-              {title}
-            </div>
-            {
-              isOpen ?
-                <FontAwesomeIcon icon={faAngleUp}/>
-                :
-                <FontAwesomeIcon icon={faAngleDown}/>
-            }
+            {this.props.children[0]}
           </div>
-          <div className="content">
+          <div>
             {
               isOpen ?
-                <>
-                  {
-                    listItems.map((item) => (
-                      <li
-                        className="list-item"
-                        key={item.id}
-                      >
-                        {item.name}
-                      </li>
-                    ))
-                  }
-                </>
+                React.cloneElement(this.props.children[1], { handleclosefromchild: () => this.close()})
                 :
                 null
             }
@@ -64,4 +72,4 @@ class Dropdown extends Component {
   }
 }
 
-export default Dropdown;
+export default onClickOutside(Dropdown);

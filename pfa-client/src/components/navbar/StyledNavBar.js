@@ -23,11 +23,6 @@ const StyledNavBar = styled.div`
     margin: 0 10px;
   }
 
-  .email {
-    float: right;
-    
-  }
-
   .link {
     display: inline-block;
     padding: 10px;

@@ -7,6 +7,7 @@ import StyledNavBar from './StyledNavBar';
 import messages from './messages';
 
 import Dropdown from '../common/dropdown/Dropdown';
+import UserMenu from './userMenu/UserMenu';
 
 class NavBar extends Component {
   render() {
@@ -36,11 +37,9 @@ class NavBar extends Component {
                 />
               </NavLink>
               <NavLink to='/changepassword' className="link" exact>Change password</NavLink>
-              <Dropdown
-                title={user.email}
-                listItems={listItems}
+              <UserMenu
+                user={user}
               />
-              <span className="email">{user.email}</span>
             </>
             :
             <>
