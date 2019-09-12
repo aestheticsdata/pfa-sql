@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import onClickOutside from "react-onclickoutside";
 
+import StyledDropDown from './StyledDropDown';
+
 
 class Dropdown extends Component {
   constructor(props) {
@@ -34,7 +36,7 @@ class Dropdown extends Component {
     const { isOpen } = this.state;
 
     return (
-      <>
+      <StyledDropDown>
         <div className="container">
           <div
             onClick={this.toggleDropdown}
@@ -42,9 +44,15 @@ class Dropdown extends Component {
             <>
               {
                 isOpen ?
-                  <FontAwesomeIcon icon={faAngleUp} />
+                  <FontAwesomeIcon
+                    className="icon"
+                    icon={faAngleUp}
+                  />
                   :
-                  <FontAwesomeIcon icon={faAngleDown}/>
+                  <FontAwesomeIcon
+                    className="icon"
+                    icon={faAngleDown}
+                  />
               }
             </>
             {this.props.children[0]}
@@ -58,7 +66,7 @@ class Dropdown extends Component {
             }
           </div>
         </div>
-      </>
+      </StyledDropDown>
     )
   }
 }
