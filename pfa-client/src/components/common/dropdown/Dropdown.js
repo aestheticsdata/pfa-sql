@@ -1,4 +1,4 @@
-import React, { Component, Children } from 'react';
+import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import onClickOutside from "react-onclickoutside";
@@ -9,7 +9,6 @@ class Dropdown extends Component {
     super(props);
     this.state = {
       isOpen: false,
-      title: this.props.title,
     };
   }
 
@@ -26,36 +25,28 @@ class Dropdown extends Component {
   };
 
   close = ev => {
-    console.log('handleCloseFromChild');
     this.setState({
       isOpen: false,
     })
   };
 
   render() {
-    const { listItems } = this.props;
-    const { isOpen, title } = this.state;
+    const { isOpen } = this.state;
 
     return (
       <>
         <div className="container">
-          {/*<div*/}
-          {/*  className="header"*/}
-          {/*  onClick={this.toggleDropdown}*/}
-          {/*>*/}
-          {/*  <div className="title">*/}
-          {/*    {title}*/}
-          {/*  </div>*/}
-          {/*  {*/}
-          {/*    isOpen ?*/}
-          {/*      <FontAwesomeIcon icon={faAngleUp}/>*/}
-          {/*      :*/}
-          {/*      <FontAwesomeIcon icon={faAngleDown}/>*/}
-          {/*  }*/}
-          {/*</div>*/}
           <div
             onClick={this.toggleDropdown}
           >
+            <>
+              {
+                isOpen ?
+                  <FontAwesomeIcon icon={faAngleUp} />
+                  :
+                  <FontAwesomeIcon icon={faAngleDown}/>
+              }
+            </>
             {this.props.children[0]}
           </div>
           <div>

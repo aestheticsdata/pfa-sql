@@ -1,36 +1,36 @@
 import React from 'react';
+import { injectIntl } from 'react-intl';
 import Dropdown from '../../common/dropdown/Dropdown';
 import UserMenuContent from './UserMenuContent';
+import StyledUserMenu from './StyledUserMenu';
+import { history } from '../../../history';
+import messages from './messages';
 
 const UserMenu = (props) => {
   const listItems = [
     {
-      id: 'firstitem',
-      label: 'first item'
+      id: 'changepassword',
+      label: props.intl.formatMessage({ ...messages.changePassword }),
+      callback: () => history.push('/changepassword'),
     },
     {
-      id: 'secondItem',
-      label: 'second item'
-    },
-    {
-      id: 'thirdItem',
-      label: 'third item'
-    },
-    {
-      id: 'forthItem',
-      label: 'forth item'
+      id: 'logout',
+      label: props.intl.formatMessage({ ...messages.logout }),
+      callback: () => history.push('/logout'),
     },
   ];
 
   return (
-    <Dropdown>
-      <div>{props.user.email}</div>
-      <UserMenuContent
-        listItems={listItems}
-      />
-    </Dropdown>
+    <StyledUserMenu>
+      <Dropdown>
+        <span>{props.user.email}</span>
+        <UserMenuContent
+          listItems={listItems}
+        />
+      </Dropdown>
+    </StyledUserMenu>
   )
 };
 
-export default UserMenu;
+export default injectIntl(UserMenu);
 

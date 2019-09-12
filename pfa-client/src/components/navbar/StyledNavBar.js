@@ -1,10 +1,11 @@
 import styled from 'styled-components/macro';
 import cssSizes from '../../css-sizes';
 import logo from './logo.png';
+import colors from '../../colors';
 
 const StyledNavBar = styled.div`
   position: relative;
-  background-color: #3b4755;
+  background-color: ${colors.blueNavy};
   color: #aee4ff;
   height: ${cssSizes.navbarHeight}px;
   padding-top: 10px;
@@ -23,6 +24,10 @@ const StyledNavBar = styled.div`
     margin: 0 10px;
   }
 
+  .usermenu {
+    float: right;
+  }
+
   .link {
     display: inline-block;
     padding: 10px;
@@ -31,7 +36,7 @@ const StyledNavBar = styled.div`
     text-decoration: none;
     
     &.active {
-      color: #67f3ff;
+      color: #aee4ff;
     }
     
     &:hover {

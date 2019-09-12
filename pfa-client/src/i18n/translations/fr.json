@@ -19,8 +19,10 @@
   "app.components.Navbar.login": "Connexion",
   "app.components.Navbar.signUp": "Créer un compte",
   "app.components.Navbar.home": "Accueil",
-  "app.components.Navbar.logout": "Déconnexion",
 
   "app.helpers.requestHelper.expiredToken": "La session a expiré",
-  "app.helpers.requestHelper.text": "Vous allez être redirigé vers la page de connexion"
+  "app.helpers.requestHelper.text": "Vous allez être redirigé vers la page de connexion",
+
+  "app.components.navbar.UserMenu.changePassword": "Modifier le mot de passe",
+  "app.components.navbar.UserMenu.logout": "Déconnexion"
 }

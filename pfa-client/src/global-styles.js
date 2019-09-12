@@ -76,7 +76,7 @@ const GlobalStyle = createGlobalStyle`
     //height: 100%;
     width: 100%;
     min-height: 100%;
-    background-color: ${colors.grey};
+    background-color: ${colors.grey1};
   }
 
   body {
@@ -84,7 +84,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #app {
-    background-color: ${colors.grey};
+    background-color: ${colors.grey1};
     min-height: 100%;
     min-width: 100%;
   }

@@ -6,19 +6,12 @@ import { FormattedMessage } from 'react-intl';
 import StyledNavBar from './StyledNavBar';
 import messages from './messages';
 
-import Dropdown from '../common/dropdown/Dropdown';
 import UserMenu from './userMenu/UserMenu';
 
 class NavBar extends Component {
   render() {
     const { token } = this.props;
     const user = JSON.parse(localStorage.getItem('pfa-user'));
-    const listItems = [
-      {
-        id: 'abc',
-        name: 'an item',
-      },
-    ];
 
     return (
       <StyledNavBar>
@@ -31,13 +24,8 @@ class NavBar extends Component {
                   {...messages.home}
                 />
               </NavLink>
-              <NavLink to='/logout' className="link" exact>
-                <FormattedMessage
-                  {...messages.logout}
-                />
-              </NavLink>
-              <NavLink to='/changepassword' className="link" exact>Change password</NavLink>
               <UserMenu
+                className="usermenu"
                 user={user}
               />
             </>
