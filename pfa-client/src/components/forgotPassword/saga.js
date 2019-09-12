@@ -1,8 +1,11 @@
 import { takeLatest, call } from 'redux-saga/effects';
 import { history } from '../../history';
 import { RESET_PASSWORD } from './constants';
-import { request } from '../../requestHelper';
+import { request } from '../../helpers/requestHelper';
 import Swal from 'sweetalert2';
+
+import { intl } from '../../index';
+import messages from './messages';
 
 export function* onResetPassword(payload) {
   try {
@@ -10,12 +13,12 @@ export function* onResetPassword(payload) {
       method: 'post',
       data: {
         email: payload.email,
-        subject: 'password recovery from pfa',
+        subject: intl.formatMessage({ ...messages.emailSubject }),
       },
     });
     Swal.fire({
-      title: 'Success',
-      text: 'a recovery password has been sent to your email',
+      title: intl.formatMessage({ ...messages.emailSentSuccessTitle }),
+      text: intl.formatMessage({ ...messages.emailSentSuccessMessage }),
       type: 'success',
       toast: true,
       position: 'top-end',
@@ -27,7 +30,7 @@ export function* onResetPassword(payload) {
     })
   } catch (err) {
     Swal.fire({
-      title: 'recovery password error',
+      title: intl.formatMessage({ ...messages.emailSentErrorTitle }),
       text: err.response.data,
       type: 'error',
       toast: true,

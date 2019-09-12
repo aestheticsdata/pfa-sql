@@ -1,11 +1,26 @@
 {
   "app.components.Login.forgotPassword": "Forgot password ?",
   "app.components.Login.buttonLabel": "Login",
+  "app.components.Login.loginError": "Error while login",
+
   "app.components.Register.buttonLabel": "Sign up",
+
   "app.components.ForgotPassword.resetPasswordButtonLabel": "Reset password",
+  "app.components.ForgotPassword.emailSentSuccessTitle": "Success",
+  "app.components.ForgotPassword.emailSentSuccessMessage": "A recovery password has been sent to your email",
+  "app.components.ForgotPassword.emailSentErrorTitle": "Recovery password error",
+  "app.components.ForgotPassword.emailSubject": "password recovery from PFA",
+
   "app.components.ChangePassword.changePasswordButtonLabel": "Change password",
+  "app.components.ChangePassword.emailSubject": "PFA - password change",
+  "app.components.ChangePassword.changePasswordSuccessTitle": "Success",
+  "app.components.ChangePassword.changePasswordSuccessText": "Change password success",
+
   "app.components.Navbar.login": "Login",
   "app.components.Navbar.signUp": "Sign up",
   "app.components.Navbar.home": "Home",
-  "app.components.Navbar.logout": "Logout"
+  "app.components.Navbar.logout": "Logout",
+
+  "app.helpers.requestHelper.expiredToken": "Session has expired'",
+  "app.helpers.requestHelper.text": "You will be redirected to login"
 }

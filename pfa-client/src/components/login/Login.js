@@ -30,7 +30,7 @@ class Login extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.loginErrorMessage !== '') {
       Swal.fire({
-        title: 'Error',
+        title: this.props.intl.formatMessage({ ...messages.loginError }),
         text: this.props.loginErrorMessage,
         type: 'error',
         confirmButtonText: 'close',

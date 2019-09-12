@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
-import { privateRequest } from '../../requestHelper';
+import { privateRequest } from '../../helpers/requestHelper';
 
 import { GET_USERS } from './constants';
 

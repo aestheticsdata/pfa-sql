@@ -2,15 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { IntlProvider } from 'react-intl';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 import translations from './i18n/locales';
-import * as serviceWorker from './serviceWorker';
 
 
 // const locale = navigator.language.split('-')[0];
 const locale = 'fr';
 
 const messages = translations[locale];
+
+// needed in sagas ////////////////
+const cache = createIntlCache();
+const intl = createIntl({
+  locale,
+  messages,
+}, cache);
+// ////////////////////////////////
 
 ReactDOM.render(
   <IntlProvider
@@ -25,7 +32,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+export { intl };
+

@@ -2,8 +2,11 @@ import { takeLatest, call } from 'redux-saga/effects';
 import {
   CHANGE_PASSWORD,
 } from './constants';
-import { request } from '../../requestHelper';
+import { request } from '../../helpers/requestHelper';
 import Swal from 'sweetalert2';
+
+import { intl } from '../../index';
+import messages from './messages';
 
 export function* onChangePassword(payload) {
   try {
@@ -11,13 +14,13 @@ export function* onChangePassword(payload) {
       method: 'post',
       data: {
         email: payload.email,
-        subject: 'pfa password change',
+        subject: intl.formatMessage({ ...messages.emailSubject }),
         changedPassword: payload.changedPassword,
       },
     });
     Swal.fire({
-      title: 'Success',
-      text: 'change password success',
+      title: intl.formatMessage({ ...messages.changePasswordSuccessTitle }),
+      text: intl.formatMessage({ ...messages.changePasswordSuccessText }),
       type: 'success',
       toast: true,
       position: 'top-end',

@@ -2,7 +2,9 @@ import axios from 'axios';
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 
-import { history } from './history';
+import { history } from '../history';
+import { intl } from '../index';
+import messages from './messages';
 
 
 const privateRequest = (url, options) => {
@@ -19,8 +21,8 @@ const privateRequest = (url, options) => {
   }, (err) => {
      if (err.response.status && err.response.status === 401) {
        Swal.fire({
-         title: 'Session has expired',
-         text: 'you will be redirected to login',
+         title: intl.formatMessage({ ...messages.expiredToken }),
+         text: intl.formatMessage({ ...messages.text }),
          type: 'info',
          grow: 'fullscreen',
          showConfirmButton: false,

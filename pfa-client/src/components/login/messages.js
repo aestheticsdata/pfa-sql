@@ -11,4 +11,8 @@ export default defineMessages({
     id: `${scope}.forgotPassword`,
     defaultMessage: 'Forgot password ?',
   },
+  loginError: {
+    id: `${scope}.loginError`,
+    defaultMessage: 'Error while login',
+  }
 });
