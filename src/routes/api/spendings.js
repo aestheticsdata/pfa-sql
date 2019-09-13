@@ -2,7 +2,7 @@ const router = require('express').Router();
 let Spending = require('../../models/spending.model');
 
 router.get('/', (req, res) => {
-  Spending.find()
+  Spending.find({createdBy: req.query.userID})
     .then(spendings => res.json(spendings))
     .catch(err => res.status(404).json(`Error : ${err}`));
 });
@@ -20,6 +20,7 @@ router.post('/add', (req, res) => {
     amount,
     category,
     catID,
+    userID,
   } = req.body;
 
   if(!amount || !label) {
@@ -32,6 +33,7 @@ router.post('/add', (req, res) => {
     amount,
     category,
     catID,
+    createdBy: userID,
   });
 
   newSpending.save()

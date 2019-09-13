@@ -41,7 +41,7 @@ const StyledNavBar = styled.div`
     
     &:hover {
       color: #4b4b4b;
-      background-color: #fff;
+      background-color: #aee4ff;
     }
   }
 `;

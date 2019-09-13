@@ -21,10 +21,9 @@ const getInitialState = () => {
   };
 };
 
-
 const loginReducer = (state = getInitialState(), action) =>
   produce(state, draft => {
-    switch(action.type) {
+    switch (action.type) {
       case REGISTER_SUCCESS:
       case LOGIN_SUCCESS:
         localStorage.setItem('pfa-token', action.payload.data.token);

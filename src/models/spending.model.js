@@ -20,6 +20,10 @@ const SpendingSchema = new mongoose.Schema({
   catID: {
     type: String,
     default: null,
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
   }
 }, {timestamps: true});
 

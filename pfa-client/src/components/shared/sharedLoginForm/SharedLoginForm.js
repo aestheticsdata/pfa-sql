@@ -51,7 +51,7 @@ const SharedLoginForm = (props) => {
           initialValues={{ email: '', password: '' }}
           onSubmit={onSubmit}
         >
-          {({ isSubmitting, errors, touched }) => (
+          {({ isSubmitting, errors }) => (
             <Form>
               {
                 displayEmailField ?

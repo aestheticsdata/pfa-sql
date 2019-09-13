@@ -1,19 +1,107 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  Formik,
+  Form,
+  Field,
+} from 'formik';
+
+import {
+  getSpendings,
+} from './actions';
 
 import StyledMain from './StyledMain';
 
-import { getUsers } from './actions';
+import {
+  createSpending,
+} from './actions';
 
 class Main extends Component {
   componentDidMount() {
-    this.props.getUsers();
+    this.props.getSpendings(this.props.user.id);
+  }
+
+  onSubmit = (values, { setSubmitting }) => {
+    const spending = {
+      date: values.date,
+      label: values.label,
+      amount: values.amount,
+      category: values.category,
+      userID: this.props.user.id,
+    };
+
+    this.props.createSpending(spending);
+    setSubmitting(false);
+  };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('spendings : ', this.props.spendings);
   }
 
   render() {
     return (
       <StyledMain>
-        Main
+        <Formik
+          initialValues={{
+            date: '',
+            label: '',
+            amount: '',
+            category: '',
+          }}
+          onSubmit={this.onSubmit}
+        >
+          {({ isSubmitting, errors }) => (
+            <Form>
+              <Field
+                type="date"
+                name="date"
+                placeholder="date"
+              />
+              <Field
+                type="text"
+                name="label"
+                placeholder="label"
+              />
+              <Field
+                type="number"
+                name="amount"
+                placeholder="amount"
+              />
+              <Field
+                type="text"
+                name="category"
+                placeholder="category"
+              />
+              <button
+                type="submit"
+                disabled={isSubmitting || errors.email || errors.password}
+                className="shared-login-submit-btn"
+              >
+                Create spending
+              </button>
+            </Form>
+          )}
+        </Formik>
+        <div className="spendings-list">
+        {
+          this.props.spendings.length > 0 ?
+            <div className="list-container">
+              <ul>
+                {
+                  this.props.spendings.map(spending => (
+                    <li key={spending._id}>
+                      <div>date : {spending.date}</div>
+                      <div>label : {spending.label}</div>
+                      <div>amount : {spending.amount}</div>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+            :
+            null
+        }
+        </div>
       </StyledMain>
     );
   }
@@ -22,12 +110,15 @@ class Main extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.loginReducer.token,
+    user: state.loginReducer.user,
+    spendings: state.mainReducer.spendings,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUsers: () => dispatch(getUsers()),
+    getSpendings: (userID) => dispatch(getSpendings(userID)),
+    createSpending: (spending) => dispatch(createSpending(spending)),
   };
 };
 
