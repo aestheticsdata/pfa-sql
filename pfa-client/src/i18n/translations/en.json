@@ -21,5 +21,7 @@
   "app.components.Navbar.home": "Home",
 
   "app.helpers.requestHelper.expiredToken": "Session has expired'",
-  "app.helpers.requestHelper.text": "You will be redirected to login"
+  "app.helpers.requestHelper.text": "You will be redirected to login",
+
+  "app.components.notFoundComponents.text": "This page does not exist"
 }

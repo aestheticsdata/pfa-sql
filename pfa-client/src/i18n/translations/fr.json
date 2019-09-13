@@ -24,5 +24,7 @@
   "app.helpers.requestHelper.text": "Vous allez être redirigé vers la page de connexion",
 
   "app.components.navbar.UserMenu.changePassword": "Modifier le mot de passe",
-  "app.components.navbar.UserMenu.logout": "Déconnexion"
+  "app.components.navbar.UserMenu.logout": "Déconnexion",
+
+  "app.components.notFoundComponents.text": "La page n'existe pas"
 }
