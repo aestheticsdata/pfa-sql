@@ -8563,6 +8563,10 @@ typeface-assistant@^0.0.75:
   version "0.0.75"
   resolved "https://registry.yarnpkg.com/typeface-assistant/-/typeface-assistant-0.0.75.tgz#d366d3887631808dbf5bfcdf3c4116f61155353d"
 
+typeface-exo@^0.0.61:
+  version "0.0.61"
+  resolved "https://registry.yarnpkg.com/typeface-exo/-/typeface-exo-0.0.61.tgz#10c6113292da354cb9f26ee9d0b0c996f1a7a3bd"
+
 typescript-compare@^0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/typescript-compare/-/typescript-compare-0.0.2.tgz#7ee40a400a406c2ea0a7e551efd3309021d5f425"
