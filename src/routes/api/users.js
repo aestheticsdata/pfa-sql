@@ -22,7 +22,8 @@ const signIn = (res, user) => {
         user: {
           id: user.id,
           name: user.name,
-          email: user.email
+          email: user.email,
+          baseCurrency: user.baseCurrency,
         }
       });
     })

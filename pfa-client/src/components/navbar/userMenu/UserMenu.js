@@ -22,7 +22,7 @@ const UserMenu = (props) => {
       title: 'change currency',
       input: 'select',
       inputOptions: currencies,
-      inputValue: 'USD',
+      inputValue: props.user.baseCurrency,
       inputPlaceholder: 'Select a currency',
       showCancelButton: true,
     }).then((currencyObject) => currencyObject.value && props.changeBaseCurrency(props.user.id, currencyObject.value));
@@ -61,11 +61,17 @@ const UserMenu = (props) => {
   )
 };
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.loginReducer.user,
+  }
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     changeBaseCurrency: (userID, currency) => dispatch(changeBaseCurrency(userID, currency)),
   }
-}
+};
 
-export default injectIntl(connect(null, mapDispatchToProps)(UserMenu));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(UserMenu));
 
