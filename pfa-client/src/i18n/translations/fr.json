@@ -15,6 +15,8 @@
   "app.components.ChangePassword.emailSubject": "PFA - changement de mot de passe",
   "app.components.ChangePassword.changePasswordSuccessTitle": "Succès",
   "app.components.ChangePassword.changePasswordSuccessText": "Le mot de passe a été changé",
+  "app.components.ChangePassword.changeBaseCurrencySuccessTitle": "Succès",
+  "app.components.ChangePassword.changeCurrencySuccessText": "La devise de base a été changée",
 
   "app.components.Navbar.login": "Connexion",
   "app.components.Navbar.signUp": "Créer un compte",
@@ -24,6 +26,7 @@
   "app.helpers.requestHelper.text": "Vous allez être redirigé vers la page de connexion",
 
   "app.components.navbar.UserMenu.changePassword": "Modifier le mot de passe",
+  "app.components.navbar.UserMenu.changeBaseCurrency": "Changer la devise globale",
   "app.components.navbar.UserMenu.logout": "Déconnexion",
 
   "app.components.langMenu.LangMenu.languageLabel": "Langue",

@@ -77,6 +77,9 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     min-height: 100%;
     background-color: ${colors.grey1};
+    .swal2-modal {
+      font-size: 12px;
+    }
   }
 
   body {

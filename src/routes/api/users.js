@@ -180,4 +180,18 @@ router.post('/resetpassword', (req, res) => {
     });
 });
 
+router.post('/changebasecurrency', (req, res) => {
+  const { userID, currency } = req.body;
+
+  User.findOne({ _id: userID })
+    .then(user => {
+      user.baseCurrency = currency;
+      user.save()
+        .then(() => {
+          res.status(200).json({message : 'base currency updated'});
+        })
+        .catch(err => res.status(400).json({message: `base currency not updated: ${err}`}))
+    })
+});
+
 module.exports = router;

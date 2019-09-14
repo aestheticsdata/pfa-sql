@@ -19,4 +19,12 @@ export default defineMessages({
     id: `${scope}.changePasswordSuccessText`,
     defaultMessage: 'Change password success',
   },
+  changeBaseCurrencySuccessTitle: {
+    id: `${scope}.changeBaseCurrencySuccessTitle`,
+    defaultMessage: 'Success',
+  },
+  changeCurrencySuccessText: {
+    id: `${scope}.changeCurrencySuccessText`,
+    defaultMessage: 'Change base currency success',
+  },
 });

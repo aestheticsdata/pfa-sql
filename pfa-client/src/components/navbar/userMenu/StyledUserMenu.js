@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const StyledUserMenu = styled.div`
   position: absolute;
   background-color: transparent;
-  right: 110px;
+  right: 100px;
   top: 20px;
   width: 150px;
   height: 60px;
