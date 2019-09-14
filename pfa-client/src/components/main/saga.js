@@ -1,5 +1,4 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
 import { privateRequest } from '../../helpers/requestHelper';
 
 import {
@@ -14,7 +13,7 @@ import {
 
 export function* onGetUser() {
   try {
-    const res = yield call(privateRequest, '/users/all');
+    yield call(privateRequest, '/users/all');
   } catch(err) {
     console.log('Main saga err', err);
     // if (err.response.status === 401) {

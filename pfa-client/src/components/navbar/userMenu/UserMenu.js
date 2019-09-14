@@ -27,7 +27,7 @@ const UserMenu = (props) => {
   return (
     <StyledUserMenu>
       <Dropdown>
-        <span>{props.user.email}</span>
+        <span className="email">{props.user.email}</span>
         <UserMenuContent
           listItems={listItems}
         />

@@ -18,6 +18,14 @@ const UserSchema = new mongoose.Schema({
   registerDate: {
     type: Date,
     default: Date.now
+  },
+  language: {
+    type: String,
+    default: 'en',
+  },
+  baseCurrency: {
+    type: String,
+    default: 'EUR',
   }
 }, {timestamps: true});
 

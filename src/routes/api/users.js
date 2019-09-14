@@ -65,7 +65,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-  const { name, email, password, registerDate } = req.body;
+  const {
+    name,
+    email,
+    password,
+    registerDate,
+    language,
+  } = req.body;
 
   if(!name || !email || !password) {
     return res.status(400).json({ msg: 'Please enter all fields' });
@@ -82,6 +88,7 @@ router.post('/add', (req, res) => {
         email,
         password,
         registerDate,
+        language,
       });
 
       bcrypt.genSalt(10, (err, salt) => {

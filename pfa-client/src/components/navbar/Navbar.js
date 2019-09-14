@@ -7,6 +7,7 @@ import StyledNavBar from './StyledNavBar';
 import messages from './messages';
 
 import UserMenu from './userMenu/UserMenu';
+import LangMenu from './langMenu/LangMenu';
 
 class NavBar extends Component {
   render() {
@@ -27,6 +28,9 @@ class NavBar extends Component {
               <UserMenu
                 className="usermenu"
                 user={user}
+              />
+              <LangMenu
+                className="langmenu"
               />
             </>
             :

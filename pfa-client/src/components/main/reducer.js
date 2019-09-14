@@ -5,6 +5,7 @@ import {
 
 const initialState = {
   spendings: [],
+  currency: 'EUR',
 };
 
 const mainReducer = (state= initialState, action) =>

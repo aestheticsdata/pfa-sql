@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
+import Cookie from 'js-cookie';
 import translations from './i18n/locales';
 
 
-// const locale = navigator.language.split('-')[0];
-const locale = 'fr';
+const locale = Cookie.get('lang') || navigator.language.split('-')[0];
 
 const messages = translations[locale];
 

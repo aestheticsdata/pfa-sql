@@ -25,7 +25,9 @@ const StyledNavBar = styled.div`
   }
 
   .usermenu {
-    float: right;
+  }
+  
+  .langmenu {
   }
 
   .link {

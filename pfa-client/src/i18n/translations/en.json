@@ -23,5 +23,10 @@
   "app.helpers.requestHelper.expiredToken": "Session has expired'",
   "app.helpers.requestHelper.text": "You will be redirected to login",
 
+  "app.components.navbar.UserMenu.changePassword": "Change password",
+  "app.components.navbar.UserMenu.logout": "Logout",
+
+  "app.components.langMenu.LangMenu.languageLabel": "Language",
+
   "app.components.notFoundComponents.text": "This page does not exist"
 }

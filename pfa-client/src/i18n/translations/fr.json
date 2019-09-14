@@ -26,5 +26,7 @@
   "app.components.navbar.UserMenu.changePassword": "Modifier le mot de passe",
   "app.components.navbar.UserMenu.logout": "Déconnexion",
 
+  "app.components.langMenu.LangMenu.languageLabel": "Langue",
+
   "app.components.notFoundComponents.text": "La page n'existe pas"
 }

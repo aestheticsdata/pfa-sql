@@ -21,6 +21,10 @@ const SpendingSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  currency: {
+    type: String,
+    default: null,
+  },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
