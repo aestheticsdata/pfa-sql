@@ -4,7 +4,8 @@ import { privateRequest } from '../../../helpers/requestHelper';
 import {
   CHANGE_BASE_CURRENCY
 } from './constants';
-import Swal from "sweetalert2";
+import { changeBaseCurrencySucces } from './actions';
+import Swal from 'sweetalert2';
 import {intl} from '../../../index';
 import messages from '../../changePassword/messages';
 
@@ -15,13 +16,14 @@ export function* onChangeBaseCurrency(payload) {
   } = payload;
 
   try {
-    yield call(privateRequest, '/users/changebasecurrency', {
+    const res = yield call(privateRequest, '/users/changebasecurrency', {
       method: 'POST',
       data: {
         userID,
         currency,
       }
     });
+    yield put(changeBaseCurrencySucces(res.data.user));
     Swal.fire({
       title: intl.formatMessage({ ...messages.changeBaseCurrencySuccessTitle }),
       text: intl.formatMessage({ ...messages.changeCurrencySuccessText }),
@@ -30,9 +32,6 @@ export function* onChangeBaseCurrency(payload) {
       position: 'top-end',
       showConfirmButton: false,
       timer: 2000,
-      onClose: () => {
-        window.location.reload();
-      },
     });
   } catch (err) {
     console.log(`could not change base currency: ${err}`);

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import getSymbolFromCurrency from 'currency-symbol-map';
+import { ReactComponent as Logo } from './money-svgrepo-com.svg';
 
 import StyledNavBar from './StyledNavBar';
 import messages from './messages';
@@ -16,13 +18,16 @@ class NavBar extends Component {
 
     return (
       <StyledNavBar>
-        <div className="logo" />
+        {/*<div className="logo" />*/}
+        <div className="logo">
+          <Logo />
+        </div>
         {
           token ?
             <>
               <NavLink to='/' className="link" exact>
                 <FormattedMessage
-                  {...messages.home}
+                  { ...messages.home }
                 />
               </NavLink>
               <UserMenu
@@ -32,17 +37,23 @@ class NavBar extends Component {
               <LangMenu
                 className="langmenu"
               />
+              <div className="base-currency">
+                <FormattedMessage
+                  { ...messages.globalCurrency }
+                /> :
+                <span className="symbol">{ getSymbolFromCurrency(user.baseCurrency) }</span>
+              </div>
             </>
             :
             <>
               <NavLink to='/login' className="link" exact>
                 <FormattedMessage
-                  {...messages.login}
+                  { ...messages.login }
                 />
               </NavLink>
               <NavLink to='/register' className="link" exact>
                 <FormattedMessage
-                  {...messages.signUp}
+                  { ...messages.signUp }
                 />
               </NavLink>
             </>
@@ -56,6 +67,7 @@ class NavBar extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.loginReducer.token,
+    user: state.loginReducer.user,
   }
 };
 

@@ -16,7 +16,6 @@ const signIn = (res, user) => {
     { expiresIn: '30m' },
     (err, token) => {
       if (err) throw err;
-      // console.log('token : ', token);
       res.json({
         token,
         user: {
@@ -189,7 +188,15 @@ router.post('/changebasecurrency', (req, res) => {
       user.baseCurrency = currency;
       user.save()
         .then(() => {
-          res.status(200).json({message : 'base currency updated'});
+          res.status(200).json({
+            message : 'base currency updated',
+            user: {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              baseCurrency: user.baseCurrency,
+            }
+          });
         })
         .catch(err => res.status(400).json({message: `base currency not updated: ${err}`}))
     })

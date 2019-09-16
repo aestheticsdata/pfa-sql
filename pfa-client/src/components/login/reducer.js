@@ -10,6 +10,7 @@ import {
 import {
   LOG_OUT,
 } from '../logout/constants';
+import { CHANGE_BASE_CURRENCY_SUCCESS } from '../navbar/userMenu/constants';
 
 const getInitialState = () => {
   const pfaToken = localStorage.getItem('pfa-token');
@@ -31,6 +32,10 @@ const loginReducer = (state = getInitialState(), action) =>
         draft.isAuthenticated = true;
         draft.token = action.payload.data.token;
         draft.user = action.payload.data.user;
+        break;
+      case CHANGE_BASE_CURRENCY_SUCCESS:
+        localStorage.setItem('pfa-user', JSON.stringify(action.user));
+        draft.user = action.user;
         break;
       case LOG_OUT:
         localStorage.removeItem('pfa-token');

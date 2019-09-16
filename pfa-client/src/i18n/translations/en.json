@@ -21,6 +21,7 @@
   "app.components.Navbar.login": "Login",
   "app.components.Navbar.signUp": "Sign up",
   "app.components.Navbar.home": "Home",
+  "app.components.Navbar.globalCurrency": "Global currency",
 
   "app.helpers.requestHelper.expiredToken": "Session has expired'",
   "app.helpers.requestHelper.text": "You will be redirected to login",

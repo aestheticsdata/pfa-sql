@@ -21,6 +21,7 @@
   "app.components.Navbar.login": "Connexion",
   "app.components.Navbar.signUp": "Créer un compte",
   "app.components.Navbar.home": "Accueil",
+  "app.components.Navbar.globalCurrency": "Devise globale",
 
   "app.helpers.requestHelper.expiredToken": "La session a expiré",
   "app.helpers.requestHelper.text": "Vous allez être redirigé vers la page de connexion",
