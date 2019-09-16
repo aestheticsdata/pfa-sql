@@ -12,7 +12,8 @@ import { history } from './history';
 import GlobalStyle from './global-styles';
 
 import NavBar from './components/navbar/Navbar';
-import Main from './components/spendings/Spendings';
+import Spendings from './components/spendings/Spendings';
+import Stats from './components/stats/Stats';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Logout from './components/logout/Logout';
@@ -31,7 +32,8 @@ function App() {
         <ConnectedRouter history={history}>
           <NavBar />
           <Switch>
-            <PrivateRoute exact path="/" component={Main} />
+            <PrivateRoute exact path="/" component={Spendings} />
+            <PrivateRoute exact path="/stats" component={Stats} />
             <Route exact path="/login" component={Login}  />
             <Route exact path="/logout" component={Logout}  />
             <Route exact path="/register" component={Register} />

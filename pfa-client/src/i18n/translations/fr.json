@@ -20,7 +20,8 @@
 
   "app.components.Navbar.login": "Connexion",
   "app.components.Navbar.signUp": "Créer un compte",
-  "app.components.Navbar.home": "Accueil",
+  "app.components.Navbar.spendings": "Dépenses",
+  "app.components.Navbar.stats": "Statistiques",
   "app.components.Navbar.globalCurrency": "Devise globale",
 
   "app.helpers.requestHelper.expiredToken": "La session a expiré",

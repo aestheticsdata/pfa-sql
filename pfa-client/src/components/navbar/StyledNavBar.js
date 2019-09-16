@@ -31,13 +31,22 @@ const StyledNavBar = styled.div`
   
   .base-currency {
     position: absolute;
-    top: 15px;
+    top: 20px;
     right: 280px;
      
     .symbol {
-      font-size: 23px;
+      font-family: Arial, sans-serif;
+      background-color: ${colors.grey2};
       margin-left: 10px;
+      border-radius: 3px;
+      padding: 5px;
     }
+  }
+  
+  .date-picker-wrapper {
+    position: absolute;
+    left: 350px;
+    top: 20px;
   }
 
   .link {

@@ -3,6 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import getSymbolFromCurrency from 'currency-symbol-map';
+
+import DatePickerWrapper from '../datePickerWrapper/DatePickerWrapper';
+
 import { ReactComponent as Logo } from './money-svgrepo-com.svg';
 
 import StyledNavBar from './StyledNavBar';
@@ -18,7 +21,6 @@ class NavBar extends Component {
 
     return (
       <StyledNavBar>
-        {/*<div className="logo" />*/}
         <div className="logo">
           <Logo />
         </div>
@@ -27,9 +29,17 @@ class NavBar extends Component {
             <>
               <NavLink to='/' className="link" exact>
                 <FormattedMessage
-                  { ...messages.home }
+                  { ...messages.spendings }
                 />
               </NavLink>
+              <NavLink to='/stats' className="link" exact>
+                <FormattedMessage
+                  { ...messages.stats }
+                />
+              </NavLink>
+              <div className="date-picker-wrapper">
+                <DatePickerWrapper />
+              </div>
               <UserMenu
                 className="usermenu"
                 user={user}

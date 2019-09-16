@@ -11,9 +11,13 @@ export default defineMessages({
     id: `${scope}.signUp`,
     defaultMessage: 'Sign up',
   },
-  home: {
-    id: `${scope}.home`,
-    defaultMessage: 'Home',
+  spendings: {
+    id: `${scope}.spendings`,
+    defaultMessage: 'Spendings',
+  },
+  stats: {
+    id: `${scope}.stats`,
+    defaultMessage: 'Stats',
   },
   globalCurrency: {
     id: `${scope}.globalCurrency`,
