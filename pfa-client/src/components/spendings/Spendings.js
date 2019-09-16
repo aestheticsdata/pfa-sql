@@ -10,13 +10,13 @@ import {
   getSpendings,
 } from './actions';
 
-import StyledMain from './StyledMain';
+import StyledSpendings from './StyledSpendings';
 
 import {
   createSpending,
 } from './actions';
 
-class Main extends Component {
+class Spendings extends Component {
   componentDidMount() {
     this.props.getSpendings(this.props.user.id);
   }
@@ -40,7 +40,7 @@ class Main extends Component {
 
   render() {
     return (
-      <StyledMain>
+      <StyledSpendings>
         <Formik
           initialValues={{
             date: '',
@@ -102,7 +102,7 @@ class Main extends Component {
             null
         }
         </div>
-      </StyledMain>
+      </StyledSpendings>
     );
   }
 }
@@ -111,7 +111,7 @@ const mapStateToProps = (state) => {
   return {
     token: state.loginReducer.token,
     user: state.loginReducer.user,
-    spendings: state.mainReducer.spendings,
+    spendings: state.spendingsReducer.spendings,
   }
 };
 
@@ -122,4 +122,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Spendings);

@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 
-const StyledMain = styled.div`
+const StyledSpendings = styled.div`
   background-color: #ff687c;
 `;
 
-export default StyledMain;
+export default StyledSpendings;

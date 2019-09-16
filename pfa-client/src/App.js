@@ -12,7 +12,7 @@ import { history } from './history';
 import GlobalStyle from './global-styles';
 
 import NavBar from './components/navbar/Navbar';
-import Main from './components/main/Main';
+import Main from './components/spendings/Spendings';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Logout from './components/logout/Logout';

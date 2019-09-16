@@ -8,7 +8,7 @@ const initialState = {
   currency: 'EUR',
 };
 
-const mainReducer = (state= initialState, action) =>
+const spendingsReducer = (state= initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case GET_SPENDINGS_SUCCESS:
@@ -19,4 +19,4 @@ const mainReducer = (state= initialState, action) =>
     }
   });
 
-export default mainReducer;
+export default spendingsReducer;

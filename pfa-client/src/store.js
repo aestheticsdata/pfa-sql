@@ -12,7 +12,7 @@ import {
 
 import registerReducer from './components/register/reducer';
 import loginReducer from './components/login/reducer';
-import mainReducer from './components/main/reducer';
+import spendingsReducer from './components/spendings/reducer';
 
 import rootSaga from './rootSaga';
 
@@ -23,7 +23,7 @@ const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
   registerReducer,
   loginReducer,
-  mainReducer,
+  spendingsReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
