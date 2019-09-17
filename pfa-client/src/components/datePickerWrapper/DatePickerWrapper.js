@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import onClickOutside from "react-onclickoutside";
-import moment from 'moment';
+import addDays from 'date-fns/addDays';
+import startOfWeek from 'date-fns/startOfWeek';
+import endOfWeek from 'date-fns/endOfWeek';
+import format from 'date-fns/format';
+import fr from 'date-fns/locale/fr';
+import en from 'date-fns/locale/en-US';
+import Cookie from 'js-cookie';
 
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -8,28 +14,21 @@ import 'react-day-picker/lib/style.css';
 import StyledDatePickerWrapper from './StyledDatePickerWrapper';
 
 
-function getWeekDays(weekStart) {
+const getWeekDays = (weekStart) => {
   const days = [weekStart];
   for (let i = 1; i < 7; i += 1) {
-    days.push(
-      moment(weekStart)
-        .add(i, 'days')
-        .toDate()
-    );
+    days.push(addDays(weekStart, i));
   }
   return days;
-}
+};
 
-function getWeekRange(date) {
+const getWeekRange = (date) => {
   return {
-    from: moment(date)
-      .startOf('week')
-      .toDate(),
-    to: moment(date)
-      .endOf('week')
-      .toDate(),
+    from: startOfWeek(date),
+    to: endOfWeek(date),
   };
-}
+};
+
 
 class DatePickerWrapper extends Component {
   constructor(props) {
@@ -38,7 +37,12 @@ class DatePickerWrapper extends Component {
       isCalendarVisible: false,
       hoverRange: null,
       selectedDays: [],
+      lang: Cookie.get('lang'),
     };
+  }
+
+  componentDidMount() {
+    this.handleDayChange(new Date());
   }
 
   toggleCalendar = () => {
@@ -47,11 +51,14 @@ class DatePickerWrapper extends Component {
     })
   };
 
+  // ////////////////////////////////////////////////
+  // needed for the HOC react-onclickoutside ////////
   handleClickOutside = ev => {
     this.setState({
       isCalendarVisible: false,
     })
   };
+  // ////////////////////////////////////////////////
 
   handleDayChange = date => {
     this.setState({
@@ -75,6 +82,21 @@ class DatePickerWrapper extends Component {
     this.setState({
       selectedDays: days,
     });
+  };
+
+  locales = {
+    'fr': {
+      fr,
+      formatString: 'dd MMM yyyy',
+    },
+    'en': {
+      en,
+      formatString: 'MMM do y',
+    },
+  };
+
+  getFormattedDate = (date) => {
+    return format(date, this.locales[this.state.lang].formatString,  { locale: this.locales[this.state.lang][this.state.lang] })
   };
 
   render() {
@@ -103,8 +125,8 @@ class DatePickerWrapper extends Component {
           {
             selectedDays.length === 7 ?
               <div>
-                {moment(selectedDays[0]).format('LL')} –{' '}
-                {moment(selectedDays[6]).format('LL')}
+                {this.getFormattedDate(selectedDays[0])} –{' '}
+                {this.getFormattedDate(selectedDays[6])}
               </div>
               :
               <div>dates</div>
