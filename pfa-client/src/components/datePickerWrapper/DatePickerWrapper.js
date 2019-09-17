@@ -29,12 +29,25 @@ import localesDates from '../../i18n/locales-dates';
 import StyledDatePickerWrapper from './StyledDatePickerWrapper';
 
 
-const getWeekDays = (weekStart) => {
-  console.log('getWeekDays');
+const getWeekDays = (weekStart, date) => {
   const days = [weekStart];
-  for (let i = 1; i < 7; i += 1) {
-    days.push(addDays(weekStart, i));
+
+  if (!isSameMonth(startOfWeek(date), date) || !isSameMonth(endOfWeek(date), date)) {
+    if (getDate(date) > 15) {
+      for (let i = 1; i <= getDay(lastDayOfMonth(date)); i += 1) {
+        days.push(addDays(weekStart, i));
+      }
+    } else {
+      for (let i = 1; i <= getDay(endOfWeek(date)); i += 1) {
+        days.push(addDays(weekStart, i));
+      }
+    }
+  } else {
+    for (let i = 1; i < 7; i += 1) {
+      days.push(addDays(weekStart, i));
+    }
   }
+
   return days;
 };
 
@@ -48,7 +61,8 @@ const getWeekRange = (date) => {
     } else {
       return {
         from: startOfMonth(date),
-        to: endOfWeek(date),
+        // to: endOfWeek(date),
+        to: addDays(startOfMonth(date), 6)
       }
     }
   } else {
@@ -92,7 +106,7 @@ class DatePickerWrapper extends Component {
 
   handleDayChange = date => {
     this.setState({
-      selectedDays: getWeekDays(getWeekRange(date).from),
+      selectedDays: getWeekDays(getWeekRange(date).from, date),
     });
   };
 
@@ -158,10 +172,10 @@ class DatePickerWrapper extends Component {
           onClick={this.toggleCalendar}
         >
           {
-            selectedDays.length === 7 ?
+            selectedDays.length > 0 ?
               <div>
                 {this.getFormattedDate(selectedDays[0])} –{' '}
-                {this.getFormattedDate(selectedDays[6])}
+                {this.getFormattedDate(selectedDays[selectedDays.length-1])}
               </div>
               :
               <div>dates</div>
@@ -171,13 +185,12 @@ class DatePickerWrapper extends Component {
           {
             this.state.isCalendarVisible ?
               <DayPicker
-                firstDayOfWeek={this.getFirstDayOfWeek()}
                 months={localesDates[lang].MONTHS}
                 weekdaysLong={localesDates[lang].WEEKDAYS_LONG}
                 weekdaysShort={localesDates[lang].WEEKDAYS_SHORT}
                 selectedDays={selectedDays}
                 showWeekNumbers={false}
-                showOutsideDays
+                showOutsideDays={false}
                 modifiers={modifiers}
                 onDayClick={this.handleDayChange}
                 onDayMouseEnter={this.handleDayEnter}
