@@ -1,20 +1,36 @@
 import React, { Component } from 'react';
 import onClickOutside from "react-onclickoutside";
+
 import addDays from 'date-fns/addDays';
 import startOfWeek from 'date-fns/startOfWeek';
+import getMonth from 'date-fns/getMonth';
 import endOfWeek from 'date-fns/endOfWeek';
 import format from 'date-fns/format';
+import subDays from 'date-fns/subDays';
+import startOfMonth from 'date-fns/startOfMonth';
+import endOfMonth from 'date-fns/endOfMonth';
+import max from 'date-fns/max';
+import isSameMonth from 'date-fns/isSameMonth';
+import isAfter from 'date-fns/isAfter';
+import getDate from 'date-fns/getDate';
+import getDay from 'date-fns/getDay';
+import lastDayOfMonth from 'date-fns/lastDayOfMonth';
+
 import fr from 'date-fns/locale/fr';
 import en from 'date-fns/locale/en-US';
+
 import Cookie from 'js-cookie';
 
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
+import localesDates from '../../i18n/locales-dates';
+
 import StyledDatePickerWrapper from './StyledDatePickerWrapper';
 
 
 const getWeekDays = (weekStart) => {
+  console.log('getWeekDays');
   const days = [weekStart];
   for (let i = 1; i < 7; i += 1) {
     days.push(addDays(weekStart, i));
@@ -23,10 +39,24 @@ const getWeekDays = (weekStart) => {
 };
 
 const getWeekRange = (date) => {
-  return {
-    from: startOfWeek(date),
-    to: endOfWeek(date),
-  };
+  if (!isSameMonth(startOfWeek(date), date) || !isSameMonth(endOfWeek(date), date)) {
+    if (getDate(date) > 15) {
+      return {
+        from: subDays(date, getDay(date)),
+        to: lastDayOfMonth(date),
+      };
+    } else {
+      return {
+        from: startOfMonth(date),
+        to: endOfWeek(date),
+      }
+    }
+  } else {
+    return {
+      from: startOfWeek(date),
+      to: endOfWeek(date),
+    };
+  }
 };
 
 
@@ -79,10 +109,14 @@ class DatePickerWrapper extends Component {
   };
 
   handleWeekClick = (weekNumber, days, e) => {
-    this.setState({
-      selectedDays: days,
-    });
+    // this.setState({
+    //   selectedDays: days,
+    // });
   };
+
+  getFirstDayOfWeek = () => {
+
+  }
 
   locales = {
     'fr': {
@@ -96,11 +130,12 @@ class DatePickerWrapper extends Component {
   };
 
   getFormattedDate = (date) => {
-    return format(date, this.locales[this.state.lang].formatString,  { locale: this.locales[this.state.lang][this.state.lang] })
+    const { lang } = this.state;
+    return format(date, this.locales[lang].formatString, { locale: this.locales[lang][lang] });
   };
 
   render() {
-    const { hoverRange, selectedDays } = this.state;
+    const { hoverRange, selectedDays, lang } = this.state;
 
     const daysAreSelected = selectedDays.length > 0;
 
@@ -136,8 +171,12 @@ class DatePickerWrapper extends Component {
           {
             this.state.isCalendarVisible ?
               <DayPicker
+                firstDayOfWeek={this.getFirstDayOfWeek()}
+                months={localesDates[lang].MONTHS}
+                weekdaysLong={localesDates[lang].WEEKDAYS_LONG}
+                weekdaysShort={localesDates[lang].WEEKDAYS_SHORT}
                 selectedDays={selectedDays}
-                showWeekNumbers
+                showWeekNumbers={false}
                 showOutsideDays
                 modifiers={modifiers}
                 onDayClick={this.handleDayChange}

@@ -1,11 +1,18 @@
 import styled from 'styled-components/macro';
+import colors from '../../colors';
 
 const StyledDatePickerWrapper = styled.div`
   .caption {
     cursor: pointer;
+    background-color: ${colors.calendarBackground};
+    border-radius: 3px;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 195px;
+    color: #FFEB3B;
   }
   .date-picker {
-    background-color: #2b2a2a;
+    background-color: ${colors.calendarBackground};
     
     .DayPicker-Month {
       border-collapse: separate;
