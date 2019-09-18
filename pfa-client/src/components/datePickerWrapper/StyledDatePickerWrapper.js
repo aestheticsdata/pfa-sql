@@ -4,11 +4,12 @@ import colors from '../../colors';
 const StyledDatePickerWrapper = styled.div`
   .caption {
     cursor: pointer;
+    text-align: center;
     background-color: ${colors.calendarBackground};
     border-radius: 3px;
     margin-bottom: 5px;
     padding: 5px;
-    width: 195px;
+    width: 210px;
     color: #FFEB3B;
   }
   .date-picker {

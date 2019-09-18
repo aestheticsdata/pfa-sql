@@ -1,5 +1,10 @@
 import React from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck} from '@fortawesome/free-solid-svg-icons';
+
+import Cookie from 'js-cookie';
+
 import StyledLangMenuContent from './StyledLangMenuContent';
 
 const UserMenuContent = (props) => {
@@ -9,7 +14,13 @@ const UserMenuContent = (props) => {
       className="dropdownitems"
       onClick={() => item.callback && item.callback()}
     >
-      {item.label}
+      <span className="item-label">{item.label}</span>
+      {
+        Cookie.get('lang') === item.id ?
+          <FontAwesomeIcon icon={faCheck} className="check" />
+          :
+          null
+      }
     </li>
   ));
 

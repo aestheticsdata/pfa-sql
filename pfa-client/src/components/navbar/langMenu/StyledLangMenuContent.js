@@ -19,6 +19,14 @@ const StyledUserMenuContent = styled(StyledContent)`
     .icon {
       margin: 0 10px 0 5px;
     }
+    .check {
+      font-size: 10px;
+      margin-left: 5px;
+    }
+    //.item-label {
+    //  position: relative;
+    //  right: 0;
+    //}
   }
 `;
 
