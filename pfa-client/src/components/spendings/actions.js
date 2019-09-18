@@ -1,7 +1,8 @@
 import {
   GET_USERS,
   CREATE_SPENDING,
-  GET_SPENDINGS, GET_SPENDINGS_SUCCESS,
+  GET_SPENDINGS,
+  GET_SPENDINGS_SUCCESS,
 } from './constants';
 
 export const getUsers = () => {
@@ -18,7 +19,6 @@ export const createSpending = (spending) => {
 };
 
 export const getSpendings = (userID, dateRange) => {
-  console.log('action dateRange :', dateRange);
   return {
     type: GET_SPENDINGS,
     userID,

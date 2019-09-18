@@ -14,22 +14,26 @@ const initialState = {
   currency: 'EUR',
 };
 
+// transform an array of object into an array of array<Object> aggregated
+// by same date
 const aggregateSpendingByDate = (spendings) => {
   let keys = _.uniq(spendings.map(spending => getDate(parseISO(spending.date))));
   let aggregateSpendings = [];
-  for (let j=0, lll = keys.length; j<lll; j += 1) {
-    aggregateSpendings.push([])
+  for (let j = 0, lll = keys.length; j < lll; j += 1) {
+    const arr = [];
+    arr.total = 0;
+    // arr.date = null;
+    aggregateSpendings.push(arr);
   }
   for (let i = 0, l = spendings.length; i < l; i += 1 ) {
     for (let k = 0, ll = keys.length; k < ll; k += 1) {
       if (getDate(parseISO(spendings[i].date)) === keys[k]) {
         aggregateSpendings[k].push(spendings[i]);
+        aggregateSpendings[k].total += spendings[i].amount;
+        // aggregateSpendings[k].date = spendings[i].date;
       }
     }
   }
-
-  console.log('aggregateSpendings : ', aggregateSpendings);
-  // console.log(_.zipObject(keys, aggregateSpendings));
   return aggregateSpendings;
 };
 

@@ -6,6 +6,7 @@ const initialState = {
   dateRange: {
     from: null,
     to: null,
+    range: null,
   }
 };
 

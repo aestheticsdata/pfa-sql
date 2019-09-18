@@ -28,7 +28,7 @@ import { dateRangeChange } from './actions';
 import StyledDatePickerWrapper from './StyledDatePickerWrapper';
 
 
-const getWeekDays = (weekStart, date) => {
+export const getWeekDays = (weekStart, date) => {
   const days = [weekStart];
 
   if (!isSameMonth(startOfWeek(date), date) || !isSameMonth(endOfWeek(date), date)) {
@@ -50,7 +50,7 @@ const getWeekDays = (weekStart, date) => {
   return days;
 };
 
-const getWeekRange = (date) => {
+ const getWeekRange = (date) => {
   let dateRange;
 
   if (!isSameMonth(startOfWeek(date), date) || !isSameMonth(endOfWeek(date), date)) {
@@ -113,11 +113,14 @@ class DatePickerWrapper extends Component {
     this.props.dateRangeChange({
       from: weekRange.from,
       to: weekRange.to,
+      range: dateRange,
     });
 
     this.setState({
       selectedDays: dateRange,
     });
+
+    this.handleClickOutside();
   };
 
   handleDayEnter = date => {

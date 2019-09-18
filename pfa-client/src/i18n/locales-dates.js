@@ -1,3 +1,6 @@
+import fr from "date-fns/locale";
+import en from "date-fns/locale/en-US";
+
 const localesDates = {
   'fr': {
     MONTHS: [
@@ -54,4 +57,5 @@ const localesDates = {
 };
 
 export default localesDates;
+
 

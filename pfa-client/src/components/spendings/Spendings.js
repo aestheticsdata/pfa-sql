@@ -6,23 +6,16 @@ import {
   Field,
 } from 'formik';
 
-import {
-  getSpendings,
-} from './actions';
-
 import StyledSpendings from './StyledSpendings';
 
 import SpendingDayItem from './spendingDayItem/SpendingDayItem';
 
 import {
+  getSpendings,
   createSpending,
 } from './actions';
 
 class Spendings extends Component {
-  componentDidMount() {
-    // this.props.getSpendings(this.props.user.id, this.props.dateRange);
-  }
-
   onSubmit = (values, { setSubmitting }) => {
     const spending = {
       date: values.date,
@@ -89,7 +82,7 @@ class Spendings extends Component {
         </Formik>
         <div className="spendings-list">
         {
-          this.props.spendings.length > 0 ?
+          this.props.spendings.length > 0 && this.props.dateRange.range ?
             <div className="list-container">
 
                 {
@@ -97,6 +90,7 @@ class Spendings extends Component {
                     <SpendingDayItem
                       key={i}
                       spendingsByDay={spendingsByDay}
+                      date={this.props.dateRange.range[i]}
                     />
                   ))
                 }
