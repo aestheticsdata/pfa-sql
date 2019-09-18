@@ -93,10 +93,10 @@ class Spendings extends Component {
             <div className="list-container">
 
                 {
-                  this.props.spendings.map((spending, i) => (
+                  this.props.spendings.map((spendingsByDay, i) => (
                     <SpendingDayItem
                       key={i}
-                      spending={spending}
+                      spendingsByDay={spendingsByDay}
                     />
                   ))
                 }

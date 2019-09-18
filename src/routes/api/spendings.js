@@ -6,6 +6,7 @@ router.get('/', (req, res) => {
     createdBy: req.query.userID,
     date: {"$gte": new Date(req.query.from), "$lte": new Date(req.query.to)},
   })
+    .sort({ date: 'asc' })
     .then(spendings => res.json(spendings))
     .catch(err => res.status(404).json(`Error : ${err}`));
 });

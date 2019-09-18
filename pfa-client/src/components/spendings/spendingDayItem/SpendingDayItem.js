@@ -5,18 +5,22 @@ import StyledSpendingDayItem from './StyledSpendingDayItem';
 
 class SpendingDayItem extends Component {
   render() {
-    const { spending } = this.props;
+    const { spendingsByDay } = this.props;
     return (
       <StyledSpendingDayItem>
         <div>
           <div>date : date</div>
+          <div>Total : </div>
           {
-            spending ?
-              <>
-                <div>Total : </div>
-                <span>{spending.label}</span>
-                <span>{spending.amount}</span>
-              </>
+            spendingsByDay ?
+              spendingsByDay.map(spending => {
+                return (
+                  <div key={spending._id}>
+                    <span>{spending.label}</span>
+                    <span>{spending.amount}</span>
+                  </div>
+                )
+              })
               :
               null
           }
