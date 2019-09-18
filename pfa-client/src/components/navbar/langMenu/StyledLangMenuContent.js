@@ -23,10 +23,6 @@ const StyledUserMenuContent = styled(StyledContent)`
       font-size: 10px;
       margin-left: 5px;
     }
-    //.item-label {
-    //  position: relative;
-    //  right: 0;
-    //}
   }
 `;
 

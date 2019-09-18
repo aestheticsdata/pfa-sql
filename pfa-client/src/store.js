@@ -13,6 +13,7 @@ import {
 import registerReducer from './components/register/reducer';
 import loginReducer from './components/login/reducer';
 import spendingsReducer from './components/spendings/reducer';
+import dateRangeReducer from './components/datePickerWrapper/reducer';
 
 import rootSaga from './rootSaga';
 
@@ -24,6 +25,7 @@ const createRootReducer = (history) => combineReducers({
   registerReducer,
   loginReducer,
   spendingsReducer,
+  dateRangeReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

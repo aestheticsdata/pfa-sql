@@ -35,7 +35,7 @@ export function* createSpending(payload) {
 
 export function* getSpendings(payload) {
   try {
-    const res = yield call(privateRequest, `/spendings?userID=${payload.userID}`);
+    const res = yield call(privateRequest, `/spendings?userID=${payload.userID}&from=${payload.dateRange.from}&to=${payload.dateRange.to}`);
     yield put(getSpendingsSuccess(res.data));
   } catch (err) {
     console.log('error while getting spendings', err);

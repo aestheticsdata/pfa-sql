@@ -17,10 +17,12 @@ export const createSpending = (spending) => {
   };
 };
 
-export const getSpendings = (userID) => {
+export const getSpendings = (userID, dateRange) => {
+  console.log('action dateRange :', dateRange);
   return {
     type: GET_SPENDINGS,
     userID,
+    dateRange,
   };
 };
 

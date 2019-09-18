@@ -12,13 +12,15 @@ import {
 
 import StyledSpendings from './StyledSpendings';
 
+import SpendingDayItem from './spendingDayItem/SpendingDayItem';
+
 import {
   createSpending,
 } from './actions';
 
 class Spendings extends Component {
   componentDidMount() {
-    this.props.getSpendings(this.props.user.id);
+    // this.props.getSpendings(this.props.user.id, this.props.dateRange);
   }
 
   onSubmit = (values, { setSubmitting }) => {
@@ -27,6 +29,7 @@ class Spendings extends Component {
       label: values.label,
       amount: values.amount,
       category: values.category,
+      currency: this.props.user.baseCurrency,
       userID: this.props.user.id,
     };
 
@@ -35,7 +38,9 @@ class Spendings extends Component {
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('spendings : ', this.props.spendings);
+    if (this.props.dateRange !== prevProps.dateRange) {
+      this.props.getSpendings(this.props.user.id, this.props.dateRange);
+    }
   }
 
   render() {
@@ -86,17 +91,15 @@ class Spendings extends Component {
         {
           this.props.spendings.length > 0 ?
             <div className="list-container">
-              <ul>
+
                 {
-                  this.props.spendings.map(spending => (
-                    <li key={spending._id}>
-                      <div>date : {spending.date}</div>
-                      <div>label : {spending.label}</div>
-                      <div>amount : {spending.amount}</div>
-                    </li>
+                  this.props.spendings.map((spending, i) => (
+                    <SpendingDayItem
+                      key={i}
+                      spending={spending}
+                    />
                   ))
                 }
-              </ul>
             </div>
             :
             null
@@ -112,12 +115,13 @@ const mapStateToProps = (state) => {
     token: state.loginReducer.token,
     user: state.loginReducer.user,
     spendings: state.spendingsReducer.spendings,
+    dateRange: state.dateRangeReducer.dateRange,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getSpendings: (userID) => dispatch(getSpendings(userID)),
+    getSpendings: (userID, dateRange) => dispatch(getSpendings(userID, dateRange)),
     createSpending: (spending) => dispatch(createSpending(spending)),
   };
 };

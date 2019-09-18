@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import onClickOutside from "react-onclickoutside";
+import { connect } from 'react-redux';
 
 import addDays from 'date-fns/addDays';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -21,6 +22,8 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
 import localesDates from '../../i18n/locales-dates';
+
+import { dateRangeChange } from './actions';
 
 import StyledDatePickerWrapper from './StyledDatePickerWrapper';
 
@@ -48,24 +51,28 @@ const getWeekDays = (weekStart, date) => {
 };
 
 const getWeekRange = (date) => {
+  let dateRange;
+
   if (!isSameMonth(startOfWeek(date), date) || !isSameMonth(endOfWeek(date), date)) {
     if (getDate(date) > 15) {
-      return {
+      dateRange = {
         from: subDays(date, getDay(date)),
         to: lastDayOfMonth(date),
       };
     } else {
-      return {
+      dateRange = {
         from: startOfMonth(date),
         to: endOfWeek(date),
       }
     }
   } else {
-    return {
+    dateRange = {
       from: startOfWeek(date),
       to: endOfWeek(date),
     };
   }
+
+  return dateRange;
 };
 
 
@@ -100,8 +107,16 @@ class DatePickerWrapper extends Component {
   // ////////////////////////////////////////////////
 
   handleDayChange = date => {
+    const weekRange = getWeekRange(date);
+    const dateRange = getWeekDays(weekRange.from, date);
+
+    this.props.dateRangeChange({
+      from: weekRange.from,
+      to: weekRange.to,
+    });
+
     this.setState({
-      selectedDays: getWeekDays(getWeekRange(date).from, date),
+      selectedDays: dateRange,
     });
   };
 
@@ -197,5 +212,17 @@ class DatePickerWrapper extends Component {
   }
 }
 
-export default onClickOutside(DatePickerWrapper);
+const mapStateToProps = (state) => {
+  return {
+    dateRangeReducer: state.dateRangeReducer.dateRange,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dateRangeChange: (dateRange) => dispatch(dateRangeChange(dateRange)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(onClickOutside(DatePickerWrapper));
 
