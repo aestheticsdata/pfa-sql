@@ -3,15 +3,11 @@ import onClickOutside from "react-onclickoutside";
 
 import addDays from 'date-fns/addDays';
 import startOfWeek from 'date-fns/startOfWeek';
-import getMonth from 'date-fns/getMonth';
 import endOfWeek from 'date-fns/endOfWeek';
 import format from 'date-fns/format';
 import subDays from 'date-fns/subDays';
 import startOfMonth from 'date-fns/startOfMonth';
-import endOfMonth from 'date-fns/endOfMonth';
-import max from 'date-fns/max';
 import isSameMonth from 'date-fns/isSameMonth';
-import isAfter from 'date-fns/isAfter';
 import getDate from 'date-fns/getDate';
 import getDay from 'date-fns/getDay';
 import lastDayOfMonth from 'date-fns/lastDayOfMonth';
@@ -38,7 +34,7 @@ const getWeekDays = (weekStart, date) => {
         days.push(addDays(weekStart, i));
       }
     } else {
-      for (let i = 1; i <= getDay(endOfWeek(date)); i += 1) {
+      for (let i = 1; i <= (6-getDay(weekStart)); i += 1) {
         days.push(addDays(weekStart, i));
       }
     }
@@ -61,8 +57,7 @@ const getWeekRange = (date) => {
     } else {
       return {
         from: startOfMonth(date),
-        // to: endOfWeek(date),
-        to: addDays(startOfMonth(date), 6)
+        to: endOfWeek(date),
       }
     }
   } else {
@@ -128,10 +123,6 @@ class DatePickerWrapper extends Component {
     // });
   };
 
-  getFirstDayOfWeek = () => {
-
-  }
-
   locales = {
     'fr': {
       fr,
@@ -157,12 +148,12 @@ class DatePickerWrapper extends Component {
       hoverRange,
       selectedRange: daysAreSelected && {
         from: selectedDays[0],
-        to: selectedDays[6],
+        to: selectedDays[selectedDays.length - 1],
       },
       hoverRangeStart: hoverRange && hoverRange.from,
       hoverRangeEnd: hoverRange && hoverRange.to,
       selectedRangeStart: daysAreSelected && selectedDays[0],
-      selectedRangeEnd: daysAreSelected && selectedDays[6],
+      selectedRangeEnd: daysAreSelected && selectedDays[selectedDays.length - 1],
     };
 
     return (
@@ -175,7 +166,7 @@ class DatePickerWrapper extends Component {
             selectedDays.length > 0 ?
               <div>
                 {this.getFormattedDate(selectedDays[0])} –{' '}
-                {this.getFormattedDate(selectedDays[selectedDays.length-1])}
+                {this.getFormattedDate(selectedDays[selectedDays.length - 1])}
               </div>
               :
               <div>dates</div>
