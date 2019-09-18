@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import format from 'date-fns/format';
-import getDate from 'date-fns/getDate';
 
 import Cookie from 'js-cookie';
 
-import { getWeekDays } from '../../datePickerWrapper/DatePickerWrapper';
 import StyledSpendingDayItem from './StyledSpendingDayItem';
 import fr from "date-fns/locale/fr";
 import en from "date-fns/locale/en-US";
+
+import { FormattedNumber } from 'react-intl';
 
 
 class SpendingDayItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lang: Cookie.get('lang')
+      lang: Cookie.get('lang'),
     }
   }
 
@@ -39,7 +39,7 @@ class SpendingDayItem extends Component {
         this.props.date ?
           <StyledSpendingDayItem>
             <div>
-              <div>date :
+              <div className="date">
                 {
                   this.props.date ?
                     <div>{format(this.props.date, this.locales[lang].formatString, { locale: this.locales[lang][lang] })}</div>
@@ -47,10 +47,17 @@ class SpendingDayItem extends Component {
                     null
                 }
               </div>
-              <div>Total :
+              <div className="total">
+                <span className="total-label">Total :</span>
                 {
                   spendingsByDay ?
-                    spendingsByDay.total
+                    <span className="total-amount">
+                      <FormattedNumber
+                        value={spendingsByDay.total}
+                        style="currency"
+                        currency="EUR"
+                      />
+                    </span>
                     :
                     null
                 }
@@ -64,7 +71,13 @@ class SpendingDayItem extends Component {
                         className="spending"
                       >
                         <span className="label">{spending.label}</span>
-                        <span className="amount">{spending.amount}</span>
+                        <span className="amount">
+                          <FormattedNumber
+                            value={spending.amount}
+                            style="currency"
+                            currency={spending.currency}
+                          />
+                        </span>
                       </div>
                     )
                   })
