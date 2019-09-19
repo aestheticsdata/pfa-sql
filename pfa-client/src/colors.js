@@ -6,6 +6,8 @@ const colors = {
   formsGlobalColorHover: 'rgb(12,12,12)',
   blueNavy: '#3b4755',
   calendarBackground: 'rgb(42, 42, 42)',
+  addSpending: 'rgb(26,58,12)',
+  addSpendingHover: 'rgb(58,172,249)',
 };
 
 export default colors;
