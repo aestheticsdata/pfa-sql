@@ -91,6 +91,7 @@ class Spendings extends Component {
                       key={i}
                       spendingsByDay={spendingsByDay}
                       date={this.props.dateRange.range[i]}
+                      total={0}
                     />
                   ))
                 }

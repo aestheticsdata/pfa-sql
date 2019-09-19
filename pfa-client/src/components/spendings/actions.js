@@ -26,10 +26,11 @@ export const getSpendings = (userID, dateRange) => {
   };
 };
 
-export const getSpendingsSuccess = (spendings) => {
+export const getSpendingsSuccess = (spendings, dateRange) => {
   return {
     type: GET_SPENDINGS_SUCCESS,
     spendings,
+    dateRange,
   };
 };
 

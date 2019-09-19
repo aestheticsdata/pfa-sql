@@ -29,6 +29,7 @@ router.post('/add', checkToken, (req, res) => {
     userID,
   } = req.body;
 
+
   if(!amount || !label) {
     return res.status(400).json({ msg: 'Please enter amount and label' });
   }

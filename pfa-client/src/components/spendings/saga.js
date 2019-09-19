@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { privateRequest } from '../../helpers/requestHelper';
 
 import {
@@ -36,7 +36,8 @@ export function* createSpending(payload) {
 export function* getSpendings(payload) {
   try {
     const res = yield call(privateRequest, `/spendings?userID=${payload.userID}&from=${payload.dateRange.from}&to=${payload.dateRange.to}`);
-    yield put(getSpendingsSuccess(res.data));
+    const dateRange = yield select(state => state.dateRangeReducer.dateRange.range);
+    yield put(getSpendingsSuccess(res.data, dateRange));
   } catch (err) {
     console.log('error while getting spendings', err);
   }
