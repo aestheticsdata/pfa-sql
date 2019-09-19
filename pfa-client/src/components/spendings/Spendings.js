@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Formik,
-  Form,
-  Field,
-} from 'formik';
 
 import StyledSpendings from './StyledSpendings';
 
@@ -16,19 +11,12 @@ import {
 } from './actions';
 
 class Spendings extends Component {
-  onSubmit = (values, { setSubmitting }) => {
-    const spending = {
-      date: values.date,
-      label: values.label,
-      amount: values.amount,
-      category: values.category,
-      currency: this.props.user.baseCurrency,
-      userID: this.props.user.id,
-    };
-
-    this.props.createSpending(spending);
-    setSubmitting(false);
-  };
+  componentDidMount() {
+    if (this.props.user.id && this.props.dateRange) {
+      // needed when coming from login but causes a 404 with componentDidUpadte
+      this.props.getSpendings(this.props.user.id, this.props.dateRange);
+    }
+  }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.dateRange !== prevProps.dateRange) {
@@ -41,47 +29,7 @@ class Spendings extends Component {
 
     return (
       <StyledSpendings>
-        <Formik
-          initialValues={{
-            date: '',
-            label: '',
-            amount: '',
-            category: '',
-          }}
-          onSubmit={this.onSubmit}
-        >
-          {({ isSubmitting, errors }) => (
-            <Form>
-              <Field
-                type="date"
-                name="date"
-                placeholder="date"
-              />
-              <Field
-                type="text"
-                name="label"
-                placeholder="label"
-              />
-              <Field
-                type="number"
-                name="amount"
-                placeholder="amount"
-              />
-              <Field
-                type="text"
-                name="category"
-                placeholder="category"
-              />
-              <button
-                type="submit"
-                disabled={isSubmitting || errors.email || errors.password}
-                className="shared-login-submit-btn"
-              >
-                Create spending
-              </button>
-            </Form>
-          )}
-        </Formik>
+
         <div className="spendings-list">
         {
           this.props.spendings.length > 0 && this.props.dateRange.range ?
@@ -95,6 +43,7 @@ class Spendings extends Component {
                       date={this.props.dateRange.range[i]}
                       total={0}
                       isLoading={isLoading}
+                      user={this.props.user}
                     />
                   ))
                 }
@@ -121,7 +70,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getSpendings: (userID, dateRange) => dispatch(getSpendings(userID, dateRange)),
-    createSpending: (spending) => dispatch(createSpending(spending)),
+    // createSpending: (spending) => dispatch(createSpending(spending)),
   };
 };
 

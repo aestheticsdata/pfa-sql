@@ -11,6 +11,10 @@ const StyledSpendingDayItem = styled.div`
   padding: 10px;
   border-radius: 5px;
   
+  .spending-modal {
+    position: relative;
+  }
+  
   .header {
     width: 100%;
     height: 30px;

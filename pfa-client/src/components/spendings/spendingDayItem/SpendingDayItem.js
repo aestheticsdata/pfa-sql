@@ -15,12 +15,15 @@ import { FormattedNumber } from 'react-intl';
 import { ReactComponent as Spinner } from './Wedges-3s-200px.svg';
 // import { ReactComponent as Spinner } from './Bars-1s-200px.svg';
 
+import SpendingModal from './spendingModal/SpendingModal';
+
 
 class SpendingDayItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
       lang: Cookie.get('lang'),
+      isModalVisible: false,
     }
   }
 
@@ -35,6 +38,14 @@ class SpendingDayItem extends Component {
     },
   };
 
+  addSpending = () => {
+    this.setState({ isModalVisible: true });
+  };
+
+  closeModal = () => {
+    this.setState({ isModalVisible: false });
+  };
+
   render() {
     const { spendingsByDay } = this.props;
     const { lang } = this.state;
@@ -45,6 +56,18 @@ class SpendingDayItem extends Component {
         this.props.date ?
           <StyledSpendingDayItem>
             <div>
+              <div className="spending-modal">
+                {
+                  this.state.isModalVisible ?
+                    <SpendingModal
+                      date={this.props.date}
+                      closeModal={this.closeModal}
+                      user={this.props.user}
+                    />
+                    :
+                    null
+                }
+              </div>
               <div className="header">
                 <div className="date">
                   {
@@ -54,7 +77,10 @@ class SpendingDayItem extends Component {
                       null
                   }
                 </div>
-                <div className="add-spending">
+                <div
+                  className="add-spending"
+                  onClick={this.addSpending}
+                >
                   <FontAwesomeIcon icon={faPlusSquare} />
                 </div>
               </div>

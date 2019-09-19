@@ -2,6 +2,9 @@ import styled from 'styled-components/macro';
 import colors from '../../colors';
 
 const StyledDatePickerWrapper = styled.div`
+  position: relative;
+  z-index: 3;
+  
   .caption {
     cursor: pointer;
     text-align: center;
