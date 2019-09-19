@@ -12,6 +12,9 @@ import en from "date-fns/locale/en-US";
 
 import { FormattedNumber } from 'react-intl';
 
+import { ReactComponent as Spinner } from './Wedges-3s-200px.svg';
+// import { ReactComponent as Spinner } from './Bars-1s-200px.svg';
+
 
 class SpendingDayItem extends Component {
   constructor(props) {
@@ -73,23 +76,28 @@ class SpendingDayItem extends Component {
               <div className="spendings-list-container">
               {
                 spendingsByDay ?
-                  spendingsByDay.map(spending => {
-                    return (
-                      <div
-                        key={spending._id}
-                        className="spending"
-                      >
-                        <span className="label" title={spending.label}>{spending.label}</span>
-                        <span className="amount">
-                          <FormattedNumber
-                            value={spending.amount}
-                            style="currency"
-                            currency={spending.currency}
-                          />
-                        </span>
-                      </div>
-                    )
-                  })
+                  this.props.isLoading ?
+                    <div className="spinner">
+                      <Spinner width="40px" height="40px" />
+                    </div>
+                    :
+                    spendingsByDay.map(spending => {
+                      return (
+                        <div
+                          key={spending._id}
+                          className="spending"
+                        >
+                          <span className="label" title={spending.label}>{spending.label}</span>
+                          <span className="amount">
+                            <FormattedNumber
+                              value={spending.amount}
+                              style="currency"
+                              currency={spending.currency}
+                            />
+                          </span>
+                        </div>
+                      )
+                    })
                   :
                   null
               }

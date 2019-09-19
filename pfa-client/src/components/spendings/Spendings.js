@@ -37,6 +37,8 @@ class Spendings extends Component {
   }
 
   render() {
+    const { isLoading } = this.props;
+
     return (
       <StyledSpendings>
         <Formik
@@ -92,6 +94,7 @@ class Spendings extends Component {
                       spendingsByDay={spendingsByDay}
                       date={this.props.dateRange.range[i]}
                       total={0}
+                      isLoading={isLoading}
                     />
                   ))
                 }
@@ -110,6 +113,7 @@ const mapStateToProps = (state) => {
     token: state.loginReducer.token,
     user: state.loginReducer.user,
     spendings: state.spendingsReducer.spendings,
+    isLoading: state.spendingsReducer.isLoading,
     dateRange: state.dateRangeReducer.dateRange,
   }
 };

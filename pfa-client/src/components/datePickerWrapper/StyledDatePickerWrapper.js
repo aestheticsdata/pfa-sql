@@ -6,11 +6,12 @@ const StyledDatePickerWrapper = styled.div`
     cursor: pointer;
     text-align: center;
     background-color: ${colors.calendarBackground};
-    border-radius: 3px;
     margin-bottom: 5px;
     padding: 5px;
     width: 210px;
     color: #FFEB3B;
+    border-left: 1px solid #FFEB3B;
+    border-right: 1px solid #FFEB3B;
   }
   .date-picker {
     background-color: ${colors.calendarBackground};

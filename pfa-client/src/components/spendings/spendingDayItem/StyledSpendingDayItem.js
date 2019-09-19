@@ -63,6 +63,11 @@ const StyledSpendingDayItem = styled.div`
     overflow: hidden;
     height: 200px;
     overflow-y: auto;
+    
+    .spinner {
+      text-align: center;
+      padding-top: 70px;
+    }
 
     .spending {
       margin: 5px 10px;

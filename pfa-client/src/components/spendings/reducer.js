@@ -15,6 +15,7 @@ const spendingsPlaceholder = [tempArr, tempArr, tempArr, tempArr, tempArr, tempA
 const initialState = {
   spendings: spendingsPlaceholder,
   currency: 'EUR',
+  isLoading: true,
 };
 
 // transform an array of object into an array of array<Object> aggregated
@@ -45,6 +46,7 @@ const spendingsReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case GET_SPENDINGS_SUCCESS:
+        draft.isLoading = false;
         draft.spendings = aggregateSpendingByDate(action.spendings, action.dateRange);
       break;
       default:
