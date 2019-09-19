@@ -1,7 +1,8 @@
 const router = require('express').Router();
 let Spending = require('../../models/spending.model');
+const checkToken = require('./helpers/checkToken');
 
-router.get('/', (req, res) => {
+router.get('/', checkToken, (req, res) => {
   Spending.find({
     createdBy: req.query.userID,
     date: {"$gte": new Date(req.query.from), "$lte": new Date(req.query.to)},
@@ -11,13 +12,13 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json(`Error : ${err}`));
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', checkToken, (req, res) => {
   Spending.findById(req.params.id)
     .then(spending => res.json(spending))
     .catch(() => res.status(404).json('no spending with this id'));
 });
 
-router.post('/add', (req, res) => {
+router.post('/add', checkToken, (req, res) => {
   const {
     date,
     label,
@@ -47,7 +48,7 @@ router.post('/add', (req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', checkToken, (req, res) => {
   Spending.findById(req.params.id)
     .then(
       spending => spending.remove().then(
@@ -57,7 +58,7 @@ router.delete('/:id', (req, res) => {
     .catch(() => res.status(404).json({ success: false }));
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', checkToken, (req, res) => {
   Spending.findById(req.params.id)
     .then(spending => {
       spending.date = req.body.date;
