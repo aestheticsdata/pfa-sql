@@ -7,6 +7,7 @@ import SpendingDayItem from './spendingDayItem/SpendingDayItem';
 
 import {
   getSpendings,
+  deleteSpending,
 } from './actions';
 
 class Spendings extends Component {
@@ -22,6 +23,14 @@ class Spendings extends Component {
       this.props.getSpendings(this.props.user.id, this.props.dateRange);
     }
   }
+
+  editSpending = (spendingID) => {
+    console.log(spendingID);
+  };
+
+  deleteSpending = (spendingID) => {
+    this.props.deleteSpending(spendingID);
+  };
 
   render() {
     const { isLoading } = this.props;
@@ -43,6 +52,8 @@ class Spendings extends Component {
                       total={0}
                       isLoading={isLoading}
                       user={this.props.user}
+                      editSpending={this.editSpending}
+                      deleteSpending={this.deleteSpending}
                     />
                   ))
                 }
@@ -69,6 +80,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getSpendings: (userID, dateRange) => dispatch(getSpendings(userID, dateRange)),
+    deleteSpending: (spendingID) => dispatch(deleteSpending(spendingID)),
     // createSpending: (spending) => dispatch(createSpending(spending)),
   };
 };

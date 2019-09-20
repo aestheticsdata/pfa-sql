@@ -23,7 +23,7 @@ const StyledSpendingItem = styled.div`
       .label {
         position: absolute;
         width: 150px;
-        height: 15px;
+        height: 18px;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;

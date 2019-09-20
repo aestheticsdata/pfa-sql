@@ -48,16 +48,8 @@ class SpendingDayItem extends Component {
     this.setState({ isModalVisible: false });
   };
 
-  editCallback = (spendingID) => {
-    console.log(spendingID);
-  };
-
-  deleteCallback = (spendingID) => {
-    console.log(spendingID);
-  };
-
   render() {
-    const { spendingsByDay } = this.props;
+    const { spendingsByDay, editSpending, deleteSpending } = this.props;
     const { lang } = this.state;
 
     return (
@@ -123,8 +115,8 @@ class SpendingDayItem extends Component {
                         <SpendingItem
                           key={spending._id}
                           spending={spending}
-                          editCallback={this.editCallback}
-                          deleteCallback={this.deleteCallback}
+                          editCallback={editSpending}
+                          deleteCallback={deleteSpending}
                         />
                       )
                     })

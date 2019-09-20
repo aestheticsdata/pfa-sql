@@ -1,5 +1,6 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { privateRequest } from '../../helpers/requestHelper';
+import Swal from 'sweetalert2';
 
 import {
   CREATE_SPENDING,
@@ -13,7 +14,8 @@ import {
   getSpendings,
 } from './actions';
 
-import Swal from 'sweetalert2';
+
+import { displayPopup } from '../../helpers/swalHelper';
 import {intl} from '../../index';
 import messages from './messages';
 
@@ -35,14 +37,7 @@ export function* onCreateSpending(payload) {
       method: 'POST',
       data: payload.spending,
     });
-    Swal.fire({
-      text: intl.formatMessage({ ...messages.createSuccess }),
-      type: 'success',
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000,
-    });
+    displayPopup({ text: intl.formatMessage({ ...messages.createSuccess }) });
     const dateRange = yield select(state => state.dateRangeReducer.dateRange);
     yield put(getSpendings(payload.spending.userID, dateRange));
   } catch (err) {
@@ -55,14 +50,10 @@ export function* onDeleteSpending(payload) {
     yield call(privateRequest, `spendings/${payload.id}`, {
       method: 'DELETE',
     });
-    Swal.fire({
-      text: 'spending deleted',
-      type: 'success',
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000,
-    });
+    displayPopup({text: 'spending deleted'});
+    const userID = yield select(state => state.loginReducer.user.id);
+    const dateRange = yield select(state => state.dateRangeReducer.dateRange);
+    yield put(getSpendings(userID, dateRange));
   } catch (err) {
     console.log(`error while deleting spending :${err}`);
   }
