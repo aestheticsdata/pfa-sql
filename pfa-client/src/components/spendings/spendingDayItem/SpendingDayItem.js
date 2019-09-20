@@ -16,6 +16,7 @@ import { ReactComponent as Spinner } from './Wedges-3s-200px.svg';
 // import { ReactComponent as Spinner } from './Bars-1s-200px.svg';
 
 import SpendingModal from './spendingModal/SpendingModal';
+import SpendingItem from './spendingItem/SpendingItem';
 
 
 class SpendingDayItem extends Component {
@@ -110,19 +111,10 @@ class SpendingDayItem extends Component {
                     :
                     spendingsByDay.map(spending => {
                       return (
-                        <div
+                        <SpendingItem
                           key={spending._id}
-                          className="spending"
-                        >
-                          <span className="label" title={spending.label}>{spending.label}</span>
-                          <span className="amount">
-                            <FormattedNumber
-                              value={spending.amount}
-                              style="currency"
-                              currency={spending.currency}
-                            />
-                          </span>
-                        </div>
+                          spending={spending}
+                        />
                       )
                     })
                   :
