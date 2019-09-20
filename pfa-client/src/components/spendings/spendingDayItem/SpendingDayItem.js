@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import format from 'date-fns/format';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare, faPen, faPenAlt, faPencilAlt, faTrash, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 import Cookie from 'js-cookie';
 

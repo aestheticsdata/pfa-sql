@@ -8,6 +8,8 @@ const colors = {
   calendarBackground: 'rgb(42, 42, 42)',
   addSpending: 'rgb(26,58,12)',
   addSpendingHover: 'rgb(58,172,249)',
+  spendingItemHover: 'rgb(165, 236, 255)',
+  spendingActionHover: 'rgb(42,112,164)',
 };
 
 export default colors;
