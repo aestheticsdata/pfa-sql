@@ -23,7 +23,7 @@ class SpendingItem extends Component {
   };
 
   render() {
-    const { spending } = this.props;
+    const { spending, editCallback, deleteCallback } = this.props;
     return (
       <StyledSpendingItem>
         <div
@@ -36,10 +36,16 @@ class SpendingItem extends Component {
             {
               this.state.hover ?
                 <>
-                  <span className="edit action">
+                  <span
+                    className="edit action"
+                    onClick={() => editCallback(spending._id)}
+                  >
                     <FontAwesomeIcon icon={faPencilAlt} />
                   </span>
-                  <span className="delete action">
+                  <span
+                    className="delete action"
+                    onClick={() => deleteCallback(spending._id)}
+                  >
                     <FontAwesomeIcon icon={faTrashAlt} />
                   </span>
                 </>

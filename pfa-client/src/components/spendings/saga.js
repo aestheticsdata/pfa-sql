@@ -3,6 +3,7 @@ import { privateRequest } from '../../helpers/requestHelper';
 
 import {
   CREATE_SPENDING,
+  DELETE_SPENDING,
   GET_SPENDINGS,
   GET_USERS
 } from './constants';
@@ -11,6 +12,7 @@ import {
   getSpendingsSuccess,
   getSpendings,
 } from './actions';
+
 import Swal from 'sweetalert2';
 import {intl} from '../../index';
 import messages from './messages';
@@ -48,6 +50,24 @@ export function* onCreateSpending(payload) {
   }
 }
 
+export function* onDeleteSpending(payload) {
+  try {
+    yield call(privateRequest, `spendings/${payload.id}`, {
+      method: 'DELETE',
+    });
+    Swal.fire({
+      text: 'spending deleted',
+      type: 'success',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+    });
+  } catch (err) {
+    console.log(`error while deleting spending :${err}`);
+  }
+}
+
 export function* onGetSpendings(payload) {
   if (payload.dateRange.from) {
     try {
@@ -64,4 +84,5 @@ export default function* defaultSaga() {
   yield takeLatest(GET_USERS, onGetUser);
   yield takeLatest(CREATE_SPENDING, onCreateSpending);
   yield takeLatest(GET_SPENDINGS, onGetSpendings);
+  yield takeLatest(DELETE_SPENDING, onDeleteSpending);
 }

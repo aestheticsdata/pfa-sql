@@ -12,6 +12,7 @@ import en from "date-fns/locale/en-US";
 
 import { FormattedNumber } from 'react-intl';
 
+
 import { ReactComponent as Spinner } from './Wedges-3s-200px.svg';
 // import { ReactComponent as Spinner } from './Bars-1s-200px.svg';
 
@@ -45,6 +46,14 @@ class SpendingDayItem extends Component {
 
   closeModal = () => {
     this.setState({ isModalVisible: false });
+  };
+
+  editCallback = (spendingID) => {
+    console.log(spendingID);
+  };
+
+  deleteCallback = (spendingID) => {
+    console.log(spendingID);
   };
 
   render() {
@@ -114,6 +123,8 @@ class SpendingDayItem extends Component {
                         <SpendingItem
                           key={spending._id}
                           spending={spending}
+                          editCallback={this.editCallback}
+                          deleteCallback={this.deleteCallback}
                         />
                       )
                     })

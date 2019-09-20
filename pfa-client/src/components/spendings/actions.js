@@ -1,6 +1,7 @@
 import {
   GET_USERS,
   CREATE_SPENDING,
+  DELETE_SPENDING,
   GET_SPENDINGS,
   GET_SPENDINGS_SUCCESS,
 } from './constants';
@@ -16,6 +17,13 @@ export const createSpending = (spending) => {
     type: CREATE_SPENDING,
     spending,
   };
+};
+
+export const deleteSpending = (spendingID) => {
+  return {
+    type: DELETE_SPENDING,
+    id: spendingID
+  }
 };
 
 export const getSpendings = (userID, dateRange) => {
