@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import format from 'date-fns/format';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare} from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faPen, faPenAlt, faPencilAlt, faTrash, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 import Cookie from 'js-cookie';
 
@@ -105,7 +105,7 @@ class SpendingDayItem extends Component {
                 spendingsByDay ?
                   this.props.isLoading ?
                     <div className="spinner">
-                      <Spinner width="40px" height="40px" />
+                      <Spinner width="60px" height="60px" />
                     </div>
                     :
                     spendingsByDay.map(spending => {

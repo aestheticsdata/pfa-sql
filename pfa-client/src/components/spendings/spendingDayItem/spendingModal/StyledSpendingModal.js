@@ -7,8 +7,8 @@ const StyledSpendingModal = styled.div`
   border-radius: 5px;
   position: absolute;
   width: 298px;
-  height: 241px;
-  top: 31px;
+  height: 247px;
+  top: 33px;
   right: 0;
 `;
 

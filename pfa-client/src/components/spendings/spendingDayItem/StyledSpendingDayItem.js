@@ -13,6 +13,7 @@ const StyledSpendingDayItem = styled.div`
   
   .spending-modal {
     position: relative;
+    z-index: 1;
   }
   
   .header {
@@ -71,7 +72,7 @@ const StyledSpendingDayItem = styled.div`
     
     .spinner {
       text-align: center;
-      padding-top: 70px;
+      padding-top: 60px;
     }
 
     .spending {
