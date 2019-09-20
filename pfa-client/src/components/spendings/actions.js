@@ -3,7 +3,6 @@ import {
   CREATE_SPENDING,
   GET_SPENDINGS,
   GET_SPENDINGS_SUCCESS,
-  CREATE_SPENDING_SUCCESS,
 } from './constants';
 
 export const getUsers = () => {
@@ -35,9 +34,4 @@ export const getSpendingsSuccess = (spendings, dateRange) => {
   };
 };
 
-export const createSpendingSuccess = () => {
-  return {
-    type: CREATE_SPENDING_SUCCESS,
-  }
-};
 

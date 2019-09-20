@@ -24,6 +24,8 @@
   "app.components.Navbar.stats": "Statistics",
   "app.components.Navbar.globalCurrency": "Global currency",
 
+  "app.components.Spendings.createSuccess": "New spending added",
+
   "app.helpers.requestHelper.expiredToken": "Session has expired'",
   "app.helpers.requestHelper.text": "You will be redirected to login",
 

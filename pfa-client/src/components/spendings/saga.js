@@ -3,18 +3,17 @@ import { privateRequest } from '../../helpers/requestHelper';
 
 import {
   CREATE_SPENDING,
-  CREATE_SPENDING_SUCCESS,
   GET_SPENDINGS,
   GET_USERS
 } from './constants';
 
 import {
   getSpendingsSuccess,
-  createSpendingSuccess,
+  getSpendings,
 } from './actions';
 import Swal from 'sweetalert2';
 import {intl} from '../../index';
-import messages from '../changePassword/messages';
+import messages from './messages';
 
 
 export function* onGetUser() {
@@ -28,30 +27,28 @@ export function* onGetUser() {
   }
 }
 
-export function* createSpending(payload) {
+export function* onCreateSpending(payload) {
   try {
     yield call(privateRequest, '/spendings/add', {
       method: 'POST',
       data: payload.spending,
     });
     Swal.fire({
-      title: 'cool',
-      // title: intl.formatMessage({ ...messages.changePasswordSuccessTitle }),
-      text: 'nouveau spending',
-      // text: intl.formatMessage({ ...messages.changePasswordSuccessText }),
+      text: intl.formatMessage({ ...messages.createSuccess }),
       type: 'success',
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
       timer: 3000,
     });
-    yield put(createSpendingSuccess());
+    const dateRange = yield select(state => state.dateRangeReducer.dateRange);
+    yield put(getSpendings(payload.spending.userID, dateRange));
   } catch (err) {
     console.log('error while creating spending', err);
   }
 }
 
-export function* getSpendings(payload) {
+export function* onGetSpendings(payload) {
   try {
     const res = yield call(privateRequest, `/spendings?userID=${payload.userID}&from=${payload.dateRange.from}&to=${payload.dateRange.to}`);
     const dateRange = yield select(state => state.dateRangeReducer.dateRange.range);
@@ -63,7 +60,6 @@ export function* getSpendings(payload) {
 
 export default function* defaultSaga() {
   yield takeLatest(GET_USERS, onGetUser);
-  yield takeLatest(CREATE_SPENDING, createSpending);
-  yield takeLatest(GET_SPENDINGS, getSpendings);
-  // yield takeLatest(CREATE_SPENDING_SUCCESS, getSpendings);
+  yield takeLatest(CREATE_SPENDING, onCreateSpending);
+  yield takeLatest(GET_SPENDINGS, onGetSpendings);
 }
