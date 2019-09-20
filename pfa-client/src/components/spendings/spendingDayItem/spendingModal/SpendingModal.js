@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import format from 'date-fns/format';
+
 import {
   Formik,
   Form,
@@ -15,7 +17,10 @@ import StyledSpendingModal from './StyledSpendingModal';
 const SpendingModal = (props) => {
   const onSubmit = (values, { setSubmitting }) => {
     const spending = {
-      date: props.date,
+      // this format date is required to avoid inconsistency
+      // when axios convert date in POST request
+      date: format(props.date, 'yyyy-MM-dd'),
+      // ///////////////////////////////////////////////////
       label: values.label,
       amount: values.amount,
       category: values.category,

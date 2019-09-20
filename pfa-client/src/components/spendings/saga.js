@@ -2,7 +2,8 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { privateRequest } from '../../helpers/requestHelper';
 
 import {
-  CREATE_SPENDING, CREATE_SPENDING_SUCCESS,
+  CREATE_SPENDING,
+  CREATE_SPENDING_SUCCESS,
   GET_SPENDINGS,
   GET_USERS
 } from './constants';
@@ -64,5 +65,5 @@ export default function* defaultSaga() {
   yield takeLatest(GET_USERS, onGetUser);
   yield takeLatest(CREATE_SPENDING, createSpending);
   yield takeLatest(GET_SPENDINGS, getSpendings);
-  yield takeLatest(CREATE_SPENDING_SUCCESS, getSpendings);
+  // yield takeLatest(CREATE_SPENDING_SUCCESS, getSpendings);
 }

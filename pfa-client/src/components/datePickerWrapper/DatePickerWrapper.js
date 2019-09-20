@@ -12,6 +12,7 @@ import isSameMonth from 'date-fns/isSameMonth';
 import getDate from 'date-fns/getDate';
 import getDay from 'date-fns/getDay';
 import lastDayOfMonth from 'date-fns/lastDayOfMonth';
+import setHours from 'date-fns/setHours';
 
 import fr from 'date-fns/locale/fr';
 import en from 'date-fns/locale/en-US';
@@ -56,14 +57,15 @@ export const getWeekDays = (weekStart, date) => {
   if (!isSameMonth(startOfWeek(date), date) || !isSameMonth(endOfWeek(date), date)) {
     if (getDate(date) > 15) {
       dateRange = {
-        from: subDays(date, getDay(date)),
+        // setHours force the 'from" to be at midnight and not noon
+        from: setHours(subDays(date, getDay(date)), 0),
         to: lastDayOfMonth(date),
       };
     } else {
       dateRange = {
         from: startOfMonth(date),
         to: endOfWeek(date),
-      }
+      };
     }
   } else {
     dateRange = {
@@ -194,6 +196,7 @@ class DatePickerWrapper extends Component {
           {
             this.state.isCalendarVisible ?
               <DayPicker
+                initialMonth={selectedDays[0]}
                 months={localesDates[lang].MONTHS}
                 weekdaysLong={localesDates[lang].WEEKDAYS_LONG}
                 weekdaysShort={localesDates[lang].WEEKDAYS_SHORT}
