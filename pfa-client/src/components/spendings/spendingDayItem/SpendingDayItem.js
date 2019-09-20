@@ -89,6 +89,7 @@ class SpendingDayItem extends Component {
                 {
                   spendingsByDay ?
                     <span className="total-amount">
+                      {/* eslint-disable  react/style-prop-object */}
                       <FormattedNumber
                         value={spendingsByDay.total}
                         style="currency"

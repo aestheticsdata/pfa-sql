@@ -68,28 +68,37 @@ const StyledSpendingDayItem = styled.div`
     height: 200px;
     overflow-y: auto;
     
+    
     .spinner {
       text-align: center;
       padding-top: 70px;
     }
 
     .spending {
-      margin: 5px 10px;
+      position: relative;
+      margin: 0 10px;
       width: 94%;
-      height: 15px;
+      height: 18px;
+      padding: 14px 0;
+      
+      &:hover {
+        background-color: #a5ecff;
+      }
       
       .label {
-        display: inline-block;
-        float: left;
-        margin-right: 10px;
-        width: 180px;
+        position: absolute;
+        top: 5px;
+        width: 150px;
+        height: 15px;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
       }
       
       .amount {
-        float: right;
+        position: absolute;
+        top: 5px;
+        right: 0;
       }
     }
   }

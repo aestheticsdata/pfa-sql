@@ -1,5 +1,4 @@
 import produce from 'immer';
-import _ from 'lodash';
 import getDate from 'date-fns/getDate';
 import parseISO from 'date-fns/parseISO';
 

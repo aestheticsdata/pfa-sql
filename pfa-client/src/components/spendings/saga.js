@@ -49,12 +49,14 @@ export function* onCreateSpending(payload) {
 }
 
 export function* onGetSpendings(payload) {
-  try {
-    const res = yield call(privateRequest, `/spendings?userID=${payload.userID}&from=${payload.dateRange.from}&to=${payload.dateRange.to}`);
-    const dateRange = yield select(state => state.dateRangeReducer.dateRange.range);
-    yield put(getSpendingsSuccess(res.data, dateRange));
-  } catch (err) {
-    console.log('error while getting spendings', err);
+  if (payload.dateRange.from) {
+    try {
+      const res = yield call(privateRequest, `/spendings?userID=${payload.userID}&from=${payload.dateRange.from}&to=${payload.dateRange.to}`);
+      const dateRange = yield select(state => state.dateRangeReducer.dateRange.range);
+      yield put(getSpendingsSuccess(res.data, dateRange));
+    } catch (err) {
+      console.log('error while getting spendings', err);
+    }
   }
 }
 

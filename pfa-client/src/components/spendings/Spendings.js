@@ -7,7 +7,6 @@ import SpendingDayItem from './spendingDayItem/SpendingDayItem';
 
 import {
   getSpendings,
-  createSpending,
 } from './actions';
 
 class Spendings extends Component {
