@@ -24,7 +24,12 @@ const getCurrencyConversion = (spending, exchangeRates, baseCurrency) => {
   if (spending.currency === baseCurrency) {
     amount = spending.amount;
   } else {
-    amount = spending.amount * exchangeRates[spending.currency][baseCurrency];
+    if (exchangeRates !== null && exchangeRates[spending.currency] !== null) {
+      amount = spending.amount * exchangeRates[spending.currency][baseCurrency];
+    } else {
+      amount = 0;
+      localStorage.setItem('exchangeRatesIssue', true);
+    }
   }
 
   return amount;

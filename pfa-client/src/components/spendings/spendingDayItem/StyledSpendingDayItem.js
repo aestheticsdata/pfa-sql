@@ -60,6 +60,9 @@ const StyledSpendingDayItem = styled.div`
     margin: 10px 0;
     border-bottom: 1px solid ${colors.grey2};
     padding-bottom: 10px;
+    &.warning {
+      color: ${colors.warningNoCurrenciesRates};
+    }
     
     .total-label {
       text-transform: uppercase;

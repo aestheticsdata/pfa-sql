@@ -12,6 +12,7 @@ const colors = {
   spendingActionHover: 'rgb(42,112,164)',
   warningDelete: 'rgb(247, 8, 8)',
   warningDeleteBackground: 'rgb(255, 235, 59)',
+  warningNoCurrenciesRates: 'rgb(255,16,14)',
   datePickerWrapper: 'rgb(83, 255, 131)',
   datePickerWrapperBackground: 'rgb(74, 107, 109)',
 };

@@ -11,7 +11,8 @@ import fr from "date-fns/locale/fr";
 import en from "date-fns/locale/en-US";
 
 import { FormattedNumber } from 'react-intl';
-
+import { injectIntl } from 'react-intl';
+import messages from '../messages';
 
 import { ReactComponent as Spinner } from './spendingModal/assets/Wedges-3s-200px.svg';
 
@@ -28,6 +29,7 @@ class SpendingDayItem extends Component {
       addSpendingEnabled: true,
       spending: {},
       isEditing: false,
+      exchangeRatesIssue: !!JSON.parse(localStorage.getItem('exchangeRatesIssue')) || false,
     }
   }
 
@@ -41,6 +43,7 @@ class SpendingDayItem extends Component {
       formatString: 'MMM do y',
     },
   };
+
 
   addSpending = () => {
     this.setState({ isModalVisible: true });
@@ -138,7 +141,10 @@ class SpendingDayItem extends Component {
                     </div>
                 }
               </div>
-              <div className="total">
+              <div
+                className={`total ${this.state.exchangeRatesIssue && 'warning'}`}
+                title={this.props.intl.formatMessage({ ...messages.noRates })}
+              >
                 <span className="total-label">Total</span>
                 {
                   spendingsByDay ?
@@ -165,4 +171,4 @@ class SpendingDayItem extends Component {
   }
 }
 
-export default SpendingDayItem;
+export default injectIntl(SpendingDayItem);

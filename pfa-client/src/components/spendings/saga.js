@@ -91,18 +91,22 @@ export function* getCurrenciesRates(currenciesInSpendings) {
   const currenciesRatesSaved = JSON.parse(localStorage.getItem('currenciesRates'));
 
   if (!currenciesRatesSaved || differenceInCalendarDays(new Date(), parseISO(currenciesRatesSaved.date)) >= 1) {
-    const exchangeRates = yield all(
-      currenciesInSpendings.map(
-        currency => call(request, `https://api.exchangeratesapi.io/latest?base=${currency}`, CORSoptions)
-      )
-    );
-    let rates = {};
-    const ratesMap = _.map(exchangeRates, 'data');
-    ratesMap.map(rate => {
-      rates[rate.base] = rate.rates;
-      !rates.date && (rates.date = new Date());
-    });
-    localStorage.setItem('currenciesRates', JSON.stringify(rates));
+    try {
+      const exchangeRates = yield all(
+        currenciesInSpendings.map(
+          currency => call(request, `https://api.exchangeratesapi.io/latest?base=${currency}`, CORSoptions)
+        )
+      );
+      let rates = {};
+      const ratesMap = _.map(exchangeRates, 'data');
+      ratesMap.map(rate => {
+        rates[rate.base] = rate.rates;
+        !rates.date && (rates.date = new Date());
+      });
+      localStorage.setItem('currenciesRates', JSON.stringify(rates));
+    } catch (err) {
+      console.log(`error while getting currencies rates: ${err}`);
+    }
   }
 }
 
