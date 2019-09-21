@@ -4,3 +4,4 @@ export const UPDATE_SPENDING = 'app/spendings/UPDATE_SPENDING';
 export const DELETE_SPENDING = 'app/spendings/DELETE_SPENDING';
 export const GET_SPENDINGS = 'app/spendings/GET_SPENDINGS';
 export const GET_SPENDINGS_SUCCESS = 'app/spendings/GET_SPENDINGS_SUCCESS';
+export const GET_EXCHANGE_RATES_SUCCESS = 'app/spendings/GET_EXCHANGE_RATES_SUCCESS';

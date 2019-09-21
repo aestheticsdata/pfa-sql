@@ -1,5 +1,7 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { privateRequest } from '../../helpers/requestHelper';
+import { privateRequest, request } from '../../helpers/requestHelper';
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
+import parseISO from 'date-fns/parseISO';
 
 import {
   CREATE_SPENDING,
@@ -12,12 +14,14 @@ import {
 import {
   getSpendingsSuccess,
   getSpendings,
+  getExchangeRateSuccess,
 } from './actions';
 
 
 import { displayPopup } from '../../helpers/swalHelper';
 import { intl } from '../../index';
 import messages from './messages';
+import {parse} from '@fortawesome/fontawesome-svg-core';
 
 
 export function* onGetUser() {
@@ -76,7 +80,25 @@ export function* onDeleteSpending(payload) {
 export function* onGetSpendings(payload) {
   if (payload.dateRange.from) {
     try {
-      const res = yield call(privateRequest, `/spendings?userID=${payload.userID}&from=${payload.dateRange.from}&to=${payload.dateRange.to}`);
+      // //////////////////////////////////////////////////////
+      // see https://stackoverflow.com/a/46836144/2466369 /////
+      const CORSoptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        }
+      };
+
+      const currenciesRatesSaved = JSON.parse(localStorage.getItem('currenciesRates'));
+
+      if (differenceInCalendarDays(new Date(), parseISO(currenciesRatesSaved.date)) >= 1) {
+        const currenciesRates = yield call(request, `https://api.exchangeratesapi.io/latest?base=${payload.user.baseCurrency}`, CORSoptions);
+        const localStorageCurrenciesRates = {rates: currenciesRates.data.rates, date: new Date()};
+        localStorage.setItem('currenciesRates', JSON.stringify(localStorageCurrenciesRates));
+      }
+      // //////////////////////////////////////////////////////
+
+      const res = yield call(privateRequest, `/spendings?userID=${payload.user.id}&from=${payload.dateRange.from}&to=${payload.dateRange.to}`);
       const dateRange = yield select(state => state.dateRangeReducer.dateRange.range);
       yield put(getSpendingsSuccess(res.data, dateRange));
     } catch (err) {

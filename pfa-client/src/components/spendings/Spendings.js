@@ -14,13 +14,14 @@ class Spendings extends Component {
   componentDidMount() {
     if (this.props.user.id && this.props.dateRange) {
       // needed when coming from login but causes a 404 with componentDidUpadte
-      this.props.getSpendings(this.props.user.id, this.props.dateRange);
+
+      this.props.getSpendings(this.props.user, this.props.dateRange);
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.dateRange !== prevProps.dateRange) {
-      this.props.getSpendings(this.props.user.id, this.props.dateRange);
+      this.props.getSpendings(this.props.user, this.props.dateRange);
     }
   }
 
@@ -76,6 +77,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getSpendings: (userID, dateRange) => dispatch(getSpendings(userID, dateRange)),
     deleteSpending: (spendingID) => dispatch(deleteSpending(spendingID)),
+    // getExchangeRates: (baseCurrency) => dispatch(getCurrenciesExchangeRate(baseCurrency));
     // createSpending: (spending) => dispatch(createSpending(spending)),
   };
 };
