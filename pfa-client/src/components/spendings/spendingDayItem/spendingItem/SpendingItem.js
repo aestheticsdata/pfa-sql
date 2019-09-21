@@ -8,6 +8,7 @@ import StyledSpendingItem from './StyledSpendingItem';
 
 import messages from '../../messages';
 
+
 class SpendingItem extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +25,38 @@ class SpendingItem extends Component {
   onMouseLeave = () => {
     this.setState({ hover: false });
   };
+
+  hideConfirm = () => {
+    this.setState({ isDeleteConfirmVisible: false });
+  };
+
+  confirmDeletePopin = (spending, deleteCallback) => {
+    return (
+      <div className="confirm-delete-popin">
+                <span className="title">
+                  <FormattedMessage { ...messages.confirmDeleteTitle} />
+                </span>
+        <div className="button-container">
+          <button
+            className="cancel-button"
+            onClick={() => this.hideConfirm()}
+          >
+            <FormattedMessage { ...messages.confirmDeleteCancelButton } />
+          </button>
+          <button
+            className="confirm-button"
+            onClick={
+              () => {
+                this.hideConfirm();
+                deleteCallback(spending._id);
+              }
+            }>
+            <FormattedMessage { ...messages.confirmDeleteConfirmButton} />
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   render() {
     const { spending, editCallback, deleteCallback } = this.props;
@@ -68,29 +101,7 @@ class SpendingItem extends Component {
                 </span>
               </div>
               :
-              <div className="confirm-delete-popin">
-                <span className="title">
-                  <FormattedMessage { ...messages.confirmDeleteTitle} />
-                </span>
-                <div className="button-container">
-                  <button
-                    className="cancel-button"
-                    onClick={() => this.setState({ isDeleteConfirmVisible: false })}
-                  >
-                    <FormattedMessage { ...messages.confirmDeleteCancelButton } />
-                  </button>
-                  <button
-                    className="confirm-button"
-                    onClick={
-                      () => {
-                        this.setState({ isDeleteConfirmVisible: false });
-                        deleteCallback(spending._id);
-                      }
-                    }>
-                    <FormattedMessage { ...messages.confirmDeleteConfirmButton} />
-                  </button>
-                </div>
-              </div>
+              this.confirmDeletePopin(spending, deleteCallback)
           }
         </div>
       </StyledSpendingItem>

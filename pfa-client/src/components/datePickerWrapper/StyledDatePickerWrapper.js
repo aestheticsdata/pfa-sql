@@ -10,14 +10,15 @@ const StyledDatePickerWrapper = styled.div`
   // ///////////////////////////////////////////////
   
   .caption {
-    border: 1px solid #53ff83;
+    border: 1px solid ${colors.datePickerWrapper};
+    border-radius: 3px;
     cursor: pointer;
     text-align: center;
-    background-color: rgb(74, 107, 109);
+    background-color: ${colors.datePickerWrapperBackground};
     margin-bottom: 5px;
     padding: 5px;
     width: 215px;
-    color: #53ff83;
+    color: ${colors.datePickerWrapper};;
     user-select: none;
   }
   .date-picker {
