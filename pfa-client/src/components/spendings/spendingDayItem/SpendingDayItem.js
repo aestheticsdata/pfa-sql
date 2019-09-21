@@ -13,8 +13,7 @@ import en from "date-fns/locale/en-US";
 import { FormattedNumber } from 'react-intl';
 
 
-import { ReactComponent as Spinner } from './Wedges-3s-200px.svg';
-// import { ReactComponent as Spinner } from './Bars-1s-200px.svg';
+import { ReactComponent as Spinner } from './spendingModal/assets/Wedges-3s-200px.svg';
 
 import SpendingModal from './spendingModal/SpendingModal';
 import SpendingItem from './spendingItem/SpendingItem';
@@ -26,6 +25,7 @@ class SpendingDayItem extends Component {
     this.state = {
       lang: Cookie.get('lang'),
       isModalVisible: false,
+      addSpendingEnabled: true,
     }
   }
 
@@ -48,9 +48,13 @@ class SpendingDayItem extends Component {
     this.setState({ isModalVisible: false });
   };
 
+  toggleAddSpending = () => {
+    this.setState({ addSpendingEnabled: !this.state.addSpendingEnabled });
+  };
+
   render() {
     const { spendingsByDay, editSpending, deleteSpending } = this.props;
-    const { lang } = this.state;
+    const { lang, addSpendingEnabled } = this.state;
 
     return (
       <>
@@ -79,12 +83,19 @@ class SpendingDayItem extends Component {
                       null
                   }
                 </div>
-                <div
-                  className="add-spending"
-                  onClick={this.addSpending}
-                >
-                  <FontAwesomeIcon icon={faPlusSquare} />
-                </div>
+                {
+                  addSpendingEnabled ?
+                    <div
+                      className="add-spending"
+                      onClick={this.addSpending}
+                    >
+                      <FontAwesomeIcon icon={faPlusSquare} />
+                    </div>
+                    :
+                    <div className="add-spending disabled">
+                      <FontAwesomeIcon icon={faPlusSquare} />
+                    </div>
+                }
               </div>
               <div className="total">
                 <span className="total-label">Total</span>
@@ -117,6 +128,7 @@ class SpendingDayItem extends Component {
                           spending={spending}
                           editCallback={editSpending}
                           deleteCallback={deleteSpending}
+                          toggleAddSpending={this.toggleAddSpending}
                         />
                       )
                     })

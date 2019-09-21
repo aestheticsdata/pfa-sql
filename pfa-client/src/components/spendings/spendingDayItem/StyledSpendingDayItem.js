@@ -44,6 +44,13 @@ const StyledSpendingDayItem = styled.div`
       &:hover {
         color: ${colors.addSpendingHover};
       }
+      
+      &.disabled {
+        cursor: not-allowed;
+        &:hover {
+          color: ${colors.grey1};
+        }
+      }
     }
   
   }

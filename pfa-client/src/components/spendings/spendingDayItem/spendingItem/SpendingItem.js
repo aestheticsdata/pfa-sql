@@ -27,6 +27,7 @@ class SpendingItem extends Component {
   };
 
   hideConfirm = () => {
+    this.props.toggleAddSpending();
     this.setState({ isDeleteConfirmVisible: false });
   };
 
@@ -59,7 +60,12 @@ class SpendingItem extends Component {
   }
 
   render() {
-    const { spending, editCallback, deleteCallback } = this.props;
+    const {
+      spending,
+      editCallback,
+      deleteCallback,
+      toggleAddSpending,
+    } = this.props;
     const { isDeleteConfirmVisible } = this.state;
 
     return (
@@ -84,7 +90,12 @@ class SpendingItem extends Component {
                       </span>
                       <span
                         className="delete action"
-                        onClick={() => this.setState({ isDeleteConfirmVisible: true })}
+                        onClick={
+                          () => {
+                            toggleAddSpending();
+                            this.setState({ isDeleteConfirmVisible: true });
+                          }
+                        }
                       >
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </span>
