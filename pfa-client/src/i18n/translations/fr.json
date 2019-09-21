@@ -32,6 +32,7 @@
   "app.components.Spendings.confirmDeleteConfirmButton": "Effacer",
   "app.components.Spendings.editModalButton": "Mettre à jour",
   "app.components.Spendings.createModalButton": "Créer",
+  "app.components.Spendings.cancelModalButton": "Annuler",
 
   "app.helpers.requestHelper.expiredToken": "La session a expiré",
   "app.helpers.requestHelper.text": "Vous allez être redirigé vers la page de connexion",

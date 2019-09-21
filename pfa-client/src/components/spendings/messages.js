@@ -23,6 +23,10 @@ export default defineMessages({
     id: `${scope}.createModalButton`,
     defaultMessage: 'Create',
   },
+  cancelModalButton: {
+    id: `${scope}.cancelModalButton`,
+    defaultMessage: 'Cancel',
+  },
   confirmDeleteTitle: {
     id: `${scope}.confirmDeleteTitle`,
     defaultMessage: 'Confirm delete ?',

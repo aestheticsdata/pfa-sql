@@ -33,7 +33,7 @@ const SpendingModal = (props) => {
       id: props.spending._id,
     };
 
-    spending.label ?
+    props.isEditing ?
       props.updateSpending(spending)
       :
       props.createSpending(spending);
@@ -73,10 +73,10 @@ const SpendingModal = (props) => {
               <button
                 type="submit"
                 disabled={isSubmitting || errors.email || errors.password}
-                className="shared-login-submit-btn"
+                className="spending-btn submit"
               >
                 {
-                  props.spending.label ?
+                  props.isEditing ?
                     <FormattedMessage { ...messages.editModalButton } />
                     :
                     <FormattedMessage { ...messages.createModalButton } />
@@ -85,9 +85,10 @@ const SpendingModal = (props) => {
               <button
                 type="reset"
                 value="Reset"
+                className="spending-btn cancel"
                 onClick={() => props.closeModal()}
               >
-                Close
+                <FormattedMessage { ...messages.cancelModalButton } />
               </button>
             </Form>
           )}

@@ -27,6 +27,7 @@ class SpendingDayItem extends Component {
       isModalVisible: false,
       addSpendingEnabled: true,
       spending: {},
+      isEditing: false,
     }
   }
 
@@ -50,6 +51,7 @@ class SpendingDayItem extends Component {
     this.setState({ isModalVisible: false });
     this.setState({ addSpendingEnabled: true });
     this.setState({ spending: {} });
+    this.setState({ isEditing: false });
   };
 
   toggleAddSpending = () => {
@@ -57,6 +59,7 @@ class SpendingDayItem extends Component {
   };
 
   editSpending = (spending) => {
+    this.setState({ isEditing: true });
     this.setState({ isModalVisible: true });
     this.setState({ addSpendingEnabled: false });
     this.setState({ spending });
@@ -106,6 +109,7 @@ class SpendingDayItem extends Component {
                       closeModal={this.closeModal}
                       user={this.props.user}
                       spending={this.state.spending}
+                      isEditing={this.state.isEditing}
                     />
                     :
                     null
