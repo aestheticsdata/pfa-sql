@@ -4,7 +4,7 @@ const scope = 'app.helpers.requestHelper';
 
 export default defineMessages({
   expiredToken: {
-    id: `${scope}.title`,
+    id: `${scope}.expiredToken`,
     defaultMessage: 'Session has expired',
   },
   text: {

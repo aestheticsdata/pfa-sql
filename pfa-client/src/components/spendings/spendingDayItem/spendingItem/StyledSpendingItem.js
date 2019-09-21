@@ -8,6 +8,8 @@ const StyledSpendingItem = styled.div`
     width: 94%;
     height: 18px;
     padding: 14px 0;
+    background-color: ${colors.grey0};
+    transition: background-color 150ms linear;
   
     &:hover {
       background-color: ${colors.spendingItemHover};
@@ -38,6 +40,7 @@ const StyledSpendingItem = styled.div`
         position: absolute;
         cursor: pointer;
         color: ${colors.grey1};
+        transition: color 150ms linear;
         
         &:hover {
           color: ${colors.spendingActionHover};
