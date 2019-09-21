@@ -52,6 +52,32 @@ class SpendingDayItem extends Component {
     this.setState({ addSpendingEnabled: !this.state.addSpendingEnabled });
   };
 
+  spendingListContainer = (spendingsByDay, editSpending, deleteSpending) => (
+    <div className="spendings-list-container">
+      {
+        spendingsByDay ?
+          this.props.isLoading ?
+            <div className="spinner">
+              <Spinner width="60px" height="60px" />
+            </div>
+            :
+            spendingsByDay.map(spending => {
+              return (
+                <SpendingItem
+                  key={spending._id}
+                  spending={spending}
+                  editCallback={editSpending}
+                  deleteCallback={deleteSpending}
+                  toggleAddSpending={this.toggleAddSpending}
+                />
+              )
+            })
+          :
+          null
+      }
+    </div>
+  );
+
   render() {
     const { spendingsByDay, editSpending, deleteSpending } = this.props;
     const { lang, addSpendingEnabled } = this.state;
@@ -113,29 +139,7 @@ class SpendingDayItem extends Component {
                     null
                 }
               </div>
-              <div className="spendings-list-container">
-              {
-                spendingsByDay ?
-                  this.props.isLoading ?
-                    <div className="spinner">
-                      <Spinner width="60px" height="60px" />
-                    </div>
-                    :
-                    spendingsByDay.map(spending => {
-                      return (
-                        <SpendingItem
-                          key={spending._id}
-                          spending={spending}
-                          editCallback={editSpending}
-                          deleteCallback={deleteSpending}
-                          toggleAddSpending={this.toggleAddSpending}
-                        />
-                      )
-                    })
-                  :
-                  null
-              }
-              </div>
+              {this.spendingListContainer(spendingsByDay, editSpending, deleteSpending)}
             </div>
           </StyledSpendingDayItem>
           :
