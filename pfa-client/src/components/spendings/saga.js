@@ -16,7 +16,7 @@ import {
 
 
 import { displayPopup } from '../../helpers/swalHelper';
-import {intl} from '../../index';
+import { intl } from '../../index';
 import messages from './messages';
 
 
@@ -50,7 +50,7 @@ export function* onDeleteSpending(payload) {
     yield call(privateRequest, `spendings/${payload.id}`, {
       method: 'DELETE',
     });
-    displayPopup({text: 'spending deleted'});
+    displayPopup({ text: intl.formatMessage({ ...messages.deleteSuccess }) });
     const userID = yield select(state => state.loginReducer.user.id);
     const dateRange = yield select(state => state.dateRangeReducer.dateRange);
     yield put(getSpendings(userID, dateRange));

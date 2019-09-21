@@ -10,6 +10,8 @@ const colors = {
   addSpendingHover: 'rgb(58,172,249)',
   spendingItemHover: 'rgb(165, 236, 255)',
   spendingActionHover: 'rgb(42,112,164)',
+  warningDelete: '#f70808',
+  warningDeleteBackground: '#ffeb3b',
 };
 
 export default colors;
