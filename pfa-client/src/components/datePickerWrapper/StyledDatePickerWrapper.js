@@ -5,16 +5,20 @@ const StyledDatePickerWrapper = styled.div`
   position: relative;
   z-index: 3;
   
+  // to enable click to close on the left of caption
+  height: 0;
+  // ///////////////////////////////////////////////
+  
   .caption {
+    border: 1px solid #53ff83;
     cursor: pointer;
     text-align: center;
-    background-color: ${colors.calendarBackground};
+    background-color: rgb(74, 107, 109);
     margin-bottom: 5px;
     padding: 5px;
-    width: 210px;
-    color: #FFEB3B;
-    border-left: 1px solid #FFEB3B;
-    border-right: 1px solid #FFEB3B;
+    width: 215px;
+    color: #53ff83;
+    user-select: none;
   }
   .date-picker {
     background-color: ${colors.calendarBackground};
