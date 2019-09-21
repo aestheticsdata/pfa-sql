@@ -24,10 +24,6 @@ class Spendings extends Component {
     }
   }
 
-  editSpending = (spendingID) => {
-    console.log(spendingID);
-  };
-
   deleteSpending = (spendingID) => {
     this.props.deleteSpending(spendingID);
   };
@@ -52,7 +48,6 @@ class Spendings extends Component {
                       total={0}
                       isLoading={isLoading}
                       user={this.props.user}
-                      editSpending={this.editSpending}
                       deleteSpending={this.deleteSpending}
                     />
                   ))

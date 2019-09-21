@@ -1,6 +1,7 @@
 import {
   GET_USERS,
   CREATE_SPENDING,
+  UPDATE_SPENDING,
   DELETE_SPENDING,
   GET_SPENDINGS,
   GET_SPENDINGS_SUCCESS,
@@ -17,6 +18,13 @@ export const createSpending = (spending) => {
     type: CREATE_SPENDING,
     spending,
   };
+};
+
+export const updateSpending = (spending) => {
+  return {
+    type: UPDATE_SPENDING,
+    spending,
+  }
 };
 
 export const deleteSpending = (spendingID) => {

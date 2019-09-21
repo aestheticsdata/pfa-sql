@@ -26,9 +26,12 @@
 
   "app.components.Spendings.createSuccess": "New spending added",
   "app.components.Spendings.deleteSuccess": "Delete success",
+  "app.components.Spendings.updateSuccess": "Update success",
   "app.components.Spendings.confirmDeleteTitle": "Confirm delete ?",
   "app.components.Spendings.confirmDeleteCancelButton": "Cancel",
   "app.components.Spendings.confirmDeleteConfirmButton": "Delete",
+  "app.components.Spendings.editModalButton": "Update",
+  "app.components.Spendings.createModalButton": "Create",
 
   "app.helpers.requestHelper.expiredToken": "Session has expired'",
   "app.helpers.requestHelper.text": "You will be redirected to login",

@@ -26,6 +26,8 @@ class SpendingItem extends Component {
     this.setState({ hover: false });
   };
 
+  openEditModal = () => this.props.editCallback(this.props.spending);
+
   hideConfirm = () => {
     this.props.toggleAddSpending();
     this.setState({ isDeleteConfirmVisible: false });
@@ -56,8 +58,8 @@ class SpendingItem extends Component {
           </button>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   render() {
     const {
@@ -66,6 +68,7 @@ class SpendingItem extends Component {
       deleteCallback,
       toggleAddSpending,
     } = this.props;
+
     const { isDeleteConfirmVisible } = this.state;
 
     return (
@@ -84,7 +87,7 @@ class SpendingItem extends Component {
                     <>
                       <span
                         className="edit action"
-                        onClick={() => editCallback(spending._id)}
+                        onClick={() => this.openEditModal()}
                       >
                         <FontAwesomeIcon icon={faPencilAlt} />
                       </span>
@@ -104,6 +107,7 @@ class SpendingItem extends Component {
                     null
                 }
                 <span className="amount">
+                  {/* eslint-disable  react/style-prop-object */}
                   <FormattedNumber
                     value={spending.amount}
                     style="currency"

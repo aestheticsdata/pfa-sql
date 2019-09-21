@@ -26,9 +26,12 @@
 
   "app.components.Spendings.createSuccess": "Nouvelle dépense ajoutée",
   "app.components.Spendings.deleteSuccess": "Dépense effacée",
+  "app.components.Spendings.updateSuccess": "Dépense mise à jour",
   "app.components.Spendings.confirmDeleteTitle": "Confirmer l'effacement ?",
   "app.components.Spendings.confirmDeleteCancelButton": "Annuler",
   "app.components.Spendings.confirmDeleteConfirmButton": "Effacer",
+  "app.components.Spendings.editModalButton": "Mettre à jour",
+  "app.components.Spendings.createModalButton": "Créer",
 
   "app.helpers.requestHelper.expiredToken": "La session a expiré",
   "app.helpers.requestHelper.text": "Vous allez être redirigé vers la page de connexion",

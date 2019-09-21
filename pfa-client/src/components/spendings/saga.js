@@ -1,12 +1,12 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { privateRequest } from '../../helpers/requestHelper';
-import Swal from 'sweetalert2';
 
 import {
   CREATE_SPENDING,
+  UPDATE_SPENDING,
   DELETE_SPENDING,
   GET_SPENDINGS,
-  GET_USERS
+  GET_USERS,
 } from './constants';
 
 import {
@@ -45,9 +45,23 @@ export function* onCreateSpending(payload) {
   }
 }
 
+export function* onUpdateSpending(payload) {
+  try {
+    yield call(privateRequest, `/spendings/${payload.spending.id}`, {
+      method: 'PUT',
+      data: payload.spending,
+    });
+    displayPopup({ text: intl.formatMessage({ ...messages.updateSuccess }) });
+    const dateRange = yield select(state => state.dateRangeReducer.dateRange);
+    yield put(getSpendings(payload.spending.userID, dateRange));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export function* onDeleteSpending(payload) {
   try {
-    yield call(privateRequest, `spendings/${payload.id}`, {
+    yield call(privateRequest, `/spendings/${payload.id}`, {
       method: 'DELETE',
     });
     displayPopup({ text: intl.formatMessage({ ...messages.deleteSuccess }) });
@@ -76,4 +90,5 @@ export default function* defaultSaga() {
   yield takeLatest(CREATE_SPENDING, onCreateSpending);
   yield takeLatest(GET_SPENDINGS, onGetSpendings);
   yield takeLatest(DELETE_SPENDING, onDeleteSpending);
+  yield takeLatest(UPDATE_SPENDING, onUpdateSpending);
 }

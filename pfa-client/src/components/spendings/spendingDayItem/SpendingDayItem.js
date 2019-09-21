@@ -26,6 +26,7 @@ class SpendingDayItem extends Component {
       lang: Cookie.get('lang'),
       isModalVisible: false,
       addSpendingEnabled: true,
+      spending: {},
     }
   }
 
@@ -42,17 +43,26 @@ class SpendingDayItem extends Component {
 
   addSpending = () => {
     this.setState({ isModalVisible: true });
+    this.setState({ addSpendingEnabled: false });
   };
 
   closeModal = () => {
     this.setState({ isModalVisible: false });
+    this.setState({ addSpendingEnabled: true });
+    this.setState({ spending: {} });
   };
 
   toggleAddSpending = () => {
     this.setState({ addSpendingEnabled: !this.state.addSpendingEnabled });
   };
 
-  spendingListContainer = (spendingsByDay, editSpending, deleteSpending) => (
+  editSpending = (spending) => {
+    this.setState({ isModalVisible: true });
+    this.setState({ addSpendingEnabled: false });
+    this.setState({ spending });
+  };
+
+  spendingListContainer = (spendingsByDay, deleteSpending) => (
     <div className="spendings-list-container">
       {
         spendingsByDay ?
@@ -66,7 +76,7 @@ class SpendingDayItem extends Component {
                 <SpendingItem
                   key={spending._id}
                   spending={spending}
-                  editCallback={editSpending}
+                  editCallback={this.editSpending}
                   deleteCallback={deleteSpending}
                   toggleAddSpending={this.toggleAddSpending}
                 />
@@ -79,7 +89,7 @@ class SpendingDayItem extends Component {
   );
 
   render() {
-    const { spendingsByDay, editSpending, deleteSpending } = this.props;
+    const { spendingsByDay, deleteSpending } = this.props;
     const { lang, addSpendingEnabled } = this.state;
 
     return (
@@ -95,6 +105,7 @@ class SpendingDayItem extends Component {
                       date={this.props.date}
                       closeModal={this.closeModal}
                       user={this.props.user}
+                      spending={this.state.spending}
                     />
                     :
                     null
@@ -139,7 +150,7 @@ class SpendingDayItem extends Component {
                     null
                 }
               </div>
-              {this.spendingListContainer(spendingsByDay, editSpending, deleteSpending)}
+              {this.spendingListContainer(spendingsByDay, deleteSpending)}
             </div>
           </StyledSpendingDayItem>
           :

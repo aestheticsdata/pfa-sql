@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import format from 'date-fns/format';
+import {FormattedMessage} from 'react-intl';
 
 import {
   Formik,
@@ -9,8 +9,12 @@ import {
   Field,
 } from 'formik';
 
-import { createSpending } from '../../actions';
+import {
+  createSpending,
+  updateSpending,
+} from '../../actions';
 
+import messages from '../../messages';
 import StyledSpendingModal from './StyledSpendingModal';
 
 
@@ -26,9 +30,14 @@ const SpendingModal = (props) => {
       category: values.category,
       currency: props.user.baseCurrency,
       userID: props.user.id,
+      id: props.spending._id,
     };
 
-    props.createSpending(spending);
+    spending.label ?
+      props.updateSpending(spending)
+      :
+      props.createSpending(spending);
+
     props.closeModal();
     setSubmitting(false);
   };
@@ -38,9 +47,9 @@ const SpendingModal = (props) => {
       <div className="spending-modal-container">
         <Formik
           initialValues={{
-            label: '',
-            amount: '',
-            category: '',
+            label: props.spending.label || '',
+            amount: props.spending.amount || '',
+            category: props.spending.category || '',
           }}
           onSubmit={onSubmit}
         >
@@ -66,7 +75,12 @@ const SpendingModal = (props) => {
                 disabled={isSubmitting || errors.email || errors.password}
                 className="shared-login-submit-btn"
               >
-                Create spending
+                {
+                  props.spending.label ?
+                    <FormattedMessage { ...messages.editModalButton } />
+                    :
+                    <FormattedMessage { ...messages.createModalButton } />
+                }
               </button>
               <button
                 type="reset"
@@ -86,6 +100,7 @@ const SpendingModal = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     createSpending: (spending) => dispatch(createSpending(spending)),
+    updateSpending: (spending) => dispatch(updateSpending(spending)),
   };
 };
 
