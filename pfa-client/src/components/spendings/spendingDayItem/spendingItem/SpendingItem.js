@@ -64,7 +64,6 @@ class SpendingItem extends Component {
   render() {
     const {
       spending,
-      editCallback,
       deleteCallback,
       toggleAddSpending,
     } = this.props;

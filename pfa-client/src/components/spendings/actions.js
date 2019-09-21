@@ -5,7 +5,6 @@ import {
   DELETE_SPENDING,
   GET_SPENDINGS,
   GET_SPENDINGS_SUCCESS,
-  GET_EXCHANGE_RATES_SUCCESS
 } from './constants';
 
 export const getUsers = () => {
@@ -51,12 +50,6 @@ export const getSpendingsSuccess = (spendings, dateRange) => {
   };
 };
 
-export const getExchangeRateSuccess = (rates) => {
-  return {
-    type: GET_EXCHANGE_RATES_SUCCESS,
-    rates,
-  };
-} ;
 
 
 

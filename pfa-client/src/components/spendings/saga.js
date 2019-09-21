@@ -1,7 +1,8 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 import { privateRequest, request } from '../../helpers/requestHelper';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import parseISO from 'date-fns/parseISO';
+import _ from 'lodash';
 
 import {
   CREATE_SPENDING,
@@ -14,14 +15,12 @@ import {
 import {
   getSpendingsSuccess,
   getSpendings,
-  getExchangeRateSuccess,
 } from './actions';
 
 
 import { displayPopup } from '../../helpers/swalHelper';
 import { intl } from '../../index';
 import messages from './messages';
-import {parse} from '@fortawesome/fontawesome-svg-core';
 
 
 export function* onGetUser() {
@@ -51,13 +50,14 @@ export function* onCreateSpending(payload) {
 
 export function* onUpdateSpending(payload) {
   try {
+    const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
     yield call(privateRequest, `/spendings/${payload.spending.id}`, {
       method: 'PUT',
       data: payload.spending,
     });
     displayPopup({ text: intl.formatMessage({ ...messages.updateSuccess }) });
     const dateRange = yield select(state => state.dateRangeReducer.dateRange);
-    yield put(getSpendings(payload.spending.userID, dateRange));
+    yield put(getSpendings(userID, dateRange));
   } catch (err) {
     console.log(err);
   }
@@ -77,28 +77,44 @@ export function* onDeleteSpending(payload) {
   }
 }
 
+export function* getCurrenciesRates(currenciesInSpendings) {
+  // //////////////////////////////////////////////////////
+  // see https://stackoverflow.com/a/46836144/2466369 /////
+  const CORSoptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8',
+    }
+  };
+  // /////////////////////////////////////////////////////
+
+  const currenciesRatesSaved = JSON.parse(localStorage.getItem('currenciesRates'));
+
+  if (!currenciesRatesSaved || differenceInCalendarDays(new Date(), parseISO(currenciesRatesSaved.date)) >= 1) {
+    const exchangeRates = yield all(
+      currenciesInSpendings.map(
+        currency => call(request, `https://api.exchangeratesapi.io/latest?base=${currency}`, CORSoptions)
+      )
+    );
+    let rates = {};
+    const ratesMap = _.map(exchangeRates, 'data');
+    ratesMap.map(rate => {
+      rates[rate.base] = rate.rates;
+      !rates.date && (rates.date = new Date());
+    });
+    localStorage.setItem('currenciesRates', JSON.stringify(rates));
+  }
+}
+
 export function* onGetSpendings(payload) {
   if (payload.dateRange.from) {
     try {
-      // //////////////////////////////////////////////////////
-      // see https://stackoverflow.com/a/46836144/2466369 /////
-      const CORSoptions = {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        }
-      };
+      const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
+      const res = yield call(privateRequest, `/spendings?userID=${userID}&from=${payload.dateRange.from}&to=${payload.dateRange.to}`);
+      const currenciesInSpendings = _.uniq(res.data.map(spending => spending.currency));
 
-      const currenciesRatesSaved = JSON.parse(localStorage.getItem('currenciesRates'));
+      yield getCurrenciesRates(currenciesInSpendings);
 
-      if (differenceInCalendarDays(new Date(), parseISO(currenciesRatesSaved.date)) >= 1) {
-        const currenciesRates = yield call(request, `https://api.exchangeratesapi.io/latest?base=${payload.user.baseCurrency}`, CORSoptions);
-        const localStorageCurrenciesRates = {rates: currenciesRates.data.rates, date: new Date()};
-        localStorage.setItem('currenciesRates', JSON.stringify(localStorageCurrenciesRates));
-      }
-      // //////////////////////////////////////////////////////
-
-      const res = yield call(privateRequest, `/spendings?userID=${payload.user.id}&from=${payload.dateRange.from}&to=${payload.dateRange.to}`);
       const dateRange = yield select(state => state.dateRangeReducer.dateRange.range);
       yield put(getSpendingsSuccess(res.data, dateRange));
     } catch (err) {
