@@ -1,8 +1,8 @@
-import { takeLatest, all, call, put, select, spawn } from 'redux-saga/effects';
-import { privateRequest, request } from '../../helpers/requestHelper';
-import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
-import parseISO from 'date-fns/parseISO';
-import _ from 'lodash';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { privateRequest } from '../../helpers/requestHelper';
+// import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
+// import parseISO from 'date-fns/parseISO';
+// import _ from 'lodash';
 
 import {
   CREATE_SPENDING,
@@ -15,7 +15,7 @@ import {
 import {
   getSpendingsSuccess,
   getSpendings,
-  updateCurrenciesRates,
+  // updateCurrenciesRates,
 } from './actions';
 
 

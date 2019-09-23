@@ -1,9 +1,13 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
-import { faSignOutAlt, faKey, faCoins } from '@fortawesome/free-solid-svg-icons';
+import {
+  faSignOutAlt,
+  faKey,
+  // faCoins,
+} from '@fortawesome/free-solid-svg-icons';
 
 import Dropdown from '../../common/dropdown/Dropdown';
 import UserMenuContent from './UserMenuContent';
@@ -14,9 +18,9 @@ import messages from './messages';
 import { default as currencyCodes } from  '../../../currency-codes';
 
 const UserMenu = (props) => {
-  const currencies = Object.assign({}, ...currencyCodes.map(currency => {
-    return { [currency.code]: currency.name }
-  }));
+  // const currencies = Object.assign({}, ...currencyCodes.map(currency => {
+  //   return { [currency.code]: currency.name }
+  // }));
   // const openModalCurrency = () => {
   //   Swal.fire({
   //     title: 'change currency',
