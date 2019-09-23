@@ -14,6 +14,7 @@ export function* onRegister(user) {
       name: user.email.split('@')[0],
       email: user.email,
       password: user.password,
+      baseCurrency: user.currency,
       language: navigator.language.split('-')[0],
     });
     yield put(registerSuccess(res))

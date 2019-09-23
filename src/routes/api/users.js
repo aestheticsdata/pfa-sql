@@ -65,10 +65,12 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
+  console.log('req.body.baseCurrency : ', req.body.baseCurrency);
   const {
     name,
     email,
     password,
+    baseCurrency,
     registerDate,
     language,
   } = req.body;
@@ -87,6 +89,7 @@ router.post('/add', (req, res) => {
         name,
         email,
         password,
+        baseCurrency,
         registerDate,
         language,
       });
@@ -180,26 +183,26 @@ router.post('/resetpassword', (req, res) => {
     });
 });
 
-router.post('/changebasecurrency', (req, res) => {
-  const { userID, currency } = req.body;
-
-  User.findOne({ _id: userID })
-    .then(user => {
-      user.baseCurrency = currency;
-      user.save()
-        .then(() => {
-          res.status(200).json({
-            message : 'base currency updated',
-            user: {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              baseCurrency: user.baseCurrency,
-            }
-          });
-        })
-        .catch(err => res.status(400).json({message: `base currency not updated: ${err}`}))
-    })
-});
+// router.post('/changebasecurrency', (req, res) => {
+//   const { userID, currency } = req.body;
+//
+//   User.findOne({ _id: userID })
+//     .then(user => {
+//       user.baseCurrency = currency;
+//       user.save()
+//         .then(() => {
+//           res.status(200).json({
+//             message : 'base currency updated',
+//             user: {
+//               id: user.id,
+//               name: user.name,
+//               email: user.email,
+//               baseCurrency: user.baseCurrency,
+//             }
+//           });
+//         })
+//         .catch(err => res.status(400).json({message: `base currency not updated: ${err}`}))
+//     })
+// });
 
 module.exports = router;

@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
   },
   baseCurrency: {
     type: String,
-    default: 'EUR',
+    // default: 'EUR',
   }
 }, {timestamps: true});
 

@@ -5,7 +5,12 @@ import {
   Field,
 } from 'formik';
 
+import getSymbolFromCurrency from 'currency-symbol-map';
+
 import StyledSharedLoginForm from './StyledSharedLoginForm';
+
+import { default as currencyCodes } from  '../../../currency-codes';
+
 
 const SharedLoginForm = (props) => {
   const {
@@ -13,6 +18,7 @@ const SharedLoginForm = (props) => {
     buttonTitle,
     displayEmailField,
     displayPasswordField,
+    displayCurrencyField,
   } = props;
 
   // //////////////////////////////////////////////////////////////////////
@@ -43,12 +49,25 @@ const SharedLoginForm = (props) => {
   };
   // ////////////////////////////////////////////////////////////////////
 
+  const getCurrenciesList = () => {
+    return (
+      currencyCodes.map(currency =>
+        <option
+          key={currency.code}
+          value={currency.code}
+        >
+          {currency.name} : { getSymbolFromCurrency(currency.code) }
+        </option>
+      )
+    )
+  };
+
   return (
     <StyledSharedLoginForm>
       <div className="container">
         <div className="title">Personal Finance Assistant</div>
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{ email: '', password: '', currency: 'EUR' }}
           onSubmit={onSubmit}
         >
           {({ isSubmitting, errors }) => (
@@ -77,6 +96,19 @@ const SharedLoginForm = (props) => {
                       validate={validatePassword}
                     />
                     {errors.password && <div>{errors.password}</div>}
+                  </>
+                  :
+                  null
+              }
+              {
+                displayCurrencyField ?
+                  <>
+                    <Field
+                      component="select"
+                      name="currency"
+                    >
+                      { getCurrenciesList() }
+                    </Field>
                   </>
                   :
                   null

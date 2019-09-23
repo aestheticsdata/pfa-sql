@@ -15,7 +15,7 @@ import StyledUserMenu from './StyledUserMenu';
 import { history } from '../../../history';
 import messages from './messages';
 // import { changeBaseCurrency } from './actions';
-import { default as currencyCodes } from  '../../../currency-codes';
+// import { default as currencyCodes } from  '../../../currency-codes';
 
 const UserMenu = (props) => {
   // const currencies = Object.assign({}, ...currencyCodes.map(currency => {

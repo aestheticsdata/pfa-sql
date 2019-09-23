@@ -20,6 +20,22 @@ const StyledSharedLoginForm = styled.div`
       ${inputMixin};
     }
     
+    
+    select {
+      margin: 16px 0 8px 0;
+      border-radius: 0;
+      border-bottom: 1px solid ${colors.formsGlobalColor};
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+      outline: none;
+      color: inherit;
+      background: transparent;
+      padding-bottom: 10px;
+      width: 100%;
+      -webkit-appearance: none;
+    }
+    
     .shared-login-submit-btn {
       ${buttonMixin};
       

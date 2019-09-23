@@ -5,11 +5,12 @@ import {
   CLEAR_REGISTER_FAILED,
 } from './constants';
 
-export function register(email, password) {
+export function register(email, password, currency) {
   return {
     type: REGISTER,
     email,
     password,
+    currency,
   };
 }
 

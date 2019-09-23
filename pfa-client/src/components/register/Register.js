@@ -15,7 +15,8 @@ import messages from './messages';
 
 class Register extends Component {
   onSubmit = (values, { setSubmitting }) => {
-    this.props.register(values.email, values.password);
+    console.log('1 : ', values);
+    this.props.register(values.email, values.password, values.currency);
     setSubmitting(false);
   };
 
@@ -51,6 +52,7 @@ class Register extends Component {
             buttonTitle={this.props.intl.formatMessage({ ...messages.buttonLabel })}
             displayEmailField
             displayPasswordField
+            displayCurrencyField
           />
         </StyledSharedLoginContainer>
       </StyledRegister>
@@ -68,7 +70,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    register: (email, password) => dispatch(register(email, password)),
+    register: (email, password, currency) => dispatch(register(email, password, currency)),
     clearRegisterFailed: () => dispatch(clearRegisterFailed()),
   }
 };
