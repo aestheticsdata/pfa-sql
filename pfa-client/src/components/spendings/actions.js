@@ -5,6 +5,7 @@ import {
   DELETE_SPENDING,
   GET_SPENDINGS,
   GET_SPENDINGS_SUCCESS,
+  UPDATE_CURRENCIES_RATES
 } from './constants';
 
 export const getUsers = () => {
@@ -49,6 +50,14 @@ export const getSpendingsSuccess = (spendings, dateRange) => {
     dateRange,
   };
 };
+
+export const updateCurrenciesRates = (mergedRates) => {
+  return {
+    type: UPDATE_CURRENCIES_RATES,
+    mergedRates,
+  };
+};
+
 
 
 

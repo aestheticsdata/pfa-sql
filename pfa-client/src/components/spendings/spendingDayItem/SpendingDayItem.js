@@ -142,7 +142,7 @@ class SpendingDayItem extends Component {
                 }
               </div>
               <div
-                className={`total ${this.state.exchangeRatesIssue && 'warning'}`}
+                className={`total ${spendingsByDay.exchangeRateIssue && 'warning'}`}
                 title={this.props.intl.formatMessage({ ...messages.noRates })}
               >
                 <span className="total-label">Total</span>
