@@ -1,0 +1,1 @@
+export const UPDATE_LANG = 'app/langMenu/UPDATE_LANG';

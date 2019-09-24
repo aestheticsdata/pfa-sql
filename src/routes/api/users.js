@@ -130,8 +130,9 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
   User.findById(req.params.id)
     .then(user => {
-      user.name = req.body.name;
-      user.password = req.body.password;
+      user.language = req.body.lang;
+      // user.name = req.body.name;
+      // user.password = req.body.password;
       // user.registerDate = Date.parse(req.body.registerDate);
 
       user.save()

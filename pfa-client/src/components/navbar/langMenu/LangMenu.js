@@ -1,11 +1,14 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
 import Cookie from 'js-cookie';
 
 import Dropdown from '../../common/dropdown/Dropdown';
 import LangMenuContent from './LangMenuContent';
 import StyledLangMenu from './StyledLangMenu';
 import messages from './messages';
+
+import { updateLang } from './actions';
 
 
 const LangMenu = (props) => {
@@ -15,7 +18,8 @@ const LangMenu = (props) => {
       label: 'fr',
       callback: () => {
         Cookie.set('lang', 'fr');
-        window.location.reload();
+        props.updateLang('fr');
+        // window.location.reload();
       },
     },
     {
@@ -23,7 +27,8 @@ const LangMenu = (props) => {
       label: 'en',
       callback: () => {
         Cookie.set('lang', 'en');
-        window.location.reload();
+        props.updateLang('en');
+        // window.location.reload();
       },
     }
   ];
@@ -40,5 +45,11 @@ const LangMenu = (props) => {
   )
 };
 
-export default injectIntl(LangMenu);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateLang: (lang) => dispatch(updateLang(lang)),
+  }
+};
+
+export default injectIntl(connect(null, mapDispatchToProps)(LangMenu));
 

@@ -6,6 +6,7 @@ import spendingsSaga from './components/spendings/saga';
 import resetPasswordSaga from './components/forgotPassword/saga';
 import changePasswordSaga from './components/changePassword/saga';
 // import userMenuSaga from './components/navbar/userMenu/saga';
+import languageSaga from './components/navbar/langMenu/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -16,5 +17,6 @@ export default function* rootSaga() {
     resetPasswordSaga(),
     changePasswordSaga(),
     // userMenuSaga(),
+    languageSaga(),
   ])
 }
