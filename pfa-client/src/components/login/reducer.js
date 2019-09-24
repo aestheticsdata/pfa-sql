@@ -1,4 +1,5 @@
 import produce from 'immer';
+import Cookie from 'js-cookie';
 import {
   REGISTER_SUCCESS,
 } from '../register/constants';
@@ -29,6 +30,7 @@ const loginReducer = (state = getInitialState(), action) =>
       case LOGIN_SUCCESS:
         localStorage.setItem('pfa-token', action.payload.data.token);
         localStorage.setItem('pfa-user', JSON.stringify(action.payload.data.user));
+        Cookie.set('lang', action.payload.data.user.language);
         draft.isAuthenticated = true;
         draft.token = action.payload.data.token;
         draft.user = action.payload.data.user;

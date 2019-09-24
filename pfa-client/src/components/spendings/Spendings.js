@@ -14,7 +14,6 @@ class Spendings extends Component {
   componentDidMount() {
     if (this.props.user.id && this.props.dateRange) {
       // needed when coming from login but causes a 404 with componentDidUpadte
-
       this.props.getSpendings(this.props.user, this.props.dateRange);
     }
   }

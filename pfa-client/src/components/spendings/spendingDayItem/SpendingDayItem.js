@@ -29,7 +29,7 @@ class SpendingDayItem extends Component {
       addSpendingEnabled: true,
       spending: {},
       isEditing: false,
-      exchangeRatesIssue: !!JSON.parse(localStorage.getItem('exchangeRatesIssue')) || false,
+      // exchangeRatesIssue: !!JSON.parse(localStorage.getItem('exchangeRatesIssue')) || false,
     }
   }
 
