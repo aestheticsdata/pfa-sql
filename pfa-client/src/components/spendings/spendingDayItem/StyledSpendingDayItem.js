@@ -33,6 +33,9 @@ const StyledSpendingDayItem = styled.div`
       border-radius: 5px;
       padding: 5px;
       margin-bottom: 5px;
+      &.today {
+        background-color: ${colors.datePickerWrapper};
+      }
     }
     
     .add-spending {

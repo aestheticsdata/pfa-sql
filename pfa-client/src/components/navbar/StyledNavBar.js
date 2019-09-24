@@ -45,7 +45,7 @@ const StyledNavBar = styled.div`
   
   .date-picker-wrapper {
     position: absolute;
-    left: 350px;
+    left: 250px;
     top: 16px;
   }
 
