@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import colors from '../../../../colors';
 
+const labelWidth = 150;
+
 const StyledSpendingItem = styled.div`
   .spending-item-container {
     position: relative;
@@ -25,11 +27,23 @@ const StyledSpendingItem = styled.div`
       
       .label {
         position: absolute;
-        width: 150px;
+        width: ${labelWidth}px;
         height: 18px;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+      }
+      
+      .category {
+        position: absolute;
+        width: 104px;
+        height: 18px;
+        left: ${labelWidth + 5}px;
+        border: 1px solid ${colors.grey1};
+        border-radius: 4px;
+        font-size: 12px;
+        text-align: center;
+        line-height: 1.2;
       }
       
       .amount {

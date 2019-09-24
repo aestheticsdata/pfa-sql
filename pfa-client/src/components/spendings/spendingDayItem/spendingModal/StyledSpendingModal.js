@@ -5,13 +5,15 @@ import {
   inputMixin,
 } from '../../../shared/sharedCSS/sharedFormsCSS';
 
+import { containerWidth } from '../StyledSpendingDayItem';
+
 const StyledSpendingModal = styled.div`
   background-color: ${colors.spendingItemHover};
   border: 1px solid ${colors.spendingActionHover};
   color: ${colors.blueNavy};
   border-radius: 5px;
   position: absolute;
-  width: 298px;
+  width: ${containerWidth-22}px;
   height: 247px;
   top: 33px;
   right: 0;

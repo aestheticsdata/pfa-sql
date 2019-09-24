@@ -1,4 +1,4 @@
-import { takeLatest, select, call, put } from 'redux-saga/effects';
+import { takeLatest, select, call } from 'redux-saga/effects';
 import { privateRequest } from '../../../helpers/requestHelper';
 import { UPDATE_LANG } from './constants';
 

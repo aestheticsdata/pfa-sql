@@ -1,8 +1,10 @@
 import styled from 'styled-components/macro';
 import colors from '../../../colors';
 
+export const containerWidth = 440;
+
 const StyledSpendingDayItem = styled.div`
-  width: 320px;
+  width: ${containerWidth}px;
   height: 300px;
   background: ${colors.grey0};
   border: 1px solid ${colors.grey2};
@@ -24,7 +26,7 @@ const StyledSpendingDayItem = styled.div`
       float: left;
       text-align: center;
       font-weight: 800;
-      width: 270px;
+      width: ${containerWidth-50}px;
       color: #0a313f;
       border: 1px solid ${colors.grey2};
       background-color: ${colors.grey1};

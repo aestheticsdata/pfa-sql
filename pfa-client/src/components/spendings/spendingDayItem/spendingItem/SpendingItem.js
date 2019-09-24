@@ -82,6 +82,12 @@ class SpendingItem extends Component {
               <div className="spending">
                 <span className="label" title={spending.label}>{spending.label}</span>
                 {
+                  spending && spending.category ?
+                    <span className="category">{spending.category}</span>
+                    :
+                    null
+                }
+                {
                   this.state.hover ?
                     <>
                       <span
