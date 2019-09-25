@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import colors from '../../../../colors';
 
-const labelWidth = 150;
+const labelWidth = 170;
 
 const StyledSpendingItem = styled.div`
   .spending-item-container {

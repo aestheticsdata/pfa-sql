@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import StyledSpendings from './StyledSpendings';
 
 import SpendingDayItem from './spendingDayItem/SpendingDayItem';
+import SpendingDashboard from './spendingDashboard/SpendingDashboard';
+
 
 import {
   getSpendings,
@@ -38,7 +40,10 @@ class Spendings extends Component {
         {
           this.props.spendings.length > 0 && this.props.dateRange.range ?
             <div className="list-container">
-
+              <SpendingDashboard
+                weekTotal={this.props.spendings.weekTotal}
+              />
+              <div className="spendings-container">
                 {
                   this.props.spendings.map((spendingsByDay, i) => (
                     <SpendingDayItem
@@ -52,6 +57,7 @@ class Spendings extends Component {
                     />
                   ))
                 }
+              </div>
             </div>
             :
             null

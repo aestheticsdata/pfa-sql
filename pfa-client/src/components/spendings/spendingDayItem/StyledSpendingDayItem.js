@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 import colors from '../../../colors';
 
-export const containerWidth = 440;
+export const containerWidth = 485;
 
 const StyledSpendingDayItem = styled.div`
   width: ${containerWidth}px;

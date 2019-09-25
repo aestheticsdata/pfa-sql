@@ -41,6 +41,7 @@ const initialState = {
 // const aggregateSpendingByDate = (spendings, range, exchangeRates, baseCurrency) => {
 const aggregateSpendingByDate = (spendings, range) => {
   const spendingsFinal = [...spendingsPlaceholder];
+  spendingsFinal.weekTotal = 0;
 
   for (let j = 0, r = range.length; j < r; j += 1) {
     const arr = [];
@@ -60,6 +61,11 @@ const aggregateSpendingByDate = (spendings, range) => {
       }
     }
   }
+
+  for (let n = 0, l = spendingsFinal.length; n < l; n += 1) {
+    spendingsFinal.weekTotal += spendingsFinal[n].total;
+  }
+
   return spendingsFinal;
 };
 

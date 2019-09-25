@@ -1,5 +1,6 @@
 const cssSizes = {
-  navbarHeight: '60',
+  navbarHeight: 60,
+  dashboardHeight: 250,
   loginFormsWidth: '380',
 };
 

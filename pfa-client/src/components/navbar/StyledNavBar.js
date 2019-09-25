@@ -4,7 +4,10 @@ import cssSizes from '../../css-sizes';
 import colors from '../../colors';
 
 const StyledNavBar = styled.div`
-  position: relative;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  //position: relative;
   background-color: ${colors.blueNavy};
   color: #aee4ff;
   height: ${cssSizes.navbarHeight}px;
