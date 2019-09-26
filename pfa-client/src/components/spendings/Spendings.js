@@ -10,19 +10,24 @@ import SpendingDashboard from './spendingDashboard/SpendingDashboard';
 import {
   getSpendings,
   deleteSpending,
+  getRecurring,
+  deleteRecurring,
 } from './actions';
+import {dateRangeChange} from '../datePickerWrapper/actions';
 
 class Spendings extends Component {
   componentDidMount() {
     if (this.props.user.id && this.props.dateRange) {
       // needed when coming from login but causes a 404 with componentDidUpadte
       this.props.getSpendings(this.props.user, this.props.dateRange);
+      this.props.getRecurrings();
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.dateRange !== prevProps.dateRange) {
       this.props.getSpendings(this.props.user, this.props.dateRange);
+      this.props.getRecurrings();
     }
   }
 
@@ -30,29 +35,41 @@ class Spendings extends Component {
     this.props.deleteSpending(spendingID);
   };
 
+  deleteRecurring = (recurringID) => {
+    this.props.deleteRecurring(recurringID);
+  };
+
   render() {
-    const { isLoading } = this.props;
+    const {
+      isLoading,
+      spendings,
+      recurrings,
+      dateRange,
+      user,
+    } = this.props;
 
     return (
       <StyledSpendings>
 
         <div className="spendings-list">
         {
-          this.props.spendings.length > 0 && this.props.dateRange.range ?
+          spendings.length > 0 && dateRange.range ?
             <div className="list-container">
               <SpendingDashboard
-                weekTotal={this.props.spendings.weekTotal}
+                weekTotal={spendings.weekTotal}
+                recurring={recurrings}
+                deleteRecurring={this.deleteRecurring}
               />
               <div className="spendings-container">
                 {
-                  this.props.spendings.map((spendingsByDay, i) => (
+                  spendings.map((spendingsByDay, i) => (
                     <SpendingDayItem
                       key={i}
                       spendingsByDay={spendingsByDay}
-                      date={this.props.dateRange.range[i]}
+                      date={dateRange.range[i]}
                       total={0}
                       isLoading={isLoading}
-                      user={this.props.user}
+                      user={user}
                       deleteSpending={this.deleteSpending}
                     />
                   ))
@@ -73,6 +90,7 @@ const mapStateToProps = (state) => {
     token: state.loginReducer.token,
     user: state.loginReducer.user,
     spendings: state.spendingsReducer.spendings,
+    recurrings: state.spendingsReducer.recurrings,
     isLoading: state.spendingsReducer.isLoading,
     dateRange: state.dateRangeReducer.dateRange,
   }
@@ -80,10 +98,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getSpendings: (userID, dateRange) => dispatch(getSpendings(userID, dateRange)),
+    getSpendings: (user, dateRange) => dispatch(getSpendings(user, dateRange)),
+    getRecurrings: () => dispatch(getRecurring()),
     deleteSpending: (spendingID) => dispatch(deleteSpending(spendingID)),
-    // getExchangeRates: (baseCurrency) => dispatch(getCurrenciesExchangeRate(baseCurrency));
-    // createSpending: (spending) => dispatch(createSpending(spending)),
+    deleteRecurring: (recurringID) => dispatch(deleteRecurring(recurringID)),
   };
 };
 

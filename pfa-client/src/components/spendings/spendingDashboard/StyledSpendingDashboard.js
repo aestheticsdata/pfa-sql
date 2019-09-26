@@ -8,6 +8,12 @@ const StyledSpendingDashboard = styled.div`
   position: fixed;
   top: ${cssSizes.navbarHeight}px;
   z-index: 100;
+  
+  .recurring-spendings-container {
+    width: 200px;
+    height: 200px;
+    background-color: darkseagreen;
+  }
 `;
 
 export default StyledSpendingDashboard;

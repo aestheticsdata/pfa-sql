@@ -5,7 +5,7 @@ import parseISO from 'date-fns/parseISO';
 
 import {
   GET_SPENDINGS_SUCCESS,
-  // UPDATE_CURRENCIES_RATES,
+  GET_RECURRING_SUCCESS,
 } from './constants';
 
 const tempArr = [];
@@ -14,27 +14,10 @@ const spendingsPlaceholder = [tempArr, tempArr, tempArr, tempArr, tempArr, tempA
 
 const initialState = {
   spendings: spendingsPlaceholder,
+  recurrings: [],
   currency: 'EUR',
   isLoading: true,
-  // exchangeRates: JSON.parse(localStorage.getItem('currenciesRates')),
 };
-
-// const getCurrencyConversion = (spending, exchangeRates, baseCurrency) => {
-//   let amount;
-//
-//   if (spending.currency === baseCurrency) {
-//     amount = spending.amount;
-//   } else {
-//     if (exchangeRates !== undefined && exchangeRates[spending.currency] !== undefined) {
-//       amount = spending.amount * exchangeRates[spending.currency][baseCurrency];
-//     } else {
-//       amount = 0;
-//       // localStorage.setItem('exchangeRatesIssue', true);
-//     }
-//   }
-//
-//   return amount;
-// };
 
 // transform an array of object into an array of array<Object> aggregated
 // by same date
@@ -55,9 +38,6 @@ const aggregateSpendingByDate = (spendings, range) => {
       if (getDate(parseISO(spendings[i].date)) === spendingsFinal[k].date) {
         spendingsFinal[k].push(spendings[i]);
         spendingsFinal[k].total += spendings[i].amount;
-        // const convertedAmount = getCurrencyConversion(spendings[i], exchangeRates, baseCurrency);
-        // spendingsFinal[k].total += convertedAmount;
-        // (convertedAmount === 0) && (spendingsFinal[k].exchangeRateIssue = true);
       }
     }
   }
@@ -74,17 +54,11 @@ const spendingsReducer = (state = initialState, action) =>
     switch (action.type) {
       case GET_SPENDINGS_SUCCESS:
         draft.isLoading = false;
-        // draft.spendings = aggregateSpendingByDate(action.spendings, action.dateRange, state.exchangeRates, state.currency);
         draft.spendings = aggregateSpendingByDate(action.spendings, action.dateRange);
       break;
-      // case UPDATE_CURRENCIES_RATES: {
-      //   if (action.mergedRates) {
-      //     draft.exchangeRates = action.mergedRates;
-      //   } else {
-      //     return state;
-      //   }
-      //   break;
-      // }
+      case GET_RECURRING_SUCCESS:
+        draft.recurrings = action.recurrings;
+        break;
       default:
         return state;
     }

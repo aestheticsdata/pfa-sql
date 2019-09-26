@@ -5,7 +5,9 @@ import {
   DELETE_SPENDING,
   GET_SPENDINGS,
   GET_SPENDINGS_SUCCESS,
-  UPDATE_CURRENCIES_RATES
+  GET_RECURRING,
+  GET_RECURRING_SUCCESS,
+  DELETE_RECURRING,
 } from './constants';
 
 export const getUsers = () => {
@@ -51,12 +53,28 @@ export const getSpendingsSuccess = (spendings, dateRange) => {
   };
 };
 
-export const updateCurrenciesRates = (mergedRates) => {
+export const getRecurring = (recurrings) => {
   return {
-    type: UPDATE_CURRENCIES_RATES,
-    mergedRates,
+    type: GET_RECURRING,
+    recurrings,
   };
 };
+
+export const getRecurringSuccess = (recurrings) => {
+  return {
+    type: GET_RECURRING_SUCCESS,
+    recurrings,
+  };
+};
+
+export const deleteRecurring = (recurringID) => {
+  return {
+    type: DELETE_RECURRING,
+    id: recurringID,
+  };
+};
+
+
 
 
 
