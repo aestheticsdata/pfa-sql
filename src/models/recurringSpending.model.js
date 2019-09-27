@@ -5,6 +5,10 @@ const RecurringSpendingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  itemType: {
+    type: String,
+    required: true,
+  },
   amount: {
     type: Number,
     required: true,

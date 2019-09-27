@@ -31,11 +31,20 @@ class Spendings extends Component {
     }
   }
 
+  deleteItem = (itemID, itemType) => {
+    itemType === 'spending' ?
+      this.deleteSpending(itemID)
+      :
+      this.deleteRecurring(itemID);
+  };
+
   deleteSpending = (spendingID) => {
+    console.log('deleteSpending : id', spendingID);
     this.props.deleteSpending(spendingID);
   };
 
   deleteRecurring = (recurringID) => {
+    console.log('deleteRecurring id :', recurringID);
     this.props.deleteRecurring(recurringID);
   };
 
@@ -70,7 +79,7 @@ class Spendings extends Component {
                       total={0}
                       isLoading={isLoading}
                       user={user}
-                      deleteSpending={this.deleteSpending}
+                      deleteSpending={this.deleteItem}
                     />
                   ))
                 }

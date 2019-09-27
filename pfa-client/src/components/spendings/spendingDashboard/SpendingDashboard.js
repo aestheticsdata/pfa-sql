@@ -15,7 +15,7 @@ class SpendingDashboard extends Component {
             date={22}
             isLoading={false}
             user={this.props.user}
-            deleteSpending={(recurringID) => this.props.deleteRecurring(recurringID)}
+            deleteSpending={this.props.deleteRecurring}
           />
         </div>
       </StyledSpendingDashboard>

@@ -10,12 +10,12 @@ import {
   DELETE_SPENDING,
   GET_SPENDINGS,
   GET_RECURRING,
-  GET_USERS,
+  GET_USERS, DELETE_RECURRING,
 } from './constants';
 
 import {
   getSpendingsSuccess,
-  getSpendings, getRecurringSuccess,
+  getSpendings, getRecurringSuccess, getRecurring,
 } from './actions';
 
 
@@ -93,7 +93,7 @@ export function* onGetSpendings(payload) {
   }
 }
 
-export function* onGetRecurring() {
+export function* onGetRecurring(payload) {
     try {
       const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
       const res = yield call(privateRequest, `/recurrings?userID=${userID}`);
@@ -105,6 +105,20 @@ export function* onGetRecurring() {
     }
 }
 
+export function* onDeleteRecurring(payload) {
+  try {
+    yield call(privateRequest, `/recurrings/${payload.id}`, {
+      method: 'DELETE',
+    });
+    displayPopup({ text: intl.formatMessage({ ...messages.deleteSuccess }) });
+    const userID = yield select(state => state.loginReducer.user.id);
+    const dateRange = yield select(state => state.dateRangeReducer.dateRange);
+    yield put(getRecurring(userID, dateRange));
+  } catch (err) {
+    console.log(`error while deleting recurring :${err}`);
+  }
+}
+
 export default function* defaultSaga() {
   yield takeLatest(GET_USERS, onGetUser);
   yield takeLatest(CREATE_SPENDING, onCreateSpending);
@@ -112,4 +126,5 @@ export default function* defaultSaga() {
   yield takeLatest(DELETE_SPENDING, onDeleteSpending);
   yield takeLatest(UPDATE_SPENDING, onUpdateSpending);
   yield takeLatest(GET_RECURRING, onGetRecurring);
+  yield takeLatest(DELETE_RECURRING, onDeleteRecurring);
 }

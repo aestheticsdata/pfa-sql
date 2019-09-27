@@ -51,7 +51,7 @@ class SpendingItem extends Component {
             onClick={
               () => {
                 this.hideConfirm();
-                deleteCallback(spending._id);
+                deleteCallback(spending._id, spending.itemType);
               }
             }>
             <FormattedMessage { ...messages.confirmDeleteConfirmButton} />

@@ -5,6 +5,10 @@ const SpendingSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  itemType: {
+    type: String,
+    required: true,
+  },
   label: {
     type: String,
     required: true,
