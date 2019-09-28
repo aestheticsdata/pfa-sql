@@ -2,14 +2,15 @@ import styled from 'styled-components/macro';
 import colors from '../../../colors';
 
 export const containerWidth = 485;
+export const containerWidthdashboard = 350;
 
 const StyledSpendingDayItem = styled.div`
-  width: ${containerWidth}px;
-  height: 300px;
+  width: ${props => props.recurringType ? containerWidthdashboard+'px' : containerWidth+'px' };
+  height: ${props => props.recurringType ? '250px' : '300px'};
   background: ${colors.grey0};
   border: 1px solid ${colors.grey2};
-  float: left;
-  margin: 20px 10px;
+  float: ${props => props.recurringType ? 'none' : 'left'};
+  margin: ${props => props.recurringType ? 'initial' : '20px 10px'};
   padding: 10px;
   border-radius: 5px;
   
@@ -26,7 +27,7 @@ const StyledSpendingDayItem = styled.div`
       float: left;
       text-align: center;
       font-weight: 800;
-      width: 435px;
+      width: ${containerWidthdashboard-50}px;;
       color: ${colors.grey2};
       border: 1px solid ${colors.grey2};
       border-radius: 5px;

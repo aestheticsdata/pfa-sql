@@ -105,14 +105,22 @@ class SpendingDayItem extends Component {
   getRecurringsTotal = (recurrings) => _.sumBy(recurrings, 'amount');
 
   render() {
-    const { spendingsByDay, deleteSpending } = this.props;
+    const {
+      spendingsByDay,
+      deleteSpending,
+      recurringType,
+      user,
+    } = this.props;
+
     const { lang, addSpendingEnabled } = this.state;
 
     return (
       <>
       {
-        this.props.date || this.props.recurringType ?
-          <StyledSpendingDayItem>
+        this.props.date || recurringType ?
+          <StyledSpendingDayItem
+            recurringType={recurringType}
+          >
             <div>
               <div className="spending-modal">
                 {
@@ -120,9 +128,9 @@ class SpendingDayItem extends Component {
                     <SpendingModal
                       date={this.props.date}
                       closeModal={this.closeModal}
-                      user={this.props.user}
+                      user={user}
                       spending={this.state.spending}
-                      recurringType={this.props.recurringType}
+                      recurringType={recurringType}
                       isEditing={this.state.isEditing}
                       month={this.props.month}
                     />
@@ -132,7 +140,7 @@ class SpendingDayItem extends Component {
               </div>
               <div className="header">
                 {
-                  !this.props.recurringType ?
+                  !recurringType ?
                     <div className={`date ${getDate(this.props.date) === getDate(Date.now()) && 'today'}`}>
                       {
                         this.props.date ?
@@ -169,9 +177,9 @@ class SpendingDayItem extends Component {
                     <span className="total-label">Total</span>
                     {
                         <span className="total-amount">
-                          {/* eslint-disable  react/style-prop-object */}
+                          {/* eslint-disable react/style-prop-object */}
                           {
-                            !this.props.recurringType ?
+                            !recurringType ?
                               <FormattedNumber
                                 value={spendingsByDay.total}
                                 style="currency"

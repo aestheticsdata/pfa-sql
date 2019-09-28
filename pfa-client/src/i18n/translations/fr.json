@@ -34,6 +34,7 @@
   "app.components.Spendings.createModalButton": "Créer",
   "app.components.Spendings.cancelModalButton": "Annuler",
   "app.components.Spendings.recurrings": "Dépenses fixes",
+  "app.components.Spendings.currentWeekTotal": "Total semaine en cours",
 
   "app.helpers.requestHelper.expiredToken": "La session a expiré",
   "app.helpers.requestHelper.text": "Vous allez être redirigé vers la page de connexion",

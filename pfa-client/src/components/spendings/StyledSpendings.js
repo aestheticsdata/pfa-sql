@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import cssSizes from '../../css-sizes';
+import { paddingDashboard } from './spendingDashboard/StyledSpendingDashboard';
 
 const StyledSpendings = styled.div`
   position: relative;

@@ -42,5 +42,9 @@ export default defineMessages({
   recurrings: {
     id: `${scope}.recurrings`,
     defaultMessage: 'Recurrings',
+  },
+  currentWeekTotal: {
+    id: `${scope}.currentWeekTotal`,
+    defaultMessage: 'Current week total',
   }
 });

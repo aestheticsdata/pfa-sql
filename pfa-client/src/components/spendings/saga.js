@@ -125,7 +125,6 @@ export function* onCreateRecurring(payload) {
 
 export function* onUpdateRecurring(payload) {
   try {
-    const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
     yield call(privateRequest, `/recurrings/${payload.recurring.id}`, {
       method: 'PUT',
       data: payload.recurring,
