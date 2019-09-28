@@ -7,7 +7,7 @@ router.get('/', checkToken, (req, res) => {
     createdBy: req.query.userID,
     dateFrom: {"$eq": new Date(req.query.start)},
   })
-    .sort({ createdAt: 'asc' })
+    .sort({ amount: 'desc' })
     .then(recurring => res.json(recurring))
     .catch(err => res.status(404).json(`Error : ${err}`));
 });

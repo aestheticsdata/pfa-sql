@@ -77,11 +77,10 @@ export const createRecurring = (recurring, month) => {
   }
 };
 
-export const updateRecurring = (recurring, month) => {
+export const updateRecurring = (recurring) => {
   return {
     type: UPDATE_RECURRING,
     recurring,
-    month,
   }
 };
 

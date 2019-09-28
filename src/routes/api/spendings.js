@@ -18,7 +18,7 @@ router.get('/:id', checkToken, (req, res) => {
     .catch(() => res.status(404).json('no spending with this id'));
 });
 
-router.post('/add', checkToken, (req, res) => {
+router.post('/', checkToken, (req, res) => {
   const {
     date,
     label,
@@ -36,6 +36,7 @@ router.post('/add', checkToken, (req, res) => {
 
   const newSpending = new Spending({
     date,
+    itemType: 'spending',
     label,
     amount,
     category,

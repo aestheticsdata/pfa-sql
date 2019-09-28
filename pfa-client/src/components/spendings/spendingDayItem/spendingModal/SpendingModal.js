@@ -122,8 +122,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createSpending: (spending) => dispatch(createSpending(spending)),
     updateSpending: (spending) => dispatch(updateSpending(spending)),
-    createRecurring: (spending, month) => dispatch(createRecurring(spending, month)),
-    updateRecurring: (spending, month) => dispatch(updateRecurring(spending, month)),
+    createRecurring: (recurring, month) => dispatch(createRecurring(recurring, month)),
+    updateRecurring: (recurring) => dispatch(updateRecurring(recurring)),
   };
 };
 

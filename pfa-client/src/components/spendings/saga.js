@@ -38,7 +38,7 @@ export function* onGetUser() {
 
 export function* onCreateSpending(payload) {
   try {
-    yield call(privateRequest, '/spendings/add', {
+    yield call(privateRequest, '/spendings', {
       method: 'POST',
       data: payload.spending,
     });
@@ -124,7 +124,19 @@ export function* onCreateRecurring(payload) {
 }
 
 export function* onUpdateRecurring(payload) {
+  try {
+    const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
+    yield call(privateRequest, `/recurrings/${payload.recurring.id}`, {
+      method: 'PUT',
+      data: payload.recurring,
+    });
+    displayPopup({ text: intl.formatMessage({ ...messages.updateSuccess }) });
 
+    const start = yield select(state => state.dateRangeReducer.dateRange.from);
+    yield put(getRecurring(startOfMonth(start)));
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export function* onDeleteRecurring(payload) {
