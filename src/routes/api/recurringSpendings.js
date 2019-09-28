@@ -1,13 +1,11 @@
 const router = require('express').Router();
 let RecurringSpending = require('../../models/recurringSpending.model');
 const checkToken = require('./helpers/checkToken');
-const getMonth = require('date-fns/getMonth');
-const getYear = require('date-fns/getYear');
-const parseISO = require('date-fns/parseISO');
 
 router.get('/', checkToken, (req, res) => {
   RecurringSpending.find({
     createdBy: req.query.userID,
+    dateFrom: {"$eq": new Date(req.query.start)},
   })
     .sort({ createdAt: 'asc' })
     .then(recurring => res.json(recurring))
@@ -16,9 +14,11 @@ router.get('/', checkToken, (req, res) => {
 
 router.post('/', checkToken, (req, res) => {
   const {
-    date,
+    start,
+    end,
     label,
     amount,
+    currency,
     userID,
   } = req.body;
 
@@ -27,9 +27,12 @@ router.post('/', checkToken, (req, res) => {
   }
 
   const newRecurringSpending = new RecurringSpending({
-    date,
+    dateFrom: start,
+    dateTo: end,
+    itemType: 'recurring',
     label,
     amount,
+    currency,
     createdBy: userID,
   });
 

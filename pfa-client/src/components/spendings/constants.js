@@ -6,4 +6,6 @@ export const GET_SPENDINGS = 'app/spendings/GET_SPENDINGS';
 export const GET_SPENDINGS_SUCCESS = 'app/spendings/GET_SPENDINGS_SUCCESS';
 export const GET_RECURRING = 'app/spendings/GET_RECURRING';
 export const GET_RECURRING_SUCCESS = 'app/spendings/GET_RECURRING_SUCCESS';
+export const UPDATE_RECURRING = 'app/spendings/UPDATE_RECURRING';
+export const CREATE_RECURRING = 'app/spendings/CREATE_RECURRING';
 export const DELETE_RECURRING = 'app/spendings/DELETE_RECURRING';

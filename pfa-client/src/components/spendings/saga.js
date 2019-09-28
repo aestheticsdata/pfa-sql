@@ -1,8 +1,6 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { privateRequest } from '../../helpers/requestHelper';
-// import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
-// import parseISO from 'date-fns/parseISO';
-// import _ from 'lodash';
+import startOfMonth from 'date-fns/startOfMonth';
 
 import {
   CREATE_SPENDING,
@@ -10,7 +8,10 @@ import {
   DELETE_SPENDING,
   GET_SPENDINGS,
   GET_RECURRING,
-  GET_USERS, DELETE_RECURRING,
+  GET_USERS,
+  CREATE_RECURRING,
+  UPDATE_RECURRING,
+  DELETE_RECURRING,
 } from './constants';
 
 import {
@@ -96,13 +97,34 @@ export function* onGetSpendings(payload) {
 export function* onGetRecurring(payload) {
     try {
       const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
-      const res = yield call(privateRequest, `/recurrings?userID=${userID}`);
+      const res = yield call(privateRequest, `/recurrings?userID=${userID}&start=${payload.start}`);
 
-      const dateRange = yield select(state => state.dateRangeReducer.dateRange.range);
       yield put(getRecurringSuccess(res.data));
     } catch (err) {
       console.log('error while getting spendings', err);
     }
+}
+
+export function* onCreateRecurring(payload) {
+  try {
+    yield call(privateRequest, '/recurrings', {
+      method: 'POST',
+      data: {
+        ...payload.recurring,
+        ...payload.month,
+      },
+    });
+    displayPopup({ text: intl.formatMessage({ ...messages.createSuccess }) });
+
+    const start = yield select(state => state.dateRangeReducer.dateRange.from);
+    yield put(getRecurring(startOfMonth(start)));
+  } catch (err) {
+    console.log('error while creating recurring', err);
+  }
+}
+
+export function* onUpdateRecurring(payload) {
+
 }
 
 export function* onDeleteRecurring(payload) {
@@ -111,9 +133,9 @@ export function* onDeleteRecurring(payload) {
       method: 'DELETE',
     });
     displayPopup({ text: intl.formatMessage({ ...messages.deleteSuccess }) });
-    const userID = yield select(state => state.loginReducer.user.id);
-    const dateRange = yield select(state => state.dateRangeReducer.dateRange);
-    yield put(getRecurring(userID, dateRange));
+
+    const start = yield select(state => state.dateRangeReducer.dateRange.from);
+    yield put(getRecurring(startOfMonth(start)));
   } catch (err) {
     console.log(`error while deleting recurring :${err}`);
   }
@@ -127,4 +149,6 @@ export default function* defaultSaga() {
   yield takeLatest(UPDATE_SPENDING, onUpdateSpending);
   yield takeLatest(GET_RECURRING, onGetRecurring);
   yield takeLatest(DELETE_RECURRING, onDeleteRecurring);
+  yield takeLatest(CREATE_RECURRING, onCreateRecurring);
+  yield takeLatest(UPDATE_RECURRING, onUpdateRecurring);
 }

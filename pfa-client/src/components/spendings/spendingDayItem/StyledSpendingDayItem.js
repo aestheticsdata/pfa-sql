@@ -22,6 +22,18 @@ const StyledSpendingDayItem = styled.div`
     width: 100%;
     height: 30px;
     
+    .recurrings {
+      float: left;
+      text-align: center;
+      font-weight: 800;
+      width: 435px;
+      color: ${colors.grey2};
+      border: 1px solid ${colors.grey2};
+      border-radius: 5px;
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+    
     .date {
       float: left;
       text-align: center;

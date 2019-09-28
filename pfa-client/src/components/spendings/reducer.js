@@ -58,6 +58,7 @@ const spendingsReducer = (state = initialState, action) =>
       break;
       case GET_RECURRING_SUCCESS:
         draft.recurrings = action.recurrings;
+        // draft.recurrings.flag = 'recurring';
         break;
       default:
         return state;

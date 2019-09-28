@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 
 const RecurringSpendingSchema = new mongoose.Schema({
+  dateFrom: {
+    type: Date,
+    required: true,
+  },
+  dateTo: {
+    type: Date,
+    required: true,
+  },
   label: {
     type: String,
     required: true,

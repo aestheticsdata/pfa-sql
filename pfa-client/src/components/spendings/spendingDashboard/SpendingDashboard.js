@@ -5,17 +5,27 @@ import StyledSpendingDashboard from './StyledSpendingDashboard';
 
 class SpendingDashboard extends Component {
   render() {
+    const {
+      recurring,
+      user,
+      month,
+      deleteRecurring,
+      weekTotal,
+      isLoading
+    } = this.props;
+
     return (
       <StyledSpendingDashboard>
-        <div>Total de la semaine : {this.props.weekTotal}</div>
+        <div>Total de la semaine : {weekTotal}</div>
         <div className="recurring-spendings-container">
           <SpendingDayItem
-            spendingsByDay={this.props.recurring}
+            spendingsByDay={recurring}
             total={0}
-            date={22}
-            isLoading={false}
-            user={this.props.user}
-            deleteSpending={this.props.deleteRecurring}
+            isLoading={isLoading}
+            user={user}
+            deleteSpending={deleteRecurring}
+            recurringType
+            month={month}
           />
         </div>
       </StyledSpendingDashboard>

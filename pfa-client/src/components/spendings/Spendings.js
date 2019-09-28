@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import startOfMonth from 'date-fns/startOfMonth';
+import endOfMonth from 'date-fns/endOfMonth';
+
 import StyledSpendings from './StyledSpendings';
 
 import SpendingDayItem from './spendingDayItem/SpendingDayItem';
@@ -13,23 +16,38 @@ import {
   getRecurring,
   deleteRecurring,
 } from './actions';
-import {dateRangeChange} from '../datePickerWrapper/actions';
 
 class Spendings extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      month: null,
+    };
+  }
+
   componentDidMount() {
-    if (this.props.user.id && this.props.dateRange) {
+    if (this.props.user.id && this.props.dateRange.from) {
       // needed when coming from login but causes a 404 with componentDidUpadte
-      this.props.getSpendings(this.props.user, this.props.dateRange);
-      this.props.getRecurrings();
+      this.getSpendingsAndRecurring();
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.dateRange !== prevProps.dateRange) {
-      this.props.getSpendings(this.props.user, this.props.dateRange);
-      this.props.getRecurrings();
+      this.getSpendingsAndRecurring();
     }
   }
+
+  getSpendingsAndRecurring = () => {
+    this.props.getSpendings(this.props.user, this.props.dateRange);
+
+    const start = startOfMonth(this.props.dateRange.from);
+    const end = endOfMonth(this.props.dateRange.to);
+
+    this.setState({ month: {start, end}}, () => {
+      this.props.getRecurrings(start);
+    });
+  };
 
   deleteItem = (itemID, itemType) => {
     itemType === 'spending' ?
@@ -68,6 +86,9 @@ class Spendings extends Component {
                 weekTotal={spendings.weekTotal}
                 recurring={recurrings}
                 deleteRecurring={this.deleteRecurring}
+                month={this.state.month}
+                user={user}
+                isLoading={isLoading}
               />
               <div className="spendings-container">
                 {
@@ -108,7 +129,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getSpendings: (user, dateRange) => dispatch(getSpendings(user, dateRange)),
-    getRecurrings: () => dispatch(getRecurring()),
+    getRecurrings: (start) => dispatch(getRecurring(start)),
     deleteSpending: (spendingID) => dispatch(deleteSpending(spendingID)),
     deleteRecurring: (recurringID) => dispatch(deleteRecurring(recurringID)),
   };

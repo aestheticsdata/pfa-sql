@@ -13,9 +13,12 @@ import en from "date-fns/locale/en-US";
 import getDate from 'date-fns/getDate';
 
 import {
+  FormattedMessage,
   FormattedNumber,
   injectIntl,
 } from 'react-intl';
+
+import _ from 'lodash';
 
 import messages from '../messages';
 
@@ -99,6 +102,8 @@ class SpendingDayItem extends Component {
     </div>
   );
 
+  getRecurringsTotal = (recurrings) => _.sumBy(recurrings, 'amount');
+
   render() {
     const { spendingsByDay, deleteSpending } = this.props;
     const { lang, addSpendingEnabled } = this.state;
@@ -106,7 +111,7 @@ class SpendingDayItem extends Component {
     return (
       <>
       {
-        this.props.date ?
+        this.props.date || this.props.recurringType ?
           <StyledSpendingDayItem>
             <div>
               <div className="spending-modal">
@@ -117,21 +122,30 @@ class SpendingDayItem extends Component {
                       closeModal={this.closeModal}
                       user={this.props.user}
                       spending={this.state.spending}
+                      recurringType={this.props.recurringType}
                       isEditing={this.state.isEditing}
+                      month={this.props.month}
                     />
                     :
                     null
                 }
               </div>
               <div className="header">
-                <div className={`date ${getDate(this.props.date) === getDate(Date.now()) && 'today'}`}>
-                  {
-                    this.props.date ?
-                      <div>{format(this.props.date, this.locales[lang].formatString, { locale: this.locales[lang][lang] })}</div>
-                      :
-                      null
-                  }
-                </div>
+                {
+                  !this.props.recurringType ?
+                    <div className={`date ${getDate(this.props.date) === getDate(Date.now()) && 'today'}`}>
+                      {
+                        this.props.date ?
+                          <div>{format(this.props.date, this.locales[lang].formatString, { locale: this.locales[lang][lang] })}</div>
+                          :
+                          null
+                      }
+                    </div>
+                    :
+                    <div className="recurrings">
+                      <FormattedMessage { ...messages.recurrings } />
+                    </div>
+                }
                 {
                   addSpendingEnabled ?
                     <div
@@ -148,22 +162,34 @@ class SpendingDayItem extends Component {
               </div>
               <div
                 className="total"
-                title={this.props.intl.formatMessage({ ...messages.noRates })}
               >
-                <span className="total-label">Total</span>
-                {
-                  spendingsByDay ?
-                    <span className="total-amount">
-                      {/* eslint-disable  react/style-prop-object */}
-                      <FormattedNumber
-                        value={spendingsByDay.total}
-                        style="currency"
-                        currency="EUR"
-                      />
-                    </span>
-                    :
-                    null
-                }
+              {
+                spendingsByDay ?
+                  <>
+                    <span className="total-label">Total</span>
+                    {
+                        <span className="total-amount">
+                          {/* eslint-disable  react/style-prop-object */}
+                          {
+                            !this.props.recurringType ?
+                              <FormattedNumber
+                                value={spendingsByDay.total}
+                                style="currency"
+                                currency="EUR"
+                              />
+                              :
+                              <FormattedNumber
+                                value={this.getRecurringsTotal(spendingsByDay)}
+                                style="currency"
+                                currency="EUR"
+                              />
+                          }
+                        </span>
+                    }
+                  </>
+                  :
+                  null
+              }
               </div>
               {this.spendingListContainer(spendingsByDay, deleteSpending)}
             </div>

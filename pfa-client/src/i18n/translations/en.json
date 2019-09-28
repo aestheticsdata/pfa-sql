@@ -22,7 +22,7 @@
   "app.components.Navbar.signUp": "Sign up",
   "app.components.Navbar.spendings": "Spendings",
   "app.components.Navbar.stats": "Statistics",
-  "app.components.Navbar.globalCurrency": "Global currency",
+  "app.components.Navbar.globalCurrency": "Currency",
 
   "app.components.Spendings.createSuccess": "New spending added",
   "app.components.Spendings.deleteSuccess": "Delete success",
@@ -33,7 +33,7 @@
   "app.components.Spendings.editModalButton": "Update",
   "app.components.Spendings.createModalButton": "Create",
   "app.components.Spendings.cancelModalButton": "Cancel",
-  "app.components.Spendings.noRates": "No currencies rates available, foreign currencies are not taking added to the total",
+  "app.components.Spendings.recurrings": "Recurrings",
 
   "app.helpers.requestHelper.expiredToken": "Session has expired",
   "app.helpers.requestHelper.text": "You will be redirected to login",

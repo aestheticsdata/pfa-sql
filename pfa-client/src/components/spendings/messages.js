@@ -39,8 +39,8 @@ export default defineMessages({
     id: `${scope}.confirmDeleteConfirmButton`,
     defaultMessage: 'Delete',
   },
-  noRates: {
-    id: `${scope}.noRates`,
-    defaultMessage: 'No currencies rates available, foreign currencies are not taking added to the total',
-  },
+  recurrings: {
+    id: `${scope}.recurrings`,
+    defaultMessage: 'Recurrings',
+  }
 });

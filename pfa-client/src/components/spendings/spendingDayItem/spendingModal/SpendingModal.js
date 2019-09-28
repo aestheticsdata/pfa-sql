@@ -10,6 +10,8 @@ import {
 } from 'formik';
 
 import {
+  createRecurring,
+  updateRecurring,
   createSpending,
   updateSpending,
 } from '../../actions';
@@ -23,7 +25,8 @@ const SpendingModal = (props) => {
     const spending = {
       // this format date is required to avoid inconsistency
       // when axios convert date in POST request
-      date: format(props.date, 'yyyy-MM-dd'),
+      // see https://github.com/axios/axios/issues/567
+      date: props.date ? format(props.date, 'yyyy-MM-dd') : null,
       // ///////////////////////////////////////////////////
       label: values.label,
       amount: values.amount,
@@ -33,10 +36,27 @@ const SpendingModal = (props) => {
       id: props.spending._id,
     };
 
-    props.isEditing ?
-      props.updateSpending(spending)
-      :
-      props.createSpending(spending);
+    if (props.isEditing) {
+      if (props.recurringType) {
+        const formattedMonth = {
+          start: format(props.month.start, 'yyyy-MM-dd'),
+          end: format(props.month.end, 'yyyy-MM-dd'),
+        };
+        props.updateRecurring(spending, formattedMonth);
+      } else {
+        props.updateSpending(spending);
+      }
+    } else {
+      if (props.recurringType) {
+        const formattedMonth = {
+          start: format(props.month.start, 'yyyy-MM-dd'),
+          end: format(props.month.end, 'yyyy-MM-dd'),
+        };
+        props.createRecurring(spending, formattedMonth);
+      } else {
+        props.createSpending(spending);
+      }
+    }
 
     props.closeModal();
     setSubmitting(false);
@@ -102,6 +122,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createSpending: (spending) => dispatch(createSpending(spending)),
     updateSpending: (spending) => dispatch(updateSpending(spending)),
+    createRecurring: (spending, month) => dispatch(createRecurring(spending, month)),
+    updateRecurring: (spending, month) => dispatch(updateRecurring(spending, month)),
   };
 };
 

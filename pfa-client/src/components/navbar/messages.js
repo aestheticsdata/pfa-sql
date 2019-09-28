@@ -21,6 +21,6 @@ export default defineMessages({
   },
   globalCurrency: {
     id: `${scope}.globalCurrency`,
-    defaultMessage: 'Global currency',
+    defaultMessage: 'Currency',
   },
 });

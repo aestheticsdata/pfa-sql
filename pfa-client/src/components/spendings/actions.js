@@ -7,6 +7,8 @@ import {
   GET_SPENDINGS_SUCCESS,
   GET_RECURRING,
   GET_RECURRING_SUCCESS,
+  CREATE_RECURRING,
+  UPDATE_RECURRING,
   DELETE_RECURRING,
 } from './constants';
 
@@ -53,10 +55,10 @@ export const getSpendingsSuccess = (spendings, dateRange) => {
   };
 };
 
-export const getRecurring = (recurrings) => {
+export const getRecurring = (start) => {
   return {
     type: GET_RECURRING,
-    recurrings,
+    start,
   };
 };
 
@@ -65,6 +67,22 @@ export const getRecurringSuccess = (recurrings) => {
     type: GET_RECURRING_SUCCESS,
     recurrings,
   };
+};
+
+export const createRecurring = (recurring, month) => {
+  return {
+    type: CREATE_RECURRING,
+    recurring,
+    month,
+  }
+};
+
+export const updateRecurring = (recurring, month) => {
+  return {
+    type: UPDATE_RECURRING,
+    recurring,
+    month,
+  }
 };
 
 export const deleteRecurring = (recurringID) => {
