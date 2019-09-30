@@ -3,35 +3,51 @@ let Dashboard = require('../../models/dashboard.model');
 const checkToken = require('./helpers/checkToken');
 
 router.get('/', checkToken, (req, res) => {
-  Dashboard.find({
+  Dashboard.findOne({
     createdBy: req.query.userID,
-    date: new Date(req.query.month),
+    dateFrom: {"$eq": new Date(req.query.start)},
   })
-    .sort({ createdAt: 'asc' })
     .then(dashboard => res.json(dashboard))
     .catch(err => res.status(404).json(`Error : ${err}`));
 });
 
 router.post('/', checkToken, (req, res) => {
   const {
-    date,
-    initialAmount,
+    start,
+    end,
+    amount,
     userID,
   } = req.body;
 
-  if (!initialAmount || !date) {
+  if (!amount || !start) {
     return res.status(400).json({ msg: 'Please enter amount and a date' });
   }
 
-  const newDashboard = new Dashboard({
-    date,
-    initialAmount,
-    createdBy: userID,
-  });
+  Dashboard.findOne({
+    createdBy: req.body.userID,
+    dateFrom: {"$eq": new Date(req.body.start)},
+  })
+    .then(dashboard => {
+      if (dashboard) {
+        dashboard.initialAmount = amount;
+        dashboard.save()
+          .then(() => res.json(dashboard))
+          .catch(err => res.status(400).json(`Error: ${err}`));
+      } else {
+        const newDashboard = new Dashboard({
+          dateFrom: start,
+          dateTo: end,
+          initialAmount: amount,
+          createdBy: userID,
+        });
 
-  newDashboard.save()
-    .then(() => res.json('new dashboard added'))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+        newDashboard.save()
+          .then(() => res.json('new dashboard added'))
+          .catch(err => res.status(400).json(`Error: ${err}`));
+      }
+    })
+    .catch(err => res.status(400).json(err))
+
 });
 
 router.delete('/:id', checkToken, (req, res) => {

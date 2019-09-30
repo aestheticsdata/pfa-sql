@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
 const DashboardSchema = new mongoose.Schema({
-  date: {
+  dateFrom: {
     type: Date,
     required: true,
   },
-  initialAmout: {
+  dateTo: {
+    type: Date,
+    required: true,
+  },
+  initialAmount: {
     type: Number,
     required: true,
   },

@@ -8,7 +8,9 @@ const StyledSpendings = styled.div`
   padding-top: 10px;
   
   .spendings-container {
-    height: 1020px;
+    display: block;
+    height: auto;
+    overflow: auto;
     width: 1520px;
     margin: 20px auto 10px auto;
   }

@@ -46,5 +46,9 @@ export default defineMessages({
   currentWeekTotal: {
     id: `${scope}.currentWeekTotal`,
     defaultMessage: 'Current week total',
+  },
+  initialAmountSetSuccess: {
+    id: `${scope}.initialAmountSetSuccess`,
+    defaultMessage: 'Initial amount set',
   }
 });

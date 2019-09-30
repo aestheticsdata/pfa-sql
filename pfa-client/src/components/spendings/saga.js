@@ -16,7 +16,9 @@ import {
 
 import {
   getSpendingsSuccess,
-  getSpendings, getRecurringSuccess, getRecurring,
+  getSpendings,
+  getRecurringSuccess,
+  getRecurring,
 } from './actions';
 
 

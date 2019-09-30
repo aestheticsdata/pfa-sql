@@ -9,13 +9,13 @@ import StyledSpendings from './StyledSpendings';
 import SpendingDayItem from './spendingDayItem/SpendingDayItem';
 import SpendingDashboard from './spendingDashboard/SpendingDashboard';
 
-
 import {
   getSpendings,
   deleteSpending,
   getRecurring,
   deleteRecurring,
 } from './actions';
+
 
 class Spendings extends Component {
   constructor(props) {
@@ -117,7 +117,7 @@ class Spendings extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.loginReducer.token,
+    // token: state.loginReducer.token,
     user: state.loginReducer.user,
     spendings: state.spendingsReducer.spendings,
     recurrings: state.spendingsReducer.recurrings,

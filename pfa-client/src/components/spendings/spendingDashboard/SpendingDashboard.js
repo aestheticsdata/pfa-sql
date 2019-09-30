@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import messages from '../messages';
 
 import SpendingDayItem from '../spendingDayItem/SpendingDayItem';
 import StyledSpendingDashboard from './StyledSpendingDashboard';
+
+import MonthlyBudget from './monthlyBudget/MonthlyBudget';
+
 
 class SpendingDashboard extends Component {
   render() {
@@ -21,6 +24,9 @@ class SpendingDashboard extends Component {
         <div className="current-week-total">
           <FormattedMessage { ...messages.currentWeekTotal } />:
           <span>{weekTotal}</span>
+        </div>
+        <div className="monthly-budget">
+          <MonthlyBudget />
         </div>
         <div className="recurring-spendings-container">
           <SpendingDayItem
