@@ -10,7 +10,7 @@ const StyledSpendings = styled.div`
   .spendings-container {
     height: 1020px;
     width: 1520px;
-    margin: 0 auto;
+    margin: 20px auto 10px auto;
   }
 `;
 

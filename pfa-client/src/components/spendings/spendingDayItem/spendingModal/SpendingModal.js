@@ -63,7 +63,9 @@ const SpendingModal = (props) => {
   };
 
   return (
-    <StyledSpendingModal>
+    <StyledSpendingModal
+      recurringType={props.recurringType}
+    >
       <div className="spending-modal-container">
         <Formik
           initialValues={{
@@ -85,11 +87,16 @@ const SpendingModal = (props) => {
                 name="amount"
                 placeholder="amount"
               />
-              <Field
-                type="text"
-                name="category"
-                placeholder="category"
-              />
+              {
+                !props.recurringType ?
+                  <Field
+                    type="text"
+                    name="category"
+                    placeholder="category"
+                  />
+                  :
+                  null
+              }
               <button
                 type="submit"
                 disabled={isSubmitting || errors.email || errors.password}

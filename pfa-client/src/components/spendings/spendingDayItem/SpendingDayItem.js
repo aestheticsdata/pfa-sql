@@ -22,7 +22,7 @@ import _ from 'lodash';
 
 import messages from '../messages';
 
-import { ReactComponent as Spinner } from './spendingModal/assets/Wedges-3s-200px.svg';
+import { ReactComponent as Spinner } from './assets/Wedges-3s-200px.svg';
 
 import SpendingModal from './spendingModal/SpendingModal';
 import SpendingItem from './spendingItem/SpendingItem';

@@ -3,10 +3,12 @@ import colors from '../../../colors';
 
 export const containerWidth = 485;
 export const containerWidthdashboard = 350;
+export const containerHeight = 300;
+export const containerHeightdashboard = 250;
 
 const StyledSpendingDayItem = styled.div`
   width: ${props => props.recurringType ? containerWidthdashboard+'px' : containerWidth+'px' };
-  height: ${props => props.recurringType ? '250px' : '300px'};
+  height: ${props => props.recurringType ? containerHeightdashboard+'px' : containerHeight+'px'};
   background: ${colors.grey0};
   border: 1px solid ${colors.grey2};
   float: ${props => props.recurringType ? 'none' : 'left'};
