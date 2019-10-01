@@ -1,5 +1,6 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { privateRequest } from '../../../helpers/requestHelper';
+import startOfMonth from 'date-fns/startOfMonth';
 
 import {
   GET_INITIAL_AMOUNT,
@@ -15,7 +16,7 @@ import messages from '../messages';
 function* onGetInitialAmout(payload) {
   try {
     const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
-    const res = yield call(privateRequest, `/dashboard?userID=${userID}&start=${payload.start}`);
+    const res = yield call(privateRequest, `/dashboard?userID=${userID}&start=${startOfMonth(payload.fromAsWeekStart)}`);
     const monthlyStats = yield call(privateRequest, `/monthlystats?userID=${userID}&from=${payload.fromAsWeekStart}`);
     yield put(getInitialAmountSuccess(res.data, monthlyStats.data));
   } catch (err) {
@@ -34,7 +35,9 @@ function* onSetInitialAmount(payload) {
       }
     });
     displayPopup({ text: intl.formatMessage({ ...messages.initialAmountSetSuccess }) });
-    yield put(getInitialAmountSuccess(res.data));
+    const from = yield select(state => state.dateRangeReducer.dateRange.from);
+    const monthlyStats = yield call(privateRequest, `/monthlystats?userID=${payload.userID}&from=${from}`);
+    yield put(getInitialAmountSuccess(res.data, monthlyStats.data));
   } catch (err) {
     console.log('Error setting initial amount', err);
   }

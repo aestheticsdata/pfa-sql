@@ -7,7 +7,9 @@ import {
   UPDATE_SPENDING,
   DELETE_SPENDING,
   GET_SPENDINGS,
+  GET_SPENDINGS_SUCCESS,
   GET_RECURRING,
+  GET_RECURRING_SUCCESS,
   GET_USERS,
   CREATE_RECURRING,
   UPDATE_RECURRING,
@@ -20,6 +22,10 @@ import {
   getRecurringSuccess,
   getRecurring,
 } from './actions';
+
+import {
+  getInitialAmount,
+} from './spendingDashboard/actions';
 
 
 import { displayPopup } from '../../helpers/swalHelper';
@@ -154,6 +160,24 @@ export function* onDeleteRecurring(payload) {
   }
 }
 
+export function* onGetSpendingSuccess() {
+  try {
+    const from = yield select(state => state.dateRangeReducer.dateRange.from);
+    yield put(getInitialAmount(null, from));
+  } catch (err) {
+    console.log('err : ', err);
+  }
+}
+
+export function* onGetRecurringSuccess() {
+  try {
+    const from = yield select(state => state.dateRangeReducer.dateRange.from);
+    yield put(getInitialAmount(startOfMonth(from), from));
+  } catch (err) {
+    console.log('err : ', err);
+  }
+}
+
 export default function* defaultSaga() {
   yield takeLatest(GET_USERS, onGetUser);
   yield takeLatest(CREATE_SPENDING, onCreateSpending);
@@ -164,4 +188,6 @@ export default function* defaultSaga() {
   yield takeLatest(DELETE_RECURRING, onDeleteRecurring);
   yield takeLatest(CREATE_RECURRING, onCreateRecurring);
   yield takeLatest(UPDATE_RECURRING, onUpdateRecurring);
+  yield takeLatest(GET_SPENDINGS_SUCCESS, onGetSpendingSuccess);
+  yield takeLatest(GET_RECURRING_SUCCESS, onGetRecurringSuccess);
 }

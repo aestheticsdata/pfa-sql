@@ -57,12 +57,10 @@ class Spendings extends Component {
   };
 
   deleteSpending = (spendingID) => {
-    console.log('deleteSpending : id', spendingID);
     this.props.deleteSpending(spendingID);
   };
 
   deleteRecurring = (recurringID) => {
-    console.log('deleteRecurring id :', recurringID);
     this.props.deleteRecurring(recurringID);
   };
 
