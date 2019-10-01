@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components/macro';
 import colors from '../../../../colors';
-import { inputMixin } from '../../../shared/sharedCSS/sharedFormsCSS';
 
 const label = css`
   .label {
@@ -21,13 +20,24 @@ const StyledMonthlyBudget = styled.div`
   border: 1px solid #fff;
   border-radius: 3px;
   text-align: center;
-  font-size: 17px;
+  font-size: 14px;
+  text-transform: uppercase;
+  
+  .date {
+    width: 80%;
+    font-weight: 800;
+    margin: 10px auto;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid ${colors.grey2};
+    font-size: 13px;
+  }
   
   .initial-amount {
     cursor: default;
     margin-top: 20px;
-    ${label};
     ${value};
+    border-left: 10px solid ${colors.initialAmount};
     
     .amount-input {
       cursor: pointer;
@@ -37,7 +47,7 @@ const StyledMonthlyBudget = styled.div`
       padding: 10px;
       
       &:hover {
-        background-color: yellow;
+        background-color: ${colors.initialAmountHover};
       }
     }
     input {
@@ -53,7 +63,7 @@ const StyledMonthlyBudget = styled.div`
       }
       // ////////////////////////////////////////
       color: ${colors.initialAmount};
-      font-size: 17px;
+      font-size: 14px;
       font-weight: 800;
       width: 100px;
       text-align: center;
@@ -73,12 +83,19 @@ const StyledMonthlyBudget = styled.div`
     margin: 20px 0;
     ${label};
     ${value};
+    .value {
+      color: ${colors.remainingAmount};
+    }
+    border-left: 10px solid  ${colors.remainingAmount};
   }
   
-  .savings {
-    margin: 25px 0;
+  .month-total {
     ${label};
     ${value};
+    .value {
+      color: ${colors.monthTotalAmount};
+    }
+    border-left: 10px solid ${colors.monthTotalAmount};
   }
 `;
 

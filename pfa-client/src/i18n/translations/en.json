@@ -38,7 +38,7 @@
   "app.components.Spendings.initialAmountSetSuccess": "Initial amount set",
   "app.components.Spendings.initialAmount": "Initial amount",
   "app.components.Spendings.remaining": "Remaining",
-  "app.components.Spendings.saved": "Saved",
+  "app.components.Spendings.totalSpendingsOfMonth": "Month Total",
 
   "app.helpers.requestHelper.expiredToken": "Session has expired",
   "app.helpers.requestHelper.text": "You will be redirected to login",

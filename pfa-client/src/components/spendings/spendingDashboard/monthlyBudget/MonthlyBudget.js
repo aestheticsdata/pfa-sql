@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
 import {
+  FormattedDate,
   FormattedMessage,
   FormattedNumber,
   injectIntl,
@@ -16,6 +17,8 @@ import {
 import StyledMonthlyBudget from './StyledMonthlyBudget';
 import messages from '../../messages';
 
+import localesDates from '../../../../i18n/locales-dates';
+
 import {
   getInitialAmount,
   setInitialAmount,
@@ -24,6 +27,9 @@ import {
 import startOfMonth from 'date-fns/startOfMonth';
 import endOfMonth from 'date-fns/endOfMonth';
 import format from 'date-fns/format';
+import getMonth from 'date-fns/getMonth';
+import getYear from 'date-fns/getYear';
+import Cookie from 'js-cookie';
 
 
 class MonthlyBudget extends Component {
@@ -65,7 +71,7 @@ class MonthlyBudget extends Component {
 
   getInitialAmount = () => {
     const start = startOfMonth(this.props.dateRange.from);
-    this.props.getInitialAmount(start);
+    this.props.getInitialAmount(start, this.props.dateRange.from, this.props.dateRange.to);
   };
 
   render() {
@@ -76,6 +82,10 @@ class MonthlyBudget extends Component {
 
     return (
       <StyledMonthlyBudget>
+        <div className="date">
+          <div className="month">{localesDates[Cookie.get('lang')].MONTHS[getMonth(this.props.dateRange.to)]}</div>
+          <div className="year">{getYear(this.props.dateRange.to)}</div>
+        </div>
         <div className="initial-amount">
           <div className="label">
             <FormattedMessage { ...messages.initialAmount } /> :
@@ -120,20 +130,20 @@ class MonthlyBudget extends Component {
           </div>
           <div className="value">
             <FormattedNumber
-              value={2500}
+              value={this.props.remaining}
               style="currency"
               currency={user.baseCurrency}
             />
           </div>
         </div>
 
-        <div className="savings">
+        <div className="month-total">
           <div className="label">
-            <FormattedMessage { ...messages.saved } />
+            <FormattedMessage { ...messages.totalSpendingsOfMonth } />
           </div>
           <div className="value">
             <FormattedNumber
-              value={300}
+              value={this.props.totalSpendingsOfMonth}
               style="currency"
               currency={user.baseCurrency}
             />
@@ -150,12 +160,14 @@ const mapStateToProps = (state) => {
     user: state.loginReducer.user,
     dateRange: state.dateRangeReducer.dateRange,
     initialAmount: state.dashboardReducer.initialAmount,
+    remaining: state.dashboardReducer.remaining,
+    totalSpendingsOfMonth: state.dashboardReducer.totalSpendingsOfMonth,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getInitialAmount: (start) => dispatch(getInitialAmount(start)),
+    getInitialAmount: (start, from, to) => dispatch(getInitialAmount(start, from, to)),
     setInitialAmount: (userID, amount, month) => dispatch(setInitialAmount(userID, amount, month)),
   }
 };

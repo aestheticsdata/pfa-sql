@@ -16,7 +16,8 @@ function* onGetInitialAmout(payload) {
   try {
     const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
     const res = yield call(privateRequest, `/dashboard?userID=${userID}&start=${payload.start}`);
-    yield put(getInitialAmountSuccess(res.data));
+    const monthlyStats = yield call(privateRequest, `/monthlystats?userID=${userID}&start=${payload.start}&from=${payload.fromAsWeekStart}&to=${payload.toAsWeekEnd}`);
+    yield put(getInitialAmountSuccess(res.data, monthlyStats.data));
   } catch (err) {
     console.log('error while getting initial amount : ', err);
   }

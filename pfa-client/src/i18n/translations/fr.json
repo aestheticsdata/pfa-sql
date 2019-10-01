@@ -38,7 +38,7 @@
   "app.components.Spendings.initialAmountSetSuccess": "Montant initial enregistré",
   "app.components.Spendings.initialAmount": "Montant initial",
   "app.components.Spendings.remaining": "Restant",
-  "app.components.Spendings.saved": "Economisé",
+  "app.components.Spendings.totalSpendingsOfMonth": "Total du mois",
 
   "app.helpers.requestHelper.expiredToken": "La session a expiré",
   "app.helpers.requestHelper.text": "Vous allez être redirigé vers la page de connexion",

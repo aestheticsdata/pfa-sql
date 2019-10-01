@@ -4,17 +4,20 @@ import {
   SET_INITIAL_AMOUNT,
 } from './constants';
 
-export const getInitialAmount = (start) => {
+export const getInitialAmount = (start, fromAsWeekStart, toAsWeekEnd) => {
   return {
     type: GET_INITIAL_AMOUNT,
     start,
+    fromAsWeekStart,
+    toAsWeekEnd,
   }
 };
 
-export const getInitialAmountSuccess = (payload) => {
+export const getInitialAmountSuccess = (initialAmount, monthlyBudget) => {
   return {
     type: GET_INITIAL_AMOUNT_SUCCESS,
-    payload,
+    initialAmount,
+    monthlyBudget,
   };
 };
 

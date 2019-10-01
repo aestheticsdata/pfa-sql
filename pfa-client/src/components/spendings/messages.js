@@ -59,8 +59,8 @@ export default defineMessages({
     id: `${scope}.remaining`,
     defaultMessage: 'Remaining',
   },
-  saved: {
-    id: `${scope}.saved`,
-    defaultMessage: 'Saved',
+  totalSpendingsOfMonth: {
+    id: `${scope}.totalSpendingsOfMonth`,
+    defaultMessage: 'Month Total',
   }
 });
