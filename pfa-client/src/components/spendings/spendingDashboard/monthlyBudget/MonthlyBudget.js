@@ -124,11 +124,11 @@ class MonthlyBudget extends Component {
           }
         </div>
 
-        <div className="remaining-budget">
+        <div className={`remaining-budget ${this.props.remaining < 0 && 'warning'}`}>
           <div className="label">
             <FormattedMessage { ...messages.remaining } />
           </div>
-          <div className="value">
+          <div className={`value ${this.props.remaining < 0 && 'warning'}`}>
             <FormattedNumber
               value={this.props.remaining}
               style="currency"

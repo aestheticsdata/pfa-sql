@@ -15,6 +15,8 @@ const colors = {
   remainingAmount: 'rgb(133, 136, 92)',
   monthTotalAmount: 'rgb(255,172,10)',
   warningDelete: 'rgb(247, 8, 8)',
+  generalWarning: 'rgb(247, 8, 8)',
+  generalWarningBackground: 'rgb(255,255,0)',
   warningDeleteBackground: 'rgb(255, 235, 59)',
   warningNoCurrenciesRates: 'rgb(255,16,14)',
   datePickerWrapper: 'rgb(83, 255, 131)',

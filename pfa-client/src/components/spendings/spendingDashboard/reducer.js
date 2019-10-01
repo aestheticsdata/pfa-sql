@@ -12,10 +12,16 @@ const dashboardReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case GET_INITIAL_AMOUNT_SUCCESS:
-        const totalSpendingsOfMonth = action.monthlyBudget && (action.monthlyBudget.spendingsSum[0].total + action.monthlyBudget.recurringsSum[0].total) || 0;
-        draft.initialAmount = (action.initialAmount && action.initialAmount.initialAmount) || 0;
+        let totalSpendingsOfMonth = 0;
+        if (action.monthlyBudget) {
+          const spendingsSum = ((action.monthlyBudget.spendingsSum.length > 0) && action.monthlyBudget.spendingsSum[0].total) || 0;
+          const recurringsSum = ((action.monthlyBudget.recurringsSum.length > 0) && action.monthlyBudget.recurringsSum[0].total) || 0;
+          totalSpendingsOfMonth = spendingsSum + recurringsSum;
+        }
+        const initialAmount = (action.initialAmount && action.initialAmount.initialAmount) || 0;
+        draft.initialAmount = initialAmount;
         draft.totalSpendingsOfMonth = totalSpendingsOfMonth;
-        draft.remaining = (action.monthlyBudget && action.initialAmount && (action.initialAmount.initialAmount - totalSpendingsOfMonth)) || 0;
+        draft.remaining = initialAmount - totalSpendingsOfMonth;
         break;
       default:
         return state;

@@ -83,10 +83,17 @@ const StyledMonthlyBudget = styled.div`
     margin: 20px 0;
     ${label};
     ${value};
+    &.warning {
+      color: ${colors.generalWarning};
+      background-color: ${colors.generalWarningBackground};
+    }
     .value {
       color: ${colors.remainingAmount};
+      &.warning {
+        color: ${colors.generalWarning};
+      }
     }
-    border-left: 10px solid  ${colors.remainingAmount};
+    border-left: 10px solid ${colors.remainingAmount};
   }
   
   .month-total {
