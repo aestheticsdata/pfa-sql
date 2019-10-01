@@ -183,13 +183,13 @@ class SpendingDayItem extends Component {
                               <FormattedNumber
                                 value={spendingsByDay.total}
                                 style="currency"
-                                currency="EUR"
+                                currency={user.baseCurrency}
                               />
                               :
                               <FormattedNumber
                                 value={this.getRecurringsTotal(spendingsByDay)}
                                 style="currency"
-                                currency="EUR"
+                                currency={user.baseCurrency}
                               />
                           }
                         </span>

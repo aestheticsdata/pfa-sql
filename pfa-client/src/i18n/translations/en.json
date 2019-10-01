@@ -36,6 +36,9 @@
   "app.components.Spendings.recurrings": "Recurrings",
   "app.components.Spendings.currentWeekTotal": "Current week total",
   "app.components.Spendings.initialAmountSetSuccess": "Initial amount set",
+  "app.components.Spendings.initialAmount": "Initial amount",
+  "app.components.Spendings.remaining": "Remaining",
+  "app.components.Spendings.saved": "Saved",
 
   "app.helpers.requestHelper.expiredToken": "Session has expired",
   "app.helpers.requestHelper.text": "You will be redirected to login",

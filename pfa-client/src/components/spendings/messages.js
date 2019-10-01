@@ -50,5 +50,17 @@ export default defineMessages({
   initialAmountSetSuccess: {
     id: `${scope}.initialAmountSetSuccess`,
     defaultMessage: 'Initial amount set',
+  },
+  initialAmount: {
+    id: `${scope}.initialAmount`,
+    defaultMessage: 'Initial amount',
+  },
+  remaining: {
+    id: `${scope}.remaining`,
+    defaultMessage: 'Remaining',
+  },
+  saved: {
+    id: `${scope}.saved`,
+    defaultMessage: 'Saved',
   }
 });

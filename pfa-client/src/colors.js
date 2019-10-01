@@ -10,6 +10,7 @@ const colors = {
   addSpendingHover: 'rgb(58,172,249)',
   spendingItemHover: 'rgb(165, 236, 255)',
   spendingActionHover: 'rgb(42,112,164)',
+  initialAmount: 'rgb(24, 109, 192)',
   warningDelete: 'rgb(247, 8, 8)',
   warningDeleteBackground: 'rgb(255, 235, 59)',
   warningNoCurrenciesRates: 'rgb(255,16,14)',

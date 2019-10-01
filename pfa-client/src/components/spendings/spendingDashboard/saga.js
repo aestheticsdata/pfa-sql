@@ -15,7 +15,6 @@ import messages from '../messages';
 function* onGetInitialAmout(payload) {
   try {
     const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
-    console.log('userID : ', userID);
     const res = yield call(privateRequest, `/dashboard?userID=${userID}&start=${payload.start}`);
     yield put(getInitialAmountSuccess(res.data));
   } catch (err) {

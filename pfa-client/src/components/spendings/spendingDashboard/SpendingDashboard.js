@@ -26,7 +26,9 @@ class SpendingDashboard extends Component {
           <span>{weekTotal}</span>
         </div>
         <div className="monthly-budget">
-          <MonthlyBudget />
+          <MonthlyBudget
+            user={user}
+          />
         </div>
         <div className="recurring-spendings-container">
           <SpendingDayItem

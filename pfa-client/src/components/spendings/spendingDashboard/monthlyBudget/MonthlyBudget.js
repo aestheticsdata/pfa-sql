@@ -71,15 +71,27 @@ class MonthlyBudget extends Component {
   render() {
     const {
       initialAmount,
+      user,
     } = this.props;
 
     return (
       <StyledMonthlyBudget>
-        <div className="initialAmount">
+        <div className="initial-amount">
+          <div className="label">
+            <FormattedMessage { ...messages.initialAmount } /> :
+          </div>
           {
             !this.state.isInputVisible ?
-              <div onClick={() => this.setState({ isInputVisible: true })}>
-                <span>{initialAmount}</span>
+              <div
+                className="amount-input value"
+                onClick={() => this.setState({ isInputVisible: true })}
+              >
+                {/* eslint-disable react/style-prop-object */}
+                <FormattedNumber
+                  value={initialAmount}
+                  style="currency"
+                  currency={user.baseCurrency}
+                />
               </div>
               :
               <Formik
@@ -101,12 +113,33 @@ class MonthlyBudget extends Component {
               </Formik>
           }
         </div>
+
         <div className="remaining-budget">
-          <span>Restant</span>
+          <div className="label">
+            <FormattedMessage { ...messages.remaining } />
+          </div>
+          <div className="value">
+            <FormattedNumber
+              value={2500}
+              style="currency"
+              currency={user.baseCurrency}
+            />
+          </div>
         </div>
+
         <div className="savings">
-          <span>Economisé</span>
+          <div className="label">
+            <FormattedMessage { ...messages.saved } />
+          </div>
+          <div className="value">
+            <FormattedNumber
+              value={300}
+              style="currency"
+              currency={user.baseCurrency}
+            />
+          </div>
         </div>
+
       </StyledMonthlyBudget>
     )
   }
