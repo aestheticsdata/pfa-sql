@@ -2,12 +2,15 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
-// const path = require('path');
+const path = require('path');
 
 require('dotenv').config();
 
-
 app.use(cors());
+
+if (process.env.PROD) {
+  app.use(express.static(path.join(__dirname, '../../public_html')));
+}
 
 // Bodyparser Middleware
 app.use(express.json());
