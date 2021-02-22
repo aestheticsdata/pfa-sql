@@ -21,10 +21,11 @@ import { Month } from "./types";
 
 const Spendings = () => {
   const [month, setMonth] = useState<Month>(null);
+
   const dispatch = useDispatch();
-  const user: any = useSelector((state: any) => state.spendingsReducer.user);
+
+  const user: any = useSelector((state: any) => state.loginReducer.user);
   const spendings: any = useSelector((state: any) => state.spendingsReducer.spendings);
-  console.log("spendings", spendings);
   const recurrings: any = useSelector((state: any) => state.spendingsReducer.recurrings);
   const isLoading: boolean = useSelector((state: any) => state.spendingsReducer.isLoading);
   const dateRange: any = useSelector((state: any) => state.dateRangeReducer.dateRange);
@@ -35,7 +36,7 @@ const Spendings = () => {
     const start = startOfMonth(dateRange.from);
     const end = endOfMonth(dateRange.to);
 
-    setMonth({start, end});
+    setMonth({ start, end });
   };
 
   const deleteSpending = (spendingID: string) => {
@@ -54,18 +55,23 @@ const Spendings = () => {
   };
 
   useEffect(() => {
+    console.log("didMount");
     if (user.id && dateRange.from) {
       getSpendingsAndRecurring();
     }
   }, []);
 
   useEffect(() => {
-    const start = startOfMonth(dateRange.from);
-    dispatch(getRecurring(start));
+    if (month !== null) {
+      const start = startOfMonth(dateRange.from);
+      dispatch(getRecurring(start));
+    }
   }, [month]);
 
   useEffect(() => {
-    getSpendingsAndRecurring();
+    if (dateRange?.from !== null) {
+      getSpendingsAndRecurring();
+    }
   }, [dateRange]);
 
   return (
@@ -108,4 +114,3 @@ const Spendings = () => {
 };
 
 export default Spendings;
-
