@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import startOfMonth from 'date-fns/startOfMonth';
 import endOfMonth from 'date-fns/endOfMonth';
@@ -11,85 +11,80 @@ import SpendingDashboard from './spendingDashboard/SpendingDashboard';
 
 import {
   getSpendings,
-  deleteSpending,
+  deleteSpending as deleteSpendingAction,
   getRecurring,
-  deleteRecurring,
+  deleteRecurring as deleteRecurringAction,
 } from './actions';
 
+import { Month } from "./types";
 
-class Spendings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      month: null,
-    };
-  }
 
-  componentDidMount() {
-    if (this.props.user.id && this.props.dateRange.from) {
-      // needed when coming from login but causes a 404 with componentDidUpadte
-      this.getSpendingsAndRecurring();
-    }
-  }
+const Spendings = () => {
+  const [month, setMonth] = useState<Month>(null);
+  const dispatch = useDispatch();
+  const user: any = useSelector((state: any) => state.spendingsReducer.user);
+  const spendings: any = useSelector((state: any) => state.spendingsReducer.spendings);
+  console.log("spendings", spendings);
+  const recurrings: any = useSelector((state: any) => state.spendingsReducer.recurrings);
+  const isLoading: boolean = useSelector((state: any) => state.spendingsReducer.isLoading);
+  const dateRange: any = useSelector((state: any) => state.dateRangeReducer.dateRange);
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.dateRange !== prevProps.dateRange) {
-      this.getSpendingsAndRecurring();
-    }
-  }
+  const getSpendingsAndRecurring = () => {
+    dispatch(getSpendings(user, dateRange));
 
-  getSpendingsAndRecurring = () => {
-    this.props.getSpendings(this.props.user, this.props.dateRange);
+    const start = startOfMonth(dateRange.from);
+    const end = endOfMonth(dateRange.to);
 
-    const start = startOfMonth(this.props.dateRange.from);
-    const end = endOfMonth(this.props.dateRange.to);
-
-    this.setState({ month: {start, end}}, () => {
-      this.props.getRecurrings(start);
-    });
+    setMonth({start, end});
   };
 
-  deleteItem = (itemID, itemType) => {
+  const deleteSpending = (spendingID: string) => {
+    dispatch(deleteSpendingAction(spendingID));
+  };
+
+  const deleteRecurring = (recurringID: string) => {
+    dispatch(deleteRecurringAction(recurringID));
+  };
+
+  const deleteItem = (itemID: string, itemType: string) => {
     itemType === 'spending' ?
-      this.deleteSpending(itemID)
+      deleteSpending(itemID)
       :
-      this.deleteRecurring(itemID);
+      deleteRecurring(itemID);
   };
 
-  deleteSpending = (spendingID) => {
-    this.props.deleteSpending(spendingID);
-  };
+  useEffect(() => {
+    if (user.id && dateRange.from) {
+      getSpendingsAndRecurring();
+    }
+  }, []);
 
-  deleteRecurring = (recurringID) => {
-    this.props.deleteRecurring(recurringID);
-  };
+  useEffect(() => {
+    const start = startOfMonth(dateRange.from);
+    dispatch(getRecurring(start));
+  }, [month]);
 
-  render() {
-    const {
-      isLoading,
-      spendings,
-      recurrings,
-      dateRange,
-      user,
-    } = this.props;
+  useEffect(() => {
+    getSpendingsAndRecurring();
+  }, [dateRange]);
 
-    return (
-      <StyledSpendings>
-
-        <div className="spendings-list">
+  return (
+    <StyledSpendings>
+      <div className="spendings-list">
         {
           spendings.length > 0 && dateRange.range ?
             <div className="list-container">
               <SpendingDashboard
                 weekTotal={spendings.weekTotal}
                 recurring={recurrings}
-                deleteRecurring={this.deleteRecurring}
-                month={this.state.month}
+                deleteRecurring={deleteRecurring}
+                month={month}
                 user={user}
                 isLoading={isLoading}
               />
               <div className="spendings-container">
                 {
+  // @ts-ignore
                   spendings.map((spendingsByDay, i) => (
                     <SpendingDayItem
                       key={i}
@@ -98,7 +93,7 @@ class Spendings extends Component {
                       total={0}
                       isLoading={isLoading}
                       user={user}
-                      deleteSpending={this.deleteItem}
+                      deleteSpending={deleteItem}
                     />
                   ))
                 }
@@ -107,30 +102,10 @@ class Spendings extends Component {
             :
             null
         }
-        </div>
-      </StyledSpendings>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    // token: state.loginReducer.token,
-    user: state.loginReducer.user,
-    spendings: state.spendingsReducer.spendings,
-    recurrings: state.spendingsReducer.recurrings,
-    isLoading: state.spendingsReducer.isLoading,
-    dateRange: state.dateRangeReducer.dateRange,
-  }
+      </div>
+    </StyledSpendings>
+  );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getSpendings: (user, dateRange) => dispatch(getSpendings(user, dateRange)),
-    getRecurrings: (start) => dispatch(getRecurring(start)),
-    deleteSpending: (spendingID) => dispatch(deleteSpending(spendingID)),
-    deleteRecurring: (recurringID) => dispatch(deleteRecurring(recurringID)),
-  };
-};
+export default Spendings;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Spendings);
