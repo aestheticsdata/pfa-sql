@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import onClickOutside from "react-onclickoutside";
-import { connect } from 'react-redux';
-
-import format from 'date-fns/format';
-
-import fr from 'date-fns/locale/fr';
-import en from 'date-fns/locale/en-US';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
+import { useDispatch } from 'react-redux';
 
 import Cookie from 'js-cookie';
 
@@ -18,160 +16,126 @@ import { dateRangeChange } from './actions';
 
 import StyledDatePickerWrapper from './StyledDatePickerWrapper';
 
-import { getWeekDays, getWeekRange } from './helpers';
+import {
+  getFormattedDate,
+  getWeekDays,
+  getWeekRange
+} from './helpers';
+
+import useOnClickOutside from 'use-onclickoutside';
 
 
-class DatePickerWrapper extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isCalendarVisible: false,
-      hoverRange: null,
-      selectedDays: [],
-      lang: Cookie.get('lang'),
-    };
-  }
+const DatePickerWrapper = () => {
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
+  const [hoverRange, setHoverRange] = useState(null);
+  const [selectedDays, setSelectedDays] = useState([]);
+  const [lang] = useState(Cookie.get('lang'));
 
-  componentDidMount() {
-    this.handleDayChange(new Date());
-  }
+  const ref = useRef();
 
-  toggleCalendar = () => {
-    this.setState({
-      isCalendarVisible:! this.state.isCalendarVisible,
-    })
+  const daysAreSelected = selectedDays.length > 0;
+
+  const modifiers = {
+    hoverRange,
+    selectedRange: daysAreSelected && {
+      from: selectedDays[0],
+      to: selectedDays[selectedDays.length - 1],
+    },
+    hoverRangeStart: hoverRange && hoverRange.from,
+    hoverRangeEnd: hoverRange && hoverRange.to,
+    selectedRangeStart: daysAreSelected && selectedDays[0],
+    selectedRangeEnd: daysAreSelected && selectedDays[selectedDays.length - 1],
   };
 
-  // ////////////////////////////////////////////////
-  // needed for the HOC react-onclickoutside ////////
-  handleClickOutside = ev => {
-    this.setState({
-      isCalendarVisible: false,
-    })
-  };
-  // ////////////////////////////////////////////////
+  const dispatch = useDispatch();
 
-  handleDayChange = date => {
+  const toggleCalendar = () => {
+    setIsCalendarVisible(!isCalendarVisible);
+  };
+
+  const handleClickOutside = () => {
+    setIsCalendarVisible(false);
+  }
+  useOnClickOutside(ref, handleClickOutside);
+
+  const handleDayChange = date => {
     const weekRange = getWeekRange(date);
     const dateRange = getWeekDays(weekRange.from, date);
 
-    this.props.dateRangeChange({
-      from: weekRange.from,
-      to: weekRange.to,
-      range: dateRange,
-    });
 
-    this.setState({
-      selectedDays: dateRange,
-    });
+    dispatch(
+      dateRangeChange(
+        {
+          from: weekRange.from,
+          to: weekRange.to,
+          range: dateRange,
+        }
+      )
+    );
 
-    this.handleClickOutside();
+    setSelectedDays(dateRange);
+
+    handleClickOutside();
   };
 
-  handleDayEnter = date => {
-    this.setState({
-      hoverRange: getWeekRange(date),
-    });
+  const handleDayEnter = date => {
+    setHoverRange(getWeekRange(date));
   };
 
-  handleDayLeave = () => {
-    this.setState({
-      hoverRange: undefined,
-    });
+  const handleDayLeave = () => {
+    // setHoverRange(getWeekRange(null));
+    setHoverRange(getWeekRange(undefined));
   };
 
-  handleWeekClick = (weekNumber, days, e) => {
+  const handleWeekClick = (weekNumber, days, e) => {
     // this.setState({
     //   selectedDays: days,
     // });
   };
 
-  locales = {
-    'fr': {
-      fr,
-      formatString: 'dd MMM yyyy',
-    },
-    'en': {
-      en,
-      formatString: 'MMM do y',
-    },
-  };
+  useEffect(() => {
+    handleDayChange(new Date());
+  }, []);
 
-  getFormattedDate = (date) => {
-    const { lang } = this.state;
-    return format(date, this.locales[lang].formatString, { locale: this.locales[lang][lang] });
-  };
-
-  render() {
-    const { hoverRange, selectedDays, lang } = this.state;
-
-    const daysAreSelected = selectedDays.length > 0;
-
-    const modifiers = {
-      hoverRange,
-      selectedRange: daysAreSelected && {
-        from: selectedDays[0],
-        to: selectedDays[selectedDays.length - 1],
-      },
-      hoverRangeStart: hoverRange && hoverRange.from,
-      hoverRangeEnd: hoverRange && hoverRange.to,
-      selectedRangeStart: daysAreSelected && selectedDays[0],
-      selectedRangeEnd: daysAreSelected && selectedDays[selectedDays.length - 1],
-    };
-
-    return (
-      <StyledDatePickerWrapper>
-        <div
-          className="caption"
-          onClick={this.toggleCalendar}
-        >
-          {
-            selectedDays.length > 0 ?
-              <div>
-                {this.getFormattedDate(selectedDays[0])} –{' '}
-                {this.getFormattedDate(selectedDays[selectedDays.length - 1])}
-              </div>
-              :
-              <div>dates</div>
-          }
-        </div>
-        <div className="date-picker">
-          {
-            this.state.isCalendarVisible ?
-              <DayPicker
-                initialMonth={selectedDays[0]}
-                months={localesDates[lang].MONTHS}
-                weekdaysLong={localesDates[lang].WEEKDAYS_LONG}
-                weekdaysShort={localesDates[lang].WEEKDAYS_SHORT}
-                selectedDays={selectedDays}
-                showWeekNumbers={false}
-                showOutsideDays={false}
-                modifiers={modifiers}
-                onDayClick={this.handleDayChange}
-                onDayMouseEnter={this.handleDayEnter}
-                onDayMouseLeave={this.handleDayLeave}
-                onWeekClick={this.handleWeekClick}
-              />
-              :
-              null
-          }
-        </div>
-      </StyledDatePickerWrapper>
-    )
-  }
+  return (
+    <StyledDatePickerWrapper ref={ref}>
+      <div
+        className="caption"
+        onClick={toggleCalendar}
+      >
+        {
+          selectedDays.length > 0 ?
+            <div>
+              {getFormattedDate(selectedDays[0], lang)} –{' '}
+              {getFormattedDate(selectedDays[selectedDays.length - 1], lang)}
+            </div>
+            :
+            <div>dates</div>
+        }
+      </div>
+      <div className="date-picker">
+        {
+          isCalendarVisible ?
+            <DayPicker
+              initialMonth={selectedDays[0]}
+              months={localesDates[lang].MONTHS}
+              weekdaysLong={localesDates[lang].WEEKDAYS_LONG}
+              weekdaysShort={localesDates[lang].WEEKDAYS_SHORT}
+              selectedDays={selectedDays}
+              showWeekNumbers={false}
+              showOutsideDays={false}
+              modifiers={modifiers}
+              onDayClick={handleDayChange}
+              onDayMouseEnter={handleDayEnter}
+              onDayMouseLeave={handleDayLeave}
+              onWeekClick={handleWeekClick}
+            />
+            :
+            null
+        }
+      </div>
+    </StyledDatePickerWrapper>
+  )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    dateRangeReducer: state.dateRangeReducer.dateRange,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dateRangeChange: (dateRange) => dispatch(dateRangeChange(dateRange)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(onClickOutside(DatePickerWrapper));
-
+export default DatePickerWrapper;

@@ -1,4 +1,4 @@
-import { WeekRange } from "./types";
+import { WeekRange, LocalesObject } from "./types";
 
 import addDays from 'date-fns/addDays';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -10,6 +10,10 @@ import getDate from 'date-fns/getDate';
 import getDay from 'date-fns/getDay';
 import lastDayOfMonth from 'date-fns/lastDayOfMonth';
 import setHours from 'date-fns/setHours';
+import format from "date-fns/format";
+import fr from "date-fns/locale/fr";
+import en from "date-fns/locale/en-US";
+
 
 
 export const getWeekDays = (weekStart: Date, date: Date): Date[] => {
@@ -58,4 +62,20 @@ export const getWeekRange = (date: Date): WeekRange => {
   }
 
   return dateRange;
+};
+
+
+const locales: LocalesObject = {
+  'fr': {
+    fr,
+    formatString: 'dd MMM yyyy',
+  },
+  'en': {
+    en,
+    formatString: 'MMM do y',
+  },
+};
+
+export const getFormattedDate = (date: Date, lang: string): string => {
+  return format(date, locales[lang].formatString, { locale: locales[lang][lang] });
 };
