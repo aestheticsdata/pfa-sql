@@ -55,7 +55,6 @@ const Spendings = () => {
   };
 
   useEffect(() => {
-    console.log("didMount");
     if (user.id && dateRange.from) {
       getSpendingsAndRecurring();
     }
@@ -69,7 +68,7 @@ const Spendings = () => {
   }, [month]);
 
   useEffect(() => {
-    if (dateRange?.from !== null) {
+    if (dateRange.from) {
       getSpendingsAndRecurring();
     }
   }, [dateRange]);
