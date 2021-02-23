@@ -1,4 +1,4 @@
-import {fr} from "date-fns/locale";
+import localesDates from '../../i18n/locales-dates';
 
 export interface WeekRange {
   from: Date;
@@ -10,6 +10,17 @@ export interface WeekRange {
 export interface LocaleObject {
   [k: string]: any;
   formatString: string;
-};
+}
 
 export type LocalesObject = { [k: string]: LocaleObject };
+
+export type HoverRange =
+  | {
+    from: Date;
+    to: Date;
+  }
+  | null;
+
+export type Days = Date[];
+
+export type LangKeys = keyof typeof localesDates;

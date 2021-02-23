@@ -1,4 +1,4 @@
-import { WeekRange, LocalesObject } from "./types";
+import {WeekRange, LocalesObject, LangKeys} from "./types";
 
 import addDays from 'date-fns/addDays';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -13,6 +13,7 @@ import setHours from 'date-fns/setHours';
 import format from "date-fns/format";
 import fr from "date-fns/locale/fr";
 import en from "date-fns/locale/en-US";
+import Cookie from "js-cookie";
 
 
 
@@ -79,3 +80,7 @@ const locales: LocalesObject = {
 export const getFormattedDate = (date: Date, lang: string): string => {
   return format(date, locales[lang].formatString, { locale: locales[lang][lang] });
 };
+
+export const getLang = ():LangKeys => {
+  return Cookie.get('lang') as LangKeys ?? 'en';
+}

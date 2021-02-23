@@ -3,9 +3,8 @@ import React, {
   useState,
   useRef,
 } from 'react';
-import { useDispatch } from 'react-redux';
 
-import Cookie from 'js-cookie';
+import { useDispatch } from 'react-redux';
 
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -18,24 +17,31 @@ import StyledDatePickerWrapper from './StyledDatePickerWrapper';
 
 import {
   getFormattedDate,
+  getLang,
   getWeekDays,
   getWeekRange
 } from './helpers';
 
 import useOnClickOutside from 'use-onclickoutside';
 
+import {
+  HoverRange,
+  Days,
+  LangKeys
+} from "./types";
+
 
 const DatePickerWrapper = () => {
   const [isCalendarVisible, setIsCalendarVisible] = useState(false);
-  const [hoverRange, setHoverRange] = useState(null);
-  const [selectedDays, setSelectedDays] = useState([]);
-  const [lang] = useState(Cookie.get('lang'));
+  const [hoverRange, setHoverRange] = useState<HoverRange>(null);
+  const [selectedDays, setSelectedDays] = useState<Days>([]);
+  const [lang] = useState<LangKeys>(getLang());
 
-  const ref = useRef();
+  const ref = useRef(null);
 
   const daysAreSelected = selectedDays.length > 0;
 
-  const modifiers = {
+  const modifiers: any = {
     hoverRange,
     selectedRange: daysAreSelected && {
       from: selectedDays[0],
@@ -58,7 +64,7 @@ const DatePickerWrapper = () => {
   }
   useOnClickOutside(ref, handleClickOutside);
 
-  const handleDayChange = date => {
+  const handleDayChange = (date: Date) => {
     const weekRange = getWeekRange(date);
     const dateRange = getWeekDays(weekRange.from, date);
 
@@ -78,19 +84,12 @@ const DatePickerWrapper = () => {
     handleClickOutside();
   };
 
-  const handleDayEnter = date => {
+  const handleDayEnter = (date: Date) => {
     setHoverRange(getWeekRange(date));
   };
 
   const handleDayLeave = () => {
-    // setHoverRange(getWeekRange(null));
-    setHoverRange(getWeekRange(undefined));
-  };
-
-  const handleWeekClick = (weekNumber, days, e) => {
-    // this.setState({
-    //   selectedDays: days,
-    // });
+    setHoverRange(null);
   };
 
   useEffect(() => {
@@ -128,7 +127,7 @@ const DatePickerWrapper = () => {
               onDayClick={handleDayChange}
               onDayMouseEnter={handleDayEnter}
               onDayMouseLeave={handleDayLeave}
-              onWeekClick={handleWeekClick}
+              onWeekClick={() => {}}
             />
             :
             null

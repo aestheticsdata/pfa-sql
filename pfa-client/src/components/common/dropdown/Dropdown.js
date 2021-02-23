@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
-import onClickOutside from "react-onclickoutside";
+import useOnClickOutside from 'use-onclickoutside';
 
 import StyledDropDown from './StyledDropDown';
 
+
+// const DropDown = () => {
+//
+// }
 
 class Dropdown extends Component {
   constructor(props) {
@@ -71,4 +75,5 @@ class Dropdown extends Component {
   }
 }
 
-export default onClickOutside(Dropdown);
+// export default onClickOutside(Dropdown);
+export default Dropdown;
