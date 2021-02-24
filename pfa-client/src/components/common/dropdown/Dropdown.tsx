@@ -4,9 +4,10 @@ import { faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import useOnClickOutside from 'use-onclickoutside';
 
 import StyledDropDown from './StyledDropDown';
+import {DropDown} from "./types";
 
 
-const DropDown = ({ children }) => {
+const DropDown = ({ children }: DropDown) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
 
