@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
 
-export interface DropDown {
+export interface Dropdown {
   children: ReactElement[];
 }
