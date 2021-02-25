@@ -19,9 +19,10 @@ import dashboardReducer from './components/spendings/spendingDashboard/reducer';
 import rootSaga from './rootSaga';
 
 import { history } from './history';
+import { History } from "history";
 
 
-const createRootReducer = (history) => combineReducers({
+const createRootReducer = (history: History<unknown>) => combineReducers({
   router: connectRouter(history),
   registerReducer,
   loginReducer,
@@ -41,6 +42,8 @@ let store = createStore(
     )
   )
 );
+// see https://github.com/reduxjs/redux-toolkit/issues/324
+export type RootState = ReturnType<typeof store.getState>;
 
 sagaMiddleware.run(rootSaga); // https://redux-saga.js.org/docs/advanced/RootSaga.html
 

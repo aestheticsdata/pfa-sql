@@ -16,7 +16,19 @@ import {
   deleteRecurring as deleteRecurringAction,
 } from './actions';
 
-import { Month } from "./types";
+import {
+  Month,
+  Spending,
+  SpendingsType
+} from "./types";
+
+import {
+  userSelector,
+  spendingsSelector,
+  recurringsSelector,
+  isLoadingSelector,
+  dateRangeSelector,
+} from "./selectors";
 
 
 const Spendings = () => {
@@ -24,11 +36,12 @@ const Spendings = () => {
 
   const dispatch = useDispatch();
 
-  const user: any = useSelector((state: any) => state.loginReducer.user);
-  const spendings: any = useSelector((state: any) => state.spendingsReducer.spendings);
-  const recurrings: any = useSelector((state: any) => state.spendingsReducer.recurrings);
-  const isLoading: boolean = useSelector((state: any) => state.spendingsReducer.isLoading);
-  const dateRange: any = useSelector((state: any) => state.dateRangeReducer.dateRange);
+  const user: any = useSelector(userSelector);
+  const spendings: SpendingsType = useSelector(spendingsSelector);
+  console.log('spendings : ', spendings);
+  const recurrings: any = useSelector(recurringsSelector);
+  const isLoading: boolean = useSelector(isLoadingSelector);
+  const dateRange: any = useSelector(dateRangeSelector);
 
   const getSpendingsAndRecurring = () => {
     dispatch(getSpendings(user, dateRange));
@@ -89,8 +102,7 @@ const Spendings = () => {
               />
               <div className="spendings-container">
                 {
-  // @ts-ignore
-                  spendings.map((spendingsByDay, i) => (
+                  spendings.map((spendingsByDay: Partial<Spending>, i: number) => (
                     <SpendingDayItem
                       key={i}
                       spendingsByDay={spendingsByDay}
