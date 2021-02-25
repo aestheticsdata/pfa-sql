@@ -17,18 +17,20 @@ import StyledDatePickerWrapper from './StyledDatePickerWrapper';
 
 import {
   getFormattedDate,
-  getLang,
   getWeekDays,
   getWeekRange
 } from './helpers';
+
+import { getLang } from "../../helpers/lang";
+import { LangKeys } from "../../helpers/types";
 
 import useOnClickOutside from 'use-onclickoutside';
 
 import {
   HoverRange,
-  Days,
-  LangKeys
+  Days
 } from "./types";
+
 
 
 const DatePickerWrapper = () => {

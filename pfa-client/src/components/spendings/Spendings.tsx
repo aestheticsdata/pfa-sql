@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -38,7 +39,6 @@ const Spendings = () => {
 
   const user: any = useSelector(userSelector);
   const spendings: SpendingsType = useSelector(spendingsSelector);
-  console.log('spendings : ', spendings);
   const recurrings: any = useSelector(recurringsSelector);
   const isLoading: boolean = useSelector(isLoadingSelector);
   const dateRange: any = useSelector(dateRangeSelector);
