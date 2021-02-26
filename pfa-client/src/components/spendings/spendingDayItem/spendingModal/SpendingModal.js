@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import format from 'date-fns/format';
 import {FormattedMessage} from 'react-intl';
 
@@ -20,58 +20,64 @@ import messages from '../../messages';
 import StyledSpendingModal from './StyledSpendingModal';
 
 
-const SpendingModal = (props) => {
+const SpendingModal = ({
+    date,
+    closeModal,
+    user,
+    spending,
+    recurringType,
+    isEditing,
+    month,
+  }) => {
+  const dispatch = useDispatch();
+
   const onSubmit = (values, { setSubmitting }) => {
-    const spending = {
+    const spendingEdited = {
       // this format date is required to avoid inconsistency
       // when axios convert date in POST request
       // see https://github.com/axios/axios/issues/567
-      date: props.date ? format(props.date, 'yyyy-MM-dd') : null,
+      date: date ? format(date, 'yyyy-MM-dd') : null,
       // ///////////////////////////////////////////////////
       label: values.label,
       amount: values.amount,
       category: values.category,
-      currency: props.user.baseCurrency,
-      userID: props.user.id,
-      id: props.spending._id,
+      currency: user.baseCurrency,
+      userID: user.id,
+      id: spending._id,
     };
 
-    if (props.isEditing) {
-      if (props.recurringType) {
-        const formattedMonth = {
-          start: format(props.month.start, 'yyyy-MM-dd'),
-          end: format(props.month.end, 'yyyy-MM-dd'),
-        };
-        props.updateRecurring(spending, formattedMonth);
+    if (isEditing) {
+      if (recurringType) {
+        dispatch(updateRecurring(spendingEdited));
       } else {
-        props.updateSpending(spending);
+        dispatch(updateSpending(spendingEdited));
       }
     } else {
-      if (props.recurringType) {
+      if (recurringType) {
         const formattedMonth = {
-          start: format(props.month.start, 'yyyy-MM-dd'),
-          end: format(props.month.end, 'yyyy-MM-dd'),
+          start: format(month.start, 'yyyy-MM-dd'),
+          end: format(month.end, 'yyyy-MM-dd'),
         };
-        props.createRecurring(spending, formattedMonth);
+        dispatch(createRecurring(spendingEdited, formattedMonth));
       } else {
-        props.createSpending(spending);
+        dispatch(createSpending(spendingEdited));
       }
     }
 
-    props.closeModal();
+    closeModal();
     setSubmitting(false);
   };
 
   return (
     <StyledSpendingModal
-      recurringType={props.recurringType}
+      recurringType={recurringType}
     >
       <div className="spending-modal-container">
         <Formik
           initialValues={{
-            label: props.spending.label || '',
-            amount: props.spending.amount || '',
-            category: props.spending.category || '',
+            label: spending.label || '',
+            amount: spending.amount || '',
+            category: spending.category || '',
           }}
           onSubmit={onSubmit}
         >
@@ -88,7 +94,7 @@ const SpendingModal = (props) => {
                 placeholder="amount"
               />
               {
-                !props.recurringType ?
+                !recurringType ?
                   <Field
                     type="text"
                     name="category"
@@ -103,7 +109,7 @@ const SpendingModal = (props) => {
                 className="spending-btn submit"
               >
                 {
-                  props.isEditing ?
+                  isEditing ?
                     <FormattedMessage { ...messages.editModalButton } />
                     :
                     <FormattedMessage { ...messages.createModalButton } />
@@ -113,7 +119,7 @@ const SpendingModal = (props) => {
                 type="reset"
                 value="Reset"
                 className="spending-btn cancel"
-                onClick={() => props.closeModal()}
+                onClick={() => closeModal()}
               >
                 <FormattedMessage { ...messages.cancelModalButton } />
               </button>
@@ -125,13 +131,4 @@ const SpendingModal = (props) => {
   )
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createSpending: (spending) => dispatch(createSpending(spending)),
-    updateSpending: (spending) => dispatch(updateSpending(spending)),
-    createRecurring: (recurring, month) => dispatch(createRecurring(recurring, month)),
-    updateRecurring: (recurring) => dispatch(updateRecurring(recurring)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(SpendingModal);
+export default SpendingModal;
