@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,8 +18,8 @@ import {
 
 import {
   Month,
-  Spending,
-  SpendingsType
+  SpendingCompoundType,
+  SpendingsType,
 } from "./types";
 
 import {
@@ -102,12 +101,11 @@ const Spendings = () => {
               />
               <div className="spendings-container">
                 {
-                  spendings.map((spendingsByDay: Partial<Spending>, i: number) => (
+                  spendings.map((spendingsByDay: SpendingCompoundType, i: number) => (
                     <SpendingDayItem
                       key={i}
                       spendingsByDay={spendingsByDay}
                       date={dateRange.range[i]}
-                      total={0}
                       isLoading={isLoading}
                       user={user}
                       deleteSpending={deleteItem}

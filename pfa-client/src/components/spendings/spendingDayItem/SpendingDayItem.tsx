@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import format from 'date-fns/format';
 
@@ -12,7 +11,6 @@ import getDate from 'date-fns/getDate';
 import {
   FormattedMessage,
   FormattedNumber,
-  injectIntl,
 } from 'react-intl';
 
 import _ from 'lodash';
@@ -25,8 +23,19 @@ import {getLang, locales} from "../../../helpers/lang";
 import { LangKeys } from "../../../helpers/types";
 import SpendingListContainer from "./spendingModal/SpendingListContainer";
 
+import {ReccuringType, SpendingCompoundType, SpendingDayItemType} from "../types";
 
-const SpendingDayItem = ({ spendingsByDay, deleteSpending, user, month = null, date = null, recurringType = false, isLoading = false }) => {
+
+const SpendingDayItem = (
+  {
+    spendingsByDay,
+    deleteSpending,
+    user,
+    month = null,
+    date = 0,
+    recurringType = false,
+    isLoading = false,
+  }: SpendingDayItemType) => {
 
   const [lang] = useState<LangKeys>(getLang());
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -34,7 +43,7 @@ const SpendingDayItem = ({ spendingsByDay, deleteSpending, user, month = null, d
   const [spending, setSpending] = useState({});
   const [isEditing, setIsEditing] = useState(false);
 
-  const getRecurringsTotal = (recurrings) => _.sumBy(recurrings, 'amount');
+  const getRecurringsTotal = (recurrings: SpendingCompoundType) => _.sumBy(recurrings, 'amount');
 
   const addSpending = () => {
     setIsModalVisible(true);
@@ -52,7 +61,7 @@ const SpendingDayItem = ({ spendingsByDay, deleteSpending, user, month = null, d
     setAddSpendingEnabled(!addSpendingEnabled);
   };
 
-  const editSpending = (spending) => {
+  const editSpending = (spending: SpendingCompoundType) => {
     setIsEditing(true);
     setIsModalVisible(true);
     setAddSpendingEnabled(false);
@@ -144,7 +153,7 @@ const SpendingDayItem = ({ spendingsByDay, deleteSpending, user, month = null, d
                     null
                 }
               </div>
-              {SpendingListContainer(spendingsByDay, deleteSpending, toggleAddSpending, editSpending, isLoading)}
+              {SpendingListContainer({ spendingsByDay, deleteSpending, toggleAddSpending, editSpending, isLoading })}
             </div>
           </StyledSpendingDayItem>
           :
@@ -154,5 +163,5 @@ const SpendingDayItem = ({ spendingsByDay, deleteSpending, user, month = null, d
   )
 }
 
-export default injectIntl(SpendingDayItem);
+export default SpendingDayItem;
 

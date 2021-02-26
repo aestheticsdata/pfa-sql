@@ -1,14 +1,17 @@
-// @ts-nocheck
 import React from "react";
 import { ReactComponent as Spinner } from "../assets/Wedges-3s-200px.svg";
 import SpendingItem from "../spendingItem/SpendingItem";
 
+import { SpendingsListContainerType, SpendingType} from "../../types";
+
 const SpendingListContainer = (
-  spendingsByDay,
-  deleteSpending,
-  toggleAddSpending,
-  editSpending,
-  isLoading,
+  {
+    spendingsByDay,
+    deleteSpending,
+    toggleAddSpending,
+    editSpending,
+    isLoading,
+  }: SpendingsListContainerType
 ) => (
   <div className="spendings-list-container">
     {
@@ -18,7 +21,7 @@ const SpendingListContainer = (
             <Spinner width="60px" height="60px" />
           </div>
           :
-          spendingsByDay.map(spending => {
+          spendingsByDay.map((spending: SpendingType) => {
             return (
               <SpendingItem
                 key={spending._id}
