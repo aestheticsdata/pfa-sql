@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {FormattedMessage, FormattedNumber} from 'react-intl';
+import React, { useState } from 'react';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
@@ -9,40 +9,36 @@ import StyledSpendingItem from './StyledSpendingItem';
 import messages from '../../messages';
 
 
-class SpendingItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hover: false,
-      isDeleteConfirmVisible: false,
-    };
-  }
+const SpendingItem = ({
+  spending,
+  editCallback,
+  deleteCallback,
+  toggleAddSpending,
+}) => {
+  const [hover, setHover] = useState(false);
+  const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
 
-  onMouseOver = () => {
-    this.setState({hover: true });
+  const onMouseOver = () => { setHover(true) };
+
+  const onMouseLeave = () => { setHover(false) };
+
+  const openEditModal = () => editCallback(spending);
+
+  const hideConfirm = () => {
+    toggleAddSpending();
+    setIsDeleteConfirmVisible(false);
   };
 
-  onMouseLeave = () => {
-    this.setState({ hover: false });
-  };
-
-  openEditModal = () => this.props.editCallback(this.props.spending);
-
-  hideConfirm = () => {
-    this.props.toggleAddSpending();
-    this.setState({ isDeleteConfirmVisible: false });
-  };
-
-  confirmDeletePopin = (spending, deleteCallback) => {
+  const confirmDeletePopin = (spending, deleteCallback) => {
     return (
       <div className="confirm-delete-popin">
-                <span className="title">
-                  <FormattedMessage { ...messages.confirmDeleteTitle} />
-                </span>
+        <span className="title">
+          <FormattedMessage { ...messages.confirmDeleteTitle} />
+        </span>
         <div className="button-container">
           <button
             className="cancel-button"
-            onClick={() => this.hideConfirm()}
+            onClick={() => hideConfirm()}
           >
             <FormattedMessage { ...messages.confirmDeleteCancelButton } />
           </button>
@@ -50,7 +46,7 @@ class SpendingItem extends Component {
             className="confirm-button"
             onClick={
               () => {
-                this.hideConfirm();
+                hideConfirm();
                 deleteCallback(spending._id, spending.itemType);
               }
             }>
@@ -61,72 +57,62 @@ class SpendingItem extends Component {
     );
   };
 
-  render() {
-    const {
-      spending,
-      deleteCallback,
-      toggleAddSpending,
-    } = this.props;
-
-    const { isDeleteConfirmVisible } = this.state;
-
-    return (
-      <StyledSpendingItem>
-        <div
-          className="spending-item-container"
-          onMouseOver={this.onMouseOver}
-          onMouseLeave={this.onMouseLeave}
-        >
-          {
-            !isDeleteConfirmVisible ?
-              <div className="spending">
-                <span className="label" title={spending.label}>{spending.label}</span>
-                {
-                  spending && spending.category ?
-                    <span className="category">{spending.category}</span>
-                    :
-                    null
-                }
-                {
-                  this.state.hover ?
-                    <>
+  return (
+    <StyledSpendingItem>
+      <div
+        className="spending-item-container"
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+      >
+        {
+          !isDeleteConfirmVisible ?
+            <div className="spending">
+              <span className="label" title={spending.label}>{spending.label}</span>
+              {
+                spending && spending.category ?
+                  <span className="category">{spending.category}</span>
+                  :
+                  null
+              }
+              {
+                hover ?
+                  <>
                       <span
                         className="edit action"
-                        onClick={() => this.openEditModal()}
+                        onClick={() => openEditModal()}
                       >
                         <FontAwesomeIcon icon={faPencilAlt} />
                       </span>
-                      <span
-                        className="delete action"
-                        onClick={
-                          () => {
-                            toggleAddSpending();
-                            this.setState({ isDeleteConfirmVisible: true });
-                          }
+                    <span
+                      className="delete action"
+                      onClick={
+                        () => {
+                          toggleAddSpending();
+                          setIsDeleteConfirmVisible(true);
                         }
-                      >
+                      }
+                    >
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </span>
-                    </>
-                    :
-                    null
-                }
-                <span className="amount">
+                  </>
+                  :
+                  null
+              }
+              <span className="amount">
                   {/* eslint-disable  react/style-prop-object */}
-                  <FormattedNumber
-                    value={spending.amount}
-                    style="currency"
-                    currency={spending.currency}
-                  />
+                <FormattedNumber
+                  value={spending.amount}
+                  style="currency"
+                  currency={spending.currency}
+                />
                 </span>
-              </div>
-              :
-              this.confirmDeletePopin(spending, deleteCallback)
-          }
-        </div>
-      </StyledSpendingItem>
-    )
-  }
+            </div>
+            :
+            confirmDeletePopin(spending, deleteCallback)
+        }
+      </div>
+    </StyledSpendingItem>
+  )
 }
 
 export default SpendingItem;
