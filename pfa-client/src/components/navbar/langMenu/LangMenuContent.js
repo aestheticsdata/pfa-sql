@@ -5,6 +5,7 @@ import { faCheck} from '@fortawesome/free-solid-svg-icons';
 
 import Cookie from 'js-cookie';
 
+import Content from '../common/Content';
 import StyledLangMenuContent from './StyledLangMenuContent';
 
 const UserMenuContent = ({ listItems, handleclosefromchild }) => {
@@ -25,18 +26,11 @@ const UserMenuContent = ({ listItems, handleclosefromchild }) => {
   ));
 
   return (
-    <StyledLangMenuContent>
-      <div
-        onClick={() => handleclosefromchild()}
-        role="menu"
-      >
-        <ul>
-          {
-            content
-          }
-        </ul>
-      </div>
-    </StyledLangMenuContent>
+  <Content
+    handleclosefromchild={handleclosefromchild}
+    ContentStyle={StyledLangMenuContent}
+    content={content}
+  />
   )
 };
 

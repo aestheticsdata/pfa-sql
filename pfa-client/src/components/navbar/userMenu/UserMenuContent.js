@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import Content from '../common/Content';
 import StyledUserMenuContent from './StyledUserMenuContent';
 
 const UserMenuContent = ({ listItems, handleclosefromchild }) => {
@@ -19,18 +20,11 @@ const UserMenuContent = ({ listItems, handleclosefromchild }) => {
   ));
 
   return (
-    <StyledUserMenuContent>
-      <div
-        onClick={() => handleclosefromchild()}
-        role="menu"
-      >
-        <ul>
-          {
-            content
-          }
-        </ul>
-      </div>
-    </StyledUserMenuContent>
+    <Content
+      handleclosefromchild={handleclosefromchild}
+      ContentStyle={StyledUserMenuContent}
+      content={content}
+    />
   )
 };
 
