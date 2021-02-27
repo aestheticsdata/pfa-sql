@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import StyledUserMenuContent from './StyledUserMenuContent';
 
-const UserMenuContent = (props) => {
-  const content = props.listItems && props.listItems.map(item => (
+const UserMenuContent = ({ listItems, handleclosefromchild }) => {
+  const content = listItems && listItems.map(item => (
     <li
       key={item.id}
       className="dropdownitems"
@@ -21,7 +21,7 @@ const UserMenuContent = (props) => {
   return (
     <StyledUserMenuContent>
       <div
-        onClick={() => props.handleclosefromchild()}
+        onClick={() => handleclosefromchild()}
         role="menu"
       >
         <ul>
