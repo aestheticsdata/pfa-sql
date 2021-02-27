@@ -7,8 +7,8 @@ import Cookie from 'js-cookie';
 
 import StyledLangMenuContent from './StyledLangMenuContent';
 
-const UserMenuContent = (props) => {
-  const content = props.listItems && props.listItems.map(item => (
+const UserMenuContent = ({ listItems, handleclosefromchild }) => {
+  const content = listItems && listItems.map(item => (
     <li
       key={item.id}
       className="dropdownitems"
@@ -27,7 +27,7 @@ const UserMenuContent = (props) => {
   return (
     <StyledLangMenuContent>
       <div
-        onClick={() => props.handleclosefromchild()}
+        onClick={() => handleclosefromchild()}
         role="menu"
       >
         <ul>
