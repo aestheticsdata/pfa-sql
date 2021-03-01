@@ -6,8 +6,8 @@ import endOfMonth from 'date-fns/endOfMonth';
 
 import StyledSpendings from './StyledSpendings';
 
-import SpendingDayItem from './spendingDayItem/SpendingDayItem';
-import SpendingDashboard from './spendingDashboard/SpendingDashboard';
+import SpendingDayItem from '@components/spendings/spendingDayItem/SpendingDayItem';
+import SpendingDashboard from '@components/spendings/spendingDashboard/SpendingDashboard';
 
 import {
   getSpendings,

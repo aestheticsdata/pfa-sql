@@ -47,11 +47,11 @@
   },
   "proxy": "http://localhost:5000",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "i18n:extract": "MESSAGE_DIR='./.messages' react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
+    "i18n:extract": "MESSAGE_DIR='./.messages' react-app-rewired build",
     "i18n:manageTranslations": "node ./translationRunner.js"
   },
   "eslintConfig": {
@@ -74,6 +74,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
+    "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.1.8",
     "react-intl-translations-manager": "^5.0.3",
     "redux-devtools-extension": "^2.13.8",

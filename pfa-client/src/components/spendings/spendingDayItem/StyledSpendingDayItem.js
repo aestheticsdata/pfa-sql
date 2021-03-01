@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import colors from '../../../colors';
+import colors from '@src/colors';
 
 export const containerWidth = 485;
 export const containerWidthdashboard = 350;
