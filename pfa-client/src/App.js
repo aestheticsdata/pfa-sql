@@ -23,27 +23,25 @@ import NotFoundComponent from './components/notFoundComponent/NotFoundComponent'
 import { PrivateRoute } from './components/privateRoute/PrivateRoute';
 
 
-function App() {
-  return (
-    <Provider store={store}>
-      <div className="App">
-        <GlobalStyle />
-        <ConnectedRouter history={history}>
-          <NavBar />
-          <Switch>
-            <PrivateRoute exact path="/" component={Spendings} />
-            <PrivateRoute exact path="/stats" component={Stats} />
-            <Route exact path="/login" component={Login}  />
-            <Route exact path="/logout" component={Logout}  />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/forgotpassword" component={ForgotPassword} />
-            <Route exact path="/changepassword" component={ChangePassword} />
-            <Route exact path="*" component={NotFoundComponent} />
-          </Switch>
-        </ConnectedRouter>
-      </div>
-    </Provider>
-  );
-}
+const App = () => (
+  <Provider store={store}>
+    <div className="App">
+      <GlobalStyle />
+      <ConnectedRouter history={history}>
+        <NavBar />
+        <Switch>
+          <PrivateRoute exact path="/" component={Spendings} />
+          <PrivateRoute exact path="/stats" component={Stats} />
+          <Route exact path="/login" component={Login}  />
+          <Route exact path="/logout" component={Logout}  />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/forgotpassword" component={ForgotPassword} />
+          <Route exact path="/changepassword" component={ChangePassword} />
+          <Route exact path="*" component={NotFoundComponent} />
+        </Switch>
+      </ConnectedRouter>
+    </div>
+  </Provider>
+);
 
 export default App;
