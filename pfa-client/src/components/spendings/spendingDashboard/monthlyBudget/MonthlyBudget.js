@@ -1,11 +1,9 @@
-import { Component } from 'react';
-import {connect} from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector} from 'react-redux';
 
 import {
-  FormattedDate,
   FormattedMessage,
   FormattedNumber,
-  injectIntl,
 } from 'react-intl';
 
 import {
@@ -20,8 +18,8 @@ import messages from '../../messages';
 import localesDates from '../../../../i18n/locales-dates';
 
 import {
-  getInitialAmount,
-  setInitialAmount,
+  getInitialAmount as getInitialAmountAction,
+  setInitialAmount as setInitialAmountAction,
 } from '../actions';
 
 import startOfMonth from 'date-fns/startOfMonth';
@@ -32,144 +30,123 @@ import getYear from 'date-fns/getYear';
 import Cookie from 'js-cookie';
 
 
-class MonthlyBudget extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isInputVisible: false,
-    };
-  }
 
-  componentDidMount() {
-    if (this.props.user.id && this.props.dateRange.from) {
-      // needed when coming from login but causes a 404 with componentDidUpadte
-      this.getInitialAmount();
-    }
-  }
+const MonthlyBudget = () => {
+  const [isInputVisible, setIsInputVisible] = useState(false);
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.dateRange !== prevProps.dateRange) {
-      this.getInitialAmount();
-    }
-  }
+  const dispatch = useDispatch();
 
-  onSubmit = (values, { setSubmitting }) => {
+  const user = useSelector(state => state.loginReducer.user);
+  const dateRange = useSelector(state => state.dateRangeReducer.dateRange);
+  const initialAmount = useSelector(state => state.dashboardReducer.initialAmount);
+  const remaining = useSelector(state => state.dashboardReducer.remaining);
+  const totalSpendingsOfMonth = useSelector(state => state.dashboardReducer.totalSpendingsOfMonth);
+
+  const onSubmit = (values, { setSubmitting }) => {
     const formattedMonth = {
-      start: format(startOfMonth(this.props.dateRange.from), 'yyyy-MM-dd'),
-      end: format(endOfMonth(this.props.dateRange.to), 'yyyy-MM-dd'),
+      start: format(startOfMonth(dateRange.from), 'yyyy-MM-dd'),
+      end: format(endOfMonth(dateRange.to), 'yyyy-MM-dd'),
     };
-    this.props.setInitialAmount(this.props.user.id, values.initialAmount, formattedMonth);
-    this.setState({ isInputVisible: false });
+    dispatch(setInitialAmountAction(user.id, values.initialAmount, formattedMonth));
+    setIsInputVisible(false);
     setSubmitting(false);
   };
 
-  getField = (el) => {
-    if (this.state.isInputVisible && el) {
+  const getField = (el) => {
+    if (isInputVisible && el) {
       el.focus();
     }
   };
 
-  getInitialAmount = () => {
-    const start = startOfMonth(this.props.dateRange.from);
-    this.props.getInitialAmount(start, this.props.dateRange.from, this.props.dateRange.to);
+  const getInitialAmount = () => {
+    const start = startOfMonth(dateRange.from);
+    dispatch(getInitialAmountAction(start, dateRange.from, dateRange.to))
   };
 
-  render() {
-    const {
-      initialAmount,
-      user,
-    } = this.props;
+  useEffect(() => {
+    if (user.id && dateRange.from) {
+      // needed when coming from login but causes a 404 with componentDidUpadte. Is it still relevant with useEffect ?
+      getInitialAmount();
+    }
+  }, []);
 
-    return (
-      <StyledMonthlyBudget>
-        <div className="date">
-          <div className="month">{localesDates[Cookie.get('lang')].MONTHS[getMonth(this.props.dateRange.to)]}</div>
-          <div className="year">{getYear(this.props.dateRange.to)}</div>
-        </div>
-        <div className="initial-amount">
-          <div className="label">
-            <FormattedMessage { ...messages.initialAmount } /> :
-          </div>
-          {
-            !this.state.isInputVisible ?
-              <div
-                className="amount-input value"
-                onClick={() => this.setState({ isInputVisible: true })}
-              >
-                {/* eslint-disable react/style-prop-object */}
-                <FormattedNumber
-                  value={initialAmount}
-                  style="currency"
-                  currency={user.baseCurrency}
-                />
-              </div>
-              :
-              <Formik
-                initialValues={{ initialAmount }}
-                onSubmit={this.onSubmit}
-              >
-                {({ isSubmitting, errors }) => (
-                  <Form
-                    onBlur={() => this.setState({ isInputVisible: false })}
-                  >
-                    <Field
-                      type="text"
-                      name="initialAmount"
-                      placeholder="initialAmount"
-                      innerRef={(el) => this.getField(el)}
-                    />
-                  </Form>
-                )}
-              </Formik>
-          }
-        </div>
+  useEffect(() => {
+    getInitialAmount();
+  }, [dateRange]);
 
-        <div className={`remaining-budget ${this.props.remaining < 0 && 'warning'}`}>
-          <div className="label">
-            <FormattedMessage { ...messages.remaining } />
-          </div>
-          <div className={`value ${this.props.remaining < 0 && 'warning'}`}>
-            <FormattedNumber
-              value={this.props.remaining}
-              style="currency"
-              currency={user.baseCurrency}
-            />
-          </div>
+  return (
+    <StyledMonthlyBudget>
+      <div className="date">
+        <div className="month">{localesDates[Cookie.get('lang')].MONTHS[getMonth(dateRange.to)]}</div>
+        <div className="year">{getYear(dateRange.to)}</div>
+      </div>
+      <div className="initial-amount">
+        <div className="label">
+          <FormattedMessage { ...messages.initialAmount } /> :
         </div>
+        {
+          !isInputVisible ?
+            <div
+              className="amount-input value"
+              onClick={() => setIsInputVisible(true)}
+            >
+              {/* eslint-disable react/style-prop-object */}
+              <FormattedNumber
+                value={initialAmount}
+                style="currency"
+                currency={user.baseCurrency}
+              />
+            </div>
+            :
+            <Formik
+              initialValues={{ initialAmount }}
+              onSubmit={onSubmit}
+            >
+              {({ isSubmitting, errors }) => (
+                <Form
+                  onBlur={() => setIsInputVisible(false)}
+                >
+                  <Field
+                    type="text"
+                    name="initialAmount"
+                    placeholder="initialAmount"
+                    innerRef={(el) => getField(el)}
+                  />
+                </Form>
+              )}
+            </Formik>
+        }
+      </div>
 
-        <div className="month-total">
-          <div className="label">
-            <FormattedMessage { ...messages.totalSpendingsOfMonth } />
-          </div>
-          <div className="value">
-            <FormattedNumber
-              value={this.props.totalSpendingsOfMonth}
-              style="currency"
-              currency={user.baseCurrency}
-            />
-          </div>
+      <div className={`remaining-budget ${remaining < 0 && 'warning'}`}>
+        <div className="label">
+          <FormattedMessage { ...messages.remaining } />
         </div>
+        <div className={`value ${remaining < 0 && 'warning'}`}>
+          <FormattedNumber
+            value={remaining}
+            style="currency"
+            currency={user.baseCurrency}
+          />
+        </div>
+      </div>
 
-      </StyledMonthlyBudget>
-    )
-  }
+      <div className="month-total">
+        <div className="label">
+          <FormattedMessage { ...messages.totalSpendingsOfMonth } />
+        </div>
+        <div className="value">
+          <FormattedNumber
+            value={totalSpendingsOfMonth}
+            style="currency"
+            currency={user.baseCurrency}
+          />
+        </div>
+      </div>
+
+    </StyledMonthlyBudget>
+  )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.loginReducer.user,
-    dateRange: state.dateRangeReducer.dateRange,
-    initialAmount: state.dashboardReducer.initialAmount,
-    remaining: state.dashboardReducer.remaining,
-    totalSpendingsOfMonth: state.dashboardReducer.totalSpendingsOfMonth,
-  };
-};
+export default MonthlyBudget;
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getInitialAmount: (start, from, to) => dispatch(getInitialAmount(start, from, to)),
-    setInitialAmount: (userID, amount, month) => dispatch(setInitialAmount(userID, amount, month)),
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MonthlyBudget);
