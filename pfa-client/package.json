@@ -74,6 +74,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
+    "react-app-rewired": "^2.1.8",
     "react-intl-translations-manager": "^5.0.3",
     "redux-devtools-extension": "^2.13.8",
     "styled-components.macro": "^1.0.0"

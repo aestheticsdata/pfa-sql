@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Content = ({ handleclosefromchild, ContentStyle, content }) => {
   return (
     <ContentStyle>

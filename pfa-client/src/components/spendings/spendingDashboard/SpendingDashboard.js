@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from '../messages';
 

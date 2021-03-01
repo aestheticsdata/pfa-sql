@@ -1,4 +1,3 @@
-import React from "react";
 import { ReactComponent as Spinner } from "../assets/Wedges-3s-200px.svg";
 import SpendingItem from "../spendingItem/SpendingItem";
 

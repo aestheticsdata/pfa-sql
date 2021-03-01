@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import format from 'date-fns/format';
 import {FormattedMessage} from 'react-intl';

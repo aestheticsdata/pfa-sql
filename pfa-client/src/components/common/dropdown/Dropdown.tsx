@@ -1,4 +1,4 @@
-import React, { useState, useRef} from 'react';
+import { cloneElement, useState, useRef} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import useOnClickOutside from 'use-onclickoutside';
@@ -43,7 +43,7 @@ const DropDown = ({ children }: Dropdown) => {
         <div>
           {
             isOpen ?
-              React.cloneElement(children[1], { handleclosefromchild: () => close()})
+              cloneElement(children[1], { handleclosefromchild: () => close()})
               :
               null
           }

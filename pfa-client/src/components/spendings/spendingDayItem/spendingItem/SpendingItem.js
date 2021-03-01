@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
