@@ -42,7 +42,7 @@ router.post('/', checkToken, (req, res) => {
         });
 
         newDashboard.save()
-          .then(() => res.json('new dashboard added'))
+          .then(dashboard => res.json(dashboard))
           .catch(err => res.status(400).json(`Error: ${err}`));
       }
     })

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const checkToken = require('./helpers/checkToken');
 const sendgrid = require('@sendgrid/mail');
 sendgrid.setApiKey(process.env.SENDGRID_APIKEY);
-var passwordgenerator = require('generate-password');
+const passwordgenerator = require('generate-password');
 
 let User = require('../../models/user.model');
 
@@ -13,7 +13,7 @@ const signIn = (res, user) => {
   jwt.sign(
     { id: user.id },
     process.env.JWT_SECRET,
-    { expiresIn: '30m' },
+    { expiresIn: '10h' },
     (err, token) => {
       if (err) throw err;
       res.json({
