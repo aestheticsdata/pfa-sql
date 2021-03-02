@@ -8,7 +8,7 @@ export default defineMessages({
     defaultMessage: 'Change password',
   },
   emailSubject: {
-    id: `${scope}.changePasswordEmailSubject`,
+    id: `${scope}.emailSubject`,
     defaultMessage: 'PFA - password change',
   },
   changePasswordSuccessTitle: {

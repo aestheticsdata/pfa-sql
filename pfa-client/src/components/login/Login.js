@@ -10,9 +10,9 @@ import {
   clearLoginFailed,
 } from './actions';
 
-import SharedLoginForm from '../shared/sharedLoginForm/SharedLoginForm';
+import SharedLoginForm from '@components/shared/sharedLoginForm/SharedLoginForm';
 import StyledLogin from './StyledLogin';
-import StyledSharedLoginContainer from '../shared/sharedLoginContainer/StyledSharedLoginContainer';
+import StyledSharedLoginContainer from '@components/shared/sharedLoginContainer/StyledSharedLoginContainer';
 
 
 class Login extends Component {
