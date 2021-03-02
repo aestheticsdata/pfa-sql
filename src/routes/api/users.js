@@ -131,9 +131,6 @@ router.put('/:id', (req, res) => {
   User.findById(req.params.id)
     .then(user => {
       user.language = req.body.lang;
-      // user.name = req.body.name;
-      // user.password = req.body.password;
-      // user.registerDate = Date.parse(req.body.registerDate);
 
       user.save()
         .then(() => res.json('User updated'))
@@ -173,38 +170,15 @@ router.post('/resetpassword', (req, res) => {
                     .then(() => res.json('sendgrid success'))
                     .catch(err => res.status(400).json('sendgrid error : ', err))
                 })
-                .catch(err => console.log('error :', err));
+                .catch(err => { console.log('error :', err) });
             }
           });
         }
       });
     })
     .catch(err => {
-      console.log('error updating password : ', err);
       res.status(400).json('no users registered with this email');
     });
 });
-
-// router.post('/changebasecurrency', (req, res) => {
-//   const { userID, currency } = req.body;
-//
-//   User.findOne({ _id: userID })
-//     .then(user => {
-//       user.baseCurrency = currency;
-//       user.save()
-//         .then(() => {
-//           res.status(200).json({
-//             message : 'base currency updated',
-//             user: {
-//               id: user.id,
-//               name: user.name,
-//               email: user.email,
-//               baseCurrency: user.baseCurrency,
-//             }
-//           });
-//         })
-//         .catch(err => res.status(400).json({message: `base currency not updated: ${err}`}))
-//     })
-// });
 
 module.exports = router;
