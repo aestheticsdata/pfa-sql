@@ -1,4 +1,4 @@
-import { LangKeys } from "./helpers/types";
+import { LangKeys } from "@helpers/types";
 
 export interface User {
   baseCurrency: string;

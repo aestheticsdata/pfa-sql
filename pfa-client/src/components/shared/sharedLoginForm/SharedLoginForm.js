@@ -8,17 +8,16 @@ import getSymbolFromCurrency from 'currency-symbol-map';
 
 import StyledSharedLoginForm from './StyledSharedLoginForm';
 
-import { default as currencyCodes } from  '../../../currency-codes';
+import currencyCodes from  '@src/currency-codes.json';
 
 
-const SharedLoginForm = (props) => {
-  const {
+const SharedLoginForm = ({
     onSubmit,
     buttonTitle,
     displayEmailField,
     displayPasswordField,
     displayCurrencyField,
-  } = props;
+  }) => {
 
   // //////////////////////////////////////////////////////////////////////
   // https://jaredpalmer.com/formik/docs/guides/validation#field-level-validation

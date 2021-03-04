@@ -19,8 +19,8 @@ import messages from '../messages';
 
 import SpendingModal from './spendingModal/SpendingModal';
 
-import {getLang, locales} from "../../../helpers/lang";
-import { LangKeys } from "../../../helpers/types";
+import { getLang, locales } from "@helpers/lang";
+import { LangKeys } from "@helpers/types";
 import SpendingListContainer from "./spendingModal/SpendingListContainer";
 
 import {ReccuringType, SpendingCompoundType, SpendingDayItemType} from "../types";
