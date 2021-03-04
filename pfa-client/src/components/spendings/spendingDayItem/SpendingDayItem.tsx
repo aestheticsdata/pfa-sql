@@ -23,7 +23,9 @@ import { getLang, locales } from "@helpers/lang";
 import { LangKeys } from "@helpers/types";
 import SpendingListContainer from "./spendingModal/SpendingListContainer";
 
-import {ReccuringType, SpendingCompoundType, SpendingDayItemType} from "../types";
+import { SpendingCompoundType, SpendingDayItemType} from "../types";
+
+import useSpendingDayItem from "@components/spendings/spendingDayItem/spendingItem/helpers/useSpendingDayItem";
 
 
 const SpendingDayItem = (
@@ -38,35 +40,19 @@ const SpendingDayItem = (
   }: SpendingDayItemType) => {
 
   const [lang] = useState<LangKeys>(getLang());
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [addSpendingEnabled, setAddSpendingEnabled] = useState(true);
-  const [spending, setSpending] = useState({});
-  const [isEditing, setIsEditing] = useState(false);
 
   const getRecurringsTotal = (recurrings: SpendingCompoundType) => _.sumBy(recurrings, 'amount');
 
-  const addSpending = () => {
-    setIsModalVisible(true);
-    setAddSpendingEnabled(false);
-  };
-
-  const closeModal = () => {
-    setIsModalVisible(false);
-    setAddSpendingEnabled(true);
-    setSpending({});
-    setIsEditing(false);
-  };
-
-  const toggleAddSpending = () => {
-    setAddSpendingEnabled(!addSpendingEnabled);
-  };
-
-  const editSpending = (spending: SpendingCompoundType) => {
-    setIsEditing(true);
-    setIsModalVisible(true);
-    setAddSpendingEnabled(false);
-    setSpending(spending);
-  };
+  const {
+    isModalVisible,
+    addSpendingEnabled,
+    spending,
+    isEditing,
+    addSpending,
+    closeModal,
+    toggleAddSpending,
+    editSpending,
+  } = useSpendingDayItem();
 
   return (
     <>
@@ -131,7 +117,6 @@ const SpendingDayItem = (
                       <span className="total-label">Total</span>
                       {
                         <span className="total-amount">
-                          {/* eslint-disable react/style-prop-object */}
                           {
                             !recurringType ?
                               <FormattedNumber
