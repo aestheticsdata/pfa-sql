@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
-import localesDates from '../../i18n/locales-dates';
+import localesDates from '@src/i18n/locales-dates';
 
 import { dateRangeChange } from './actions';
 
@@ -21,22 +21,26 @@ import {
   getWeekRange
 } from './helpers';
 
-import { getLang } from "../../helpers/lang";
-import { LangKeys } from "../../helpers/types";
+import { getLang } from "@helpers/lang";
+import { LangKeys } from "@helpers/types";
 
 import useOnClickOutside from 'use-onclickoutside';
 
-import {
-  HoverRange,
-  Days
-} from "./types";
+import useDatePickerState from "@components/datePickerWrapper/helpers/useDatePickerState";
 
 
 
 const DatePickerWrapper = () => {
-  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
-  const [hoverRange, setHoverRange] = useState<HoverRange>(null);
-  const [selectedDays, setSelectedDays] = useState<Days>([]);
+  const {
+    isCalendarVisible,
+    hoverRange,
+    selectedDays,
+    setHoverRange,
+    setSelectedDays,
+    toggleCalendar,
+    handleClickOutside,
+  } = useDatePickerState();
+
   const [lang] = useState<LangKeys>(getLang());
 
   const ref = useRef(null);
@@ -57,13 +61,6 @@ const DatePickerWrapper = () => {
 
   const dispatch = useDispatch();
 
-  const toggleCalendar = () => {
-    setIsCalendarVisible(!isCalendarVisible);
-  };
-
-  const handleClickOutside = () => {
-    setIsCalendarVisible(false);
-  }
   useOnClickOutside(ref, handleClickOutside);
 
   const handleDayChange = (date: Date) => {
