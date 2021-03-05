@@ -67,7 +67,6 @@ const DatePickerWrapper = () => {
     const weekRange = getWeekRange(date);
     const dateRange = getWeekDays(weekRange.from, date);
 
-
     dispatch(
       dateRangeChange(
         {

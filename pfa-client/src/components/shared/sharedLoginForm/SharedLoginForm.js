@@ -4,6 +4,8 @@ import {
   Field,
 } from 'formik';
 
+import { validationHelper } from './helpers/validationHelper';
+
 import getSymbolFromCurrency from 'currency-symbol-map';
 
 import StyledSharedLoginForm from './StyledSharedLoginForm';
@@ -19,33 +21,7 @@ const SharedLoginForm = ({
     displayCurrencyField,
   }) => {
 
-  // //////////////////////////////////////////////////////////////////////
-  // https://jaredpalmer.com/formik/docs/guides/validation#field-level-validation
-  const validateEmail = value => {
-    let error;
-
-    if (!value) {
-      error = 'Required';
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-    ) {
-      error = 'Invalid email address';
-    }
-    return error;
-  };
-
-  const validatePassword = value => {
-    let error;
-
-    if (!value) {
-      error = 'Password required';
-    } else if (displayPasswordField && value.length < 5) {
-      error = 'at least 5 chars';
-    }
-
-    return error;
-  };
-  // ////////////////////////////////////////////////////////////////////
+  const { validateEmail, validatePassword } = validationHelper();
 
   const getCurrenciesList = () => {
     return (

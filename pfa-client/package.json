@@ -74,10 +74,12 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
+    "@types/yup": "^0.29.11",
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.1.8",
     "react-intl-translations-manager": "^5.0.3",
     "redux-devtools-extension": "^2.13.8",
-    "styled-components.macro": "^1.0.0"
+    "styled-components.macro": "^1.0.0",
+    "yup": "^0.32.9"
   }
 }
