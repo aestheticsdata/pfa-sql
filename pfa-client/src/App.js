@@ -10,17 +10,17 @@ import { history } from './history';
 
 import GlobalStyle from './global-styles';
 
-import NavBar from './components/navbar/Navbar';
-import Spendings from './components/spendings/Spendings';
-import Stats from './components/stats/Stats';
-import Login from './components/login/Login';
-import Register from './components/register/Register';
-import Logout from './components/logout/Logout';
-import ForgotPassword from './components/forgotPassword/ForgotPassword';
-import ChangePassword from './components/changePassword/ChangePassword';
-import NotFoundComponent from './components/notFoundComponent/NotFoundComponent';
+import NavBar from '@components/navbar/Navbar';
+import Spendings from '@components/spendings/Spendings';
+import Stats from '@components/stats/Stats';
+import Login from '@components/login/Login';
+import Register from '@components/register/Register';
+import Logout from '@components/logout/Logout';
+import ForgotPassword from '@components/forgotPassword/ForgotPassword';
+import ChangePassword from '@components/changePassword/ChangePassword';
+import NotFoundComponent from '@components/notFoundComponent/NotFoundComponent';
 
-import { PrivateRoute } from './components/privateRoute/PrivateRoute';
+import { PrivateRoute } from '@components/privateRoute/PrivateRoute';
 
 
 const App = () => (

@@ -1,4 +1,4 @@
-import { User } from "../../commonTypes";
+import { User } from "@src/commonTypes";
 
 export type Month =
   | { start: Date; end: Date; }

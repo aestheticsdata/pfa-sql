@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import startOfMonth from 'date-fns/startOfMonth';
-import endOfMonth from 'date-fns/endOfMonth';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import StyledSpendings from './StyledSpendings';
 
@@ -10,61 +7,33 @@ import SpendingDayItem from '@components/spendings/spendingDayItem/SpendingDayIt
 import SpendingDashboard from '@components/spendings/spendingDashboard/SpendingDashboard';
 
 import {
-  getSpendings,
-  deleteSpending as deleteSpendingAction,
   getRecurring,
-  deleteRecurring as deleteRecurringAction,
 } from './actions';
 
-import {
-  Month,
-  SpendingCompoundType,
-  SpendingsType,
-} from "./types";
+import { SpendingCompoundType } from "./types";
 
-import {
-  userSelector,
-  spendingsSelector,
-  recurringsSelector,
-  isLoadingSelector,
-  dateRangeSelector,
-} from "./selectors";
+import spendingsSelectorHelper from "./selectors";
+import useSpendingsHelpers from "@components/spendings/helpers/useSpendingsHelpers";
 
 
 const Spendings = () => {
-  const [month, setMonth] = useState<Month>(null);
+  const {
+    month,
+    start,
+    getSpendingsAndRecurring,
+    deleteRecurring,
+    deleteItem,
+  } = useSpendingsHelpers();
 
   const dispatch = useDispatch();
 
-  const user: any = useSelector(userSelector);
-  const spendings: SpendingsType = useSelector(spendingsSelector);
-  const recurrings: any = useSelector(recurringsSelector);
-  const isLoading: boolean = useSelector(isLoadingSelector);
-  const dateRange: any = useSelector(dateRangeSelector);
-
-  const getSpendingsAndRecurring = () => {
-    dispatch(getSpendings(user, dateRange));
-
-    const start = startOfMonth(dateRange.from);
-    const end = endOfMonth(dateRange.to);
-
-    setMonth({ start, end });
-  };
-
-  const deleteSpending = (spendingID: string) => {
-    dispatch(deleteSpendingAction(spendingID));
-  };
-
-  const deleteRecurring = (recurringID: string) => {
-    dispatch(deleteRecurringAction(recurringID));
-  };
-
-  const deleteItem = (itemID: string, itemType: string) => {
-    itemType === 'spending' ?
-      deleteSpending(itemID)
-      :
-      deleteRecurring(itemID);
-  };
+  const {
+    user,
+    spendings,
+    recurrings,
+    isLoading,
+    dateRange,
+  } = spendingsSelectorHelper();
 
   useEffect(() => {
     if (user.id && dateRange.from) {
@@ -74,7 +43,6 @@ const Spendings = () => {
 
   useEffect(() => {
     if (month !== null) {
-      const start = startOfMonth(dateRange.from);
       dispatch(getRecurring(start));
     }
   }, [month]);
