@@ -12,7 +12,7 @@ import lastDayOfMonth from 'date-fns/lastDayOfMonth';
 import setHours from 'date-fns/setHours';
 import format from "date-fns/format";
 
-import { locales } from "../../helpers/lang"
+import { locales } from "@helpers/lang"
 
 
 export const getWeekDays = (weekStart: Date, date: Date): Date[] => {

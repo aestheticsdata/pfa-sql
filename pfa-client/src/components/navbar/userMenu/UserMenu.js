@@ -6,10 +6,10 @@ import {
   faKey,
 } from '@fortawesome/free-solid-svg-icons';
 
-import Dropdown from '../../common/dropdown/Dropdown';
+import Dropdown from '@components/common/dropdown/Dropdown';
 import UserMenuContent from './UserMenuContent';
 import StyledUserMenu from './StyledUserMenu';
-import { history } from '../../../history';
+import { history } from '@src/history';
 import messages from './messages';
 
 

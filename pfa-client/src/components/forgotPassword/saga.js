@@ -1,10 +1,10 @@
 import { takeLatest, call } from 'redux-saga/effects';
-import { history } from '../../history';
+import { history } from '@src/history';
 import { RESET_PASSWORD } from './constants';
-import { request } from '../../helpers/requestHelper';
+import { request } from '@helpers/requestHelper';
 import Swal from 'sweetalert2';
 
-import { intl } from '../../index';
+import { intl } from '@src/index';
 import messages from './messages';
 
 export function* onResetPassword(payload) {

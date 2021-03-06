@@ -6,7 +6,7 @@ import {
   loginError,
   loginSucess,
 } from './actions';
-import { request } from '../../helpers/requestHelper';
+import { request } from '@helpers/requestHelper';
 
 export function* onLogin(user) {
   try {

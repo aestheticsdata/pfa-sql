@@ -1,5 +1,5 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { privateRequest } from '../../helpers/requestHelper';
+import { privateRequest } from '@helpers/requestHelper';
 import startOfMonth from 'date-fns/startOfMonth';
 
 import {
@@ -28,7 +28,7 @@ import {
 } from './spendingDashboard/actions';
 
 
-import { displayPopup } from '../../helpers/swalHelper';
+import { displayPopup } from '@helpers/swalHelper';
 import { intl } from '../../index';
 import messages from './messages';
 

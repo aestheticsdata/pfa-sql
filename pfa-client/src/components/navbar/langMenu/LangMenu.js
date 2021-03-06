@@ -2,7 +2,7 @@ import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import Cookie from 'js-cookie';
 
-import Dropdown from '../../common/dropdown/Dropdown';
+import Dropdown from '@components/common/dropdown/Dropdown';
 import LangMenuContent from './LangMenuContent';
 import StyledLangMenu from './StyledLangMenu';
 import messages from './messages';

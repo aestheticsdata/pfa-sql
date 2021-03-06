@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import StyledContent from '../../common/dropdown/StyledContent';
-import colors from '../../../colors';
+import StyledContent from '@components/common/dropdown/StyledContent';
+import colors from '@src/colors';
 
 const StyledUserMenuContent = styled(StyledContent)`
   top: 30px;
