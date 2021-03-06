@@ -20,7 +20,8 @@ mongoose.connect(
     {
       useNewUrlParser: true,
       useCreateIndex: true,
-      useFindAndModify: false
+      useFindAndModify: false,
+      useUnifiedTopology: true,
     })
   .then(
     () => {console.log('database connected')},
