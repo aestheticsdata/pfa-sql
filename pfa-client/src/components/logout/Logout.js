@@ -1,39 +1,27 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   logout,
   logoutSuccess,
 } from './actions';
 
-class Logout extends Component {
-  componentDidMount() {
-    this.props.logout();
-  }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.token !== prevProps.token) {
-      this.props.logoutSuccess();
+const Logout = () => {
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.loginReducer.token);
+
+  useEffect(() => {
+    dispatch(logout());
+  }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem('pfa-token')) {
+      dispatch(logoutSuccess());
     }
-  }
+  }, [token]);
 
-  render() {
-    return null;
-  }
+  return null;
 }
 
-const mapStateToProps = (state) => {
-  return {
-    token: state.loginReducer.token,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logout: () => dispatch(logout()),
-    logoutSuccess: () => dispatch(logoutSuccess()),
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Logout);
-
+export default Logout;
