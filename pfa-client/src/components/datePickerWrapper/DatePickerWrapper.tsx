@@ -4,25 +4,17 @@ import {
   useRef,
 } from 'react';
 
-import { useDispatch } from 'react-redux';
-
-import formatISO from 'date-fns/formatISO';
 import queryString from 'query-string';
-import { history } from '@src/history';
 
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
 import localesDates from '@src/i18n/locales-dates';
 
-import { dateRangeChange } from './actions';
-
 import StyledDatePickerWrapper from './StyledDatePickerWrapper';
 
 import {
   getFormattedDate,
-  getWeekDays,
-  getWeekRange
 } from './helpers';
 
 import { getLang } from "@helpers/lang";
@@ -39,10 +31,11 @@ const DatePickerWrapper = () => {
     isCalendarVisible,
     hoverRange,
     selectedDays,
-    setHoverRange,
-    setSelectedDays,
     toggleCalendar,
     handleClickOutside,
+    handleDayChange,
+    handleDayEnter,
+    handleDayLeave,
   } = useDatePickerState();
 
   const [lang] = useState<LangKeys>(getLang());
@@ -63,47 +56,13 @@ const DatePickerWrapper = () => {
     selectedRangeEnd: daysAreSelected && selectedDays[selectedDays.length - 1],
   };
 
-  const dispatch = useDispatch();
-
   useOnClickOutside(ref, handleClickOutside);
-
-  const handleDayChange = (date: Date) => {
-    const currentDate = queryString.parse(window.location.search).currentDate;
-    const dateISO = formatISO(date, { representation: 'date' });
-
-    !currentDate && history.push('?currentDate=' + dateISO);
-    currentDate && history.push('?currentDate=' + dateISO);
-
-    const weekRange = getWeekRange(date);
-    const dateRange = getWeekDays(weekRange.from, date);
-
-    dispatch(
-      dateRangeChange(
-        {
-          from: weekRange.from,
-          to: weekRange.to,
-          range: dateRange,
-        }
-      )
-    );
-
-    setSelectedDays(dateRange);
-
-    handleClickOutside();
-  };
-
-  const handleDayEnter = (date: Date) => {
-    setHoverRange(getWeekRange(date));
-  };
-
-  const handleDayLeave = () => {
-    setHoverRange(null);
-  };
 
   useEffect(() => {
     const currentDate  = queryString.parse(window.location.search).currentDate;
     currentDate ? handleDayChange(new Date(currentDate as string)) : handleDayChange(new Date());
   }, []);
+
 
   return (
     <StyledDatePickerWrapper ref={ref}>
