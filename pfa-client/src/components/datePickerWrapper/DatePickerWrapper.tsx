@@ -6,6 +6,10 @@ import {
 
 import { useDispatch } from 'react-redux';
 
+import formatISO from 'date-fns/formatISO';
+import queryString from 'query-string';
+import { history } from '@src/history';
+
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
@@ -64,6 +68,12 @@ const DatePickerWrapper = () => {
   useOnClickOutside(ref, handleClickOutside);
 
   const handleDayChange = (date: Date) => {
+    const currentDate = queryString.parse(window.location.search).currentDate;
+    const dateISO = formatISO(date, { representation: 'date' });
+
+    !currentDate && history.push('?currentDate=' + dateISO);
+    currentDate && history.push('?currentDate=' + dateISO);
+
     const weekRange = getWeekRange(date);
     const dateRange = getWeekDays(weekRange.from, date);
 
@@ -91,7 +101,8 @@ const DatePickerWrapper = () => {
   };
 
   useEffect(() => {
-    handleDayChange(new Date());
+    const currentDate  = queryString.parse(window.location.search).currentDate;
+    currentDate ? handleDayChange(new Date(currentDate as string)) : handleDayChange(new Date());
   }, []);
 
   return (

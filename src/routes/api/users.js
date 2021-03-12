@@ -176,7 +176,7 @@ router.post('/resetpassword', (req, res) => {
         }
       });
     })
-    .catch(err => {
+    .catch(() => {
       res.status(400).json('no users registered with this email');
     });
 });
