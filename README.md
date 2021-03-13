@@ -1,5 +1,5 @@
 ## Personal Finance Assistant.
-React / Redux / Redux-Saga / TypeScript / Hooks / immer / React-intl / Formik / Yup / Express / MongoDB
+React / Redux / Redux-Saga / TypeScript / Hooks / immer / React-intl / Formik / Yup / Express / MySQL
 
 ### warnings :
 using path aliases with cra needs to use react-app-rewire (and customize-cra), without ejecting cra.
