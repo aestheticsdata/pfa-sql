@@ -1,5 +1,7 @@
 create database pfa;
 
+use pfa;
+
 create TABLE users (
   user_id       INT(11) AUTO_INCREMENT PRIMARY KEY,
   name          VARCHAR(20) NOT NULL UNIQUE,
@@ -12,7 +14,7 @@ create TABLE users (
 
 create TABLE categories (
   category_id INT(11) AUTO_INCREMENT PRIMARY KEY,
-  name        VARCHAR(20) NOT NULL,
+  name        VARCHAR(20) NOT NULL UNIQUE,
   color       VARCHAR(20) NOT NULL
 );
 
@@ -23,7 +25,6 @@ create TABLE spendings (
   item_type   VARCHAR(11) NOT NULL,
   label       VARCHAR(100) NOT NULL,
   amount      DECIMAL(6,2) NOT NULL,
-  category    VARCHAR(20) NOT NULL,
   category_id INT(11),
   currency    VARCHAR(3),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
