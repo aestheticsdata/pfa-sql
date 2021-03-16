@@ -4,7 +4,6 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
-
 app.use(cors());
 
 if (process.env.PROD) {

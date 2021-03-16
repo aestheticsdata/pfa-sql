@@ -1,34 +1,40 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize  = require('../db/dbInit');
 
-const RecurringSpendingSchema = new mongoose.Schema({
-  dateFrom: {
-    type: Date,
-    required: true,
+const Recurring = sequelize.define('Recurring', {
+  recurring_id: {
+    type: DataTypes.INTEGER(11),
+    autoIncrement: true,
+    primaryKey: true
   },
-  dateTo: {
-    type: Date,
-    required: true,
+  user_id: {
+    type: DataTypes.INTEGER(11),
+    allowNull: false,
+  },
+  date_from: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  date_to: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  item_type: {
+    type: DataTypes.STRING(11),
+    allowNull: false,
   },
   label: {
-    type: String,
-    required: true,
-  },
-  itemType: {
-    type: String,
-    required: true,
+    type: DataTypes.STRING(100),
+    allowNull: false,
   },
   amount: {
-    type: Number,
-    required: true,
+    type: DataTypes.DECIMAL(6,2),
+    allowNull: false,
   },
   currency: {
-    type: String,
-    default: null,
+    type: DataTypes.STRING(3),
   },
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-  }
-}, {timestamps: true});
+  // FOREIGN KEY (user_id) REFERENCES users(user_id),
+}, { timestamps: false });
 
-module.exports = RecurringSpending = mongoose.model('recurring_spending', RecurringSpendingSchema);
+module.exports = Recurring;

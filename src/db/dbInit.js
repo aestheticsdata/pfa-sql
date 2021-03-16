@@ -1,4 +1,11 @@
 const Sequelize = require('sequelize');
+
+const UserModel = require('../models/user.model');
+const SpendingModel = require('../models/spending.model');
+const RecurringModel = require('../models/recurringSpending.model.model');
+const CategoryModel = require('../models/category.model');
+const DashboardModel = require('../models/dashboard.model');
+
 require('dotenv').config();
 
 const dbConfig = {
@@ -28,6 +35,12 @@ const sequelize = new Sequelize(
     }
   }
 );
+
+const User = UserModel(sequelize);
+const Spending = SpendingModel(sequelize);
+const Recurring = RecurringModel(sequelize);
+const Category = CategoryModel(sequelize);
+const Dashboard = DashboardModel(sequelize);
 
 (async () => {
   try {

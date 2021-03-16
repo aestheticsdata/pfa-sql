@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
-const sequelize  = require('../db/dbInit');
 
-const Spending = sequelize.define('Spending', {
+const Spending = sequelize => sequelize.define('Spending', {
   spending_id: {
     type: DataTypes.INTEGER(11),
     autoIncrement: true,

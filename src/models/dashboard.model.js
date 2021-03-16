@@ -1,22 +1,24 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize  = require('../db/dbInit');
 
-const DashboardSchema = new mongoose.Schema({
+const Dashboard = sequelize.define('Dashboard', {
+  user_id: {
+    type: DataTypes.INTEGER(11),
+    allowNull: false,
+  },
   dateFrom: {
-    type: Date,
-    required: true,
+    type: DataTypes.DATEONLY,
+    allowNull: false,
   },
   dateTo: {
-    type: Date,
-    required: true,
+    type: DataTypes.DATEONLY,
+    allowNull: false,
   },
   initialAmount: {
-    type: Number,
-    required: true,
+    type: DataTypes.DECIMAL(6,2),
+    allowNull: false,
   },
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-  }
-}, {timestamps: true});
+});
 
-module.exports = Dashboard = mongoose.model('dashboard', DashboardSchema);
+module.exports = Dashboard;
+

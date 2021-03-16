@@ -4,7 +4,7 @@ use pfa;
 
 create TABLE users (
   user_id       INT(11) AUTO_INCREMENT PRIMARY KEY,
-  name          VARCHAR(20) NOT NULL UNIQUE,
+  name          VARCHAR(20) NOT NULL,
   password      VARCHAR(60) NOT NULL,
   email         VARCHAR(250) NOT NULL UNIQUE,
   register_date DATETIME NOT NULL,
