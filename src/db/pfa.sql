@@ -21,7 +21,7 @@ create TABLE categories (
 create TABLE spendings (
   spending_id INT(11) AUTO_INCREMENT PRIMARY KEY,
   user_id     INT(11) NOT NULL,
-  date        DATETIME NOT NULL,
+  date        DATE NOT NULL,
   item_type   VARCHAR(11) NOT NULL,
   label       VARCHAR(100) NOT NULL,
   amount      DECIMAL(6,2) NOT NULL,
@@ -36,3 +36,11 @@ insert into users (name, password, email, register_date, base_currency) VALUES
 ('joe', 'coolpassw0rd!', 'joe.cool@eat.com', '2021-03-14', 'EUR'),
 ('julia', 'juliapassword+', 'julia@dfh.io', '2021-03-14', 'EUR'),
 ('vania', 'vaniapassword&', 'vania@dfh.io', '2021-03-14', 'USD');
+
+insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (1, '2021-03-13', 'spending', 'carrefour', '3.45', 'EUR');
+insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (1, '2021-03-11', 'spending', 'monoprix', '14.20', 'EUR');
+insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (2, '2021-03-09', 'spending', 'coiffeur', '30', 'EUR');
+
+insert into categories (name, color) VALUES ('alimentation', "#327fa8");
+
+update spendings set category_id = 1 where user_id = 1;

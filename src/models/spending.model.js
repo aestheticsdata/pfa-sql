@@ -1,38 +1,40 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize  = require('../db/dbInit');
 
-const SpendingSchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    required: true,
+const Spending = sequelize.define('Spending', {
+  spending_id: {
+    type: DataTypes.INTEGER(11),
+    autoIncrement: true,
+    primaryKey: true
   },
-  itemType: {
-    type: String,
-    required: true,
+  user_id: {
+    type: DataTypes.INTEGER(11),
+    allowNull: false,
+  },
+  date: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  item_type: {
+    type: DataTypes.STRING(11),
+    allowNull: false,
   },
   label: {
-    type: String,
-    required: true,
+    type: DataTypes.STRING(100),
+    allowNull: false,
   },
   amount: {
-    type: Number,
-    required: true,
+    type: DataTypes.DECIMAL(6,2),
+    allowNull: false,
   },
-  category: {
-    type: String,
-    default: null,
-  },
-  catID: {
-    type: String,
-    default: null,
+  category_id: {
+    type: DataTypes.INTEGER(11),
   },
   currency: {
-    type: String,
-    default: null,
+    type: DataTypes.STRING(3),
   },
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-  }
-}, {timestamps: true});
+  // FOREIGN KEY (user_id) REFERENCES users(user_id),
+  // FOREIGN KEY (category_id) REFERENCES categories(category_id)
+}, { timestamps: false });
 
-module.exports = Spending = mongoose.model('spending', SpendingSchema);
+module.exports = Spending;
