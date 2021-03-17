@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 const UserModel = require('../models/user.model');
 const SpendingModel = require('../models/spending.model');
-const RecurringModel = require('../models/recurringSpending.model.model');
+const RecurringModel = require('../models/recurringSpending.model');
 const CategoryModel = require('../models/category.model');
 const DashboardModel = require('../models/dashboard.model');
 
@@ -44,12 +44,18 @@ const Dashboard = DashboardModel(sequelize);
 
 (async () => {
   try {
-    await sequelize.sync();
+    await sequelize.sync({force: true});
     console.log('Connection has been established successfully.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
 })();
 
-module.exports = sequelize;
+module.exports = {
+  User,
+  Spending,
+  Recurring,
+  Category,
+  Dashboard,
+};
 

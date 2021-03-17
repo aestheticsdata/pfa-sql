@@ -1,14 +1,13 @@
 const { DataTypes } = require('sequelize');
-const sequelize  = require('../db/dbInit');
 
-const Recurring = sequelize.define('Recurring', {
+const Recurring = sequelize => sequelize.define('Recurring', {
   recurring_id: {
-    type: DataTypes.INTEGER(11),
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV1,
     primaryKey: true
   },
   user_id: {
-    type: DataTypes.INTEGER(11),
+    type: DataTypes.UUID,
     allowNull: false,
   },
   date_from: {

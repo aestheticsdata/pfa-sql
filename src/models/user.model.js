@@ -1,10 +1,9 @@
 const { DataTypes } = require('sequelize');
-const sequelize  = require('../db/dbInit');
 
-const User = sequelize.define('User', {
+const User = sequelize => sequelize.define('User', {
   user_id: {
-    type: DataTypes.INTEGER(11),
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV1,
     primaryKey: true
   },
   name: {
@@ -21,7 +20,7 @@ const User = sequelize.define('User', {
     unique: true,
   },
   register_date: {
-    type: DataTypes.DATETIME,
+    type: DataTypes.DATE,
   },
   language: {
     type: DataTypes.STRING(3),

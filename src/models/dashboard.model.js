@@ -1,9 +1,8 @@
 const { DataTypes } = require('sequelize');
-const sequelize  = require('../db/dbInit');
 
-const Dashboard = sequelize.define('Dashboard', {
+const Dashboard = sequelize => sequelize.define('Dashboard', {
   user_id: {
-    type: DataTypes.INTEGER(11),
+    type: DataTypes.UUID,
     allowNull: false,
   },
   dateFrom: {

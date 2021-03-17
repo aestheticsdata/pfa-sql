@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Spending = require('../../models/spending.model')
+const { Spending } = require('../../db/dbInit');
 
 router.post('/', (req, res) => {
   const {
