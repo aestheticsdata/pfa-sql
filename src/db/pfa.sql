@@ -27,8 +27,8 @@ create TABLE spendings (
   amount      DECIMAL(6,2) NOT NULL,
   category_id INT(11),
   currency    VARCHAR(3),
-  FOREIGN KEY (user_id) REFERENCES users(user_id),
-  FOREIGN KEY (category_id) REFERENCES categories(category_id)
+  -- FOREIGN KEY (user_id) REFERENCES users(user_id),
+  -- FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
 
@@ -40,6 +40,11 @@ insert into users (name, password, email, register_date, base_currency) VALUES
 insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (1, '2021-03-13', 'spending', 'carrefour', '3.45', 'EUR');
 insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (1, '2021-03-11', 'spending', 'monoprix', '14.20', 'EUR');
 insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (2, '2021-03-09', 'spending', 'coiffeur', '30', 'EUR');
+insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (2, '2021-03-14', 'spending', 'leroy merlin', '127', 'EUR');
+insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (3, '2021-03-14', 'spending', 'carte son', '231.56', 'EUR');
+insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (3, '2021-03-15', 'spending', 'monoprix', '42.9', 'EUR');
+insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (3, '2021-03-15', 'spending', 'pharmacie', '7', 'EUR');
+insert into spendings (user_id, date, item_type, label, amount, currency) VALUES (3, '2021-03-15', 'spending', 'franprix', '6.5', 'EUR');
 
 insert into categories (name, color) VALUES ('alimentation', "#327fa8");
 
