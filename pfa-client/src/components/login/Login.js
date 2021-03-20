@@ -15,7 +15,7 @@ import StyledLogin from './StyledLogin';
 import StyledSharedLoginContainer from '../shared/sharedLoginContainer/StyledSharedLoginContainer';
 
 
-const Login = ({history }) => {
+const Login = ({ history }) => {
   const dispatch = useDispatch();
   const onSubmit = (values, { setSubmitting }) => {
 

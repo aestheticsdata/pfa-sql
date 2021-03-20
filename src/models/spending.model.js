@@ -1,12 +1,12 @@
 const { DataTypes } = require('sequelize');
 
 const Spending = sequelize => sequelize.define('Spending', {
-  spending_id: {
+  spendingId: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV1,
     primaryKey: true
   },
-  user_id: {
+  userId: {
     type: DataTypes.UUID,
     allowNull: false,
   },
@@ -14,7 +14,7 @@ const Spending = sequelize => sequelize.define('Spending', {
     type: DataTypes.DATEONLY,
     allowNull: false,
   },
-  item_type: {
+  itemType: {
     type: DataTypes.STRING(11),
     allowNull: false,
   },
@@ -26,14 +26,16 @@ const Spending = sequelize => sequelize.define('Spending', {
     type: DataTypes.DECIMAL(6,2),
     allowNull: false,
   },
-  category_id: {
-    type: DataTypes.INTEGER(11),
+  categoryId: {
+    type: DataTypes.UUID,
   },
   currency: {
     type: DataTypes.STRING(3),
   },
   // FOREIGN KEY (user_id) REFERENCES users(user_id),
   // FOREIGN KEY (category_id) REFERENCES categories(category_id)
-}, { timestamps: false });
+}, {
+  timestamps: false,
+});
 
 module.exports = Spending;

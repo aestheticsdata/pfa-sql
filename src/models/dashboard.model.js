@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 const Dashboard = sequelize => sequelize.define('Dashboard', {
-  user_id: {
+  dashboardId: {
     type: DataTypes.UUID,
     allowNull: false,
   },
@@ -17,6 +17,8 @@ const Dashboard = sequelize => sequelize.define('Dashboard', {
     type: DataTypes.DECIMAL(6,2),
     allowNull: false,
   },
+}, {
+  timestamps: false,
 });
 
 module.exports = Dashboard;

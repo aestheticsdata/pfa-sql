@@ -1,10 +1,14 @@
 const { DataTypes } = require('sequelize');
 
 const Category = sequelize => sequelize.define('Category', {
-  category_id: {
+  categoryId: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV1,
     primaryKey: true,
+  },
+  userID: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV1,
   },
   name: {
     type: DataTypes.STRING(20),
@@ -15,7 +19,9 @@ const Category = sequelize => sequelize.define('Category', {
     type: DataTypes.STRING(20),
     allowNull: false,
   },
-}, { timestamps: false });
+}, {
+  timestamps: false,
+});
 
 module.exports = Category;
 

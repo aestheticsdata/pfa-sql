@@ -37,9 +37,9 @@ const sequelize = new Sequelize(
 );
 
 const User = UserModel(sequelize);
+const Category = CategoryModel(sequelize);
 const Spending = SpendingModel(sequelize);
 const Recurring = RecurringModel(sequelize);
-const Category = CategoryModel(sequelize);
 const Dashboard = DashboardModel(sequelize);
 
 (async () => {

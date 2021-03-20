@@ -7,7 +7,7 @@ create TABLE users (
   name          VARCHAR(20) NOT NULL,
   password      VARCHAR(60) NOT NULL,
   email         VARCHAR(250) NOT NULL UNIQUE,
-  register_date DATETIME NOT NULL,
+  registerDate DATETIME NOT NULL,
   language      VARCHAR(3) DEFAULT 'en',
   base_currency VARCHAR(3) NOT NULL
 );
@@ -26,13 +26,13 @@ create TABLE spendings (
   label       VARCHAR(100) NOT NULL,
   amount      DECIMAL(6,2) NOT NULL,
   category_id INT(11),
-  currency    VARCHAR(3),
+  currency    VARCHAR(3)
   -- FOREIGN KEY (user_id) REFERENCES users(user_id),
   -- FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
 
-insert into users (name, password, email, register_date, base_currency) VALUES
+insert into users (name, password, email, registerDate, base_currency) VALUES
 ('joe', 'coolpassw0rd!', 'joe.cool@eat.com', '2021-03-14', 'EUR'),
 ('julia', 'juliapassword+', 'julia@dfh.io', '2021-03-14', 'EUR'),
 ('vania', 'vaniapassword&', 'vania@dfh.io', '2021-03-14', 'USD');

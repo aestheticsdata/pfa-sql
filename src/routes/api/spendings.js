@@ -3,13 +3,13 @@ const { Spending } = require('../../db/dbInit');
 
 router.post('/', (req, res) => {
   const {
-    spending_id,
-    user_id,
+    spendingId,
+    userId,
     date,
-    item_type,
+    itemType,
     label,
     amount,
-    category_id,
+    categoryId,
     currency,
   } = req.body;
 
@@ -20,13 +20,13 @@ router.post('/', (req, res) => {
 
   Spending.create(
     {
-      spending_id,
-      user_id,
+      spendingId,
+      userId,
       date,
-      item_type,
+      itemType,
       label,
       amount,
-      category_id,
+      categoryId,
       currency,
     }
   )
