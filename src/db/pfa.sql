@@ -61,3 +61,10 @@ insert into Spendings (spendingId, userId, date, itemType, label, amount, curren
 insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('040a2572-89b1-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-16', 'spending', 'zzz', '226.5', 'EUR');
 insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('040a26da-89b1-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-17', 'spending', 'ppp', '64.5', 'EUR');
 insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('040a2888-89b1-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-18', 'spending', 'kkkkk', '38.45', 'EUR');
+
+insert into Categories (categoryId, userID, name, color) values ('40f556a6-89c9-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', 'alimentation', '#32a84c');
+insert into Categories (categoryId, userID, name, color) values ('ed7371e2-89c9-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', 'loisir', '#349beb');
+
+UPDATE Spendings SET categoryId = '40f556a6-89c9-11eb-8dcd-0242ac130003' WHERE label = 'monoprix';
+UPDATE Spendings SET categoryId = '40f556a6-89c9-11eb-8dcd-0242ac130003' WHERE label = 'carrefour';
+UPDATE Spendings SET categoryId = 'ed7371e2-89c9-11eb-8dcd-0242ac130003' WHERE label = 'carte son';

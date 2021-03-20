@@ -66,7 +66,6 @@ router.post('/', (req, res) => {
 // });
 
 router.post('/add', (req, res) => {
-  console.log('req.body.baseCurrency : ', req.body.baseCurrency);
   const {
     name,
     email,
