@@ -3,6 +3,7 @@ import { privateRequest } from '@helpers/requestHelper';
 import startOfMonth from 'date-fns/startOfMonth';
 
 import {
+  GET_CATEGORIES,
   CREATE_SPENDING,
   UPDATE_SPENDING,
   DELETE_SPENDING,
@@ -21,6 +22,7 @@ import {
   getSpendings,
   getRecurringSuccess,
   getRecurring,
+  getCategoriesSuccess,
 } from './actions';
 
 import {
@@ -36,11 +38,21 @@ import messages from './messages';
 export function* onGetUser() {
   try {
     yield call(privateRequest, '/users/all');
-  } catch(err) {
+  } catch (err) {
     console.log('Main saga err', err);
     // if (err.response.status === 401) {
       // yield put(push('/logout'));
     // }
+  }
+}
+
+export function* onGetCategories() {
+  try {
+    const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
+    const res = yield call(privateRequest, `/categories/all?userID=${userID}`);
+    yield put(getCategoriesSuccess(res.data));
+  } catch (err) {
+    console.log('get categories error : ', err);
   }
 }
 
@@ -179,6 +191,7 @@ export function* onGetRecurringSuccess() {
 }
 
 export default function* defaultSaga() {
+  yield takeLatest(GET_CATEGORIES, onGetCategories);
   yield takeLatest(GET_USERS, onGetUser);
   yield takeLatest(CREATE_SPENDING, onCreateSpending);
   yield takeLatest(GET_SPENDINGS, onGetSpendings);

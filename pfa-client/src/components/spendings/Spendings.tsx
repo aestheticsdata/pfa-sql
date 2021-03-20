@@ -21,6 +21,7 @@ const Spendings = () => {
     month,
     start,
     getSpendingsAndRecurring,
+    getCategories,
     deleteRecurring,
     deleteItem,
   } = useSpendingsHelpers();
@@ -38,6 +39,7 @@ const Spendings = () => {
   useEffect(() => {
     if (user.id && dateRange.from) {
       getSpendingsAndRecurring();
+      getCategories();
     }
   }, []);
 

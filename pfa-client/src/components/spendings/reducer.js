@@ -6,6 +6,7 @@ import parseISO from 'date-fns/parseISO';
 import {
   GET_SPENDINGS_SUCCESS,
   GET_RECURRING_SUCCESS,
+  GET_CATEGORIES_SUCCESS,
 } from './constants';
 
 const tempArr = [];
@@ -15,6 +16,7 @@ const spendingsPlaceholder = [tempArr, tempArr, tempArr, tempArr, tempArr, tempA
 const initialState = {
   spendings: spendingsPlaceholder,
   recurrings: [],
+  categories: [],
   currency: 'EUR',
   isLoading: true,
 };
@@ -60,6 +62,8 @@ const spendingsReducer = (state = initialState, action) =>
         draft.recurrings = action.recurrings;
         // draft.recurrings.flag = 'recurring';
         break;
+      case GET_CATEGORIES_SUCCESS:
+        draft.categories = action.categories;
       default:
         return state;
     }

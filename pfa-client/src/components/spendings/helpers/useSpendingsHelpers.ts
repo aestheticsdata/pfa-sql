@@ -1,7 +1,8 @@
 import {
   deleteRecurring as deleteRecurringAction,
   deleteSpending as deleteSpendingAction,
-  getSpendings
+  getSpendings,
+  getCategories as getCategoriesAction,
 } from "@components/spendings/actions";
 import startOfMonth from "date-fns/startOfMonth";
 import endOfMonth from "date-fns/endOfMonth";
@@ -19,6 +20,10 @@ const useSpendingsHelpers = () => {
   } = useSpendingsSelectorHelper();
 
   const start = startOfMonth(dateRange.from);
+
+  const getCategories = () => {
+    dispatch(getCategoriesAction(user));
+  };
 
   const getSpendingsAndRecurring = () => {
     dispatch(getSpendings(user, dateRange));
@@ -47,6 +52,7 @@ const useSpendingsHelpers = () => {
   return {
     month,
     start,
+    getCategories,
     getSpendingsAndRecurring,
     deleteSpending,
     deleteRecurring,

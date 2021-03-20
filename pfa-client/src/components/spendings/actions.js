@@ -1,5 +1,7 @@
 import {
   GET_USERS,
+  GET_CATEGORIES,
+  GET_CATEGORIES_SUCCESS,
   CREATE_SPENDING,
   UPDATE_SPENDING,
   DELETE_SPENDING,
@@ -12,11 +14,22 @@ import {
   DELETE_RECURRING,
 } from './constants';
 
+
 export const getUsers = () => {
   return {
     type: GET_USERS,
   };
 };
+
+export const getCategories = (user) => ({
+  type: GET_CATEGORIES,
+  user,
+});
+
+export const getCategoriesSuccess = (categories) => ({
+  type: GET_CATEGORIES_SUCCESS,
+  categories,
+});
 
 export const createSpending = (spending) => {
   return {

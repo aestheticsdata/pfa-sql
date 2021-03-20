@@ -1,4 +1,6 @@
 export const GET_USERS = 'app/spendings/GET_USERS';
+export const GET_CATEGORIES = 'app/spendings/GET_CATEGORIES';
+export const GET_CATEGORIES_SUCCESS = 'app/spendings/GET_CATEGORIES_SUCCESS';
 export const CREATE_SPENDING = 'app/spendings/CREATE_SPENDING';
 export const UPDATE_SPENDING = 'app/spendings/UPDATE_SPENDING';
 export const DELETE_SPENDING = 'app/spendings/DELETE_SPENDING';
