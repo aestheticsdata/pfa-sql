@@ -11,7 +11,7 @@ let { User } = require('../../db/dbInit');
 
 const signIn = (res, user) => {
   jwt.sign(
-    { id: user.id },
+    { id: user.userId },
     process.env.JWT_SECRET,
     { expiresIn: '10h' },
     (err, token) => {
@@ -19,7 +19,7 @@ const signIn = (res, user) => {
       res.json({
         token,
         user: {
-          id: user.id,
+          id: user.userId,
           name: user.name,
           email: user.email,
           baseCurrency: user.baseCurrency,
@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
   }
 
   // Check for existing user
-  User.findOne({ email })
+  User.findOne({ where: { email } })
     .then(user => {
       if (!user) return res.status(400).json({ message: 'User Does not exist' });
 
@@ -80,9 +80,7 @@ router.post('/add', (req, res) => {
     return res.status(400).json({ msg: 'Please enter all fields' });
   }
 
-  User.findOne({
-    email
-  }).then(user => {
+  User.findOne({ where: { email } }).then(user => {
     if (user) {
       return res.status(400).json({ message: 'Email already exists' });
     } else {
@@ -138,47 +136,45 @@ router.post('/add', (req, res) => {
 //     });
 // });
 
-// router.post('/resetpassword', (req, res) => {
-//   const { email, subject, changedPassword } = req.body;
-//
-//   const newPassword = changedPassword || passwordgenerator.generate({
-//     length: 10,
-//     numbers: true,
-//   });
-//
-//   const msg = {
-//     to: email,
-//     from: 'hxf.finance@protonmail.com',
-//     subject,
-//     text: `your new password is: ${newPassword}`,
-//   };
-//
-//   User.findOne({ email })
-//     .then(user => {
-//       user.password = newPassword;
-//       bcrypt.genSalt(10, (err, salt) => {
-//         if (err) console.error('There was an error during salt', err);
-//         else {
-//           bcrypt.hash(newPassword, salt, (err, hash) => {
-//             if (err) console.error('There was an error during hash', err);
-//             else {
-//               user.password = hash;
-//               user.save()
-//                 .then(() => {
-//                   console.log('user updated');
-//                   sendgrid.send(msg)
-//                     .then(() => res.json('sendgrid success'))
-//                     .catch(err => res.status(400).json('sendgrid error : ', err))
-//                 })
-//                 .catch(err => { console.log('error :', err) });
-//             }
-//           });
-//         }
-//       });
-//     })
-//     .catch(() => {
-//       res.status(400).json('no users registered with this email');
-//     });
-// });
+router.post('/resetpassword', (req, res) => {
+  const { email, subject, changedPassword } = req.body;
+
+  const newPassword = changedPassword || passwordgenerator.generate({
+    length: 10,
+    numbers: true,
+  });
+
+  const msg = {
+    to: email,
+    from: 'hxf.finance@protonmail.com',
+    subject,
+    text: `your new password is: ${newPassword}`,
+  };
+
+  User.findOne({ where: { email } })
+    .then(() => {
+      bcrypt.genSalt(10, (err, salt) => {
+        if (err) console.error('There was an error during salt', err);
+        else {
+          bcrypt.hash(newPassword, salt, (err, hash) => {
+            if (err) console.error('There was an error during hash', err);
+            else {
+              User.update({ password: hash }, { where: { email } })
+                .then(() => {
+                  console.log('user updated');
+                  sendgrid.send(msg)
+                    .then(() => res.json('sendgrid success'))
+                    .catch(err => res.status(400).json('sendgrid error : ', err))
+                })
+                .catch(err => { console.log('error :', err) });
+            }
+          });
+        }
+      });
+    })
+    .catch(() => {
+      res.status(400).json('no users registered with this email');
+    });
+});
 
 module.exports = router;

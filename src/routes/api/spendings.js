@@ -1,5 +1,31 @@
 const router = require('express').Router();
 const { Spending } = require('../../db/dbInit');
+const checkToken = require('./helpers/checkToken');
+const { Op } = require('sequelize');
+
+
+router.get('/', checkToken, (req, res) => {
+  Spending.findAll({
+    where: {
+      userId: req.query.userID,
+      date: {
+        [Op.between]: [new Date(req.query.from), new Date(req.query.to)],
+      },
+    },
+    order: [['date', 'ASC']],
+  })
+    .then(spendings => res.json(spendings))
+    .catch(err => res.status(404).json(`Error : ${err}`));
+});
+
+router.get('/:id', checkToken, (req, res) => {
+  console.log('ici ca passe');
+  Spending.findOne({
+    where: { spendingId: req.params.id }
+  })
+    .then(spending => res.json(spending))
+    .catch(() => res.status(404).json('no spending with this id'));
+});
 
 router.post('/', (req, res) => {
   const {

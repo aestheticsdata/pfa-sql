@@ -49,3 +49,15 @@ insert into spendings (user_id, date, item_type, label, amount, currency) VALUES
 insert into categories (name, color) VALUES ('alimentation', "#327fa8");
 
 update spendings set category_id = 1 where user_id = 1;
+
+--
+insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('bf8599b8-89b0-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-13', 'spending', 'carrefour', '3.45', 'EUR');
+insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('dca8f454-89b0-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-11', 'spending', 'monoprix', '14.20', 'EUR');
+insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('dca8f85a-89b0-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-09', 'spending', 'coiffeur', '30', 'EUR');
+insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('dca8f954-89b0-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-14', 'spending', 'leroy merlin', '127', 'EUR');
+insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('dca8fa12-89b0-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-14', 'spending', 'carte son', '231.56', 'EUR');
+insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('dca8fad0-89b0-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-15', 'spending', 'monoprix', '42.9', 'EUR');
+insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('040a2270-89b1-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-15', 'spending', 'pharmacie', '7', 'EUR');
+insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('040a2572-89b1-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-16', 'spending', 'zzz', '226.5', 'EUR');
+insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('040a26da-89b1-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-17', 'spending', 'ppp', '64.5', 'EUR');
+insert into Spendings (spendingId, userId, date, itemType, label, amount, currency) VALUES ('040a2888-89b1-11eb-8dcd-0242ac130003', '69025480-89ad-11eb-9877-ed6244d71195', '2021-03-18', 'spending', 'kkkkk', '38.45', 'EUR');
