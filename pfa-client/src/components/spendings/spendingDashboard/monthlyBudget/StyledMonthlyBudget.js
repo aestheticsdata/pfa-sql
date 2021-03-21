@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/macro';
-import colors from '../../../../colors';
+import colors from '@src/colors';
 
 const label = css`
   .label {
@@ -38,6 +38,8 @@ const StyledMonthlyBudget = styled.div`
     margin-top: 20px;
     ${value};
     border-left: 10px solid ${colors.initialAmount};
+    background-color: ${colors.initialAmountAlpha};
+    padding: 2px 0;
     
     .amount-input {
       cursor: pointer;
@@ -48,6 +50,8 @@ const StyledMonthlyBudget = styled.div`
       
       &:hover {
         background-color: ${colors.initialAmountHover};
+        border-radius: 3px;
+          
       }
     }
     input {
@@ -94,6 +98,8 @@ const StyledMonthlyBudget = styled.div`
       }
     }
     border-left: 10px solid ${colors.remainingAmount};
+    background-color: ${colors.remainingAmountAlpha};
+    padding: 2px 0;
   }
   
   .month-total {
@@ -103,6 +109,8 @@ const StyledMonthlyBudget = styled.div`
       color: ${colors.monthTotalAmount};
     }
     border-left: 10px solid ${colors.monthTotalAmount};
+    background-color: ${colors.monthTotalAmountAlpha};
+    padding: 2px 0;
   }
 `;
 
