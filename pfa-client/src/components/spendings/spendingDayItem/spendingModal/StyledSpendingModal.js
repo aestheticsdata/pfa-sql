@@ -1,9 +1,9 @@
 import styled from 'styled-components/macro';
-import colors from '../../../../colors';
+import colors from '@src/colors';
 import {
   buttonMixin,
   inputMixin,
-} from '../../../shared/sharedCSS/sharedFormsCSS';
+} from '@components/shared/sharedCSS/sharedFormsCSS';
 
 import {
   containerWidth,

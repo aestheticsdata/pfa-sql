@@ -1,12 +1,15 @@
-import { useDispatch } from 'react-redux';
+import { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import format from 'date-fns/format';
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import {
   Formik,
   Form,
   Field,
 } from 'formik';
+import { Autocomplete } from "formik-material-ui-lab";
+import { TextField } from "@material-ui/core";
 
 import {
   createRecurring,
@@ -28,7 +31,17 @@ const SpendingModal = ({
     isEditing,
     month,
   }) => {
+  const initialState = {
+    categoryId: null,
+    userID: null,
+    name: "",
+    color: null
+  };
+  const [selectedCategory, setselectedCategory] = useState(initialState);
   const dispatch = useDispatch();
+  const categories = useSelector(state => state.spendingsReducer.categories);
+
+  const getRandomHexColor = () => Math.floor(Math.random()*16777215).toString(16);
 
   const onSubmit = (values, { setSubmitting }) => {
     const spendingEdited = {
@@ -39,7 +52,7 @@ const SpendingModal = ({
       // ///////////////////////////////////////////////////
       label: values.label,
       amount: values.amount,
-      category: values.category,
+      category: selectedCategory,
       currency: user.baseCurrency,
       userID: user.id,
       id: spending._id,
@@ -66,6 +79,10 @@ const SpendingModal = ({
     closeModal();
     setSubmitting(false);
   };
+
+  const handleAutocompleteChange = (value) => {
+    setselectedCategory(value);
+  }
 
   return (
     <StyledSpendingModal
@@ -94,10 +111,36 @@ const SpendingModal = ({
               />
               {
                 !recurringType ?
+                  // see https://stackoverflow.com/a/63422513/2466369 for Formik with material-ui autocomplete
+                  // https://stackworx.github.io/formik-material-ui/docs/api/material-ui-lab
+                  // https://material-ui.com/api/autocomplete/
                   <Field
-                    type="text"
-                    name="category"
-                    placeholder="category"
+                    name="autocomplete"
+                    value={selectedCategory}
+                    component={Autocomplete}
+                    autoComplete={true}
+                    options={categories}
+                    getOptionLabel={(option) => option.name}
+                    style={{ width: '100%' }}
+                    getOptionSelected={(item, current) => item.value === current.value}
+                    onBlur={
+                      event => handleAutocompleteChange({
+                        categoryId:null,
+                        userID: user.id,
+                        name: event.target.value,
+                        color: `#${getRandomHexColor()}`
+                      })
+                    }
+                    onChange={(_, value) => { handleAutocompleteChange(value) }}
+                    noOptionsText="create category"
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="category"
+                        variant="outlined"
+                        size="small"
+                      />
+                    )}
                   />
                   :
                   null
