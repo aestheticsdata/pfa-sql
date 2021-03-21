@@ -36,12 +36,13 @@ const Spendings = () => {
     dateRange,
   } = spendingsSelectorHelper();
 
-  useEffect(() => {
-    if (user.id && dateRange.from) {
-      getSpendingsAndRecurring();
-      getCategories();
-    }
-  }, []);
+  // useEffect(() => {
+  //   console.log('dateRange', dateRange);
+  //   if (user.id && dateRange.from) {
+  //     getSpendingsAndRecurring();
+  //     getCategories();
+  //   }
+  // },[]);
 
   useEffect(() => {
     if (month !== null) {
@@ -50,10 +51,11 @@ const Spendings = () => {
   }, [month]);
 
   useEffect(() => {
-    if (dateRange.from) {
+    if (user.id && dateRange.from) {
       getSpendingsAndRecurring();
+      getCategories();
     }
-  }, [dateRange]);
+  }, [dateRange, user]);
 
   return (
     <StyledSpendings>

@@ -49,7 +49,7 @@ export function* onGetUser() {
 export function* onGetCategories() {
   try {
     const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
-    const res = yield call(privateRequest, `/categories/all?userID=${userID}`);
+    const res = yield call(privateRequest, `/categories?userID=${userID}`);
     yield put(getCategoriesSuccess(res.data));
   } catch (err) {
     console.log('get categories error : ', err);
@@ -197,7 +197,7 @@ export default function* defaultSaga() {
   yield takeLatest(GET_SPENDINGS, onGetSpendings);
   yield takeLatest(DELETE_SPENDING, onDeleteSpending);
   yield takeLatest(UPDATE_SPENDING, onUpdateSpending);
-  yield takeLatest(GET_RECURRING, onGetRecurring);
+  // yield takeLatest(GET_RECURRING, onGetRecurring);
   yield takeLatest(DELETE_RECURRING, onDeleteRecurring);
   yield takeLatest(CREATE_RECURRING, onCreateRecurring);
   yield takeLatest(UPDATE_RECURRING, onUpdateRecurring);

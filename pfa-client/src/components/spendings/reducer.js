@@ -64,6 +64,7 @@ const spendingsReducer = (state = initialState, action) =>
         break;
       case GET_CATEGORIES_SUCCESS:
         draft.categories = action.categories;
+        break;
       default:
         return state;
     }

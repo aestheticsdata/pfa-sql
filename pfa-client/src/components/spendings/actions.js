@@ -21,10 +21,13 @@ export const getUsers = () => {
   };
 };
 
-export const getCategories = (user) => ({
-  type: GET_CATEGORIES,
-  user,
-});
+export const getCategories = (user) => {
+  console.log('getCategories action / user : ', user);
+  return {
+    type: GET_CATEGORIES,
+    user,
+  }
+};
 
 export const getCategoriesSuccess = (categories) => ({
   type: GET_CATEGORIES_SUCCESS,

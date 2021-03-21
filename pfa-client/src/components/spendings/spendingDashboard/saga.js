@@ -44,7 +44,7 @@ function* onSetInitialAmount(payload) {
 }
 
 export default function* defaultSaga() {
-  yield takeLatest(GET_INITIAL_AMOUNT, onGetInitialAmout);
+  // yield takeLatest(GET_INITIAL_AMOUNT, onGetInitialAmout);
   yield takeLatest(SET_INITIAL_AMOUNT, onSetInitialAmount);
 }
 
