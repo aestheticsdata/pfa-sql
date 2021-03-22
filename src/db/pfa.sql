@@ -58,5 +58,5 @@ UPDATE Spendings SET categoryID = '40f556a6-89c9-11eb-8dcd-0242ac130003' WHERE l
 UPDATE Spendings SET categoryID = 'ed7371e2-89c9-11eb-8dcd-0242ac130003' WHERE label = 'carte son';
 
 ---
-select * from Spendings left join Categories on Spendings.categoryID = Categories.ID;
-select s.*, c.name, c.color from Spendings s left join Categories c on s.categoryID = c.ID;
+SELECT * FROM Spendings LEFT JOIN Categories on Spendings.categoryID = Categories.ID;
+SELECT s.*, c.name, c.color FROM Spendings s LEFT JOIN Categories c on s.categoryID = c.ID WHERE s.date BETWEEN '2021-03-13' AND '2021-03-15';
