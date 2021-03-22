@@ -60,7 +60,7 @@ UPDATE Spendings SET categoryID = 'ed7371e2-89c9-11eb-8dcd-0242ac130003' WHERE l
 ---
 SELECT * FROM Spendings LEFT JOIN Categories on Spendings.categoryID = Categories.ID;
 
-SELECT s.*, c.name, c.color
+SELECT s.*, c.name as category, c.color
 FROM Spendings s
 LEFT JOIN Categories c ON s.categoryID = c.ID
 WHERE s.date BETWEEN '2021-03-13' AND '2021-03-15'

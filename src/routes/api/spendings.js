@@ -1,21 +1,26 @@
 const router = require('express').Router();
 const { Spending, Category, sequelize } = require('../../db/dbInit');
 const checkToken = require('./helpers/checkToken');
-const { Op, QueryTypes } = require('sequelize');
+const { QueryTypes } = require('sequelize');
 const { v1: uuidv1 } = require('uuid');
+const { format } = require('date-fns');
 
 
 router.get('/', checkToken, (req, res) => {
-    sequelize.query(`
-        SELECT s.*, c.name, c.color
-        FROM Spendings s
-        LEFT JOIN Categories c ON s.categoryID = c.ID
-        WHERE s.date BETWEEN '2021-03-13' AND '2021-03-15'
-        ORDER BY date ASC`,
-      { type: QueryTypes.SELECT }
-    )
-    .then(spendings => {console.log(spendings); res.json(spendings)})
-    .catch(err => res.status(404).json(`Error : ${err}`));
+  const dateFormat = 'yyyy-MM-dd';
+  const from = format(new Date(req.query.from), dateFormat);
+  const to = format(new Date(req.query.to), dateFormat);
+
+  sequelize.query(`
+      SELECT s.*, c.name as category, c.color as categoryColor
+      FROM Spendings s
+      LEFT JOIN Categories c ON s.categoryID = c.ID
+      WHERE s.date BETWEEN '${from}' AND '${to}'
+      ORDER BY date ASC`,
+    { type: QueryTypes.SELECT }
+  )
+  .then(spendings => {console.log(spendings); res.json(spendings)})
+  .catch(err => res.status(404).json(`Error : ${err}`));
 });
 
 router.get('/:id', checkToken, (req, res) => {

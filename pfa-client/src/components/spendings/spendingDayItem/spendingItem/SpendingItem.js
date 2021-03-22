@@ -70,7 +70,7 @@ const SpendingItem = ({
               <span className="label" title={spending.label}>{spending.label}</span>
               {
                 spending && spending.category ?
-                  <span className="category">{spending.category}</span>
+                  <span className="category" style={{backgroundColor: `${spending.categoryColor}`}}>{spending.category}</span>
                   :
                   null
               }

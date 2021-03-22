@@ -39,11 +39,10 @@ const StyledSpendingItem = styled.div`
         width: 104px;
         height: 18px;
         left: ${labelWidth + 5}px;
-        border: 1px solid ${colors.grey1};
         border-radius: 4px;
         font-size: 12px;
         text-align: center;
-        line-height: 1.2;
+        line-height: 1.3;
       }
       
       .amount {
