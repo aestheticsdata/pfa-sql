@@ -56,3 +56,7 @@ insert into Categories (ID, userID, name, color) values ('7752cf4c-8b10-11eb-8dc
 UPDATE Spendings SET categoryID = '40f556a6-89c9-11eb-8dcd-0242ac130003' WHERE label = 'monoprix';
 UPDATE Spendings SET categoryID = '40f556a6-89c9-11eb-8dcd-0242ac130003' WHERE label = 'carrefour';
 UPDATE Spendings SET categoryID = 'ed7371e2-89c9-11eb-8dcd-0242ac130003' WHERE label = 'carte son';
+
+---
+select * from Spendings left join Categories on Spendings.categoryID = Categories.ID;
+select s.*, c.name, c.color from Spendings s left join Categories c on s.categoryID = c.ID;
