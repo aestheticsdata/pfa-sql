@@ -20,10 +20,12 @@ const SpendingListContainer = (
             <Spinner width="60px" height="60px" />
           </div>
           :
-          spendingsByDay.map((spending: SpendingType) => {
+          // spendingsByDay.map((spending: SpendingType) => {
+          spendingsByDay.map((spending: any) => {
+            console.log('spending : ', spending);
             return (
               <SpendingItem
-                key={spending._id}
+                key={spending.ID}
                 spending={spending}
                 editCallback={editSpending}
                 deleteCallback={deleteSpending}

@@ -31,13 +31,13 @@ const SpendingModal = ({
     isEditing,
     month,
   }) => {
-  const initialState = {
+  const initialCategoryState = {
     categoryId: null,
     userID: null,
     name: "",
     color: null
   };
-  const [selectedCategory, setselectedCategory] = useState(initialState);
+  const [selectedCategory, setselectedCategory] = useState(initialCategoryState);
   const dispatch = useDispatch();
   const categories = useSelector(state => state.spendingsReducer.categories);
 
@@ -55,7 +55,7 @@ const SpendingModal = ({
       category: selectedCategory,
       currency: user.baseCurrency,
       userID: user.id,
-      id: spending._id,
+      id: spending.id,
     };
 
     if (isEditing) {
@@ -81,6 +81,7 @@ const SpendingModal = ({
   };
 
   const handleAutocompleteChange = (value) => {
+    console.log('handleAutocompleteChange value : ', value);
     setselectedCategory(value);
   }
 
@@ -93,7 +94,7 @@ const SpendingModal = ({
           initialValues={{
             label: spending.label || '',
             amount: spending.amount || '',
-            category: spending.category || '',
+            // category: spending.category || '',
           }}
           onSubmit={onSubmit}
         >
@@ -124,12 +125,16 @@ const SpendingModal = ({
                     style={{ width: '100%' }}
                     getOptionSelected={(item, current) => item.value === current.value}
                     onBlur={
-                      event => handleAutocompleteChange({
-                        categoryId:null,
-                        userID: user.id,
-                        name: event.target.value,
-                        color: `#${getRandomHexColor()}`
-                      })
+                      event => {
+                        if (selectedCategory.categoryId === null) { // so it's a new category
+                          handleAutocompleteChange({
+                            categoryId: null,
+                            userID: user.id,
+                            name: event.target.value,
+                            color: `#${getRandomHexColor()}`
+                          })
+                        }
+                      }
                     }
                     onChange={(_, value) => { handleAutocompleteChange(value) }}
                     noOptionsText="create category"

@@ -11,7 +11,7 @@ let { User } = require('../../db/dbInit');
 
 const signIn = (res, user) => {
   jwt.sign(
-    { id: user.userId },
+    { id: user.ID },
     process.env.JWT_SECRET,
     { expiresIn: '10h' },
     (err, token) => {
@@ -19,7 +19,7 @@ const signIn = (res, user) => {
       res.json({
         token,
         user: {
-          id: user.userId,
+          id: user.ID,
           name: user.name,
           email: user.email,
           baseCurrency: user.baseCurrency,

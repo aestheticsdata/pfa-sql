@@ -1,12 +1,12 @@
 const { DataTypes } = require('sequelize');
 
 const Spending = sequelize => sequelize.define('Spending', {
-  spendingId: {
+  ID: {
     type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV1,
+    defaultValue: DataTypes.UUIDV1, // default value not working, bug in sequelize or mysql ? see https://github.com/sequelize/sequelize/issues/10879
     primaryKey: true
   },
-  userId: {
+  userID: {
     type: DataTypes.UUID,
     allowNull: false,
   },
@@ -26,7 +26,7 @@ const Spending = sequelize => sequelize.define('Spending', {
     type: DataTypes.DECIMAL(6,2),
     allowNull: false,
   },
-  categoryId: {
+  categoryID: {
     type: DataTypes.UUID,
   },
   currency: {

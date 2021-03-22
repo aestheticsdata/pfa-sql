@@ -1,9 +1,9 @@
 const { DataTypes } = require('sequelize');
 
 const Category = sequelize => sequelize.define('Category', {
-  categoryId: {
+  ID: {
     type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV1,
+    defaultValue: DataTypes.UUIDV1, // default value not working, bug in sequelize or mysql ? see https://github.com/sequelize/sequelize/issues/10879
     primaryKey: true,
   },
   userID: {

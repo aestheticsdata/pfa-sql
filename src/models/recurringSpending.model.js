@@ -1,12 +1,12 @@
 const { DataTypes } = require('sequelize');
 
 const Recurring = sequelize => sequelize.define('Recurring', {
-  recurringId: {
+  ID: {
     type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV1,
+    defaultValue: DataTypes.UUIDV1, // default value not working, bug in sequelize or mysql ? see https://github.com/sequelize/sequelize/issues/10879
     primaryKey: true
   },
-  userId: {
+  userID: {
     type: DataTypes.UUID,
     allowNull: false,
   },

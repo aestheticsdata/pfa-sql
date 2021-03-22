@@ -35,6 +35,7 @@ export const getCategoriesSuccess = (categories) => ({
 });
 
 export const createSpending = (spending) => {
+  console.log('in action, spending : ', spending);
   return {
     type: CREATE_SPENDING,
     spending,

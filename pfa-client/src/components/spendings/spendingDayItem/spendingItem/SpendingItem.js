@@ -47,7 +47,7 @@ const SpendingItem = ({
             onClick={
               () => {
                 hideConfirm();
-                deleteCallback(spending._id, spending.itemType);
+                deleteCallback(spending.id, spending.itemType);
               }
             }>
             <FormattedMessage { ...messages.confirmDeleteConfirmButton} />

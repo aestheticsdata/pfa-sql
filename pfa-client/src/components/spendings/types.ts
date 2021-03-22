@@ -15,8 +15,7 @@ export type ReccuringType = {
   itemType: string;
   label: string;
   updatedAt: string;
-  __v: number;
-  _id?: number;
+  id?: number;
 };
 
 export type SpendingType = {
@@ -30,12 +29,11 @@ export type SpendingType = {
   itemType: string;
   label: string;
   updatedAt: string;
-  __v: number;
-  _id?: number;
+  id?: number;
 };
 
 export type SpendingCompoundType = [SpendingType] & {
-  _id: string;
+  id: string;
   date: number;
   total : number
 };
