@@ -32,7 +32,7 @@ const SpendingModal = ({
     month,
   }) => {
   const initialCategoryState = {
-    categoryId: null,
+    ID: null,
     userID: null,
     name: "",
     color: null
@@ -126,9 +126,9 @@ const SpendingModal = ({
                     getOptionSelected={(item, current) => item.value === current.value}
                     onBlur={
                       event => {
-                        if (selectedCategory.categoryId === null) { // so it's a new category
+                        if (selectedCategory.ID === null) { // so it's a new category
                           handleAutocompleteChange({
-                            categoryId: null,
+                            ID: null,
                             userID: user.id,
                             name: event.target.value,
                             color: `#${getRandomHexColor()}`

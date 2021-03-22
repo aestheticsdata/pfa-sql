@@ -41,14 +41,15 @@ router.post('/', (req, res) => {
     currency,
   } = req.body;
 
-  const createSpending = () => {
+  const createSpending = (newCategoryID = null) => {
+    console.log('create spending category : ', category);
     Spending.create({
       spendingID: uuidv1(),
       userID,
       date,
       label,
       amount,
-      categoryID: category.ID,
+      categoryID: newCategoryID ?? category.ID,
       currency,
       itemType: 'spending',
     })
@@ -61,15 +62,17 @@ router.post('/', (req, res) => {
   }
 
   if (category.ID === null) {
+    const newCategoryID = uuidv1();
+
     Category.create({
-      ID: uuidv1(),
+      ID: newCategoryID,
       userID,
       name: category.name,
       color: category.color,
     })
       .then(() => {
         console.log('new category added');
-        createSpending();
+        createSpending(newCategoryID);
       })
       .catch(() => res.status(400).json(`Error creating new category: ${err}`));
   } else {
