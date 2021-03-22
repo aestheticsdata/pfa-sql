@@ -57,5 +57,6 @@ module.exports = {
   Recurring,
   Category,
   Dashboard,
+  sequelize,
 };
 

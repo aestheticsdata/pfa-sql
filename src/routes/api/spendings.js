@@ -1,26 +1,24 @@
 const router = require('express').Router();
-const { Spending, Category } = require('../../db/dbInit');
+const { Spending, Category, sequelize } = require('../../db/dbInit');
 const checkToken = require('./helpers/checkToken');
-const { Op } = require('sequelize');
+const { Op, QueryTypes } = require('sequelize');
 const { v1: uuidv1 } = require('uuid');
 
 
 router.get('/', checkToken, (req, res) => {
-  Spending.findAll({
-    where: {
-      userID: req.query.userID,
-      date: {
-        [Op.between]: [new Date(req.query.from), new Date(req.query.to)],
-      },
-    },
-    order: [['date', 'ASC']],
-  })
-    .then(spendings => res.json(spendings))
+    sequelize.query(`
+        SELECT s.*, c.name, c.color
+        FROM Spendings s
+        LEFT JOIN Categories c ON s.categoryID = c.ID
+        WHERE s.date BETWEEN '2021-03-13' AND '2021-03-15'
+        ORDER BY date ASC`,
+      { type: QueryTypes.SELECT }
+    )
+    .then(spendings => {console.log(spendings); res.json(spendings)})
     .catch(err => res.status(404).json(`Error : ${err}`));
 });
 
 router.get('/:id', checkToken, (req, res) => {
-  console.log('ici ca passe');
   Spending.findOne({
     where: { spendingID: req.params.id }
   })
@@ -29,11 +27,9 @@ router.get('/:id', checkToken, (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log('spending post req.body : ', req.body);
   const {
     userID,
     date,
-    itemType,
     label,
     amount,
     category,
