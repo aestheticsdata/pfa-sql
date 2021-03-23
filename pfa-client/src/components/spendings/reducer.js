@@ -39,7 +39,7 @@ const aggregateSpendingByDate = (spendings, range) => {
     for (let k = 0, ll = spendingsFinal.length; k < ll; k += 1) {
       if (getDate(parseISO(spendings[i].date)) === spendingsFinal[k].date) {
         spendingsFinal[k].push(spendings[i]);
-        spendingsFinal[k].total += spendings[i].amount;
+        spendingsFinal[k].total += parseFloat(spendings[i].amount); // !! Sequelize returns a string for decimal type, see : https://github.com/sequelize/sequelize/issues/8019
       }
     }
   }

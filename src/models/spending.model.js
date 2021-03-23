@@ -23,7 +23,7 @@ const Spending = sequelize => sequelize.define('Spending', {
     allowNull: false,
   },
   amount: {
-    type: DataTypes.DECIMAL(6,2),
+    type: DataTypes.DECIMAL(6,2), // !! Sequelize returns a string for decimal type, see : https://github.com/sequelize/sequelize/issues/8019
     allowNull: false,
   },
   categoryID: {
