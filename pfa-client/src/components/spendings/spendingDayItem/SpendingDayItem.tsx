@@ -28,16 +28,15 @@ import { SpendingCompoundType, SpendingDayItemType} from "../types";
 import useSpendingDayItem from "@components/spendings/spendingDayItem/spendingItem/helpers/useSpendingDayItem";
 
 
-const SpendingDayItem = (
-  {
-    spendingsByDay,
-    deleteSpending,
-    user,
-    month = null,
-    date = 0,
-    recurringType = false,
-    isLoading = false,
-  }: SpendingDayItemType) => {
+const SpendingDayItem = ({
+  spendingsByDay,
+  deleteSpending,
+  user,
+  month = null,
+  date = 0,
+  recurringType = false,
+  isLoading = false,
+}: SpendingDayItemType) => {
 
   const [lang] = useState<LangKeys>(getLang());
 

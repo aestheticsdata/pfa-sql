@@ -50,7 +50,7 @@ export const updateSpending = (spending) => {
 export const deleteSpending = (spendingID) => {
   return {
     type: DELETE_SPENDING,
-    id: spendingID
+    ID: spendingID
   }
 };
 

@@ -31,7 +31,7 @@ router.get('/:id', checkToken, (req, res) => {
     .catch(() => res.status(404).json('no spending with this id'));
 });
 
-router.post('/', (req, res) => {
+router.post('/', checkToken, (req, res) => {
   const {
     userID,
     date,
@@ -80,8 +80,10 @@ router.post('/', (req, res) => {
   }
 });
 
-router.get('/', (req, res) => {
-  res.status(200).json({ msg: 'everything is allright for get'});
-})
+router.delete('/:id', checkToken, (req, res) => {
+  Spending.destroy({ where: { ID: req.params.id } })
+    .then(() => res.json({ success: true }))
+    .catch(() => res.status(404).json({ success: false }));
+});
 
 module.exports = router;

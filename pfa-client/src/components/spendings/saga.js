@@ -89,7 +89,7 @@ export function* onUpdateSpending(payload) {
 
 export function* onDeleteSpending(payload) {
   try {
-    yield call(privateRequest, `/spendings/${payload.id}`, {
+    yield call(privateRequest, `/spendings/${payload.ID}`, {
       method: 'DELETE',
     });
     displayPopup({ text: intl.formatMessage({ ...messages.deleteSuccess }) });
