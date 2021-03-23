@@ -22,6 +22,7 @@ import {
   getSpendings,
   getRecurringSuccess,
   getRecurring,
+  getCategories,
   getCategoriesSuccess,
 } from './actions';
 
@@ -65,6 +66,7 @@ export function* onCreateSpending(payload) {
     displayPopup({ text: intl.formatMessage({ ...messages.createSuccess }) });
     const dateRange = yield select(state => state.dateRangeReducer.dateRange);
     yield put(getSpendings(payload.spending.userID, dateRange));
+    yield put(getCategories());
   } catch (err) {
     console.log('error while creating spending', err);
   }

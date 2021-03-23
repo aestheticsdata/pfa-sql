@@ -22,7 +22,7 @@ const useSpendingsHelpers = () => {
   const start = startOfMonth(dateRange.from);
 
   const getCategories = () => {
-    dispatch(getCategoriesAction(user));
+    dispatch(getCategoriesAction());
   };
 
   const getSpendingsAndRecurring = () => {

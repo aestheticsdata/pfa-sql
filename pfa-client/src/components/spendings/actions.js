@@ -21,11 +21,9 @@ export const getUsers = () => {
   };
 };
 
-export const getCategories = (user) => {
-  console.log('getCategories action / user : ', user);
+export const getCategories = () => {
   return {
     type: GET_CATEGORIES,
-    user,
   }
 };
 
