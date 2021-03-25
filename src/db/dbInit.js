@@ -25,7 +25,7 @@ const sequelize = new Sequelize(
   {
     host: process.env.HOST,
     dialect: dbConfig.dialect,
-    logging: (...msg) => console.log(msg),
+    // logging: (...msg) => console.log(msg),
 
     pool: {
       max: dbConfig.pool.max,

@@ -142,7 +142,7 @@ const SpendingModal = ({
                             ID: null,
                             userID: user.id,
                             name: event.target.value,
-                            color: `#${getRandomHexColor()}`
+                            color: event.target.value !== '' && `#${getRandomHexColor()}` // if there is a name, it's a new category, else it's a category deletion
                           })
                         }
                       }
