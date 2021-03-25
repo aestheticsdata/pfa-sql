@@ -1,7 +1,7 @@
 const { Spending, Category } = require('../../../db/dbInit');
 const { v1: uuidv1 } = require('uuid');
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   const {
     userID,
     date,
@@ -11,20 +11,23 @@ module.exports = (req, res) => {
     currency,
   } = req.body;
 
-  const createSpending = (newCategoryID = null) => {
-    Spending.create({
-      spendingID: uuidv1(),
-      userID,
-      date,
-      label,
-      amount,
-      categoryID: newCategoryID ?? category.ID,
-      currency,
-      itemType: 'spending',
-    })
-      .then(() => res.json('new spending added'))
-      .catch(err => res.status(400).json(`Error: ${err}`));
-  }
+  const createSpending = async (newCategoryID = null) => {
+    try {
+      await Spending.create({
+        spendingID: uuidv1(),
+        userID,
+        date,
+        label,
+        amount,
+        categoryID: newCategoryID ?? category.ID,
+        currency,
+        itemType: 'spending',
+      });
+      res.json('new spending added');
+    } catch (err) {
+      res.status(400).json(`Error: ${err}`)
+    }
+  };
 
   if (!amount || !label) {
     return res.status(400).json({ msg: 'Please enter amount and label' });
@@ -32,19 +35,18 @@ module.exports = (req, res) => {
 
   if (category.ID === null && category.color !== null) {
     const newCategoryID = uuidv1();
-
-    Category.create({
-      ID: newCategoryID,
-      userID,
-      name: category.name,
-      color: category.color,
-    })
-      .then(() => {
-        console.log('new category added');
-        createSpending(newCategoryID);
-      })
-      .catch(err => res.status(400).json(`Error creating new category: ${err}`));
+    try {
+      await Category.create({
+        ID: newCategoryID,
+        userID,
+        name: category.name,
+        color: category.color,
+      });
+      await createSpending(newCategoryID);
+    } catch (err) {
+      res.status(400).json(`Error creating new category: ${err}`);
+    }
   } else {
-    createSpending();
+    await createSpending();
   }
 };
