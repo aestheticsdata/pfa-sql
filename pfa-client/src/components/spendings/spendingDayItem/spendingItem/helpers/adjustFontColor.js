@@ -1,3 +1,6 @@
+// https://stackoverflow.com/questions/12043187/how-to-check-if-hex-color-is-too-black
+// https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+
 const adjustFontColor = (bgColor) => {
   const c = bgColor.substring(1);
   const rgb = parseInt(c, 16);
