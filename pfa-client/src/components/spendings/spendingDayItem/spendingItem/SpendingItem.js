@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 import StyledSpendingItem from './StyledSpendingItem';
+
+import adjustFontColor from "@components/spendings/spendingDayItem/spendingItem/helpers/adjustFontColor";
 
 import messages from '../../messages';
 
@@ -70,7 +72,15 @@ const SpendingItem = ({
               <span className="label" title={spending.label}>{spending.label}</span>
               {
                 spending && spending.category ?
-                  <span className="category" style={{backgroundColor: `${spending.categoryColor}`}}>{spending.category}</span>
+                  <span
+                    className="category"
+                    style={{
+                      color: `${adjustFontColor(spending.categoryColor)}`,
+                      backgroundColor: `${spending.categoryColor}`,
+                    }}
+                  >
+                    {spending.category}
+                  </span>
                   :
                   null
               }

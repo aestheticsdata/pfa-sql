@@ -24,6 +24,7 @@ const colors = {
   warningNoCurrenciesRates: 'rgb(255,16,14)',
   datePickerWrapper: 'rgb(83, 255, 131)',
   datePickerWrapperBackground: 'rgb(74, 107, 109)',
+  categoryBorder: 'rgb(152, 152, 152)',
 };
 
 export default colors;
