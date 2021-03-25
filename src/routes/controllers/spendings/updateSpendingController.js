@@ -1,4 +1,5 @@
 const { Spending, Category } = require('../../../db/dbInit');
+const { v1: uuidv1 } = require('uuid');
 
 module.exports = async (req, res) => {
   const {
@@ -54,7 +55,7 @@ module.exports = async (req, res) => {
       }
     } else {
       // la catégorie est null
-      // mettre à jourle label et/ou l'amount, et mettre à null l'id de la catégorie du spending
+      // mettre à jour le label et/ou l'amount, et mettre à null l'id de la catégorie du spending
       if (categoryID === null) {
         let newCategory = null;
         if (color) {
