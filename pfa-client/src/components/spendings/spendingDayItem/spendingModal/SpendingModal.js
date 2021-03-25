@@ -23,20 +23,31 @@ import StyledSpendingModal from './StyledSpendingModal';
 
 
 const SpendingModal = ({
-    date,
-    closeModal,
-    user,
-    spending,
-    recurringType,
-    isEditing,
-    month,
-  }) => {
-  const initialCategoryState = {
+   date,
+   closeModal,
+   user,
+   spending,
+   recurringType,
+   isEditing,
+   month,
+ }) => {
+  const initialEmptyCategoryState = {
     ID: null,
     userID: null,
     name: "",
     color: null
   };
+
+  let initialCategoryState = spending?.category ?
+    {
+      ID: spending.categoryID,
+      userID: user.id,
+      name: spending.category,
+      color: spending.color,
+    }
+    :
+    initialEmptyCategoryState;
+
   const [selectedCategory, setselectedCategory] = useState(initialCategoryState);
   const dispatch = useDispatch();
   const categories = useSelector(state => state.spendingsReducer.categories);
@@ -55,7 +66,7 @@ const SpendingModal = ({
       category: selectedCategory,
       currency: user.baseCurrency,
       userID: user.id,
-      id: spending.id,
+      id: spending.ID,
     };
 
     if (isEditing) {
@@ -82,9 +93,9 @@ const SpendingModal = ({
 
   const handleAutocompleteChange = (value) => {
     console.log('handleAutocompleteChange value : ', value);
-    setselectedCategory(value);
+    setselectedCategory(value ?? initialEmptyCategoryState);
   }
-
+  console.log('spending : ', spending);
   return (
     <StyledSpendingModal
       recurringType={recurringType}
@@ -94,7 +105,7 @@ const SpendingModal = ({
           initialValues={{
             label: spending.label || '',
             amount: spending.amount || '',
-            // category: spending.category || '',
+            category: spending.category || '',
           }}
           onSubmit={onSubmit}
         >
@@ -126,7 +137,7 @@ const SpendingModal = ({
                     getOptionSelected={(item, current) => item.value === current.value}
                     onBlur={
                       event => {
-                        if (selectedCategory.ID === null) { // so it's a new category
+                        if (selectedCategory?.ID === null) { // so it's a new category
                           handleAutocompleteChange({
                             ID: null,
                             userID: user.id,

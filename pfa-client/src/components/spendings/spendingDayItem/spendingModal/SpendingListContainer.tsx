@@ -22,7 +22,6 @@ const SpendingListContainer = (
           :
           // spendingsByDay.map((spending: SpendingType) => {
           spendingsByDay.map((spending: any) => {
-            console.log('spending : ', spending);
             return (
               <SpendingItem
                 key={spending.ID}
