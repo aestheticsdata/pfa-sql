@@ -16,6 +16,7 @@ app.use(express.json());
 app.use('/users', require('./routes/api/users'));
 app.use('/categories', require('./routes/api/categories'));
 app.use('/spendings', require('./routes/api/spendings'));
+app.use('/recurrings', require('./routes/api/recurringSpendings'));
 
 const port = process.env.PORT || 5000;
 

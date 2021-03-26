@@ -40,7 +40,7 @@ const SpendingDayItem = ({
 
   const [lang] = useState<LangKeys>(getLang());
 
-  const getRecurringsTotal = (recurrings: SpendingCompoundType) => _.sumBy(recurrings, 'amount');
+  const getRecurringsTotal = (recurrings: SpendingCompoundType) => _.sumBy(recurrings, item => parseFloat(item.amount));
 
   const {
     isModalVisible,

@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
         SELECT s.*, c.name as category, c.color as categoryColor
         FROM Spendings s
         LEFT JOIN Categories c ON s.categoryID = c.ID
-        WHERE s.date BETWEEN '${from}' AND '${to}'
+        WHERE s.date BETWEEN '${from}' AND '${to}' AND s.userID='${req.query.userID}'
         ORDER BY date ASC`,
       {type: QueryTypes.SELECT}
     );

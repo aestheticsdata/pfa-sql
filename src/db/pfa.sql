@@ -65,3 +65,7 @@ FROM Spendings s
 LEFT JOIN Categories c ON s.categoryID = c.ID
 WHERE s.date BETWEEN '2021-03-13' AND '2021-03-15'
 ORDER BY date ASC;
+
+
+insert into Recurrings (ID, userID, dateFrom, dateTo, itemType, label, amount, currency) VALUES ('b7d9bc11-170e-4163-8aeb-639e885c2297', '9bdcf470-8b22-11eb-885b-db61ad93209d', '2021-03-01', '2021-03-31', 'recurring', 'EDF', 12, 'EUR');
+insert into Recurrings (ID, userID, dateFrom, dateTo, itemType, label, amount, currency) VALUES ('d022de15-b931-4829-9fd9-43cb18924e87', '9bdcf470-8b22-11eb-885b-db61ad93209d', '2021-03-01', '2021-03-31', 'recurring', 'mutuelle', 40.2, 'EUR');

@@ -199,7 +199,7 @@ export default function* defaultSaga() {
   yield takeLatest(GET_SPENDINGS, onGetSpendings);
   yield takeLatest(DELETE_SPENDING, onDeleteSpending);
   yield takeLatest(UPDATE_SPENDING, onUpdateSpending);
-  // yield takeLatest(GET_RECURRING, onGetRecurring);
+  yield takeLatest(GET_RECURRING, onGetRecurring);
   yield takeLatest(DELETE_RECURRING, onDeleteRecurring);
   yield takeLatest(CREATE_RECURRING, onCreateRecurring);
   yield takeLatest(UPDATE_RECURRING, onUpdateRecurring);
