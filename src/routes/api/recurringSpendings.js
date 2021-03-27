@@ -1,25 +1,14 @@
 const router = require('express').Router();
 const checkToken = require('./helpers/checkToken');
 
-const getRecurrings = require('../controllers/recurrings/getRecurringsController');
-const postRecurring = require('../controllers/recurrings/postRecurringController');
-const deleteRecurring = require('../controllers/recurrings/deleteRecurringController');
+const getRecurringsController = require('../controllers/recurrings/getRecurringsController');
+const postRecurringController = require('../controllers/recurrings/postRecurringController');
+const updateRecurringController = require('../controllers/recurrings/updateRecurringController');
+const deleteRecurringController = require('../controllers/recurrings/deleteRecurringController');
 
-router.get('/', checkToken, getRecurrings);
-router.post('/', checkToken, postRecurring);
-router.delete('/:id', checkToken, deleteRecurring);
-
-
-// router.put('/:id', checkToken, (req, res) => {
-//   RecurringSpending.findById(req.params.id)
-//     .then(recurring => {
-//       recurring.label = req.body.label;
-//       recurring.amount = req.body.amount;
-//
-//       recurring.save()
-//         .then(() => res.json('recurring spending updated'))
-//         .catch(err => res.status(400).json(`Error: ${err}`));
-//     });
-// });
+router.get('/', checkToken, getRecurringsController);
+router.post('/', checkToken, postRecurringController);
+router.put('/:id', checkToken, updateRecurringController);
+router.delete('/:id', checkToken, deleteRecurringController);
 
 module.exports = router;
