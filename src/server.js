@@ -18,6 +18,7 @@ app.use('/categories', require('./routes/api/categories'));
 app.use('/spendings', require('./routes/api/spendings'));
 app.use('/recurrings', require('./routes/api/recurringSpendings'));
 app.use('/dashboard', require('./routes/api/dashboard'));
+app.use('/monthlystats', require('./routes/api/monthlybudgetstats'));
 
 const port = process.env.PORT || 5000;
 

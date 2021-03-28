@@ -2,8 +2,10 @@ const router = require('express').Router();
 const checkToken = require('./helpers/checkToken');
 
 const getDashboardController = require('../controllers/dashboard/getDashboardController');
+const postDashboardController = require('../controllers/dashboard/postDashboardController');
 
 router.get('/', checkToken, getDashboardController);
+router.post('/', checkToken, postDashboardController);
 
 module.exports = router;
 

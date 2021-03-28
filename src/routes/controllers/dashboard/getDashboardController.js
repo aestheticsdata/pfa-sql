@@ -13,11 +13,3 @@ module.exports = async (req, res) => {
     res.status(400).json(`Error getting dashboard : ${err}`);
   }
 };
-
-
-// Dashboard.findOne({
-//   createdBy: req.query.userID,
-//   dateFrom: {"$eq": new Date(req.query.start)},
-// })
-//   .then(dashboard => res.json(dashboard))
-//   .catch(err => res.status(404).json(`Error : ${err}`));

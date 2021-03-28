@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
 
   try {
     await Recurring.create({
-      recurringID: uuidv1(),
+      ID: uuidv1(),
       userID,
       dateFrom,
       dateTo,
