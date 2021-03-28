@@ -13,9 +13,9 @@ import {
 } from 'formik';
 
 import StyledMonthlyBudget from './StyledMonthlyBudget';
-import messages from '../../messages';
+import messages from '@components/spendings/messages';
 
-import localesDates from '../../../../i18n/locales-dates';
+import localesDates from '@src/i18n/locales-dates';
 
 import {
   getInitialAmount as getInitialAmountAction,

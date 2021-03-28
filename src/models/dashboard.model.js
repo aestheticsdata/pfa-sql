@@ -6,6 +6,10 @@ const Dashboard = sequelize => sequelize.define('Dashboard', {
     defaultValue: DataTypes.UUIDV1, // default value not working, bug in sequelize or mysql ? see https://github.com/sequelize/sequelize/issues/10879
     primaryKey: true
   },
+  userID: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV1,
+  },
   dateFrom: {
     type: DataTypes.DATEONLY,
     allowNull: false,

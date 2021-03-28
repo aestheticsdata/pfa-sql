@@ -1,7 +1,6 @@
 const { Recurring } = require('../../../db/dbInit');
 
 module.exports = async (req, res) => {
-  console.log('userID : ', req.query.userID);
   try {
     const recurrings = await Recurring.findAll({
       where: { userID: req.query.userID },
