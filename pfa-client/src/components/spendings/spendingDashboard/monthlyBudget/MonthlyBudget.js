@@ -20,6 +20,7 @@ import localesDates from '@src/i18n/locales-dates';
 import {
   getInitialAmount as getInitialAmountAction,
   setInitialAmount as setInitialAmountAction,
+  updateInitialAmount as updateInitialAmountAction,
 } from '../actions';
 
 import startOfMonth from 'date-fns/startOfMonth';
@@ -41,13 +42,17 @@ const MonthlyBudget = () => {
   const initialAmount = useSelector(state => state.dashboardReducer.initialAmount);
   const remaining = useSelector(state => state.dashboardReducer.remaining);
   const totalSpendingsOfMonth = useSelector(state => state.dashboardReducer.totalSpendingsOfMonth);
+  const dashboardID = useSelector(state => state.dashboardReducer.dashboardID);
 
   const onSubmit = (values, { setSubmitting }) => {
     const formattedMonth = {
       start: format(startOfMonth(dateRange.from), 'yyyy-MM-dd'),
       end: format(endOfMonth(dateRange.to), 'yyyy-MM-dd'),
     };
-    dispatch(setInitialAmountAction(user.id, values.initialAmount, formattedMonth));
+    dashboardID ?
+      dispatch(updateInitialAmountAction(dashboardID, user.id, values.initialAmount))
+      :
+      dispatch(setInitialAmountAction(user.id, values.initialAmount, formattedMonth));
     setIsInputVisible(false);
     setSubmitting(false);
   };

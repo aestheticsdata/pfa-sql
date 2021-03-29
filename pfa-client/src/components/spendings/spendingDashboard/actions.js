@@ -2,6 +2,7 @@ import {
   GET_INITIAL_AMOUNT,
   GET_INITIAL_AMOUNT_SUCCESS,
   SET_INITIAL_AMOUNT,
+  UPDATE_INITIAL_AMOUNT,
 } from './constants';
 
 export const getInitialAmount = (start, fromAsWeekStart, toAsWeekEnd) => {
@@ -27,5 +28,14 @@ export const setInitialAmount = (userID, amount, month) => {
     userID,
     amount,
     month,
+  };
+};
+
+export const updateInitialAmount = (dashboardID, userID, amount) => {
+  return {
+    type: UPDATE_INITIAL_AMOUNT,
+    userID,
+    dashboardID,
+    amount,
   };
 };
