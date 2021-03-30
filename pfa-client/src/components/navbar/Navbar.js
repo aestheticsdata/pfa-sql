@@ -31,6 +31,11 @@ const NavBar = ( ) => {
                 { ...messages.spendings }
               />
             </NavLink>
+            <NavLink to='/categories' className="link" exact>
+              <FormattedMessage
+                { ...messages.categories }
+              />
+            </NavLink>
             <NavLink to='/stats' className="link" exact>
               <FormattedMessage
                 { ...messages.stats }

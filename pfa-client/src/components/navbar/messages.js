@@ -15,6 +15,10 @@ export default defineMessages({
     id: `${scope}.spendings`,
     defaultMessage: 'Spendings',
   },
+  categories: {
+    id: `${scope}.categories`,
+    defaultMessage: 'Categories',
+  },
   stats: {
     id: `${scope}.stats`,
     defaultMessage: 'Stats',

@@ -21,6 +21,7 @@
   "app.components.Navbar.login": "Login",
   "app.components.Navbar.signUp": "Sign up",
   "app.components.Navbar.spendings": "Spendings",
+  "app.components.Navbar.categories": "Categories",
   "app.components.Navbar.stats": "Statistics",
   "app.components.Navbar.globalCurrency": "Currency",
 
