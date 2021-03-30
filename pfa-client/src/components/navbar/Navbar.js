@@ -26,23 +26,27 @@ const NavBar = ( ) => {
       {
         token ?
           <>
-            <NavLink to='/' className="link" exact>
-              <FormattedMessage
-                { ...messages.spendings }
-              />
-            </NavLink>
-            <NavLink to='/categories' className="link" exact>
-              <FormattedMessage
-                { ...messages.categories }
-              />
-            </NavLink>
-            <NavLink to='/stats' className="link" exact>
-              <FormattedMessage
-                { ...messages.stats }
-              />
-            </NavLink>
-            <div className="date-picker-wrapper">
-              <DatePickerWrapper />
+            <div className="flex-container">
+              <div className="nav-link-container">
+                <NavLink to='/' className="link" exact>
+                  <FormattedMessage
+                    { ...messages.spendings }
+                  />
+                </NavLink>
+                <NavLink to='/categories' className="link" exact>
+                  <FormattedMessage
+                    { ...messages.categories }
+                  />
+                </NavLink>
+                <NavLink to='/stats' className="link" exact>
+                  <FormattedMessage
+                    { ...messages.stats }
+                  />
+                </NavLink>
+              </div>
+              <div className="date-picker-wrapper">
+                <DatePickerWrapper />
+              </div>
             </div>
             <UserMenu
               className="usermenu"
@@ -75,6 +79,6 @@ const NavBar = ( ) => {
       }
     </StyledNavBar>
   );
-}
+};
 
 export default NavBar;

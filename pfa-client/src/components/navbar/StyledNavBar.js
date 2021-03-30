@@ -12,7 +12,7 @@ const StyledNavBar = styled.div`
   color: #aee4ff;
   height: ${cssSizes.navbarHeight}px;
   padding-top: 10px;
-  
+
   .logo {
     display: inline-block;
     width: 40px;
@@ -21,6 +21,7 @@ const StyledNavBar = styled.div`
     border-radius: 5px;
     float: left;
     margin: 0 10px;
+
     svg {
       fill: #ff3156;
     }
@@ -28,15 +29,15 @@ const StyledNavBar = styled.div`
 
   .usermenu {
   }
-  
+
   .langmenu {
   }
-  
+
   .base-currency {
     position: absolute;
     top: 20px;
     right: 280px;
-     
+
     .symbol {
       font-family: Arial, sans-serif;
       background-color: ${colors.grey2};
@@ -45,12 +46,23 @@ const StyledNavBar = styled.div`
       padding: 5px;
     }
   }
-  
-  .date-picker-wrapper {
-    position: absolute;
-    left: 250px;
-    top: 16px;
+
+  .flex-container {
+    display: -webkit-flex; 
+    display: flex;
+
+    .nav-link-container {
+      max-width: fit-content;
+      flex: 1;
+    }
+
+    .date-picker-wrapper {
+      margin-top: 4px;
+      max-width: fit-content;
+      flex: 1;
+    }
   }
+
 
   .link {
     display: inline-block;
@@ -58,11 +70,11 @@ const StyledNavBar = styled.div`
     outline: none;
     color: white;
     text-decoration: none;
-    
+
     &.active {
       color: #aee4ff;
     }
-    
+
     &:hover {
       color: #4b4b4b;
       background-color: #aee4ff;
