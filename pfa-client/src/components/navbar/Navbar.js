@@ -79,6 +79,6 @@ const NavBar = ( ) => {
       }
     </StyledNavBar>
   );
-};
+}
 
 export default NavBar;

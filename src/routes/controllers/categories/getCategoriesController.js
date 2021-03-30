@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
   try {
     const categories = await Category.findAll({
       where: {
-        userID: req.params.userID,
+        userID: req.query.userID,
       }
     });
     res.json(categories);

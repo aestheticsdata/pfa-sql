@@ -3,7 +3,7 @@ const checkToken = require('./helpers/checkToken');
 const getCategoriesController = require('../controllers/categories/getCategoriesController');
 
 
-router.get('/:userID', checkToken, getCategoriesController);
+router.get('/', checkToken, getCategoriesController);
 
 // router.get('/', (req, res) => {
 //   Category.find()
