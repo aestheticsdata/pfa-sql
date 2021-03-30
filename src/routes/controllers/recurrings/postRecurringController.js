@@ -28,6 +28,6 @@ module.exports = async (req, res) => {
     });
     res.json('new category added');
   } catch (err) {
-    res.status(400).json(`Error creating new recurring: ${err}`);
+    res.status(500).json(`Error creating new recurring: ${err}`);
   }
 };

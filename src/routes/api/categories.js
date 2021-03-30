@@ -1,13 +1,9 @@
 const router = require('express').Router();
-const { Category } = require('../../db/dbInit');
 const checkToken = require('./helpers/checkToken');
+const getCategoriesController = require('../controllers/categories/getCategoriesController');
 
 
-router.get('/', (req, res) => {
-  Category.findAll()
-    .then(categories => res.json(categories))
-    .catch(err => res.status(404).json(`Error : ${err}`));
-});
+router.get('/:userID', checkToken, getCategoriesController);
 
 // router.get('/', (req, res) => {
 //   Category.find()

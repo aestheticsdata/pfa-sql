@@ -8,6 +8,6 @@ module.exports = async (req, res) => {
     });
     res.json(dashboard);
   } catch (err) {
-    res.status(400).json(`Error updating dashboard initial amount : ${err}`);
+    res.status(500).json(`Error updating dashboard initial amount : ${err}`);
   }
 }

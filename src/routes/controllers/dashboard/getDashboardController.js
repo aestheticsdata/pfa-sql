@@ -10,6 +10,6 @@ module.exports = async (req, res) => {
     });
     res.json(dashboard);
   } catch (err) {
-    res.status(400).json(`Error getting dashboard : ${err}`);
+    res.status(500).json(`Error getting dashboard : ${err}`);
   }
 };

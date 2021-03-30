@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       });
       res.json('new spending added');
     } catch (err) {
-      res.status(400).json(`Error: ${err}`)
+      res.status(500).json(`Error: ${err}`)
     }
   };
 
@@ -44,7 +44,7 @@ module.exports = async (req, res) => {
       });
       await createSpending(newCategoryID);
     } catch (err) {
-      res.status(400).json(`Error creating new category: ${err}`);
+      res.status(500).json(`Error creating new category: ${err}`);
     }
   } else {
     await createSpending();
