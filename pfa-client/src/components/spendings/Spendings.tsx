@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
 import StyledSpendings from './StyledSpendings';
@@ -14,6 +14,7 @@ import { SpendingCompoundType } from "./types";
 
 import spendingsSelectorHelper from "./selectors";
 import useSpendingsHelpers from "@components/spendings/helpers/useSpendingsHelpers";
+import GlobalContext from "@src/globalContext";
 
 
 const Spendings = () => {
@@ -36,6 +37,8 @@ const Spendings = () => {
     dateRange,
   } = spendingsSelectorHelper();
 
+  const { setContext } = useContext(GlobalContext);
+
   // useEffect(() => {
   //   console.log('dateRange', dateRange);
   //   if (user.id && dateRange.from) {
@@ -43,6 +46,10 @@ const Spendings = () => {
   //     getCategories();
   //   }
   // },[]);
+
+  useEffect(() => {
+    setContext({ displayDatePicker: true });
+  }, []);
 
   useEffect(() => {
     if (month !== null) {

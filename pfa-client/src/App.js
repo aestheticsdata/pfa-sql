@@ -23,27 +23,35 @@ import NotFoundComponent from '@components/notFoundComponent/NotFoundComponent';
 
 import { PrivateRoute } from '@components/privateRoute/PrivateRoute';
 
+import GlobalContext, { globalContext } from "@src/globalContext";
+import { useState } from 'react';
 
-const App = () => (
-  <Provider store={store}>
-    <div className="App">
-      <GlobalStyle />
-      <ConnectedRouter history={history}>
-        <NavBar />
-        <Switch>
-          <PrivateRoute exact path="/" component={Spendings} />
-          <PrivateRoute exact path="/stats" component={Stats} />
-          <PrivateRoute exact path="/categories" component={Categories} />
-          <Route exact path="/login" component={Login}  />
-          <Route exact path="/logout" component={Logout}  />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/forgotpassword" component={ForgotPassword} />
-          <Route exact path="/changepassword" component={ChangePassword} />
-          <Route exact path="*" component={NotFoundComponent} />
-        </Switch>
-      </ConnectedRouter>
-    </div>
-  </Provider>
-);
+
+const App = () => {
+  const [context, setContext] = useState(globalContext);
+  return (
+    <GlobalContext.Provider value={{context, setContext}}>
+      <Provider store={store}>
+        <div className="App">
+          <GlobalStyle/>
+          <ConnectedRouter history={history}>
+            <NavBar/>
+            <Switch>
+              <PrivateRoute exact path="/" component={Spendings}/>
+              <PrivateRoute exact path="/stats" component={Stats}/>
+              <PrivateRoute exact path="/categories" component={Categories}/>
+              <Route exact path="/login" component={Login}/>
+              <Route exact path="/logout" component={Logout}/>
+              <Route exact path="/register" component={Register}/>
+              <Route exact path="/forgotpassword" component={ForgotPassword}/>
+              <Route exact path="/changepassword" component={ChangePassword}/>
+              <Route exact path="*" component={NotFoundComponent}/>
+            </Switch>
+          </ConnectedRouter>
+        </div>
+      </Provider>
+    </GlobalContext.Provider>
+  );
+}
 
 export default App;

@@ -13,10 +13,14 @@ import messages from './messages';
 import UserMenu from './userMenu/UserMenu';
 import LangMenu from './langMenu/LangMenu';
 
+import GlobalContext from "@src/globalContext";
+import { useContext } from "react";
 
-const NavBar = ( ) => {
+
+const NavBar = () => {
   const user = JSON.parse(localStorage.getItem('pfa-user'));
   const token = useSelector(state => state.loginReducer.token);
+  const { context } = useContext(GlobalContext);
 
   return (
     <StyledNavBar>
@@ -44,9 +48,14 @@ const NavBar = ( ) => {
                   />
                 </NavLink>
               </div>
-              <div className="date-picker-wrapper">
-                <DatePickerWrapper />
-              </div>
+              {
+                context.displayDatePicker ?
+                  <div className="date-picker-wrapper">
+                    <DatePickerWrapper />
+                  </div>
+                  :
+                  null
+              }
             </div>
             <UserMenu
               className="usermenu"

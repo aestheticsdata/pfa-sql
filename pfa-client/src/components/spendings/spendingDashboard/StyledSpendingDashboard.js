@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
-import cssSizes from '../../../css-sizes';
-import colors from '../../../colors'
+import cssSizes from '@src/css-sizes';
+import colors from '@src/colors'
 
 export const paddingDashboard = '10';
 
