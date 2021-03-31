@@ -92,10 +92,9 @@ const SpendingModal = ({
   };
 
   const handleAutocompleteChange = (value) => {
-    console.log('handleAutocompleteChange value : ', value);
     setselectedCategory(value ?? initialEmptyCategoryState);
   }
-  console.log('spending : ', spending);
+
   return (
     <StyledSpendingModal
       recurringType={recurringType}
