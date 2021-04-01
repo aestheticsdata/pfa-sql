@@ -4,6 +4,7 @@ import startOfMonth from 'date-fns/startOfMonth';
 
 import {
   GET_CATEGORIES,
+  UPDATE_CATEGORY,
   CREATE_SPENDING,
   UPDATE_SPENDING,
   DELETE_SPENDING,
@@ -57,6 +58,24 @@ export function* onGetCategories() {
   }
 }
 
+export function* onUpdateCategory(payload) {
+  try {
+    const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
+    console.log('update payload : ', payload);
+    const res = yield call(privateRequest, `/categories/${payload.category.ID}`, {
+      method: 'PUT',
+      data: payload.category,
+    });
+    // yield call(privateRequest, `/recurrings/${payload.recurring.id}`, {
+    //   method: 'PUT',
+    //   data: payload.recurring,
+    // });
+    yield put(getCategoriesSuccess(res.data));
+  } catch (err) {
+    console.log('update category error : ', err);
+  }
+}
+
 export function* onCreateSpending(payload) {
   try {
     yield call(privateRequest, '/spendings', {
@@ -100,7 +119,6 @@ export function* onDeleteSpending(payload) {
     console.log(`error while deleting spending :${err}`);
   }
 }
-
 
 export function* onGetSpendings(payload) {
   if (payload.dateRange.from) {
@@ -194,6 +212,7 @@ export function* onGetRecurringSuccess() {
 
 export default function* defaultSaga() {
   yield takeLatest(GET_CATEGORIES, onGetCategories);
+  yield takeLatest(UPDATE_CATEGORY, onUpdateCategory);
   yield takeLatest(GET_USERS, onGetUser);
   yield takeLatest(CREATE_SPENDING, onCreateSpending);
   yield takeLatest(GET_SPENDINGS, onGetSpendings);

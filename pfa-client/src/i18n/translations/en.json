@@ -41,6 +41,9 @@
   "app.components.Spendings.remaining": "Remaining",
   "app.components.Spendings.totalSpendingsOfMonth": "Month Total",
 
+  "app.components.Categories.confirmDeleteCancelButton":  "Cancel",
+  "app.components.Categories.confirmChangesCategoryButton":  "OK",
+
   "app.helpers.requestHelper.expiredToken": "Session has expired",
   "app.helpers.requestHelper.text": "You will be redirected to login",
 

@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const checkToken = require('./helpers/checkToken');
 const getCategoriesController = require('../controllers/categories/getCategoriesController');
+const updateCategoriesController = require('../controllers/categories/updateCategoriesController');
 
 
 router.get('/', checkToken, getCategoriesController);
+router.put('/:id', checkToken, updateCategoriesController)
 
 // router.get('/', (req, res) => {
 //   Category.find()

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FormattedMessage } from "react-intl";
 import messages from "@components/categories/messages";
+import { updateCategory } from "@components/categories/actions";
 
 
 const CategoryItem = ({ category }) => {
@@ -29,7 +30,7 @@ const CategoryItem = ({ category }) => {
 
   const commitEditing = () => {
     setIsEditing(false);
-    dispatch();
+    dispatch(updateCategory(singleCategory));
   }
 
   const confirmDeletePopin = (item, deleteCallback) => {
