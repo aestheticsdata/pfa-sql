@@ -60,16 +60,10 @@ export function* onGetCategories() {
 
 export function* onUpdateCategory(payload) {
   try {
-    const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
-    console.log('update payload : ', payload);
     const res = yield call(privateRequest, `/categories/${payload.category.ID}`, {
       method: 'PUT',
       data: payload.category,
     });
-    // yield call(privateRequest, `/recurrings/${payload.recurring.id}`, {
-    //   method: 'PUT',
-    //   data: payload.recurring,
-    // });
     yield put(getCategoriesSuccess(res.data));
   } catch (err) {
     console.log('update category error : ', err);
