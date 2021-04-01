@@ -11,6 +11,27 @@ const StyledCategories = styled.div`
     height: 33px;
     border-radius: 4px;
 
+      .edit-category-popin {
+        position: relative;
+        top: 3px;
+        left: 7px;
+        .edit-category-popin-name {
+          margin-right: 2px;
+        }
+        .edit-category-popin-color {
+          cursor: pointer;
+          margin-right: 2px;
+        }
+        .cancel-button {
+          cursor: pointer;
+          margin: 0 2px;
+        }
+        .confirm-button {
+          cursor: pointer;
+          margin: 0 2px;
+        }
+      }
+
     .category-sub-container {
         position: relative;
         top: 2px;

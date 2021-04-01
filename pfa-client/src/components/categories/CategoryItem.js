@@ -1,22 +1,36 @@
 import StyledCategories from "@components/categories/StyledCategories";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import getCategoryComponent from '@components/common/Category';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FormattedMessage } from "react-intl";
-import messages from "@components/spendings/messages";
+import messages from "@components/categories/messages";
 
 
 const CategoryItem = ({ category }) => {
   const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [singleCategory, setSingleCategory] = useState(category);
+  const initialCategory = {...category};
+  const dispatch = useDispatch();
   const editCategory = () => {};
   const deleteCallback = (id) => {console.log(id)};
   const item = {
-    category: category.name,
-    categoryColor: category.color,
+    category: singleCategory.name,
+    categoryColor: singleCategory.color,
   };
+
+  const cancelEditing = () => {
+    setIsEditing(false);
+    setSingleCategory(initialCategory);
+  }
+
+  const commitEditing = () => {
+    setIsEditing(false);
+    dispatch();
+  }
 
   const confirmDeletePopin = (item, deleteCallback) => {
     return (
@@ -46,13 +60,38 @@ const CategoryItem = ({ category }) => {
     );
   };
 
-  const editCategoryPopin = (category) => {
+  const editCategoryPopin = () => {
     return (
       <div className="edit-category-popin">
-        <input value={category.name} />
-        <input value={category.color} />
-        <span onClick={() => setIsEditing(false)}>cancel</span>
-        <span onClick={() => setIsEditing(false)}>OK</span>
+
+        <input
+          type="text"
+          className="edit-category-popin-name"
+          value={singleCategory.name}
+          onChange={(ev) => setSingleCategory({...singleCategory, name: ev.target.value})}
+        />
+
+        <input
+          type="color"
+          className="edit-category-popin-color"
+          value={singleCategory.color}
+          onChange={(ev) => setSingleCategory({...singleCategory, color: ev.target.value})}
+        />
+
+        <button
+          className="cancel-button"
+          onClick={() => { cancelEditing() }}
+        >
+          <FormattedMessage { ...messages.confirmDeleteCancelButton } />
+        </button>
+
+        <button
+          className="confirm-button"
+          onClick={() => { commitEditing() }}
+        >
+          <FormattedMessage { ...messages.confirmChangesCategoryButton } />
+        </button>
+
       </div>
     );
   };
@@ -79,7 +118,7 @@ const CategoryItem = ({ category }) => {
 
   const getCategoryContainer = () => {
     if (isDeleteConfirmVisible) return confirmDeletePopin(category, deleteCallback);
-    if (isEditing) return editCategoryPopin(category);
+    if (isEditing) return editCategoryPopin();
     return (
       <div className="category-sub-container" >
         <span>{ getCategoryComponent(item) }</span>
