@@ -1,10 +1,73 @@
 import styled from 'styled-components/macro';
-import cssSizes from '@src/css-sizes';
+import colors from '@src/colors';
+import StyledDeleteConfirm from "@components/common/StyledDeleteConfirm";
 
 const StyledCategories = styled.div`
-  position: relative;
-  top: ${cssSizes.navbarHeight}px;
-  padding-top: 10px;
+  .category-container {
+    position: relative;
+    width: 300px;
+    background-color: ${colors.grey0};
+    margin: 10px;
+    height: 33px;
+    border-radius: 4px;
+
+    .category-sub-container {
+        position: relative;
+        top: 2px;
+        left: 3px;
+        width: 98%;
+        height: 86%;
+        padding: 2px;
+
+      .category {
+        display: inline-block;
+        margin: 3px 0 3px 12px;
+        width: 104px;
+        height: 18px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 1.3;
+        border: 1px solid ${colors.categoryBorder};
+      }
+
+      .actions {
+        display: none;
+      }
+
+      &:hover {
+        transition: background-color 50ms linear;
+        background-color: ${colors.spendingItemHover};
+
+        .actions {
+          display: inline-block;
+
+          .action {
+            position: relative;
+            top: 2px;
+            cursor: pointer;
+            color: ${colors.grey1};
+            transition: color 150ms linear;
+
+            &:hover {
+              color: ${colors.spendingActionHover};
+            }
+            &.edit {
+              left: 120px;
+            }
+            &.delete {
+              left: 130px;
+            }
+          }
+        }
+      }
+    }
+    
+    
+    ${StyledDeleteConfirm}
+  } 
 `;
 
 export default StyledCategories;

@@ -27,10 +27,12 @@ export const getCategories = () => {
   }
 };
 
-export const getCategoriesSuccess = (categories) => ({
-  type: GET_CATEGORIES_SUCCESS,
-  categories,
-});
+export const getCategoriesSuccess = (categories) => {
+  return {
+    type: GET_CATEGORIES_SUCCESS,
+    categories,
+  }
+};
 
 export const createSpending = (spending) => {
   return {

@@ -6,7 +6,7 @@ import { faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 import StyledSpendingItem from './StyledSpendingItem';
 
-import adjustFontColor from "@components/spendings/spendingDayItem/spendingItem/helpers/adjustFontColor";
+import getCategoryComponent from '@components/common/Category';
 
 import messages from '../../messages';
 
@@ -21,9 +21,7 @@ const SpendingItem = ({
   const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
 
   const onMouseOver = () => { setHover(true) };
-
   const onMouseLeave = () => { setHover(false) };
-
   const openEditModal = () => editCallback(spending);
 
   const hideConfirm = () => {
@@ -31,7 +29,7 @@ const SpendingItem = ({
     setIsDeleteConfirmVisible(false);
   };
 
-  const confirmDeletePopin = (spending, deleteCallback) => {
+  const confirmDeletePopin = (item, deleteCallback) => {
     return (
       <div className="confirm-delete-popin">
         <span className="title">
@@ -49,7 +47,7 @@ const SpendingItem = ({
             onClick={
               () => {
                 hideConfirm();
-                deleteCallback(spending.ID, spending.itemType);
+                deleteCallback(item.ID, item.itemType);
               }
             }>
             <FormattedMessage { ...messages.confirmDeleteConfirmButton} />
@@ -70,29 +68,16 @@ const SpendingItem = ({
           !isDeleteConfirmVisible ?
             <div className="spending">
               <span className="label" title={spending.label}>{spending.label}</span>
-              {
-                spending && spending.category ?
-                  <span
-                    className="category"
-                    style={{
-                      color: `${adjustFontColor(spending.categoryColor)}`,
-                      backgroundColor: `${spending.categoryColor}`,
-                    }}
-                  >
-                    {spending.category}
-                  </span>
-                  :
-                  null
-              }
+              { spending?.category && getCategoryComponent(spending) }
               {
                 hover ?
                   <>
-                      <span
-                        className="edit action"
-                        onClick={() => openEditModal()}
-                      >
-                        <FontAwesomeIcon icon={faPencilAlt} />
-                      </span>
+                    <span
+                      className="edit action"
+                      onClick={() => openEditModal()}
+                    >
+                      <FontAwesomeIcon icon={faPencilAlt} />
+                    </span>
                     <span
                       className="delete action"
                       onClick={
@@ -102,8 +87,8 @@ const SpendingItem = ({
                         }
                       }
                     >
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </span>
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </span>
                   </>
                   :
                   null

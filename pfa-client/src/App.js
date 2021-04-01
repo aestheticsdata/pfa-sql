@@ -13,7 +13,7 @@ import GlobalStyle from './global-styles';
 import NavBar from '@components/navbar/Navbar';
 import Spendings from '@components/spendings/Spendings';
 import Stats from '@components/stats/Stats';
-import Categories from '@components/categories/Categories';
+import CategoriesListContainer from '@components/categories/CategoriesListContainer';
 import Login from '@components/login/Login';
 import Register from '@components/register/Register';
 import Logout from '@components/logout/Logout';
@@ -39,7 +39,7 @@ const App = () => {
             <Switch>
               <PrivateRoute exact path="/" component={Spendings}/>
               <PrivateRoute exact path="/stats" component={Stats}/>
-              <PrivateRoute exact path="/categories" component={Categories}/>
+              <PrivateRoute exact path="/categories" component={CategoriesListContainer}/>
               <Route exact path="/login" component={Login}/>
               <Route exact path="/logout" component={Logout}/>
               <Route exact path="/register" component={Register}/>

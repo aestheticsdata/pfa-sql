@@ -52,7 +52,15 @@ const SpendingModal = ({
   const dispatch = useDispatch();
   const categories = useSelector(state => state.spendingsReducer.categories);
 
-  const getRandomHexColor = () => Math.floor(Math.random()*16777215).toString(16);
+  const getRandomHexColor = () => {
+    let r = Math.floor(Math.random()*255).toString(16);
+    let g = Math.floor(Math.random()*255).toString(16);
+    let b = Math.floor(Math.random()*255).toString(16);
+    r = r.length < 2 ? '0' + r : r;
+    g = g.length < 2 ? '0' + g : g;
+    b = b.length < 2 ? '0' + b : b;
+    return r+g+b;
+  };
 
   const onSubmit = (values, { setSubmitting }) => {
     const spendingEdited = {

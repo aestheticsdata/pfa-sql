@@ -1,5 +1,5 @@
-import { ReactComponent as Spinner } from "../assets/Wedges-3s-200px.svg";
-import SpendingItem from "../spendingItem/SpendingItem";
+import { ReactComponent as Spinner } from "@src/assets/Wedges-3s-200px.svg";
+import SpendingItem from "@components/spendings/spendingDayItem/spendingItem/SpendingItem";
 
 import { SpendingsListContainerType, SpendingType} from "../../types";
 
@@ -21,8 +21,7 @@ const SpendingListContainer = (
           </div>
           :
           // spendingsByDay.map((spending: SpendingType) => {
-          spendingsByDay.map((spending: any) => {
-            return (
+          spendingsByDay.map((spending: any) => (
               <SpendingItem
                 key={spending.ID}
                 spending={spending}
@@ -31,7 +30,7 @@ const SpendingListContainer = (
                 toggleAddSpending={toggleAddSpending}
               />
             )
-          })
+          )
         :
         null
     }
