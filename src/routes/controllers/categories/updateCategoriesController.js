@@ -5,13 +5,19 @@ module.exports = async (req, res) => {
     ID: categoryID,
     name,
     color,
+    userID,
   } = req.body;
 
   try {
-    const categories = await Category.findByPk(categoryID);
-    await categories.update({
+    const category = await Category.findByPk(categoryID);
+    await category.update({
       name,
       color,
+    });
+    const categories = await Category.findAll({
+      where: {
+        userID,
+      },
     });
     res.json(categories);
   } catch (err) {
