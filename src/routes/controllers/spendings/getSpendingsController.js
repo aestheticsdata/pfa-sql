@@ -13,8 +13,8 @@ module.exports = async (req, res) => {
         FROM Spendings s
         LEFT JOIN Categories c ON s.categoryID = c.ID
         WHERE s.date BETWEEN '${from}' AND '${to}' AND s.userID='${req.query.userID}'
-        ORDER BY date ASC`,
-      {type: QueryTypes.SELECT}
+        ORDER BY date ASC;`,
+      { type: QueryTypes.SELECT }
     );
     res.json(spendings);
   } catch (err) {

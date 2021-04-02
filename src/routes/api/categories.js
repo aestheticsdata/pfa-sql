@@ -1,11 +1,13 @@
 const router = require('express').Router();
 const checkToken = require('./helpers/checkToken');
 const getCategoriesController = require('../controllers/categories/getCategoriesController');
-const updateCategoriesController = require('../controllers/categories/updateCategoriesController');
+const updateCategoryController = require('../controllers/categories/updateCategoryController');
+const deleteCategoryController = require('../controllers/categories/deleteCategoryController');
 
 
 router.get('/', checkToken, getCategoriesController);
-router.put('/:id', checkToken, updateCategoriesController)
+router.put('/:id', checkToken, updateCategoryController);
+router.delete('/:id', checkToken, deleteCategoryController);
 
 // router.post('/add', (req, res) => {
 //   const {
@@ -21,21 +23,5 @@ router.put('/:id', checkToken, updateCategoriesController)
 //     name,
 //     color,
 //   });
-//
-//   newCategory.save()
-//     .then(() => res.json('new category added'))
-//     .catch(err => res.status(400).json(`Error: ${err}`));
-// });
-//
-// router.delete('/:id', (req, res) => {
-//   Category.findById(req.params.id)
-//     .then(
-//       category => category.remove().then(
-//         () => res.json({ success: true })
-//       )
-//     )
-//     .catch(() => res.status(404).json({ success: false }));
-// });
-//
 
 module.exports = router;

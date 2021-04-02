@@ -5,7 +5,7 @@ import StyledDeleteConfirm from "@components/common/StyledDeleteConfirm";
 const StyledCategories = styled.div`
   .category-container {
     position: relative;
-    width: 300px;
+    width: 360px;
     background-color: ${colors.grey0};
     margin: 10px;
     height: 33px;
@@ -16,19 +16,19 @@ const StyledCategories = styled.div`
         top: 3px;
         left: 7px;
         .edit-category-popin-name {
-          margin-right: 2px;
+          margin-right: 14px;
         }
         .edit-category-popin-color {
           cursor: pointer;
-          margin-right: 2px;
+          margin-right: 14px;
         }
         .cancel-button {
           cursor: pointer;
-          margin: 0 2px;
+          margin: 0 4px;
         }
         .confirm-button {
           cursor: pointer;
-          margin: 0 2px;
+          margin: 0 4px;
         }
       }
 
@@ -76,17 +76,16 @@ const StyledCategories = styled.div`
               color: ${colors.spendingActionHover};
             }
             &.edit {
-              left: 120px;
+              left: 180px;
             }
             &.delete {
-              left: 130px;
+              left: 190px;
             }
           }
         }
       }
     }
-    
-    
+
     ${StyledDeleteConfirm}
   } 
 `;

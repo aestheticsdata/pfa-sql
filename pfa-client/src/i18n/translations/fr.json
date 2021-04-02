@@ -42,7 +42,7 @@
   "app.components.Spendings.totalSpendingsOfMonth": "Total du mois",
 
   "app.components.Categories.confirmDeleteCancelButton":  "Annuler",
-  "app.components.Categories.confirmChangesCategoryButton":  "OK",
+  "app.components.Categories.confirmChangesCategoryButton":  "Modifier",
 
   "app.helpers.requestHelper.expiredToken": "La session a expiré",
   "app.helpers.requestHelper.text": "Vous allez être redirigé vers la page de connexion",

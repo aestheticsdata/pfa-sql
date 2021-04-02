@@ -6,8 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FormattedMessage } from "react-intl";
 import messages from "@components/categories/messages";
-import { updateCategory } from "@components/categories/actions";
-
+import spendingsMessages from "@components/spendings/messages";
+import {
+  updateCategory,
+  deleteCategory,
+} from "@components/categories/actions";
 import Swal from 'sweetalert2';
 
 
@@ -31,7 +34,11 @@ const CategoryItem = ({ category }) => {
     }
   }, [updateError]);
 
-  const deleteCallback = (id) => {console.log(id)};
+  const deleteCallback = () => {
+    dispatch(deleteCategory(category));
+    setIsDeleteConfirmVisible(false);
+  };
+
   const item = {
     category: singleCategory.name,
     categoryColor: singleCategory.color,
@@ -51,24 +58,24 @@ const CategoryItem = ({ category }) => {
     return (
       <div className="confirm-delete-popin">
         <span className="title">
-          <FormattedMessage { ...messages.confirmDeleteTitle} />
+          <FormattedMessage { ...spendingsMessages.confirmDeleteTitle } />
         </span>
         <div className="button-container">
           <button
             className="cancel-button"
-            onClick={() =>setIsDeleteConfirmVisible(false)}
+            onClick={() => setIsDeleteConfirmVisible(false)}
           >
-            <FormattedMessage { ...messages.confirmDeleteCancelButton } />
+            <FormattedMessage { ...spendingsMessages.confirmDeleteCancelButton } />
           </button>
           <button
             className="confirm-button"
             onClick={
               () => {
-                setIsDeleteConfirmVisible(false)
+                setIsDeleteConfirmVisible(false);
                 deleteCallback(item.ID);
               }
             }>
-            <FormattedMessage { ...messages.confirmDeleteConfirmButton} />
+            <FormattedMessage { ...spendingsMessages.confirmDeleteConfirmButton } />
           </button>
         </div>
       </div>

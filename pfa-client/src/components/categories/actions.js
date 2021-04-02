@@ -1,4 +1,5 @@
 import {
+  DELETE_CATEGORY,
   UPDATE_CATEGORY,
   UPDATE_CATEGORY_ERROR,
 } from "@components/categories/constants";
@@ -17,3 +18,9 @@ export const updateCategoryError = (error) => {
   };
 };
 
+export const deleteCategory = (category) => {
+  return {
+    type: DELETE_CATEGORY,
+    category,
+  };
+};

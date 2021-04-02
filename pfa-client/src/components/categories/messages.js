@@ -9,6 +9,6 @@ export default defineMessages({
   },
   confirmChangesCategoryButton: {
     id: `${scope}.confirmChangesCategoryButton`,
-    defaultMessage: 'OK',
+    defaultMessage: 'Modify',
   },
 });
