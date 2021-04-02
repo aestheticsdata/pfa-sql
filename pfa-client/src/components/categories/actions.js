@@ -1,4 +1,7 @@
-import { UPDATE_CATEGORY } from "@components/spendings/constants";
+import {
+  UPDATE_CATEGORY,
+  UPDATE_CATEGORY_ERROR,
+} from "@components/categories/constants";
 
 export const updateCategory = (category) => {
   return {
@@ -6,3 +9,11 @@ export const updateCategory = (category) => {
     category,
   };
 };
+
+export const updateCategoryError = (error) => {
+  return {
+    type: UPDATE_CATEGORY_ERROR,
+    error,
+  };
+};
+

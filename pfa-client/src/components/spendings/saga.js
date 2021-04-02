@@ -4,7 +4,6 @@ import startOfMonth from 'date-fns/startOfMonth';
 
 import {
   GET_CATEGORIES,
-  UPDATE_CATEGORY,
   CREATE_SPENDING,
   UPDATE_SPENDING,
   DELETE_SPENDING,
@@ -18,6 +17,8 @@ import {
   DELETE_RECURRING,
 } from './constants';
 
+import { UPDATE_CATEGORY } from '@components/categories/constants';
+
 import {
   getSpendingsSuccess,
   getSpendings,
@@ -26,6 +27,8 @@ import {
   getCategories,
   getCategoriesSuccess,
 } from './actions';
+
+import { updateCategoryError } from '@components/categories/actions';
 
 import {
   getInitialAmount,
@@ -66,7 +69,7 @@ export function* onUpdateCategory(payload) {
     });
     yield put(getCategoriesSuccess(res.data));
   } catch (err) {
-    console.log('update category error : ', err);
+    yield put(updateCategoryError(err.response.data));
   }
 }
 

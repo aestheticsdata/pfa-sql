@@ -13,12 +13,14 @@ const privateRequest = (url, options) => {
       'Authorization': `Bearer ${localStorage.getItem('pfa-token')}`,
     },
   };
+
   const axiosInstance = axios.create({
     headers: tokenBearer.headers,
   });
-  axiosInstance.interceptors.response.use((response) => {
-    return response;
-  }, (err) => {
+
+  axiosInstance.interceptors.response.use(
+    response => response,
+    err => {
      if (err.response.status && err.response.status === 401) {
        Swal.fire({
          title: intl.formatMessage({ ...messages.expiredToken }),
@@ -32,8 +34,13 @@ const privateRequest = (url, options) => {
          }
        })
      }
-    // return Promise.reject(err);
+    // see https://stackoverflow.com/questions/56954527/handling-a-promise-reject-in-axios-interceptor
+    // see https://stackoverflow.com/questions/49886315/axios-interceptors-response-undefined
+    // see https://github.com/axios/axios#interceptors
+    return Promise.reject(err);
+    // throw err;
   });
+
   return axiosInstance(url, _.merge(options, tokenBearer));
 };
 

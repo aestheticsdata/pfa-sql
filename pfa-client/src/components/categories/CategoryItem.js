@@ -1,13 +1,14 @@
 import StyledCategories from "@components/categories/StyledCategories";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import getCategoryComponent from '@components/common/Category';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FormattedMessage } from "react-intl";
 import messages from "@components/categories/messages";
 import { updateCategory } from "@components/categories/actions";
+
+import Swal from 'sweetalert2';
 
 
 const CategoryItem = ({ category }) => {
@@ -16,7 +17,20 @@ const CategoryItem = ({ category }) => {
   const [singleCategory, setSingleCategory] = useState(category);
   const initialCategory = {...category};
   const dispatch = useDispatch();
-  const editCategory = () => {};
+  const updateError = useSelector(state=>state.categoriesReducer);
+  const updateErrorMessage = useSelector(state => state.categoriesReducer.errorMessage);
+
+  useEffect(() => {
+    if (updateErrorMessage !== '' && updateError.ID === category.ID) {
+      setSingleCategory(initialCategory);
+      Swal.fire({
+        title: 'Error',
+        text: updateErrorMessage.errors[0].message,
+        confirmButtonText: 'close',
+      })
+    }
+  }, [updateError]);
+
   const deleteCallback = (id) => {console.log(id)};
   const item = {
     category: singleCategory.name,
@@ -70,6 +84,7 @@ const CategoryItem = ({ category }) => {
           className="edit-category-popin-name"
           value={singleCategory.name}
           onChange={(ev) => setSingleCategory({...singleCategory, name: ev.target.value})}
+          onKeyPress={(keypressEvent) => { keypressEvent.code === 'Enter' && commitEditing() }}
         />
 
         <input
@@ -103,7 +118,6 @@ const CategoryItem = ({ category }) => {
         className="edit action"
         onClick={() => {
           setIsEditing(true);
-          editCategory();
         }}
       >
         <FontAwesomeIcon icon={faPencilAlt} />

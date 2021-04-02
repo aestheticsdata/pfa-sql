@@ -41,7 +41,6 @@
     "react-scripts": "4.0.2",
     "redux": "^4.0.5",
     "redux-saga": "^1.1.3",
-    "reselect": "^4.0.0",
     "styled-components": "^5.2.1",
     "sweetalert2": "^10.15.5",
     "typeface-assistant": "^1.1.13",
