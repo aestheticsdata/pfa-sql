@@ -8,10 +8,10 @@ module.exports = async (req, res) => {
     await sequelize.query(`
       UPDATE Spendings SET categoryID = null WHERE categoryID = '${ID}';
     `,
-      { type: QueryTypes.SELECT}
+      { type: QueryTypes.UPDATE}
     );
     res.json({ success: true });
   } catch (e) {
-    return res.status(500).json(e);
+    res.status(500).json(e);
   }
 };
