@@ -5,7 +5,7 @@ const sendgrid = require('@sendgrid/mail');
 sendgrid.setApiKey(process.env.SENDGRID_APIKEY);
 
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   const { email, subject, changedPassword } = req.body;
 
   const newPassword = changedPassword || passwordgenerator.generate({
@@ -20,28 +20,24 @@ module.exports = (req, res) => {
     text: `your new password is: ${newPassword}`,
   };
 
-  User.findOne({ where: { email } })
-    .then(() => {
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) console.error('There was an error during salt', err);
-        else {
-          bcrypt.hash(newPassword, salt, (err, hash) => {
-            if (err) console.error('There was an error during hash', err);
-            else {
-              User.update({ password: hash }, { where: { email } })
-                .then(() => {
-                  console.log('user updated');
-                  sendgrid.send(msg)
-                    .then(() => res.json('sendgrid success'))
-                    .catch(err => res.status(400).json('sendgrid error : ', err))
-                })
-                .catch(err => { console.log('error :', err) });
-            }
-          });
-        }
-      });
-    })
-    .catch(() => {
-      res.status(400).json('no users registered with this email');
+  try {
+    const user = await User.findOne({ where: { email } });
+    if (user === null) return res.status(400).json('no users registered with this email');
+
+    bcrypt.genSalt(10, (err, salt) => {
+      if (err) console.error('There was an error during salt', err);
+      else {
+        bcrypt.hash(newPassword, salt, async (err, hash) => {
+          if (err) console.error('There was an error during hash', err);
+          else {
+            await User.update({ password: hash }, { where: { email } })
+            await sendgrid.send(msg);
+            res.json('sendgrid success');
+          }
+        });
+      }
     });
-}
+  } catch (err) {
+    res.status(400).json('error : ', err);
+  }
+};
