@@ -13,7 +13,6 @@ const Category = sequelize => sequelize.define('Category', {
   name: {
     type: DataTypes.STRING(20),
     allowNull: false,
-    unique: true,
   },
   color:{
     type: DataTypes.STRING(20),
