@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import {
   Formik,
   Form,
@@ -20,7 +23,7 @@ const SharedLoginForm = ({
     displayPasswordField,
     displayCurrencyField,
   }) => {
-
+  const [showPassword, setShowPassword] = useState(false);
   const { validateEmail, validatePassword } = validationHelper();
 
   const getCurrenciesList = () => {
@@ -62,15 +65,26 @@ const SharedLoginForm = ({
               }
               {
                 displayPasswordField ?
-                  <>
+                  <div className="password-container">
                     <Field
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       name="password"
                       placeholder="password"
                       validate={validatePassword}
                     />
                     {errors.password && <div>{errors.password}</div>}
-                  </>
+                    <span
+                      className="show-password"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {
+                        showPassword ?
+                          <FontAwesomeIcon icon={faEyeSlash} />
+                          :
+                          <FontAwesomeIcon icon={faEye} />
+                      }
+                    </span>
+                  </div>
                   :
                   null
               }

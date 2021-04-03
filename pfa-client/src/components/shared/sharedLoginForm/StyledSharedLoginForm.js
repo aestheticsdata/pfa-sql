@@ -20,6 +20,17 @@ const StyledSharedLoginForm = styled.div`
       ${inputMixin};
     }
     
+    .password-container {
+      position: relative;
+  
+      .show-password {
+        position: absolute;
+        display: inline-block;
+        top: 10px;
+        right: 12px;
+        cursor: pointer;
+      }
+    }
     
     select {
       margin: 16px 0 8px 0;
