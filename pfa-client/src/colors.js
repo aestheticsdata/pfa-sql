@@ -2,6 +2,7 @@ const colors = {
   grey0: 'rgb(227,227,227)',
   grey1: 'rgb(161,161,161)',
   grey2: 'rgb(110, 110, 110)',
+  grey3: 'rgb(60, 60, 60)',
   formsGlobalColor: 'rgb(73,73,73)',
   formsGlobalColorHover: 'rgb(12,12,12)',
   blueNavy: 'rgb(59, 71, 85)',
@@ -25,6 +26,9 @@ const colors = {
   datePickerWrapper: 'rgb(83, 255, 131)',
   datePickerWrapperBackground: 'rgb(74, 107, 109)',
   categoryBorder: 'rgb(152, 152, 152)',
+  sortbutton: 'rgb(199,199,199)',
+  sortButtonHover: 'rgb(7,93,193)',
+  sortButtonHoverActive: 'rgba(7,93,193, .2)',
 };
 
 export default colors;

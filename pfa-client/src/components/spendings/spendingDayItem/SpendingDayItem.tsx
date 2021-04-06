@@ -1,4 +1,5 @@
-import { useState } from 'react';
+// @ts-nocheck
+import {useEffect, useState} from 'react';
 import format from 'date-fns/format';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,6 +27,8 @@ import SpendingListContainer from "./spendingModal/SpendingListContainer";
 import { SpendingCompoundType, SpendingDayItemType} from "../types";
 
 import useSpendingDayItem from "@components/spendings/spendingDayItem/spendingItem/helpers/useSpendingDayItem";
+import SpendingSort from "@components/spendings/spendingSort/SpendingSort";
+import useClickSort from "@components/spendings/helpers/useClickSort";
 
 
 const SpendingDayItem = ({
@@ -39,6 +42,15 @@ const SpendingDayItem = ({
 }: SpendingDayItemType) => {
 
   const [lang] = useState<LangKeys>(getLang());
+  const {
+    onClickSort,
+    spendingsByDaySorted,
+    setSpendingsByDaySorted,
+  } = useClickSort();
+
+  useEffect(() => {
+    setSpendingsByDaySorted(spendingsByDay);
+  }, [spendingsByDay]);
 
   const getRecurringsTotal = (recurrings: SpendingCompoundType) => _.sumBy(recurrings, item => parseFloat(item.amount));
 
@@ -111,7 +123,7 @@ const SpendingDayItem = ({
                 className="total"
               >
                 {
-                  spendingsByDay ?
+                  spendingsByDaySorted ?
                     <>
                       <span className="total-label">Total</span>
                       {
@@ -119,13 +131,13 @@ const SpendingDayItem = ({
                           {
                             !recurringType ?
                               <FormattedNumber
-                                value={spendingsByDay.total}
+                                value={spendingsByDaySorted.total}
                                 style="currency"
                                 currency={user.baseCurrency}
                               />
                               :
                               <FormattedNumber
-                                value={getRecurringsTotal(spendingsByDay)}
+                                value={getRecurringsTotal(spendingsByDaySorted)}
                                 style="currency"
                                 currency={user.baseCurrency}
                               />
@@ -137,7 +149,11 @@ const SpendingDayItem = ({
                     null
                 }
               </div>
-              {SpendingListContainer({ spendingsByDay, deleteSpending, toggleAddSpending, editSpending, isLoading })}
+              <SpendingSort
+                recurringType={recurringType}
+                onClickSort={onClickSort}
+              />
+              {SpendingListContainer({ spendingsByDaySorted, deleteSpending, toggleAddSpending, editSpending, isLoading })}
             </div>
           </StyledSpendingDayItem>
           :

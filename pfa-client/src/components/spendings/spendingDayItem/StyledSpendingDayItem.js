@@ -3,7 +3,7 @@ import colors from '@src/colors';
 
 export const containerWidth = 485;
 export const containerWidthdashboard = 350;
-export const containerHeight = 300;
+export const containerHeight = 330;
 export const containerHeightdashboard = 250;
 
 const StyledSpendingDayItem = styled.div`
