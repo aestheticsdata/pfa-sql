@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import format from 'date-fns/format';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -153,7 +153,7 @@ const SpendingDayItem = ({
                 recurringType={recurringType}
                 onClickSort={onClickSort}
               />
-              {SpendingListContainer({ spendingsByDaySorted, deleteSpending, toggleAddSpending, editSpending, isLoading })}
+              {SpendingListContainer({ spendingsByDaySorted, deleteSpending, toggleAddSpending, editSpending, isLoading, recurringType })}
             </div>
           </StyledSpendingDayItem>
           :

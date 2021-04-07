@@ -11,10 +11,11 @@ const SpendingListContainer = (
     toggleAddSpending,
     editSpending,
     isLoading,
+    recurringType
   }: SpendingsListContainerType
 ) => {
   return (
-  <div className="spendings-list-container">
+  <div className={`${recurringType ? 'recurrings' : 'spendings'}-list-container`}>
     {
       spendingsByDaySorted ?
         isLoading ?

@@ -1,10 +1,20 @@
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import colors from '@src/colors';
 
 export const containerWidth = 485;
 export const containerWidthdashboard = 350;
 export const containerHeight = 330;
 export const containerHeightdashboard = 250;
+
+const itemslistcontainer = css`
+  overflow: hidden;
+  overflow-y: auto;
+
+  .spinner {
+    text-align: center;
+    padding-top: 60px;
+  }
+`;
 
 const StyledSpendingDayItem = styled.div`
   width: ${props => props.recurringType ? containerWidthdashboard+'px' : containerWidth+'px' };
@@ -72,7 +82,6 @@ const StyledSpendingDayItem = styled.div`
         }
       }
     }
-  
   }
   
   .total {
@@ -91,16 +100,14 @@ const StyledSpendingDayItem = styled.div`
     }
   }
   
+  .recurrings-list-container {
+    ${itemslistcontainer};
+    height: 120px;
+  }
+  
   .spendings-list-container {
-    overflow: hidden;
+    ${itemslistcontainer};
     height: 200px;
-    overflow-y: auto;
-    
-    
-    .spinner {
-      text-align: center;
-      padding-top: 60px;
-    }
   }
 `;
 
