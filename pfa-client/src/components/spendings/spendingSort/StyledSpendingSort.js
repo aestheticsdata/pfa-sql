@@ -12,7 +12,7 @@ const common = css`
   top: 4px;
     .icon {
       position: relative;
-      top: 1px;
+      font-size: 10px;
       margin: 0 2px 0 6px;
     }
   &:hover {

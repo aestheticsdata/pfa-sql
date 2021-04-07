@@ -24,7 +24,7 @@ import { getLang, locales } from "@helpers/lang";
 import { LangKeys } from "@helpers/types";
 import SpendingListContainer from "./spendingModal/SpendingListContainer";
 
-import { SpendingCompoundType, SpendingDayItemType} from "../types";
+import { SpendingCompoundType, SpendingDayItemType } from "../types";
 
 import useSpendingDayItem from "@components/spendings/spendingDayItem/spendingItem/helpers/useSpendingDayItem";
 import SpendingSort from "@components/spendings/spendingSort/SpendingSort";

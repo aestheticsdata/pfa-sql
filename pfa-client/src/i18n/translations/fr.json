@@ -41,6 +41,10 @@
   "app.components.Spendings.remaining": "Restant",
   "app.components.Spendings.totalSpendingsOfMonth": "Total du mois",
 
+  "app.components.SpendingsSort.SORT_BY_LABEL": "Intitulé",
+  "app.components.SpendingsSort.SORT_BY_CATEGORY": "Catégorie",
+  "app.components.SpendingsSort.SORT_BY_AMOUNT": "Montant",
+
   "app.components.Categories.confirmDeleteCancelButton":  "Annuler",
   "app.components.Categories.confirmChangesCategoryButton":  "Modifier",
 
