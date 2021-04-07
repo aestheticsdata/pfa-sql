@@ -16,6 +16,7 @@ import {
   updateRecurring,
   createSpending,
   updateSpending,
+  copyRecurrings,
 } from '../../actions';
 
 import messages from '../../messages';
@@ -51,6 +52,7 @@ const SpendingModal = ({
   const [selectedCategory, setselectedCategory] = useState(initialCategoryState);
   const dispatch = useDispatch();
   const categories = useSelector(state => state.spendingsReducer.categories);
+  const recurrings = useSelector(state => state.spendingsReducer.recurrings);
 
   const getRandomHexColor = () => {
     let r = Math.floor(Math.random()*255).toString(16);
@@ -167,6 +169,17 @@ const SpendingModal = ({
                   />
                   :
                   null
+              }
+              {
+                recurringType && recurrings.length === 0 && (
+                  <button
+                    type="button"
+                    className="spending-btn copy-recurrings"
+                    onClick={() => {closeModal(); dispatch(copyRecurrings(user.id, month))}}
+                  >
+                    <FormattedMessage {...messages.copyRecurringsFromLastMonth} />
+                  </button>
+                )
               }
               <button
                 type="submit"

@@ -12,6 +12,7 @@ import {
   CREATE_RECURRING,
   UPDATE_RECURRING,
   DELETE_RECURRING,
+  COPY_RECURRING,
 } from './constants';
 
 
@@ -106,6 +107,14 @@ export const deleteRecurring = (recurringID) => {
     id: recurringID,
   };
 };
+
+export const copyRecurrings = (userID, month) => {
+  return {
+    type: COPY_RECURRING,
+    userID,
+    month,
+  }
+}
 
 
 

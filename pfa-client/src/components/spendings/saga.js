@@ -15,6 +15,7 @@ import {
   CREATE_RECURRING,
   UPDATE_RECURRING,
   DELETE_RECURRING,
+  COPY_RECURRING,
 } from './constants';
 
 import { UPDATE_CATEGORY } from '@components/categories/constants';
@@ -207,6 +208,19 @@ export function* onGetRecurringSuccess() {
   }
 }
 
+export function* onCopyRecurring(payload) {
+  try {
+    yield call(privateRequest, `/recurrings/copy`, {
+      method: 'POST',
+      data: {month: payload.month, userID: payload.userID},
+    });
+    const start = yield select(state => state.dateRangeReducer.dateRange.from);
+    yield put(getRecurring(startOfMonth(start)));
+  } catch (err) {
+    console.log('err : ', err);
+  }
+}
+
 export default function* defaultSaga() {
   yield takeLatest(GET_CATEGORIES, onGetCategories);
   yield takeLatest(UPDATE_CATEGORY, onUpdateCategory);
@@ -221,4 +235,5 @@ export default function* defaultSaga() {
   yield takeLatest(UPDATE_RECURRING, onUpdateRecurring);
   yield takeLatest(GET_SPENDINGS_SUCCESS, onGetSpendingSuccess);
   yield takeLatest(GET_RECURRING_SUCCESS, onGetRecurringSuccess);
+  yield takeLatest(COPY_RECURRING, onCopyRecurring);
 }

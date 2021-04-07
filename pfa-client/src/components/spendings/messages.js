@@ -62,5 +62,9 @@ export default defineMessages({
   totalSpendingsOfMonth: {
     id: `${scope}.totalSpendingsOfMonth`,
     defaultMessage: 'Month Total',
+  },
+  copyRecurringsFromLastMonth: {
+    id: `${scope}.copyRecurringsFromLastMonth`,
+    defaultMessage: 'copy last month',
   }
 });

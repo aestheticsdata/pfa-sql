@@ -35,6 +35,10 @@ const StyledSpendingModal = styled.div`
     margin: 10px auto;
     width: 50%;
     height: 20px;
+
+    &.copy-recurrings {
+      font-size: 10px;
+    }
   }
 `;
 

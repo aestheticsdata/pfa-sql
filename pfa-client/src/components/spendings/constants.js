@@ -11,3 +11,4 @@ export const GET_RECURRING_SUCCESS = 'app/spendings/GET_RECURRING_SUCCESS';
 export const UPDATE_RECURRING = 'app/spendings/UPDATE_RECURRING';
 export const CREATE_RECURRING = 'app/spendings/CREATE_RECURRING';
 export const DELETE_RECURRING = 'app/spendings/DELETE_RECURRING';
+export const COPY_RECURRING = 'app/spendings/COPY_RECURRING';
