@@ -9,15 +9,3 @@ module.exports = async (req, res) => {
     res.status(500).json(err);
   }
 };
-
-
-// router.put('/:id', (req, res) => {
-//   User.findById(req.params.id)
-//     .then(user => {
-//       user.language = req.body.lang;
-//
-//       user.save()
-//         .then(() => res.json('User updated'))
-//         .catch(err => res.status(400).json(`Error: ${err}`));
-//     });
-// });
