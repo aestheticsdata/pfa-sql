@@ -14,7 +14,7 @@ export function* onUpdateLang(payload) {
     });
     window.location.reload();
   } catch (err) {
-
+    console.log('could not update user : ', err);
   }
 }
 

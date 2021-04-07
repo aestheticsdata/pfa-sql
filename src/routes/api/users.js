@@ -2,11 +2,14 @@ const router = require('express').Router();
 const signInController = require('../controllers/users/signInController');
 const addUserController = require('../controllers/users/addUserController');
 const resetPasswordController = require('../controllers/users/resetPasswordController');
+const updateUserLangController = require('../controllers/users/updateUserLangController');
+const checkToken = require('./helpers/checkToken');
 
 
 router.post('/', signInController);
 router.post('/add', addUserController);
 router.post('/resetpassword', resetPasswordController);
+router.put('/:id', checkToken, updateUserLangController);
 
 module.exports = router;
 
@@ -33,17 +36,6 @@ module.exports = router;
 //       )
 //     )
 //     .catch(() => res.status(404).json({ success: false }));
-// });
-
-// router.put('/:id', (req, res) => {
-//   User.findById(req.params.id)
-//     .then(user => {
-//       user.language = req.body.lang;
-//
-//       user.save()
-//         .then(() => res.json('User updated'))
-//         .catch(err => res.status(400).json(`Error: ${err}`));
-//     });
 // });
 
 
