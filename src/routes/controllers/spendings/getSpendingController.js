@@ -1,8 +1,10 @@
-const { Spending } = require('../../../db/dbInit');
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 module.exports = async (req, res) => {
   try {
-    const spending = await Spending.findOne({
+    const spending = await prisma.spengins.findUnique({
       where: {
         spendingID: req.params.id,
         userID: req.params.userID,

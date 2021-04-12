@@ -1,8 +1,10 @@
-const { Category } = require('../../../db/dbInit');
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 module.exports = async (req, res) => {
   try {
-    const categories = await Category.findAll({
+    const categories = await prisma.categories.findUnique({
       where: {
         userID: req.query.userID,
       }

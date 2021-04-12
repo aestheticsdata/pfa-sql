@@ -1,4 +1,7 @@
-const { Category } = require('../../../db/dbInit');
+// const { Category } = require('../../../db/dbInit');
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 module.exports = async (req, res) => {
   const {
@@ -9,12 +12,12 @@ module.exports = async (req, res) => {
   } = req.body;
 
   try {
-    const category = await Category.findByPk(categoryID);
+    const category = await prisma.categories.findUnique({ where: { ID: categoryID } });
     await category.update({
       name,
       color,
     });
-    const categories = await Category.findAll({
+    const categories = await prisma.categories.findMany({
       where: {
         userID,
       },

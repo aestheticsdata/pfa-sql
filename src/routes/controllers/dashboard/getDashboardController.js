@@ -1,13 +1,16 @@
-const { Dashboard } = require('../../../db/dbInit');
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 module.exports = async (req, res) => {
   try {
-    const dashboard = await Dashboard.findOne({
+    const dashboard = await prisma.dashboards.findFirst({
       where: {
         userID: req.query.userID,
-        dateFrom: req.query.start,
+        dateFrom: new Date(req.query.start),
       }
     });
+    console.log(dashboard);
     res.json(dashboard);
   } catch (err) {
     res.status(500).json(`Error getting dashboard : ${err}`);

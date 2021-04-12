@@ -1,16 +1,21 @@
-const { Recurring } = require('../../../db/dbInit');
-const { Op } = require("sequelize");
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 module.exports = async (req, res) => {
   try {
-    const recurrings = await Recurring.findAll({
+    const recurrings = await prisma.recurrings.findMany({
       where: {
-        userID: req.query.userID,
-        dateFrom: {
-          [Op.eq]: req.query.start,
-        }
+        AND: [
+          { userID: req.query.userID},
+          {
+            dateFrom: { equals: new Date(req.query.start) }
+          },
+        ]
       },
-      order: [['amount', 'DESC']],
+      orderBy: {
+        amount: 'desc',
+      },
     });
     res.json(recurrings);
   } catch (err) {

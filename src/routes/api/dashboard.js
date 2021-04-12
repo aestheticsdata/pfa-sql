@@ -6,8 +6,8 @@ const postDashboardController = require('../controllers/dashboard/postDashboardC
 const updateDashboardController = require('../controllers/dashboard/updateDashboardController');
 
 router.get('/', checkToken, getDashboardController);
-router.post('/', checkToken, postDashboardController);
-router.put('/:id', checkToken, updateDashboardController);
+// router.post('/', checkToken, postDashboardController);
+// router.put('/:id', checkToken, updateDashboardController);
 
 module.exports = router;
 

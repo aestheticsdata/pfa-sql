@@ -1,6 +1,6 @@
-const { Recurring } = require('../../../db/dbInit');
-const { Spending } = require('../../../db/dbInit');
-const { Op } = require("sequelize");
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 const startOfMonth = require('date-fns/startOfMonth');
 const endOfMonth = require('date-fns/endOfMonth');
 const format = require('date-fns/format');
@@ -11,22 +11,46 @@ module.exports = async (req, res) => {
   const end = new Date(format(endOfMonth(new Date(req.query.from)), 'yyyy-MM-dd'));
 
   try {
-    const recurringsSum = await Recurring.sum('amount', {
+    // const recurringsSum = await Recurring.sum('amount', {
+    //   where: {
+    //     userID,
+    //     dateFrom: start,
+    //     dateTo: end,
+    //   }
+    // });
+    const recurringsSum = await prisma.recurrings.aggregate({
+      sum: {
+        amount: true,
+      },
       where: {
         userID,
         dateFrom: start,
         dateTo: end,
-      }
-    });
+      },
+    })
 
-    const spendingsSum = await Spending.sum('amount', {
+    // const spendingsSum = await Spending.sum('amount', {
+    //   where: {
+    //     userID,
+    //     date: {
+    //       [Op.between]: [start, end],
+    //     },
+    //   }
+    // });
+    console.log('start: ', start);
+    console.log('end: ', end);
+    const spendingsSum = await prisma.spendings.aggregate({
+      sum: {
+        amount: true,
+      },
       where: {
         userID,
         date: {
-          [Op.between]: [start, end],
-        },
+          gte: start,
+          lte: end,
+        }
       }
-    });
+    })
 
     res.json({ spendingsSum, recurringsSum });
   } catch (err) {
