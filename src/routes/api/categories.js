@@ -2,12 +2,12 @@ const router = require('express').Router();
 const checkToken = require('./helpers/checkToken');
 const getCategoriesController = require('../controllers/categories/getCategoriesController');
 const updateCategoryController = require('../controllers/categories/updateCategoryController');
-// const deleteCategoryController = require('../controllers/categories/deleteCategoryController');
+const deleteCategoryController = require('../controllers/categories/deleteCategoryController');
 
 
 router.get('/', checkToken, getCategoriesController);
 router.put('/:id', checkToken, updateCategoryController);
-// router.delete('/:id', checkToken, deleteCategoryController);
+router.delete('/:id', checkToken, deleteCategoryController);
 
 // router.post('/add', (req, res) => {
 //   const {

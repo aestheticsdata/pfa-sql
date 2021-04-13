@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 module.exports = async (req, res) => {
   try {
-    const categories = await prisma.categories.findUnique({
+    const categories = await prisma.categories.findMany({
       where: {
         userID: req.query.userID,
       }

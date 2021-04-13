@@ -1,20 +1,22 @@
-// const { sequelize, Category } = require('../../../db/dbInit');
-// const { QueryTypes } = require('sequelize');
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// module.exports = async (req, res) => {
-//   const { id: ID } = req.params;
-//   try {
-//     await Category.destroy({ where: { ID: req.params.id } });
-//     await sequelize.query(`
-//       UPDATE Spendings SET categoryID = null WHERE categoryID = '${ID}';
-//     `,
-//       { type: QueryTypes.UPDATE}
-//     );
-//     res.json({ success: true });
-//   } catch (e) {
-//     res.status(500).json(e);
-//   }
-// };
+module.exports = async (req, res) => {
+  const { id: ID } = req.params;
+  try {
+    await prisma.categories.delete({ where: { ID: req.params.id } });
+    // UPDATE Spendings SET categoryID = null WHERE categoryID = '${ID}';
+    await prisma.spendings.update({
+      where: {
+        categoryID: ID,
+      },
+      data: {
+        categoryID: null,
+      }
+    })
+    res.json({ success: true });
+  } catch (e) {
+    res.status(500).json(e);
+  }
+};
