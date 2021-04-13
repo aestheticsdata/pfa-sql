@@ -85,6 +85,6 @@ module.exports = async (req, res) => {
     res.json({ success: true });
   } catch (err) {
     console.log(err);
-    res.status(404).json({ success: false });
+    res.status(500).json({ success: false });
   }
 };

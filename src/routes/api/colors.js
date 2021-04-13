@@ -4,13 +4,13 @@ let Color = require('../../models/color.model');
 router.get('/', (req, res) => {
   Color.find()
     .then(colors => res.json(colors))
-    .catch(err => res.status(404).json(`Error : ${err}`));
+    .catch(err => res.status(500).json(`Error : ${err}`));
 });
 
 router.get('/:id', (req, res) => {
   Color.find({ catID: req.params.catID })
     .then(color => res.json(color))
-    .catch(() => res.status(404).json('no color with this id'));
+    .catch(() => res.status(500).json('no color with this id'));
 });
 
 router.post('/add', (req, res) => {
@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
         () => res.json({ success: true })
       )
     )
-    .catch(() => res.status(404).json({ success: false }));
+    .catch(() => res.status(500).json({ success: false }));
 });
 
 router.put('/:id', (req, res) => {

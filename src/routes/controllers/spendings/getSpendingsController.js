@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
     );
     res.json(spendings);
   } catch (err) {
-    res.status(404).json(`Error : ${err}`);
+    res.status(500).json(`Error : ${err}`);
   }
 };
 

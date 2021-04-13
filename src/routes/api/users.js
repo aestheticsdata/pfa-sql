@@ -24,7 +24,7 @@ module.exports = router;
 // router.get('/:id', (req, res) => {
 //   User.findById(req.params.id)
 //     .then(user => res.json(user))
-//     .catch(() => res.status(404).json('no user with this id'));
+//     .catch(() => res.status(500).json('no user with this id'));
 // });
 
 
@@ -35,7 +35,7 @@ module.exports = router;
 //         () => res.json({ success: true })
 //       )
 //     )
-//     .catch(() => res.status(404).json({ success: false }));
+//     .catch(() => res.status(500).json({ success: false }));
 // });
 
 

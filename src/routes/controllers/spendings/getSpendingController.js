@@ -11,6 +11,6 @@ module.exports = async (req, res) => {
     });
     res.json(spending);
   } catch (err) {
-    res.status(404).json('no spending with this id');
+    res.status(500).json('no spending with this id');
   }
 };

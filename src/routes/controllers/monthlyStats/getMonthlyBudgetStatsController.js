@@ -37,6 +37,6 @@ module.exports = async (req, res) => {
 
     res.json({ spendingsSum, recurringsSum });
   } catch (err) {
-    res.status(404).json(`Error : ${err}`);
+    res.status(500).json(`Error : ${err}`);
   }
 }

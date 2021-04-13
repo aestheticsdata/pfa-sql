@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
 
   try {
     await prisma.recurrings.update({
-      where: { ID: req.params.id},
+      where: { ID: req.params.id },
       data: {
         label,
         amount,
