@@ -1,6 +1,8 @@
-// const { Spending } = require('../../../db/dbInit');
-// const deleteHelper = require('../helpers/deleteHelper');
-//
-// module.exports = async (req, res) => {
-//   await deleteHelper(Spending, req.params.id, res);
-// };
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
+const deleteHelper = require('../helpers/deleteHelper');
+
+module.exports = async (req, res) => {
+  await deleteHelper(prisma.spendings, req.params.id, res);
+};

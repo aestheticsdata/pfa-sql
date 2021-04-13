@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
 const { v1: uuidv1 } = require('uuid');
 
-const prisma = new PrismaClient();
 
 module.exports = async (req, res) => {
   const {
