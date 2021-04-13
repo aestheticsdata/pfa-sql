@@ -1,11 +1,9 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+const prisma = require('../../../db/dbInit');
 
 const bcrypt = require('bcryptjs');
 const passwordgenerator = require('generate-password');
 const sendgrid = require('@sendgrid/mail');
 sendgrid.setApiKey(process.env.SENDGRID_APIKEY);
-
 
 
 module.exports = async (req, res) => {

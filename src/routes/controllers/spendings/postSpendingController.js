@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
-
+const prisma = require('../../../db/dbInit');
 const { v1: uuidv1 } = require('uuid');
 
 

@@ -1,9 +1,7 @@
 const signIn = require('./helpers/signInHelper');
 const bcrypt = require('bcryptjs');
-// const { User } = require('../../../db/dbInit');
-import { PrismaClient } from '@prisma/client';
+const prisma = require('../../../db/dbInit');
 
-const prisma = new PrismaClient();
 
 module.exports = async (req, res) => {
   const {

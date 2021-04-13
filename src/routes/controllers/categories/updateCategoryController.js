@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+const prisma = require('../../../db/dbInit');
 
 
 module.exports = async (req, res) => {
@@ -11,10 +10,12 @@ module.exports = async (req, res) => {
   } = req.body;
 
   try {
-    const category = await prisma.categories.findUnique({ where: { ID: categoryID } });
-    await category.update({
-      name,
-      color,
+    await prisma.categories.update({
+      where: { ID: categoryID },
+      data: {
+        name,
+        color,
+      },
     });
     const categories = await prisma.categories.findMany({
       where: {

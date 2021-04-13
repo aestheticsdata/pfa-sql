@@ -1,9 +1,9 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+const prisma = require('../../../db/dbInit');
 
 const startOfMonth = require('date-fns/startOfMonth');
 const endOfMonth = require('date-fns/endOfMonth');
 const format = require('date-fns/format');
+
 
 module.exports = async (req, res) => {
   const { userID } = req.query;

@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+const prisma = require('../../../db/dbInit');
 const { format } = require('date-fns');
 
 module.exports = async (req, res) => {

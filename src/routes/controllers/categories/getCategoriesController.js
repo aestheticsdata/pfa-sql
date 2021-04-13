@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+const prisma = require('../../../db/dbInit');
 
-const prisma = new PrismaClient();
 
 module.exports = async (req, res) => {
   try {
