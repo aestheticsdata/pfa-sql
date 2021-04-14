@@ -1,6 +1,8 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { privateRequest } from '@helpers/requestHelper';
 import startOfMonth from 'date-fns/startOfMonth';
+import endOfMonth from 'date-fns/endOfMonth';
+import format from 'date-fns/format';
 
 import {
   GET_CATEGORIES,
@@ -209,10 +211,17 @@ export function* onGetRecurringSuccess() {
 }
 
 export function* onCopyRecurring(payload) {
+  const month = {
+    start: format(startOfMonth(payload.month.start), 'yyyy-MM-dd'),
+    end: format(endOfMonth(payload.month.end), 'yyyy-MM-dd'),
+  };
   try {
     yield call(privateRequest, `/recurrings/copy`, {
       method: 'POST',
-      data: {month: payload.month, userID: payload.userID},
+      data: {
+        month,
+        userID: payload.userID
+      },
     });
     const start = yield select(state => state.dateRangeReducer.dateRange.from);
     yield put(getRecurring(startOfMonth(start)));
