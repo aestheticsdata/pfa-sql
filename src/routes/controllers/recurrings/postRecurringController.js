@@ -1,5 +1,6 @@
-const { Recurring } = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
 const { v1: uuidv1 } = require('uuid');
+
 
 module.exports = async (req, res) => {
   const {
@@ -16,15 +17,17 @@ module.exports = async (req, res) => {
   }
 
   try {
-    await Recurring.create({
-      ID: uuidv1(),
-      userID,
-      dateFrom,
-      dateTo,
-      label,
-      amount,
-      currency,
-      itemType: 'recurring',
+    await prisma.recurrings.create({
+      data: {
+        ID: uuidv1(),
+        userID,
+        dateFrom: new Date(dateFrom),
+        dateTo: new Date(dateTo),
+        label,
+        amount,
+        currency,
+        itemType: 'recurring',
+      },
     });
     res.json('new category added');
   } catch (err) {

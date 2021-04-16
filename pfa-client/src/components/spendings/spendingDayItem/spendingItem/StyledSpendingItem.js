@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from '@src/colors';
 import StyledDeleteConfirm from "@components/common/StyledDeleteConfirm";
 
-const labelWidth = 170;
+const labelWidth = 150;
 
 const StyledSpendingItem = styled.div`
   .spending-item-container {
@@ -39,7 +39,7 @@ const StyledSpendingItem = styled.div`
         position: absolute;
         width: 104px;
         height: 18px;
-        left: ${labelWidth + 5}px;
+        left: ${labelWidth + 25}px;
         border-radius: 4px;
         font-size: 12px;
         font-weight: 600;
@@ -64,6 +64,10 @@ const StyledSpendingItem = styled.div`
           color: ${colors.spendingActionHover};
         }
 
+        &.invoice {
+          right: 120px;
+        }
+          
         &.edit {
           right: 98px;
         }

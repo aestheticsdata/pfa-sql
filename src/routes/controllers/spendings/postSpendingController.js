@@ -1,5 +1,6 @@
-const { Spending, Category } = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
 const { v1: uuidv1 } = require('uuid');
+
 
 module.exports = async (req, res) => {
   const {
@@ -13,15 +14,17 @@ module.exports = async (req, res) => {
 
   const createSpending = async (newCategoryID = null, existingCategory = null) => {
     try {
-      await Spending.create({
-        spendingID: uuidv1(),
-        userID,
-        date,
-        label,
-        amount,
-        categoryID: newCategoryID ?? (existingCategory?.ID ?? category?.ID),
-        currency,
-        itemType: 'spending',
+      await prisma.spendings.create({
+        data: {
+          ID: uuidv1(),
+          userID,
+          date: new Date(date),
+          label,
+          amount,
+          categoryID: newCategoryID ?? (existingCategory?.ID ?? category?.ID),
+          currency,
+          itemType: 'spending',
+        }
       });
       res.json('new spending added');
     } catch (err) {
@@ -35,7 +38,7 @@ module.exports = async (req, res) => {
 
   if (category.ID === null && category.color !== null) {
     // before creating a new category, we have to check if this user has already a category with this name
-    const existingCategory = await Category.findOne({
+    const existingCategory = await prisma.categories.findFirst({
       where : {
         userID,
         name: category.name
@@ -47,11 +50,13 @@ module.exports = async (req, res) => {
     } else {
       const newCategoryID = uuidv1();
       try {
-        await Category.create({
-          ID: newCategoryID,
-          userID,
-          name: category.name,
-          color: category.color,
+        await prisma.categories.create({
+          data: {
+            ID: newCategoryID,
+            userID,
+            name: category.name,
+            color: category.color,
+          }
         });
         await createSpending(newCategoryID);
       } catch (err) {

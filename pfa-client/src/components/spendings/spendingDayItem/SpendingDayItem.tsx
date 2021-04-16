@@ -7,7 +7,7 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 import StyledSpendingDayItem from './StyledSpendingDayItem';
 
-import getDate from 'date-fns/getDate';
+import getDayOfYear from 'date-fns/getDayOfYear';
 
 import {
   FormattedMessage,
@@ -65,12 +65,15 @@ const SpendingDayItem = ({
     editSpending,
   } = useSpendingDayItem();
 
+  const isToday = getDayOfYear(date) === getDayOfYear(Date.now());
+
   return (
     <>
       {
         date || recurringType ?
           <StyledSpendingDayItem
             recurringType={recurringType}
+            className={`${isToday && 'today-border'}`}
           >
             <div>
               <div className="spending-modal">
@@ -92,7 +95,7 @@ const SpendingDayItem = ({
               <div className="header">
                 {
                   !recurringType ?
-                    <div className={`date ${getDate(date) === getDate(Date.now()) && 'today'}`}>
+                    <div className={`date ${isToday && 'today'}`}>
                       {
                         date ?
                           <div>{format(date, locales[lang].formatString, { locale: locales[lang][lang] })}</div>
@@ -153,7 +156,16 @@ const SpendingDayItem = ({
                 recurringType={recurringType}
                 onClickSort={onClickSort}
               />
-              {SpendingListContainer({ spendingsByDaySorted, deleteSpending, toggleAddSpending, editSpending, isLoading, recurringType })}
+              {
+                SpendingListContainer({
+                  spendingsByDaySorted,
+                  deleteSpending,
+                  toggleAddSpending,
+                  editSpending,
+                  isLoading,
+                  recurringType
+                })
+              }
             </div>
           </StyledSpendingDayItem>
           :

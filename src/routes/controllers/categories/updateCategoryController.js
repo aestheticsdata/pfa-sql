@@ -1,4 +1,5 @@
-const { Category } = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
+
 
 module.exports = async (req, res) => {
   const {
@@ -9,12 +10,14 @@ module.exports = async (req, res) => {
   } = req.body;
 
   try {
-    const category = await Category.findByPk(categoryID);
-    await category.update({
-      name,
-      color,
+    await prisma.categories.update({
+      where: { ID: categoryID },
+      data: {
+        name,
+        color,
+      },
     });
-    const categories = await Category.findAll({
+    const categories = await prisma.categories.findMany({
       where: {
         userID,
       },

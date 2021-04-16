@@ -26,6 +26,10 @@ const StyledSpendingDayItem = styled.div`
   padding: 10px;
   border-radius: 5px;
   
+  &.today-border {
+    border: 1px solid ${colors.datePickerWrapper};    
+  } 
+
   .spending-modal {
     position: relative;
     z-index: 1;

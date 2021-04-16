@@ -1,8 +1,9 @@
-const { Category } = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
+
 
 module.exports = async (req, res) => {
   try {
-    const categories = await Category.findAll({
+    const categories = await prisma.categories.findMany({
       where: {
         userID: req.query.userID,
       }

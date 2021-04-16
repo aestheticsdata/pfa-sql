@@ -1,11 +1,11 @@
-const { Dashboard } = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
 
 module.exports = async (req, res) => {
   try {
-    const dashboard = await Dashboard.findOne({
+    const dashboard = await prisma.dashboards.findFirst({
       where: {
         userID: req.query.userID,
-        dateFrom: req.query.start,
+        dateFrom: new Date(req.query.start),
       }
     });
     res.json(dashboard);

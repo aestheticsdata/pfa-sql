@@ -1,6 +1,7 @@
 const signIn = require('./helpers/signInHelper');
 const bcrypt = require('bcryptjs');
-const { User } = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
+
 
 module.exports = async (req, res) => {
   const {
@@ -17,7 +18,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    let user = await User.findOne({ where: { email } });
+    let user = await prisma.users.findUnique({ where: { email } });
     if (user) { return res.status(400).json({ message: 'Email already exists' }); }
 
     const newUser = {
@@ -36,7 +37,7 @@ module.exports = async (req, res) => {
           if (err) console.error('There was an error during hash', err);
           else {
             newUser.password = hash;
-            user = await User.create(newUser);
+            user = await prisma.users.create({ data: newUser });
             signIn(res, user);
           }
         });

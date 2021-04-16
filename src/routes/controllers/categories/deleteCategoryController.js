@@ -1,17 +1,22 @@
-const { sequelize, Category } = require('../../../db/dbInit');
-const { QueryTypes } = require('sequelize');
+const prisma = require('../../../db/dbInit');
+
 
 module.exports = async (req, res) => {
   const { id: ID } = req.params;
   try {
-    await Category.destroy({ where: { ID: req.params.id } });
-    await sequelize.query(`
-      UPDATE Spendings SET categoryID = null WHERE categoryID = '${ID}';
-    `,
-      { type: QueryTypes.UPDATE}
-    );
+    await prisma.categories.delete({ where: { ID: req.params.id } });
+    // UPDATE Spendings SET categoryID = null WHERE categoryID = '${ID}';
+    await prisma.spendings.updateMany({
+      where: {
+        categoryID: ID,
+      },
+      data: {
+        categoryID: null,
+      }
+    })
     res.json({ success: true });
   } catch (e) {
+    console.log('err deleteing categories : ', e);
     res.status(500).json(e);
   }
 };

@@ -1,6 +1,6 @@
 const signIn = require('./helpers/signInHelper');
 const bcrypt = require('bcryptjs');
-const { User } = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
 
 
 module.exports = async (req, res) => {
@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 
   // Check for existing user
   try {
-    const user = await User.findOne({ where: { email } })
+    const user = await prisma.users.findUnique({ where: { email } })
     if (!user) return res.status(400).json({ message: 'User Does not exist' });
 
     // Validate password

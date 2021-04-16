@@ -1,8 +1,9 @@
-const { Spending } = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
+
 
 module.exports = async (req, res) => {
   try {
-    const spending = await Spending.findOne({
+    const spending = await prisma.spengins.findUnique({
       where: {
         spendingID: req.params.id,
         userID: req.params.userID,
@@ -10,6 +11,6 @@ module.exports = async (req, res) => {
     });
     res.json(spending);
   } catch (err) {
-    res.status(404).json('no spending with this id');
+    res.status(500).json('no spending with this id');
   }
 };

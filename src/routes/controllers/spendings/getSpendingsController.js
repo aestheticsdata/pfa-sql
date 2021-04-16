@@ -1,5 +1,4 @@
-const { sequelize } = require('../../../db/dbInit');
-const { QueryTypes } = require('sequelize');
+const prisma = require('../../../db/dbInit');
 const { format } = require('date-fns');
 
 module.exports = async (req, res) => {
@@ -8,17 +7,16 @@ module.exports = async (req, res) => {
   const to = format(new Date(req.query.to), dateFormat);
 
   try {
-    const spendings = await sequelize.query(`
+    const spendings = await prisma.$queryRaw(`
         SELECT s.*, c.name as category, c.color as categoryColor
         FROM Spendings s
         LEFT JOIN Categories c ON s.categoryID = c.ID
         WHERE s.date BETWEEN '${from}' AND '${to}' AND s.userID='${req.query.userID}'
-        ORDER BY date ASC;`,
-      { type: QueryTypes.SELECT }
+        ORDER BY date ASC;`
     );
     res.json(spendings);
   } catch (err) {
-    res.status(404).json(`Error : ${err}`);
+    res.status(500).json(`Error : ${err}`);
   }
 };
 

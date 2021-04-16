@@ -1,4 +1,5 @@
-const { Recurring } = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
+
 
 module.exports = async (req, res) => {
   const {
@@ -7,10 +8,12 @@ module.exports = async (req, res) => {
   } = req.body;
 
   try {
-    const recurring = await Recurring.findByPk(req.params.id);
-    await recurring.update({
-      label,
-      amount,
+    await prisma.recurrings.update({
+      where: { ID: req.params.id },
+      data: {
+        label,
+        amount,
+      },
     });
     res.json({ success: true });
   } catch (err) {

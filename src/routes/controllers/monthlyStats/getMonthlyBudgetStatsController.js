@@ -1,9 +1,9 @@
-const { Recurring } = require('../../../db/dbInit');
-const { Spending } = require('../../../db/dbInit');
-const { Op } = require("sequelize");
+const prisma = require('../../../db/dbInit');
+
 const startOfMonth = require('date-fns/startOfMonth');
 const endOfMonth = require('date-fns/endOfMonth');
 const format = require('date-fns/format');
+
 
 module.exports = async (req, res) => {
   const { userID } = req.query;
@@ -11,25 +11,32 @@ module.exports = async (req, res) => {
   const end = new Date(format(endOfMonth(new Date(req.query.from)), 'yyyy-MM-dd'));
 
   try {
-    const recurringsSum = await Recurring.sum('amount', {
+    const recurringsSum = await prisma.recurrings.aggregate({
+      sum: {
+        amount: true,
+      },
       where: {
         userID,
         dateFrom: start,
         dateTo: end,
-      }
-    });
+      },
+    })
 
-    const spendingsSum = await Spending.sum('amount', {
+    const spendingsSum = await prisma.spendings.aggregate({
+      sum: {
+        amount: true,
+      },
       where: {
         userID,
         date: {
-          [Op.between]: [start, end],
-        },
+          gte: start,
+          lte: end,
+        }
       }
-    });
+    })
 
     res.json({ spendingsSum, recurringsSum });
   } catch (err) {
-    res.status(404).json(`Error : ${err}`);
+    res.status(500).json(`Error : ${err}`);
   }
 }

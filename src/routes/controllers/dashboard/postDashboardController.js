@@ -1,4 +1,4 @@
-const { Dashboard } = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
 const { v1: uuidv1 } = require('uuid');
 
 module.exports = async (req, res) => {
@@ -16,23 +16,28 @@ module.exports = async (req, res) => {
   }
 
   try {
-    dashboard = await Dashboard.findOne({
+    dashboard = await prisma.dashboards.findFirst({
       where: {
         userID,
         dateFrom: new Date(req.body.start),
       }
     });
     if (dashboard) {
-      await dashboard.update({
-        initialAmount: amount,
+      await prisma.dashboards.update({
+        where: { ID: dashboard.ID },
+        data: {
+          initialAmount: amount,
+        },
       });
     } else {
-      dashboard = await Dashboard.create({
-        ID: uuidv1(),
-        dateFrom: start,
-        dateTo: end,
-        initialAmount: amount,
-        userID,
+      dashboard = await prisma.dashboards.create({
+        data: {
+          ID: uuidv1(),
+          dateFrom: new Date(start),
+          dateTo: new Date(end),
+          initialAmount: amount,
+          userID,
+        },
       });
     }
     res.json(dashboard);

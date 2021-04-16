@@ -18,7 +18,7 @@ module.exports = router;
 //         () => res.json({ success: true })
 //       )
 //     )
-//     .catch(() => res.status(404).json({ success: false }));
+//     .catch(() => res.status(500).json({ success: false }));
 // });
 
 // module.exports = router;
