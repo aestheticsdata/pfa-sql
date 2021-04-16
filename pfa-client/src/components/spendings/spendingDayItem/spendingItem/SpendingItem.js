@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrashAlt, faFileInvoice } from '@fortawesome/free-solid-svg-icons';
 
 import StyledSpendingItem from './StyledSpendingItem';
+import InvoiceModal from "@components/spendings/invoiceModal/InvoiceModal";
 
 import getCategoryComponent from '@components/common/Category';
 
@@ -19,6 +20,7 @@ const SpendingItem = ({
 }) => {
   const [hover, setHover] = useState(false);
   const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
+  const [isInvoiceModalVisible, setIsInvoiceModalVisible] = useState(false);
 
   const onMouseOver = () => { setHover(true) };
   const onMouseLeave = () => { setHover(false) };
@@ -65,6 +67,15 @@ const SpendingItem = ({
         onMouseLeave={onMouseLeave}
       >
         {
+          isInvoiceModalVisible ?
+            <InvoiceModal
+              handleClickOutside={() => { setHover(false); setIsInvoiceModalVisible(!isInvoiceModalVisible) }}
+              spending={spending}
+            />
+            :
+            null
+        }
+        {
           !isDeleteConfirmVisible ?
             <div className="spending">
               <span className="label" title={spending.label}>{spending.label}</span>
@@ -73,13 +84,22 @@ const SpendingItem = ({
                 hover ?
                   <>
                     <span
+                      className="invoice action"
+                      title="display invoice"
+                      onClick={() => {setIsInvoiceModalVisible(!isInvoiceModalVisible)}}
+                    >
+                      <FontAwesomeIcon icon={faFileInvoice} />
+                    </span>
+                    <span
                       className="edit action"
+                      title="edit"
                       onClick={() => openEditModal()}
                     >
                       <FontAwesomeIcon icon={faPencilAlt} />
                     </span>
                     <span
                       className="delete action"
+                      title="delete"
                       onClick={
                         () => {
                           toggleAddSpending();

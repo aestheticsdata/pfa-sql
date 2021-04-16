@@ -9,6 +9,7 @@ import changePasswordSaga from '@components/changePassword/saga';
 import languageSaga from '@components/navbar/langMenu/saga';
 import dashboardSaga from '@components/spendings/spendingDashboard/saga';
 import categoriesSaga from '@components/categories/saga';
+import uploadInvoiceSaga from '@components/spendings/invoiceModal/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -22,5 +23,6 @@ export default function* rootSaga() {
     languageSaga(),
     dashboardSaga(),
     categoriesSaga(),
+    uploadInvoiceSaga(),
   ])
 }
