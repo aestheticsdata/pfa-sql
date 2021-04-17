@@ -41,6 +41,7 @@
   "app.components.Spendings.remaining": "Restant",
   "app.components.Spendings.totalSpendingsOfMonth": "Total du mois",
   "app.components.Spendings.copyRecurringsFromLastMonth": "copier mois précédent",
+  "app.components.Spendings.fileIsTooBig": "l'image est trop volumineuse, veuillez sélectionner un autre image",
 
   "app.components.SpendingsSort.SORT_BY_LABEL": "Intitulé",
   "app.components.SpendingsSort.SORT_BY_CATEGORY": "Catégorie",

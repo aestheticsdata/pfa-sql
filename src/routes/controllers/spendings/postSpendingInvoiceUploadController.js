@@ -1,22 +1,28 @@
-// const prisma = require('../../../db/dbInit');
+const prisma = require('../../../db/dbInit');
+import { access } from 'fs/promises';
+import { f_OK } from 'fs';
 
 module.exports = async (req, res) => {
-  // let invoiceImageUpload;
-  // let uploadPath;
+  console.log('req.file', req.file);
+  try {
+    await access(req.file.path, f_OK);
 
-  // if (!req.files || Object.keys(req.files).length === 0) {
-  //   return res.status(400).send('No files were uploaded.');
-  // }
+    console.log('req.body', req.body);
+    console.log('oh yeah file exists !');
 
-  res.status(200).json('ok');
+    console.log('req.body.spendingID', req.body.spendingID);
+    console.log('req.file.filename', req.file.filename);
 
-  // // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  // invoiceImageUpload = req.files.invoiceImageUpload;
-  // uploadPath = process.cwd() + '/src/public/invoicesUpload/' + invoiceImageUpload.name;
-  // //
-  // // Use the mv() method to place the file somewhere on your server
-  // invoiceImageUpload.mv(uploadPath, function(err) {
-  //   if (err) res.status(500).json(err);
-  //   res.status(200).json({ msg: 'file uploaded' });
-  // });
+
+    await prisma[req.body.itemType + 's'].update({
+      where: { ID: req.body.spendingID },
+      data: {
+        invoicefile: req.file.filename,
+      },
+    });
+
+    res.status(200).json('ok');
+  } catch (e) {
+    res.status(500).json('error while writing file to db : ', e);
+  }
 }

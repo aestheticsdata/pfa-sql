@@ -3,9 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import useOnClickOutside from 'use-onclickoutside';
 import StyledInvoiceModal from './StyledInvoiceModal';
 import { uploadInvoiceFile } from "@components/spendings/invoiceModal/actions";
+import { FormattedMessage } from 'react-intl';
+import messages from '../messages';
 
 const InvoiceModal = ({ handleClickOutside, spending }) => {
+  const fileSizeLimit = 2_097_152;
   const [invoicefile, setInvoicefile] = useState('');
+  const [isFileToBig, setIsFileToBig] = useState(false);
   const ref = useRef(null);
   useOnClickOutside(ref, handleClickOutside);
 
@@ -22,6 +26,7 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
   const userID = useSelector(state => state.loginReducer.user.id);
 
   const onSubmit = () => {
+    setIsFileToBig(false);
     const formData = new FormData();
 
     // beware, userID must be append before file
@@ -42,9 +47,14 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
     }
 
     formData.append('label', spending.label);
+    formData.append('spendingID', spending.ID);
     formData.append('invoiceImageUpload', invoicefile);
 
-    dispatch(uploadInvoiceFile(formData));
+    if (invoicefile.size > fileSizeLimit) {
+      setIsFileToBig(true);
+    } else {
+      dispatch(uploadInvoiceFile(formData));
+    }
   };
 
   return (
@@ -56,6 +66,13 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
         <div>
           invoice
         </div>
+        {
+          isFileToBig && (
+            <div className="file-too-big">
+              <FormattedMessage { ...messages.fileIsTooBig } />
+            </div>
+          )
+        }
         {
           spending?.invoiceImage ?
             <img

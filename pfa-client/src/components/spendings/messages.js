@@ -66,5 +66,9 @@ export default defineMessages({
   copyRecurringsFromLastMonth: {
     id: `${scope}.copyRecurringsFromLastMonth`,
     defaultMessage: 'copy last month',
-  }
+  },
+  fileIsTooBig: {
+    id: `${scope}.fileIsTooBig`,
+    defaultMessage: 'file si too big, please select another file',
+  },
 });
