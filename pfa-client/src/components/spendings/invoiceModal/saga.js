@@ -3,7 +3,6 @@ import { UPLOAD_INVOICE_FILE } from "@components/spendings/invoiceModal/constant
 import { privateRequest } from "@helpers/requestHelper";
 
 function* uploadInvoiceFile(payload) {
-  console.log(payload.image);
   yield call(privateRequest, '/spendings/upload', {
     method: 'POST',
     data: payload.formData,

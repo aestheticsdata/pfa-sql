@@ -1,18 +1,49 @@
 const multer = require('multer');
+import {
+  access,
+  mkdir,
+} from 'fs/promises';
+const { format } = require('date-fns');
+const dateFormat = 'yyyy-MM-dd';
 
-const uploadPath = process.cwd() + '/src/public/invoicesUpload/';
+const uploadPath = process.cwd() + '/src/invoicesUpload/';
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    // vérifier qu'un repertoire avec le nom de l'id du user existe, sinon le créer
-    // et append au uploadPath le répertoire avec ce nom d'id de user
-    cb(null, uploadPath);
+  destination: async function (req, file, cb) {
+    const userDir = uploadPath + req.body.userID;
+
+    try {
+      await access(userDir);
+    } catch (e) {
+      await mkdir(uploadPath + req.body.userID);
+    } finally {
+      cb(null, userDir);
+    }
   },
   filename: function (req, file, cb) {
-    console.log('req.file', req.file);
-    console.log('file', file);
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix);
+    // could have used req.decode.id from checkToken middlewre for user id
+    // but here frontend send userID in req.body
+    const {
+      itemType,
+      date,
+      dateFrom,
+      label,
+    } = req.body;
+
+    let fileName = '';
+
+    switch (itemType) {
+      case 'recurring':
+        fileName = 'recurring-' + label + '-' + format(new Date(dateFrom), dateFormat);
+        break;
+      case 'spending':
+        fileName = 'spending-' + label + '-' + format(new Date(date), dateFormat);
+        break;
+      default:
+        break;
+    }
+
+    cb(null, fileName + '.' + file.originalname.split('.').pop());
   }
 });
 

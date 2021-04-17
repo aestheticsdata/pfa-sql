@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import useOnClickOutside from 'use-onclickoutside';
 import StyledInvoiceModal from './StyledInvoiceModal';
 import { uploadInvoiceFile } from "@components/spendings/invoiceModal/actions";
@@ -19,9 +19,31 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
 
   const onChange = e => {setInvoicefile(e.target.files[0])}
   const dispatch = useDispatch();
+  const userID = useSelector(state => state.loginReducer.user.id);
+
   const onSubmit = () => {
     const formData = new FormData();
+
+    // beware, userID must be append before file
+    // see : https://stackoverflow.com/questions/39589022/node-js-multer-and-req-body-empty
+    formData.append('userID', userID);
+
+    switch (spending.itemType) {
+      case 'recurring':
+        formData.append('itemType', 'recurring');
+        formData.append('dateFrom', spending.dateFrom);
+        break;
+      case 'spending':
+        formData.append('itemType', 'spending');
+        formData.append('date', spending.date);
+        break;
+      default:
+        break;
+    }
+
+    formData.append('label', spending.label);
     formData.append('invoiceImageUpload', invoicefile);
+
     dispatch(uploadInvoiceFile(formData));
   };
 
