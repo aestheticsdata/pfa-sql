@@ -1,19 +1,39 @@
-import { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {
+  useState,
+  useEffect,
+  useRef,
+} from "react";
+import {
+  useSelector,
+  useDispatch,
+} from "react-redux";
 import useOnClickOutside from 'use-onclickoutside';
 import StyledInvoiceModal from './StyledInvoiceModal';
 import { uploadInvoiceFile } from "@components/spendings/invoiceModal/actions";
 import { FormattedMessage } from 'react-intl';
 import messages from '../messages';
+import { privateRequest } from "@helpers/requestHelper";
+
 
 const InvoiceModal = ({ handleClickOutside, spending }) => {
   const fileSizeLimit = 2_097_152;
   const [invoicefile, setInvoicefile] = useState('');
+  const [invoiceImage, setInvoiceImage] = useState(null);
   const [isFileToBig, setIsFileToBig] = useState(false);
   const ref = useRef(null);
+  const onChange = e => {setInvoicefile(e.target.files[0])}
+  const dispatch = useDispatch();
+  const userID = useSelector(state => state.loginReducer.user.id);
   useOnClickOutside(ref, handleClickOutside);
 
+  const getInvoiceImage = async (spending) => {
+    const res = await privateRequest(`/spendings/upload/${spending.ID}?userID=${userID}`);
+    setInvoiceImage(res.data);
+  }
+
   useEffect(() => {
+    getInvoiceImage(spending);
+
     // prevent scrolling on body when modal is open
     document.body.style.overflowY = 'hidden';
     return () => {
@@ -21,9 +41,6 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
     }
   }, []);
 
-  const onChange = e => {setInvoicefile(e.target.files[0])}
-  const dispatch = useDispatch();
-  const userID = useSelector(state => state.loginReducer.user.id);
 
   const onSubmit = () => {
     setIsFileToBig(false);
@@ -74,9 +91,9 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
           )
         }
         {
-          spending?.invoiceImage ?
+          invoiceImage ?
             <img
-              src={spending.invoiceImage}
+              src={invoiceImage}
               className="invoice-image"
               alt="invoice"
             />

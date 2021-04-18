@@ -8,6 +8,8 @@ const dateFormat = 'yyyy-MM-dd';
 
 const uploadPath = process.cwd() + '/src/invoicesUpload/';
 
+const stringToHyphen = s => s.replaceAll(' ', '-');
+
 const storage = multer.diskStorage({
   destination: async function (req, file, cb) {
     const userDir = uploadPath + req.body.userID;
@@ -34,10 +36,10 @@ const storage = multer.diskStorage({
 
     switch (itemType) {
       case 'recurring':
-        fileName = 'recurring-' + label + '-' + format(new Date(dateFrom), dateFormat);
+        fileName = 'recurring-' + stringToHyphen(label) + '-' + format(new Date(dateFrom), dateFormat);
         break;
       case 'spending':
-        fileName = 'spending-' + label + '-' + format(new Date(date), dateFormat);
+        fileName = 'spending-' + stringToHyphen(label) + '-' + format(new Date(date), dateFormat);
         break;
       default:
         break;

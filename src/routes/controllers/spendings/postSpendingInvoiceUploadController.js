@@ -1,11 +1,11 @@
 const prisma = require('../../../db/dbInit');
 import { access } from 'fs/promises';
-import { f_OK } from 'fs';
+import { constants } from 'fs';
 
 module.exports = async (req, res) => {
   console.log('req.file', req.file);
   try {
-    await access(req.file.path, f_OK);
+    await access(req.file.path, constants.F_OK);
 
     console.log('req.body', req.body);
     console.log('oh yeah file exists !');
