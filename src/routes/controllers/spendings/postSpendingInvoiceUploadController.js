@@ -1,23 +1,43 @@
 const prisma = require('../../../db/dbInit');
-import { access } from 'fs/promises';
+const sharp = require('sharp');
+import { access, unlink } from 'fs/promises';
 import { constants } from 'fs';
 
 module.exports = async (req, res) => {
   console.log('req.file', req.file);
-  try {
-    await access(req.file.path, constants.F_OK);
+  console.log('req.file.path', req.file.path);
+  const {
+    path: filepath,
+    filename,
+  } = req.file;
 
-    console.log('req.body', req.body);
+  try {
+    // check if the file has been written on disk by multer middleware just before
+    await access(filepath, constants.F_OK);
     console.log('oh yeah file exists !');
 
-    console.log('req.body.spendingID', req.body.spendingID);
-    console.log('req.file.filename', req.file.filename);
 
+    // resize file
+    const splittedFilename = (filepath).split('.');
+    const resizedPathAndFilename = splittedFilename.shift() + '-r.';
+    const fileExtension =  splittedFilename.pop();
+    const outputPath =  resizedPathAndFilename + fileExtension;
+
+    await sharp(filepath)
+      .resize(1000)
+      .toFile(outputPath);
+
+    await unlink(filepath);
+
+    console.log('req.body.spendingID', req.body.spendingID);
+    console.log('filename', filename);
+
+    const resizedFilename = filename.slice(0, filename.search(/\./)) + '-r.' + fileExtension;
 
     await prisma[req.body.itemType + 's'].update({
       where: { ID: req.body.spendingID },
       data: {
-        invoicefile: req.file.filename,
+        invoicefile: resizedFilename,
       },
     });
 

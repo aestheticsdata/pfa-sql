@@ -27,7 +27,7 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
   useOnClickOutside(ref, handleClickOutside);
 
   const getInvoiceImage = async (spending) => {
-    const res = await privateRequest(`/spendings/upload/${spending.ID}?userID=${userID}`);
+    const res = await privateRequest(`/spendings/upload/${spending.ID}?userID=${userID}&itemType=${spending.itemType}`);
     setInvoiceImage(res.data);
   }
 
@@ -40,7 +40,6 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
       document.body.style.overflowY = 'auto';
     }
   }, []);
-
 
   const onSubmit = () => {
     setIsFileToBig(false);
