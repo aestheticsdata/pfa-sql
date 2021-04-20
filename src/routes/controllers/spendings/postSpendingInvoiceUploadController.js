@@ -4,8 +4,6 @@ import { access, unlink } from 'fs/promises';
 import { constants } from 'fs';
 
 module.exports = async (req, res) => {
-  console.log('req.file', req.file);
-  console.log('req.file.path', req.file.path);
   const {
     path: filepath,
     filename,
@@ -14,26 +12,30 @@ module.exports = async (req, res) => {
   try {
     // check if the file has been written on disk by multer middleware just before
     await access(filepath, constants.F_OK);
-    console.log('oh yeah file exists !');
 
+    // get image size
+    const imageMetadata = await sharp(filepath).metadata();
+    const biggerSide = imageMetadata.width > imageMetadata.height ? 'width' : 'height';
+    const biggerSideSize = biggerSide === 'width' ? 1125 : 1500;
 
     // resize file
     const splittedFilename = (filepath).split('.');
     const resizedPathAndFilename = splittedFilename.shift() + '-r.';
-    const fileExtension =  splittedFilename.pop();
-    const outputPath =  resizedPathAndFilename + fileExtension;
+    const fileExtension = splittedFilename.pop();
+    const outputPath = resizedPathAndFilename + fileExtension;
 
     await sharp(filepath)
-      .resize(1000)
+      .resize({
+        fit: sharp.fit.contain,
+        [biggerSide]: biggerSideSize,
+      })
       .toFile(outputPath);
 
+    // delete original file
     await unlink(filepath);
 
-    console.log('req.body.spendingID', req.body.spendingID);
-    console.log('filename', filename);
-
+    // save filename to db
     const resizedFilename = filename.slice(0, filename.search(/\./)) + '-r.' + fileExtension;
-
     await prisma[req.body.itemType + 's'].update({
       where: { ID: req.body.spendingID },
       data: {

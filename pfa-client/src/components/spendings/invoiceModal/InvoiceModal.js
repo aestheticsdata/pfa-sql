@@ -13,6 +13,7 @@ import { uploadInvoiceFile } from "@components/spendings/invoiceModal/actions";
 import { FormattedMessage } from 'react-intl';
 import messages from '../messages';
 import { privateRequest } from "@helpers/requestHelper";
+import InvoiceImageModal from './invoiceImageModal/InvoiceImageModal';
 
 
 const InvoiceModal = ({ handleClickOutside, spending }) => {
@@ -20,11 +21,17 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
   const [invoicefile, setInvoicefile] = useState('');
   const [invoiceImage, setInvoiceImage] = useState(null);
   const [isFileToBig, setIsFileToBig] = useState(false);
+  const [isClickOnThumbnail, setIsClickOnThumbnail] = useState(false);
   const ref = useRef(null);
   const onChange = e => {setInvoicefile(e.target.files[0])}
   const dispatch = useDispatch();
   const userID = useSelector(state => state.loginReducer.user.id);
-  useOnClickOutside(ref, handleClickOutside);
+
+  const handleClickOutsideCheckFullImage = () => {
+    !isClickOnThumbnail && handleClickOutside();
+  }
+
+  useOnClickOutside(ref, handleClickOutsideCheckFullImage);
 
   const getInvoiceImage = async (spending) => {
     const res = await privateRequest(`/spendings/upload/${spending.ID}?userID=${userID}&itemType=${spending.itemType}`);
@@ -94,20 +101,33 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
             <img
               src={invoiceImage}
               className="invoice-image"
+              width="20%"
               alt="invoice"
+              onClick={() => {setIsClickOnThumbnail(!isClickOnThumbnail)}}
             />
             :
             <div>no invoice image</div>
         }
+        {
+          isClickOnThumbnail ?
+            <InvoiceImageModal
+              image={invoiceImage}
+              closeImage={() => setIsClickOnThumbnail(!isClickOnThumbnail)}
+            />
+            :
+            null
+        }
         <input
           type="file"
           name="invoicefile"
-          accept="image/png, image/jpeg"
+          accept="image/jpeg"
           onChange={onChange}
         />
+        only jpg
         <button
           className="shared-login-submit-btn"
           onClick={onSubmit}
+          disabled={invoicefile === ''}
         >
           envoyer
         </button>
