@@ -1,7 +1,5 @@
 const prisma = require('../../../db/dbInit');
-import { readFile } from "fs/promises";
-
-const uploadPath = process.cwd() + '/src/invoicesUpload/';
+const getImage = require('./helpers/getImage');
 
 module.exports = async (req, res) => {
   try {
@@ -9,16 +7,12 @@ module.exports = async (req, res) => {
     const { id: spendingID } = req.params;
     const { userID } = req.query;
 
-    const spendingOrRecurring = await prisma[`${req.query.itemType}s`].findUnique({
+    const { invoicefile } = await prisma[`${req.query.itemType}s`].findUnique({
       where: { ID: spendingID }
     });
-    console.log(spendingOrRecurring);
-    if (spendingOrRecurring.invoicefile) {
-      const imageFile = await readFile(uploadPath + '/' + userID + '/' + spendingOrRecurring.invoicefile);
-      console.log('imageFile', imageFile);
-      const base64Image = Buffer.from(imageFile).toString('base64');
-      const contentType = `image/${spendingOrRecurring.invoicefile.split('.').pop()}`;
-      const invoiceImageString = `data:${contentType};base64,${base64Image}`;
+
+    if (invoicefile) {
+      const [invoiceImageString, contentType] = await getImage(invoicefile, userID);
       res.setHeader('content-type', contentType);
       res.send(invoiceImageString);
     } else {

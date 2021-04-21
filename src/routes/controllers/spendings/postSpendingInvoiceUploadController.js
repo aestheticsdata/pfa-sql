@@ -2,6 +2,8 @@ const prisma = require('../../../db/dbInit');
 const sharp = require('sharp');
 import { access, unlink } from 'fs/promises';
 import { constants } from 'fs';
+const getImage = require('./helpers/getImage');
+
 
 module.exports = async (req, res) => {
   const {
@@ -9,6 +11,7 @@ module.exports = async (req, res) => {
     filename,
   } = req.file;
 
+  console.log('req.body', req.body);
   try {
     // check if the file has been written on disk by multer middleware just before
     await access(filepath, constants.F_OK);
@@ -43,7 +46,11 @@ module.exports = async (req, res) => {
       },
     });
 
-    res.status(200).json('ok');
+    // res.status(200).json('ok');
+    const [invoiceImageString, contentType] = await getImage(resizedFilename, req.body.userID);
+    console.log('sending image after upload, invoiceImageString', invoiceImageString);
+    res.setHeader('content-type', contentType);
+    res.send(invoiceImageString);
   } catch (e) {
     res.status(500).json('error while writing file to db : ', e);
   }

@@ -3,13 +3,9 @@ import {
   useEffect,
   useRef,
 } from "react";
-import {
-  useSelector,
-  useDispatch,
-} from "react-redux";
+import { useSelector } from "react-redux";
 import useOnClickOutside from 'use-onclickoutside';
 import StyledInvoiceModal from './StyledInvoiceModal';
-import { uploadInvoiceFile } from "@components/spendings/invoiceModal/actions";
 import { FormattedMessage } from 'react-intl';
 import messages from '../messages';
 import { privateRequest } from "@helpers/requestHelper";
@@ -24,7 +20,6 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
   const [isClickOnThumbnail, setIsClickOnThumbnail] = useState(false);
   const ref = useRef(null);
   const onChange = e => {setInvoicefile(e.target.files[0])}
-  const dispatch = useDispatch();
   const userID = useSelector(state => state.loginReducer.user.id);
 
   const handleClickOutsideCheckFullImage = () => {
@@ -32,6 +27,19 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
   }
 
   useOnClickOutside(ref, handleClickOutsideCheckFullImage);
+
+  const uploadInvoiceImage = async (payload) => {
+    try {
+      const uploadedImage = await privateRequest('/spendings/upload', {
+        method: 'POST',
+        data: payload,
+      });
+      console.log('uploadedImage', uploadedImage);
+      setInvoiceImage(uploadedImage.data);
+    } catch (e) {
+      console.log('error uploading image : ', e);
+    }
+  }
 
   const getInvoiceImage = async (spending) => {
     const res = await privateRequest(`/spendings/upload/${spending.ID}?userID=${userID}&itemType=${spending.itemType}`);
@@ -76,7 +84,8 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
     if (invoicefile.size > fileSizeLimit) {
       setIsFileToBig(true);
     } else {
-      dispatch(uploadInvoiceFile(formData));
+      // dispatch(uploadInvoiceFile(formData));
+      uploadInvoiceImage(formData);
     }
   };
 
