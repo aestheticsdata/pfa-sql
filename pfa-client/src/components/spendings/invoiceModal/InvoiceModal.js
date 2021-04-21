@@ -28,13 +28,26 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
 
   useOnClickOutside(ref, handleClickOutsideCheckFullImage);
 
+  const deleteImage = async () => {
+    try {
+      const res = await privateRequest('/spendings/upload', {
+        method: 'PUT',
+        data: spending,
+      })
+      if (res?.data?.msg === 'INVOICE_IMAGE_DELETED') {
+        setInvoiceImage(null);
+      }
+    } catch (e) {
+      console.log('error deleting image : ', e);
+    }
+  }
+
   const uploadInvoiceImage = async (payload) => {
     try {
       const uploadedImage = await privateRequest('/spendings/upload', {
         method: 'POST',
         data: payload,
       });
-      console.log('uploadedImage', uploadedImage);
       setInvoiceImage(uploadedImage.data);
     } catch (e) {
       console.log('error uploading image : ', e);
@@ -55,6 +68,7 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
       document.body.style.overflowY = 'auto';
     }
   }, []);
+
 
   const onSubmit = () => {
     setIsFileToBig(false);
@@ -126,20 +140,32 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
             :
             null
         }
-        <input
-          type="file"
-          name="invoicefile"
-          accept="image/jpeg"
-          onChange={onChange}
-        />
-        only jpg
-        <button
-          className="shared-login-submit-btn"
-          onClick={onSubmit}
-          disabled={invoicefile === ''}
-        >
-          envoyer
-        </button>
+        {
+          invoiceImage ?
+            <button
+              className="delete-btn"
+              onClick={deleteImage}
+            >
+              delete image
+            </button>
+            :
+            <>
+              <input
+                type="file"
+                name="invoicefile"
+                accept="image/jpeg"
+                onChange={onChange}
+              />
+              only jpg
+              <button
+                className="shared-login-submit-btn"
+                onClick={onSubmit}
+                disabled={invoicefile === ''}
+              >
+                envoyer
+              </button>
+            </>
+        }
       </div>
     </StyledInvoiceModal>
   )

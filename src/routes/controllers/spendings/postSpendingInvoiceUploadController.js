@@ -11,7 +11,6 @@ module.exports = async (req, res) => {
     filename,
   } = req.file;
 
-  console.log('req.body', req.body);
   try {
     // check if the file has been written on disk by multer middleware just before
     await access(filepath, constants.F_OK);
@@ -46,9 +45,7 @@ module.exports = async (req, res) => {
       },
     });
 
-    // res.status(200).json('ok');
     const [invoiceImageString, contentType] = await getImage(resizedFilename, req.body.userID);
-    console.log('sending image after upload, invoiceImageString', invoiceImageString);
     res.setHeader('content-type', contentType);
     res.send(invoiceImageString);
   } catch (e) {
