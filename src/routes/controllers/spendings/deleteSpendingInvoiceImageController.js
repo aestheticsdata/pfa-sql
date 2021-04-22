@@ -6,13 +6,16 @@ const { uploadPath } = require('./helpers/constants');
 module.exports = async (req, res) => {
   const {
     ID: spendingID,
-    invoicefile,
     itemType,
     userID,
   } = req.body;
 
   try {
-    await unlink(uploadPath + userID + '/' + invoicefile);
+    const spendingRecurring = await prisma[itemType + 's'].findFirst({
+      where: { ID: spendingID }
+    });
+
+    await unlink(uploadPath + userID + '/' + spendingRecurring.invoicefile);
 
     await prisma[itemType + 's'].update({
       where: { ID: spendingID },

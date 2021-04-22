@@ -11,6 +11,8 @@ module.exports = async (req, res) => {
     filename,
   } = req.file;
 
+  sharp.cache(false);
+
   try {
     // check if the file has been written on disk by multer middleware just before
     await access(filepath, constants.F_OK);
