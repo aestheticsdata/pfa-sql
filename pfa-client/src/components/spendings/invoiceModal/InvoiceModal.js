@@ -3,13 +3,16 @@ import {
   useEffect,
   useRef,
 } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import useOnClickOutside from 'use-onclickoutside';
 import StyledInvoiceModal from './StyledInvoiceModal';
-import { FormattedMessage } from 'react-intl';
+import {FormattedMessage, FormattedNumber} from 'react-intl';
 import messages from '../messages';
 import { privateRequest } from "@helpers/requestHelper";
 import InvoiceImageModal from './invoiceImageModal/InvoiceImageModal';
+import getCategoryComponent from "@components/common/Category";
+import { ReactComponent as Spinner } from "@src/assets/Wedges-3s-200px.svg";
+import {updateInvoicefileReducerStatus} from "@components/spendings/actions";
 
 
 const InvoiceModal = ({ handleClickOutside, spending }) => {
@@ -17,8 +20,10 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
   const [invoicefile, setInvoicefile] = useState('');
   const [invoiceImage, setInvoiceImage] = useState(null);
   const [isFileToBig, setIsFileToBig] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isClickOnThumbnail, setIsClickOnThumbnail] = useState(false);
   const ref = useRef(null);
+  const dispatch = useDispatch();
   const onChange = e => {setInvoicefile(e.target.files[0])}
   const userID = useSelector(state => state.loginReducer.user.id);
 
@@ -30,12 +35,15 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
 
   const deleteImage = async () => {
     try {
+      setIsLoading(true);
       const res = await privateRequest('/spendings/upload', {
         method: 'PUT',
         data: spending,
       })
       if (res?.data?.msg === 'INVOICE_IMAGE_DELETED') {
         setInvoiceImage(null);
+        dispatch(updateInvoicefileReducerStatus(spending, 'delete'));
+        setIsLoading(false);
       }
     } catch (e) {
       console.log('error deleting image : ', e);
@@ -44,19 +52,24 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
 
   const uploadInvoiceImage = async (payload) => {
     try {
+      setIsLoading(true);
       const uploadedImage = await privateRequest('/spendings/upload', {
         method: 'POST',
         data: payload,
       });
       setInvoiceImage(uploadedImage.data);
+      dispatch(updateInvoicefileReducerStatus(spending, 'create'));
+      setIsLoading(false);
     } catch (e) {
       console.log('error uploading image : ', e);
     }
   }
 
   const getInvoiceImage = async (spending) => {
+    setIsLoading(true);
     const res = await privateRequest(`/spendings/upload/${spending.ID}?userID=${userID}&itemType=${spending.itemType}`);
     setInvoiceImage(res.data);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -98,7 +111,6 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
     if (invoicefile.size > fileSizeLimit) {
       setIsFileToBig(true);
     } else {
-      // dispatch(uploadInvoiceFile(formData));
       uploadInvoiceImage(formData);
     }
   };
@@ -107,30 +119,8 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
     <StyledInvoiceModal>
       <div
         ref={ref}
-        className="active-zone"
+        className="modal-content"
       >
-        <div>
-          invoice
-        </div>
-        {
-          isFileToBig && (
-            <div className="file-too-big">
-              <FormattedMessage { ...messages.fileIsTooBig } />
-            </div>
-          )
-        }
-        {
-          invoiceImage ?
-            <img
-              src={invoiceImage}
-              className="invoice-image"
-              width="20%"
-              alt="invoice"
-              onClick={() => {setIsClickOnThumbnail(!isClickOnThumbnail)}}
-            />
-            :
-            <div>no invoice image</div>
-        }
         {
           isClickOnThumbnail ?
             <InvoiceImageModal
@@ -140,32 +130,80 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
             :
             null
         }
-        {
-          invoiceImage ?
-            <button
-              className="delete-btn"
-              onClick={deleteImage}
-            >
-              delete image
-            </button>
-            :
-            <>
-              <input
-                type="file"
-                name="invoicefile"
-                accept="image/jpeg"
-                onChange={onChange}
-              />
-              only jpg
-              <button
-                className="shared-login-submit-btn"
-                onClick={onSubmit}
-                disabled={invoicefile === ''}
-              >
-                envoyer
-              </button>
-            </>
-        }
+        <div className="header">
+          <span className="label">{spending.label}</span>
+          { spending?.category && getCategoryComponent(spending) }
+          <span className="amount">
+            <FormattedNumber
+              value={spending.amount}
+              style="currency"
+              currency={spending.currency}
+            />
+          </span>
+        </div>
+        <div className="image-container">
+          {
+            isLoading ?
+              <div className="spinner">
+                <Spinner width="60px" height="60px" />
+              </div>
+              :
+              invoiceImage ?
+                <img
+                  src={invoiceImage}
+                  className="invoice-image"
+                  width="30%"
+                  alt="invoice"
+                  onClick={() => {setIsClickOnThumbnail(!isClickOnThumbnail)}}
+                />
+                :
+                <div className="no-invoice">
+                  <div className="no-invoice-label">
+                    No Invoice
+                  </div>
+                </div>
+          }
+        </div>
+        <div className="inputfile-container">
+          {
+            isFileToBig && (
+              <div className="file-too-big">
+                <FormattedMessage { ...messages.fileIsTooBig } />
+              </div>
+            )
+          }
+          {
+            isLoading ?
+              <div className="spinner">
+                <Spinner width="60px" height="60px" />
+              </div>
+              :
+              invoiceImage ?
+                <button
+                  className="delete-btn"
+                  onClick={deleteImage}
+                >
+                  delete image
+                </button>
+                :
+                <>
+                  <input
+                    type="file"
+                    name="invoicefile"
+                    accept="image/jpeg"
+                    onChange={onChange}
+                  />
+                  only jpg
+                  <button
+                    className="shared-login-submit-btn"
+                    onClick={onSubmit}
+                    disabled={invoicefile === ''}
+                  >
+                    envoyer
+                  </button>
+                </>
+          }
+        </div>
       </div>
     </StyledInvoiceModal>
   )

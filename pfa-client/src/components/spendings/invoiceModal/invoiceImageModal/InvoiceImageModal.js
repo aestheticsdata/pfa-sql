@@ -10,7 +10,7 @@ const InvoiceImageModal = ({ image, closeImage }) => {
   return (
     <StyledInvoiceImageModal>
       <div
-        className="image-container"
+        className="image-container-fullsize"
       >
         <img
           ref={ref}

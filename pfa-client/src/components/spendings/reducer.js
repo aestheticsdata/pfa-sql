@@ -1,12 +1,15 @@
 import produce from 'immer';
 import getDate from 'date-fns/getDate';
 import parseISO from 'date-fns/parseISO';
+import _ from 'lodash';
+import { format } from 'date-fns';
 
 
 import {
   GET_SPENDINGS_SUCCESS,
   GET_RECURRING_SUCCESS,
   GET_CATEGORIES_SUCCESS,
+  UPDATE_INVOICEFILE_REDUCER_STATUS,
 } from './constants';
 
 const tempArr = [];
@@ -51,6 +54,48 @@ const aggregateSpendingByDate = (spendings, range) => {
   return spendingsFinal;
 };
 
+// update invoice file to sync icon status color
+const setInvoicefile = (state, spendingOrRecurring, status) => {
+  let outerIndex = 0;
+  let innerIndex = 0;
+  let savedInnerIndex = 0;
+  const { itemType } = spendingOrRecurring;
+  const spendingsClone = _.cloneDeep(state[itemType+'s']);
+
+  if (itemType === 'spending') {
+    for (const [i, arr] of spendingsClone.entries()) {
+      innerIndex = _.findIndex(arr, o => o.ID === spendingOrRecurring.ID)
+      if (innerIndex !== -1) {
+        savedInnerIndex = innerIndex;
+        outerIndex = i;
+      }
+    }
+  }
+
+  if (status === 'delete') {
+    if (itemType === 'recurring') {
+      spendingsClone[_.findIndex(spendingsClone, o => o.ID === spendingOrRecurring.ID)].invoicefile = null;
+    } else {
+      spendingsClone[outerIndex][savedInnerIndex].invoicefile = null;
+    }
+  }
+
+  if (status === 'create') {
+    const dateFormat = 'yyyy-MM-dd';
+    let date;
+    const stringToHyphen = s => s.replaceAll(' ', '-');
+    date = format(new Date(itemType === 'spending' ? spendingOrRecurring.date : spendingOrRecurring.dateFrom), dateFormat);
+    const filename = itemType + '-' + stringToHyphen(spendingOrRecurring.label) + '-' + date + '-r.jpg';
+    if (itemType === 'recurring') {
+      spendingsClone[_.findIndex(spendingsClone, o => o.ID === spendingOrRecurring.ID)].invoicefile = filename;
+    } else {
+      spendingsClone[outerIndex][savedInnerIndex].invoicefile = filename;
+    }
+  }
+  return spendingsClone;
+}
+
+
 const spendingsReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
@@ -60,10 +105,12 @@ const spendingsReducer = (state = initialState, action) =>
       break;
       case GET_RECURRING_SUCCESS:
         draft.recurrings = action.recurrings;
-        // draft.recurrings.flag = 'recurring';
         break;
       case GET_CATEGORIES_SUCCESS:
         draft.categories = action.categories;
+        break;
+      case UPDATE_INVOICEFILE_REDUCER_STATUS:
+        draft[action.spending.itemType+'s'] = setInvoicefile(state, action.spending, action.status);
         break;
       default:
         return state;

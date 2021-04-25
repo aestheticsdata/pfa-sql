@@ -8,7 +8,7 @@ const StyledInvoiceImageModal = styled.div`
   bottom: 0;
   background-color: #d2d2d2;
 
-  .image-container {
+  .image-container-fullsize {
     position: absolute;
     max-height: 100%;
     overflow-y: auto;

@@ -13,6 +13,7 @@ import {
   UPDATE_RECURRING,
   DELETE_RECURRING,
   COPY_RECURRING,
+  UPDATE_INVOICEFILE_REDUCER_STATUS,
 } from './constants';
 
 
@@ -113,6 +114,13 @@ export const copyRecurrings = (userID, month) => {
     type: COPY_RECURRING,
     userID,
     month,
+  }
+}
+export const updateInvoicefileReducerStatus = (spending, status) => {
+  return {
+    type: UPDATE_INVOICEFILE_REDUCER_STATUS,
+    spending,
+    status,
   }
 }
 

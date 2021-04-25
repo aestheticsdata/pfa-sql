@@ -29,6 +29,8 @@ const colors = {
   sortbutton: 'rgb(199,199,199)',
   sortButtonHover: 'rgb(7,93,193)',
   sortButtonHoverActive: 'rgba(7,93,193, .2)',
+  invoiceImageIsPresent: 'rgba(215, 3, 62, 1)',
+  invoiceImageIsPresentHover: 'rgb(108,1,28)',
 };
 
 export default colors;

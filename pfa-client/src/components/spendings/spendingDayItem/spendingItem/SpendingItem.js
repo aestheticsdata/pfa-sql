@@ -84,7 +84,7 @@ const SpendingItem = ({
                 hover ?
                   <>
                     <span
-                      className="invoice action"
+                      className={`invoice action ${spending.invoicefile && 'isPresent'}`}
                       title="display invoice"
                       onClick={() => {setIsInvoiceModalVisible(!isInvoiceModalVisible)}}
                     >
