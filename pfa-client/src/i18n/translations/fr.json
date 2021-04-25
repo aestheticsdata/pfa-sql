@@ -42,6 +42,10 @@
   "app.components.Spendings.totalSpendingsOfMonth": "Total du mois",
   "app.components.Spendings.copyRecurringsFromLastMonth": "copier mois précédent",
   "app.components.Spendings.fileIsTooBig": "l'image est trop volumineuse, veuillez sélectionner un autre image",
+  "app.components.Spendings.noInvoice": "Pas d'image",
+  "app.components.Spendings.deleteImage": "effacer l'image",
+  "app.components.Spendings.onlyThisFormat": "jpg uniquement",
+  "app.components.Spendings.sendImageLabel": "envoyer",
 
   "app.components.SpendingsSort.SORT_BY_LABEL": "Intitulé",
   "app.components.SpendingsSort.SORT_BY_CATEGORY": "Catégorie",

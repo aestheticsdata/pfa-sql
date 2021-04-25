@@ -1,9 +1,5 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-} from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import useOnClickOutside from 'use-onclickoutside';
 import StyledInvoiceModal from './StyledInvoiceModal';
 import {FormattedMessage, FormattedNumber} from 'react-intl';
@@ -12,16 +8,18 @@ import { privateRequest } from "@helpers/requestHelper";
 import InvoiceImageModal from './invoiceImageModal/InvoiceImageModal';
 import getCategoryComponent from "@components/common/Category";
 import { ReactComponent as Spinner } from "@src/assets/Wedges-3s-200px.svg";
-import {updateInvoicefileReducerStatus} from "@components/spendings/actions";
+import { updateInvoicefileReducerStatus } from "@components/spendings/actions";
 
 
 const InvoiceModal = ({ handleClickOutside, spending }) => {
-  const fileSizeLimit = 2_097_152;
+  const fileSizeLimit = 32_097_152;
   const [invoicefile, setInvoicefile] = useState('');
   const [invoiceImage, setInvoiceImage] = useState(null);
-  const [isFileToBig, setIsFileToBig] = useState(false);
+  const [isFileTooBig, setIsFileTooBig] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isClickOnThumbnail, setIsClickOnThumbnail] = useState(false);
+  const [progressValue, setProgressValue] = useState(0);
+  const [isProgress, setIsProgress] = useState(false);
   const ref = useRef(null);
   const dispatch = useDispatch();
   const onChange = e => {setInvoicefile(e.target.files[0])}
@@ -51,12 +49,23 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
   }
 
   const uploadInvoiceImage = async (payload) => {
+    const config = {
+      onUploadProgress: (progressEvent) => {
+        const progressValue = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        setProgressValue(progressValue);
+        if (progressValue === 100) {
+          setIsProgress(false);
+          setProgressValue(0);
+        }
+      }
+    };
     try {
+      setIsProgress(true);
       setIsLoading(true);
       const uploadedImage = await privateRequest('/spendings/upload', {
         method: 'POST',
         data: payload,
-      });
+      }, config);
       setInvoiceImage(uploadedImage.data);
       dispatch(updateInvoicefileReducerStatus(spending, 'create'));
       setIsLoading(false);
@@ -84,7 +93,7 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
 
 
   const onSubmit = () => {
-    setIsFileToBig(false);
+    setIsFileTooBig(false);
     const formData = new FormData();
 
     // beware, userID must be append before file
@@ -109,7 +118,7 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
     formData.append('invoiceImageUpload', invoicefile);
 
     if (invoicefile.size > fileSizeLimit) {
-      setIsFileToBig(true);
+      setIsFileTooBig(true);
     } else {
       uploadInvoiceImage(formData);
     }
@@ -159,14 +168,14 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
                 :
                 <div className="no-invoice">
                   <div className="no-invoice-label">
-                    No Invoice
+                    <FormattedMessage { ...messages.noInvoice } />
                   </div>
                 </div>
           }
         </div>
         <div className="inputfile-container">
           {
-            isFileToBig && (
+            isFileTooBig && (
               <div className="file-too-big">
                 <FormattedMessage { ...messages.fileIsTooBig } />
               </div>
@@ -174,16 +183,19 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
           }
           {
             isLoading ?
-              <div className="spinner">
-                <Spinner width="60px" height="60px" />
-              </div>
+              isProgress ?
+                <progress id="progressBar" value={progressValue} max="100" style={{width: '300px'}} />
+                :
+                <div className="spinner">
+                  <Spinner width="60px" height="60px" />
+                </div>
               :
               invoiceImage ?
                 <button
                   className="delete-btn"
                   onClick={deleteImage}
                 >
-                  delete image
+                  <FormattedMessage { ...messages.deleteImage } />
                 </button>
                 :
                 <>
@@ -193,13 +205,13 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
                     accept="image/jpeg"
                     onChange={onChange}
                   />
-                  only jpg
+                  <FormattedMessage { ...messages.onlyThisFormat } />
                   <button
                     className="shared-login-submit-btn"
                     onClick={onSubmit}
                     disabled={invoicefile === ''}
                   >
-                    envoyer
+                    <FormattedMessage { ...messages.sendImageLabel } />
                   </button>
                 </>
           }

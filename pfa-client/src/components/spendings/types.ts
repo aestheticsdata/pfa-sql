@@ -19,7 +19,7 @@ export type ReccuringType = {
 };
 
 export type SpendingType = {
-  amount: string; // !! Sequelize returns a string for decimal type, see : https://github.com/sequelize/sequelize/issues/8019
+  amount: string;
   catID: number;
   category: string;
   createdAt: string;

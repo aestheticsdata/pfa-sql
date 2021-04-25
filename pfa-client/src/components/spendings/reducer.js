@@ -42,7 +42,7 @@ const aggregateSpendingByDate = (spendings, range) => {
     for (let k = 0, ll = spendingsFinal.length; k < ll; k += 1) {
       if (getDate(parseISO(spendings[i].date)) === spendingsFinal[k].date) {
         spendingsFinal[k].push(spendings[i]);
-        spendingsFinal[k].total += parseFloat(spendings[i].amount); // !! Sequelize returns a string for decimal type, see : https://github.com/sequelize/sequelize/issues/8019
+        spendingsFinal[k].total += parseFloat(spendings[i].amount);
       }
     }
   }
@@ -61,9 +61,11 @@ const setInvoicefile = (state, spendingOrRecurring, status) => {
   let savedInnerIndex = 0;
   const { itemType } = spendingOrRecurring;
   const spendingsClone = _.cloneDeep(state[itemType+'s']);
+  spendingsClone.total = state[itemType+'s'].total;
 
   if (itemType === 'spending') {
     for (const [i, arr] of spendingsClone.entries()) {
+      arr.total = state.spendings[i].total;
       innerIndex = _.findIndex(arr, o => o.ID === spendingOrRecurring.ID)
       if (innerIndex !== -1) {
         savedInnerIndex = innerIndex;
@@ -111,6 +113,7 @@ const spendingsReducer = (state = initialState, action) =>
         break;
       case UPDATE_INVOICEFILE_REDUCER_STATUS:
         draft[action.spending.itemType+'s'] = setInvoicefile(state, action.spending, action.status);
+        // return state;
         break;
       default:
         return state;
