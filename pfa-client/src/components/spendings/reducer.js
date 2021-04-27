@@ -61,7 +61,10 @@ const setInvoicefile = (state, spendingOrRecurring, status) => {
   let savedInnerIndex = 0;
   const { itemType } = spendingOrRecurring;
   const spendingsClone = _.cloneDeep(state[itemType+'s']);
+
+  // destructuring array will not copy attributes like [].total
   spendingsClone.total = state[itemType+'s'].total;
+  // //////////////////////////////////////////////////////////
 
   if (itemType === 'spending') {
     for (const [i, arr] of spendingsClone.entries()) {
@@ -113,7 +116,6 @@ const spendingsReducer = (state = initialState, action) =>
         break;
       case UPDATE_INVOICEFILE_REDUCER_STATUS:
         draft[action.spending.itemType+'s'] = setInvoicefile(state, action.spending, action.status);
-        // return state;
         break;
       default:
         return state;

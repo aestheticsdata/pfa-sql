@@ -46,6 +46,7 @@
   "app.components.Spendings.deleteImage": "effacer l'image",
   "app.components.Spendings.onlyThisFormat": "jpg uniquement",
   "app.components.Spendings.sendImageLabel": "envoyer",
+  "app.components.Spendings.chooseFile": "sélectionnez un fichier",
 
   "app.components.SpendingsSort.SORT_BY_LABEL": "Intitulé",
   "app.components.SpendingsSort.SORT_BY_CATEGORY": "Catégorie",

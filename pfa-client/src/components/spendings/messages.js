@@ -86,5 +86,9 @@ export default defineMessages({
   sendImageLabel: {
     id: `${scope}.sendImageLabel`,
     defaultMessage: 'send',
+  },
+  chooseFile: {
+    id: `${scope}.chooseFile`,
+    defaultMessage: 'choose a file',
   }
 });

@@ -9,6 +9,8 @@ import InvoiceImageModal from './invoiceImageModal/InvoiceImageModal';
 import getCategoryComponent from "@components/common/Category";
 import { ReactComponent as Spinner } from "@src/assets/Wedges-3s-200px.svg";
 import { updateInvoicefileReducerStatus } from "@components/spendings/actions";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
 
 
 const InvoiceModal = ({ handleClickOutside, spending }) => {
@@ -40,6 +42,7 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
       })
       if (res?.data?.msg === 'INVOICE_IMAGE_DELETED') {
         setInvoiceImage(null);
+        setInvoicefile('');
         dispatch(updateInvoicefileReducerStatus(spending, 'delete'));
         setIsLoading(false);
       }
@@ -201,18 +204,45 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
                 <>
                   <input
                     type="file"
+                    className="invoice-inputfile"
+                    id="invoicefileinputid"
                     name="invoicefile"
                     accept="image/jpeg"
                     onChange={onChange}
                   />
-                  <FormattedMessage { ...messages.onlyThisFormat } />
-                  <button
-                    className="shared-login-submit-btn"
-                    onClick={onSubmit}
-                    disabled={invoicefile === ''}
-                  >
-                    <FormattedMessage { ...messages.sendImageLabel } />
-                  </button>
+                  <div className="label-wrapper">
+                    <label htmlFor="invoicefileinputid">
+                      {
+                        invoicefile !== '' ?
+                          <div className="input-filename">
+                            {invoicefile.name}
+                          </div>
+                          :
+                          <div className="choose-file">
+                            <div className="upload-icon">
+                              <FontAwesomeIcon icon={faFileUpload} />
+                            </div>
+                            <div className="upload-choosefile-label">
+                              <FormattedMessage { ...messages.chooseFile } />
+                            </div>
+                            <div className="onlyformat">
+                              (<FormattedMessage { ...messages.onlyThisFormat } />)
+                            </div>
+                          </div>
+                      }
+                    </label>
+                  </div>
+                  {
+                    invoicefile && (
+                      <button
+                        className="upload-submit-btn"
+                        onClick={onSubmit}
+                        disabled={invoicefile === ''}
+                      >
+                        <FormattedMessage { ...messages.sendImageLabel } />
+                      </button>
+                    )
+                  }
                 </>
           }
         </div>
