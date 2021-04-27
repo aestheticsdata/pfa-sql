@@ -5,3 +5,4 @@ pfa-client/dist
 .env.dev
 .env.prod
 /.env
+/src/invoicesUpload/*

@@ -7,7 +7,7 @@ import { intl } from '../index';
 import messages from './messages';
 
 
-const privateRequest = (url, options) => {
+const privateRequest = (url, options, config) => {
   const tokenBearer = {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('pfa-token')}`,
@@ -16,6 +16,7 @@ const privateRequest = (url, options) => {
 
   const axiosInstance = axios.create({
     headers: tokenBearer.headers,
+    ...config,
   });
 
   axiosInstance.interceptors.response.use(

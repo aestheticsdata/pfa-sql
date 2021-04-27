@@ -1,6 +1,3 @@
-const prisma = require('../../../db/dbInit');
-
-
 module.exports = async (model, ID, res) => {
   try {
     await model.delete({ where: { ID } });

@@ -66,5 +66,29 @@ export default defineMessages({
   copyRecurringsFromLastMonth: {
     id: `${scope}.copyRecurringsFromLastMonth`,
     defaultMessage: 'copy last month',
+  },
+  fileIsTooBig: {
+    id: `${scope}.fileIsTooBig`,
+    defaultMessage: 'file si too big, please select another file',
+  },
+  noInvoice: {
+    id: `${scope}.noInvoice`,
+    defaultMessage: 'No Invoice',
+  },
+  deleteImage: {
+    id: `${scope}.deleteImage`,
+    defaultMessage: 'delete image',
+  },
+  onlyThisFormat: {
+    id: `${scope}.onlyThisFormat`,
+    defaultMessage: 'only jpg file',
+  },
+  sendImageLabel: {
+    id: `${scope}.sendImageLabel`,
+    defaultMessage: 'send',
+  },
+  chooseFile: {
+    id: `${scope}.chooseFile`,
+    defaultMessage: 'choose a file',
   }
 });
