@@ -16,7 +16,7 @@ const StyledInvoiceModal = styled.div`
     top: 10%;
     left: 35%;
     width: 500px;
-    height: 530px;
+    height: 420px;
     
     background-color: ${colors.grey0};
     border-radius: 5px;
@@ -55,7 +55,12 @@ const StyledInvoiceModal = styled.div`
     // https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/
     // https://codepen.io/nopr/pen/rpsnd
     .inputfile-container {
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 120px;
+
       .invoice-inputfile {
         width: 0.1px;
         height: 0.1px;
@@ -65,25 +70,28 @@ const StyledInvoiceModal = styled.div`
         z-index: -1;
 
         & + .label-wrapper {
-          position: absolute;
+          display: flex;
+                flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 120px;
           width: 100%;
           background-color: ${colors.grey0};
-          height: 100%;
           
           label {
-            display: inline-block;
-            position: relative;
-            top: 40px;
-            height: 120px;
+            display: flex;
+            justify-content: center;
             color: ${colors.grey2};
+            width: 90%;
             .input-filename {
               position: relative;
             }
             .choose-file {
-              position: relative;
               width: 230px;
-              top: 15px;
               .upload-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 svg {
                   position: relative;
                   font-size: 60px;
@@ -94,19 +102,19 @@ const StyledInvoiceModal = styled.div`
                 }
               }
               .upload-choosefile-label {
+                display: flex;
+                justify-content: center;
                 font-weight: 600;
                 font-size: 19px;
-                text-align: center;
               }
               .onlyformat {
+                display: flex;
+                justify-content: center;
                 font-size: 11px;
-                text-align: center;
                 line-height: 1;
               }
             }
             .input-filename {
-              position: relative;
-              top: 50px;
               font-size: 20px;
               font-weight: 700;
               &:hover {
@@ -127,14 +135,12 @@ const StyledInvoiceModal = styled.div`
       }
 
       .upload-submit-btn {
-        position: relative;
-        top: 160px;
+        margin-top: 20px;
         ${buttonMixin};
       }
             
       .delete-btn {
-        position: relative;
-        top: 100px;
+        justify-content: center;
         ${buttonMixin};
       }
     }
@@ -165,18 +171,16 @@ const StyledInvoiceModal = styled.div`
       }
 
       .invoice-image {
-        //position: relative;
         cursor: pointer;
-        border: 1px solid white;
+        border: 1px solid ${colors.grey1};
+        transition: box-shadow 0.15s ease-in;
     
         &:hover {
-          border: 1px solid #ecec6d;
+          box-shadow: 0 1px 8px 5px rgba(0,0,0,0.2);
         }
       }
     }
-    
   }
-
 `;
 
 export default StyledInvoiceModal;

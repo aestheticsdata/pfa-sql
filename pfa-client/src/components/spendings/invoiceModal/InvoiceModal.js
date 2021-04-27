@@ -231,18 +231,18 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
                           </div>
                       }
                     </label>
+                    {
+                      invoicefile && (
+                        <button
+                          className="upload-submit-btn"
+                          onClick={onSubmit}
+                          disabled={invoicefile === ''}
+                        >
+                          <FormattedMessage { ...messages.sendImageLabel } />
+                        </button>
+                      )
+                    }
                   </div>
-                  {
-                    invoicefile && (
-                      <button
-                        className="upload-submit-btn"
-                        onClick={onSubmit}
-                        disabled={invoicefile === ''}
-                      >
-                        <FormattedMessage { ...messages.sendImageLabel } />
-                      </button>
-                    )
-                  }
                 </>
           }
         </div>
