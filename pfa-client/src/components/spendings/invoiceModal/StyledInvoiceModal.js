@@ -140,28 +140,27 @@ const StyledInvoiceModal = styled.div`
     }
     
     .image-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 250px;
       border-bottom: 2px solid ${colors.grey1};
       
       .no-invoice {
-        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border: 3px solid ${colors.grey1};
         border-radius: 5px;
         font-size: 24px;
         text-align: center;
         width: 80%;
         height: 80%;
-        margin: 0 auto;
-        top: 25px;
-        .no-invoice-label {
-          line-height: 7;
-        }
       }
   
       img {
         display: block;
-        margin: 0 auto;
-        max-height: 100%;
+        max-height: 245px;
         max-width: 100%;
       }
 
