@@ -19,6 +19,18 @@ export default defineMessages({
     id: `${scope}.editModalButton`,
     defaultMessage: 'Update',
   },
+  editModalSpendingLabelPlaceholder: {
+    id: `${scope}.editModalSpendingLabelPlaceholder`,
+    defaultMessage: 'label',
+  },
+  editModalSpendingAmountPlaceholder: {
+    id: `${scope}.editModalSpendingAmountPlaceholder`,
+    defaultMessage: 'amount',
+  },
+  editModalSpendingCategoryPlaceholder: {
+    id: `${scope}.editModalSpendingCategoryPlaceholder`,
+    defaultMessage: 'category',
+  },
   createModalButton: {
     id: `${scope}.createModalButton`,
     defaultMessage: 'Create',

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import format from 'date-fns/format';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import {
   Formik,
@@ -38,7 +38,7 @@ const SpendingModal = ({
     name: "",
     color: null
   };
-
+  const intl = useIntl();
   let initialCategoryState = spending?.category ?
     {
       ID: spending.categoryID,
@@ -123,12 +123,12 @@ const SpendingModal = ({
               <Field
                 type="text"
                 name="label"
-                placeholder="label"
+                placeholder={intl.formatMessage(messages.editModalSpendingLabelPlaceholder)}
               />
               <Field
                 type="number"
                 name="amount"
-                placeholder="amount"
+                placeholder={intl.formatMessage(messages.editModalSpendingAmountPlaceholder)}
               />
               {
                 !recurringType ?
@@ -161,7 +161,7 @@ const SpendingModal = ({
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label="category"
+                        label={intl.formatMessage(messages.editModalSpendingCategoryPlaceholder)}
                         variant="outlined"
                         size="small"
                       />
