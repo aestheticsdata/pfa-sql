@@ -14,6 +14,8 @@ const value = css`
 `;
 
 const StyledMonthlyBudget = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 250px;
   height: 250px;
   background-color: ${colors.grey0};
@@ -35,7 +37,7 @@ const StyledMonthlyBudget = styled.div`
   
   .initial-amount {
     cursor: default;
-    margin-top: 20px;
+    margin-top: 10px;
     ${value};
     border-left: 10px solid ${colors.initialAmount};
     background-color: ${colors.initialAmountAlpha};
@@ -84,7 +86,7 @@ const StyledMonthlyBudget = styled.div`
   }
   
   .remaining-budget {
-    margin: 20px 0;
+    margin: 10px 0;
     ${label};
     ${value};
     &.warning {
@@ -99,7 +101,7 @@ const StyledMonthlyBudget = styled.div`
     }
     border-left: 10px solid ${colors.remainingAmount};
     background-color: ${colors.remainingAmountAlpha};
-    padding: 2px 0;
+    padding: 7px 0;
   }
   
   .month-total {
@@ -110,7 +112,7 @@ const StyledMonthlyBudget = styled.div`
     }
     border-left: 10px solid ${colors.monthTotalAmount};
     background-color: ${colors.monthTotalAmountAlpha};
-    padding: 2px 0;
+    padding: 7px 0;
   }
 `;
 

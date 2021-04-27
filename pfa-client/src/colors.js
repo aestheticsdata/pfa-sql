@@ -1,5 +1,6 @@
 const colors = {
   grey0: 'rgb(227,227,227)',
+  grey01: 'rgb(200, 200, 200)',
   grey1: 'rgb(161,161,161)',
   grey2: 'rgb(110, 110, 110)',
   grey3: 'rgb(60, 60, 60)',

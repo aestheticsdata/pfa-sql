@@ -23,14 +23,21 @@ const StyledInvoiceModal = styled.div`
     overflow: hidden;
 
     .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 10px 5px;
       height: 40px;
-      background: ${colors.grey0};
+      background-color: ${colors.grey01};
       border-bottom: 2px solid ${colors.grey1};
       font-weight: 600;
       
       .label {
         margin-left: 5px;
+        max-width: 210px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       
       .amount {
