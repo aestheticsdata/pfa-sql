@@ -33,6 +33,7 @@ const StyledInvoiceModal = styled.div`
       font-weight: 600;
       
       .label {
+        cursor: default;
         margin-left: 5px;
         max-width: 210px;
         overflow: hidden;

@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
     const recurrings = await prisma.recurrings.findMany({
       where: {
         AND: [
-          { userID: req.query.userID},
+          { userID: req.query.userID },
           {
             dateFrom: { equals: new Date(req.query.start) }
           },

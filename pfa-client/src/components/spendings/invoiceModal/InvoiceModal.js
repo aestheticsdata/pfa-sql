@@ -143,7 +143,12 @@ const InvoiceModal = ({ handleClickOutside, spending }) => {
             null
         }
         <div className="header">
-          <span className="label">{spending.label}</span>
+          <span
+            className="label"
+            title={spending.label}
+          >
+            {spending.label}
+          </span>
           { spending?.category && getCategoryComponent(spending) }
           <span className="amount">
             <FormattedNumber

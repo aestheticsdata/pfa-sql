@@ -102,5 +102,9 @@ export default defineMessages({
   chooseFile: {
     id: `${scope}.chooseFile`,
     defaultMessage: 'choose a file',
+  },
+  totalsByDayRange: {
+    id: `${scope}.totalsByDayRange`,
+    defaultMessage: 'TOTAL BY DAY RANGE',
   }
 });

@@ -14,6 +14,8 @@ import {
   DELETE_RECURRING,
   COPY_RECURRING,
   UPDATE_INVOICEFILE_REDUCER_STATUS,
+  GET_WEEKLY_STATS,
+  GET_WEEKLY_STATS_SUCCESS,
 } from './constants';
 
 
@@ -115,12 +117,27 @@ export const copyRecurrings = (userID, month) => {
     userID,
     month,
   }
-}
+};
+
 export const updateInvoicefileReducerStatus = (spending, status) => {
   return {
     type: UPDATE_INVOICEFILE_REDUCER_STATUS,
     spending,
     status,
+  }
+};
+
+export const getWeeklyStats = (start) => {
+  return {
+    type: GET_WEEKLY_STATS,
+    start,
+  }
+}
+
+export const getWeeklyStatsSuccess = (weeklyStats) => {
+  return {
+    type: GET_WEEKLY_STATS_SUCCESS,
+    weeklyStats,
   }
 }
 

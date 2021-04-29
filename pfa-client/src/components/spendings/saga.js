@@ -17,7 +17,7 @@ import {
   CREATE_RECURRING,
   UPDATE_RECURRING,
   DELETE_RECURRING,
-  COPY_RECURRING,
+  COPY_RECURRING, GET_WEEKLY_STATS,
 } from './constants';
 
 import { UPDATE_CATEGORY } from '@components/categories/constants';
@@ -29,6 +29,7 @@ import {
   getRecurring,
   getCategories,
   getCategoriesSuccess,
+  getWeeklyStatsSuccess,
 } from './actions';
 
 import { updateCategoryError } from '@components/categories/actions';
@@ -145,6 +146,16 @@ export function* onGetRecurring(payload) {
     }
 }
 
+export function* onGetWeeklyStats(payload) {
+  try {
+    const userID = JSON.parse(localStorage.getItem('pfa-user')).id;
+    const res = yield call(privateRequest, `/weeklystats?userID=${userID}&start=${payload.start}`);
+    yield put (getWeeklyStatsSuccess(res.data));
+  } catch (e) {
+    console.log('error while getting weekly stats : ', e);
+  }
+}
+
 export function* onCreateRecurring(payload) {
   try {
     yield call(privateRequest, '/recurrings', {
@@ -245,4 +256,5 @@ export default function* defaultSaga() {
   yield takeLatest(GET_SPENDINGS_SUCCESS, onGetSpendingSuccess);
   yield takeLatest(GET_RECURRING_SUCCESS, onGetRecurringSuccess);
   yield takeLatest(COPY_RECURRING, onCopyRecurring);
+  yield takeLatest(GET_WEEKLY_STATS, onGetWeeklyStats);
 }

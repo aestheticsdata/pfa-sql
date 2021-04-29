@@ -50,6 +50,7 @@
   "app.components.Spendings.onlyThisFormat": "jpg uniquement",
   "app.components.Spendings.sendImageLabel": "envoyer",
   "app.components.Spendings.chooseFile": "sélectionnez un fichier",
+  "app.components.Spendings.totalsByDayRange": "TOTAUX PAR PERIODE",
 
   "app.components.SpendingsSort.SORT_BY_LABEL": "Intitulé",
   "app.components.SpendingsSort.SORT_BY_CATEGORY": "Catégorie",

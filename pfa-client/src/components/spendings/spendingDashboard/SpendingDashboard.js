@@ -1,10 +1,8 @@
-import { FormattedMessage } from 'react-intl';
-import messages from '../messages';
+import SpendingDayItem from '@components/spendings/spendingDayItem/SpendingDayItem';
+import StyledSpendingDashboard from '@components/spendings/spendingDashboard/StyledSpendingDashboard';
 
-import SpendingDayItem from '../spendingDayItem/SpendingDayItem';
-import StyledSpendingDashboard from './StyledSpendingDashboard';
-
-import MonthlyBudget from './monthlyBudget/MonthlyBudget';
+import MonthlyBudget from '@components/spendings/spendingDashboard/monthlyBudget/MonthlyBudget';
+import WeeklyStats from "@components/spendings/spendingDashboard/weeklyStats/WeeklyStats";
 
 
 const SpendingDashboard = ({
@@ -17,10 +15,9 @@ const SpendingDashboard = ({
 }) => {
   return (
     <StyledSpendingDashboard>
-      <div className="current-week-total">
-        <FormattedMessage { ...messages.currentWeekTotal } />:
-        <span>{weekTotal}</span>
-      </div>
+      <WeeklyStats
+        weekTotal={weekTotal}
+      />
       <div className="monthly-budget">
         <MonthlyBudget
           user={user}

@@ -9,7 +9,7 @@ import {
   GET_SPENDINGS_SUCCESS,
   GET_RECURRING_SUCCESS,
   GET_CATEGORIES_SUCCESS,
-  UPDATE_INVOICEFILE_REDUCER_STATUS,
+  UPDATE_INVOICEFILE_REDUCER_STATUS, GET_WEEKLY_STATS_SUCCESS,
 } from './constants';
 
 const tempArr = [];
@@ -20,6 +20,7 @@ const initialState = {
   spendings: spendingsPlaceholder,
   recurrings: [],
   categories: [],
+  weeklyStats:[],
   currency: 'EUR',
   isLoading: true,
 };
@@ -116,6 +117,9 @@ const spendingsReducer = (state = initialState, action) =>
         break;
       case UPDATE_INVOICEFILE_REDUCER_STATUS:
         draft[action.spending.itemType+'s'] = setInvoicefile(state, action.spending, action.status);
+        break;
+      case GET_WEEKLY_STATS_SUCCESS:
+        draft.weeklyStats = action.weeklyStats;
         break;
       default:
         return state;

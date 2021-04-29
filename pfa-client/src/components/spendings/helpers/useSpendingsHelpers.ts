@@ -3,6 +3,7 @@ import {
   deleteSpending as deleteSpendingAction,
   getSpendings,
   getCategories as getCategoriesAction,
+  getWeeklyStats as getWeeklyStatsAction,
 } from "@components/spendings/actions";
 import startOfMonth from "date-fns/startOfMonth";
 import endOfMonth from "date-fns/endOfMonth";
@@ -49,6 +50,11 @@ const useSpendingsHelpers = () => {
       deleteRecurring(itemID);
   };
 
+  const getWeeklyStats = (start: Date) => {
+    console.log('start : ', start);
+    dispatch(getWeeklyStatsAction(start));
+  }
+
   return {
     month,
     start,
@@ -57,6 +63,7 @@ const useSpendingsHelpers = () => {
     deleteSpending,
     deleteRecurring,
     deleteItem,
+    getWeeklyStats,
   }
 }
 

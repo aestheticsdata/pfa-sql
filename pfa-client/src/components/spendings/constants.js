@@ -13,3 +13,5 @@ export const CREATE_RECURRING = 'app/spendings/CREATE_RECURRING';
 export const DELETE_RECURRING = 'app/spendings/DELETE_RECURRING';
 export const COPY_RECURRING = 'app/spendings/COPY_RECURRING';
 export const UPDATE_INVOICEFILE_REDUCER_STATUS = 'app/spendings/UPDATE_INVOICEFILE_REDUCER_STATUS';
+export const GET_WEEKLY_STATS = 'app/spendings/GET_WEEKLY_STATS';
+export const GET_WEEKLY_STATS_SUCCESS = 'app/spendings/GET_WEEKLY_STATS_SUCCESS';

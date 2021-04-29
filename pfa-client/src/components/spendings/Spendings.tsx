@@ -25,6 +25,7 @@ const Spendings = () => {
     getCategories,
     deleteRecurring,
     deleteItem,
+    getWeeklyStats,
   } = useSpendingsHelpers();
 
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ const Spendings = () => {
   useEffect(() => {
     if (month !== null) {
       dispatch(getRecurring(start));
+      getWeeklyStats(start);
     }
   }, [month]);
 
