@@ -38,7 +38,6 @@
   "app.components.Spendings.createModalButton": "Create",
   "app.components.Spendings.cancelModalButton": "Cancel",
   "app.components.Spendings.recurrings": "Recurrings",
-  "app.components.Spendings.currentWeekTotal": "Current week total",
   "app.components.Spendings.initialAmountSetSuccess": "Initial amount set",
   "app.components.Spendings.initialAmount": "Initial amount",
   "app.components.Spendings.remaining": "Remaining",
@@ -51,6 +50,7 @@
   "app.components.Spendings.sendImageLabel": "send",
   "app.components.Spendings.chooseFile": "choose a file",
   "app.components.Spendings.totalsByDayRange": "TOTALS BY DAY RANGE",
+  "app.components.Spendings.ceiling": "Weekly ceiling :",
 
   "app.components.SpendingsSort.SORT_BY_LABEL": "Label",
   "app.components.SpendingsSort.SORT_BY_CATEGORY": "Category",

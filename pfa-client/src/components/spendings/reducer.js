@@ -9,7 +9,7 @@ import {
   GET_SPENDINGS_SUCCESS,
   GET_RECURRING_SUCCESS,
   GET_CATEGORIES_SUCCESS,
-  UPDATE_INVOICEFILE_REDUCER_STATUS, GET_WEEKLY_STATS_SUCCESS,
+  UPDATE_INVOICEFILE_REDUCER_STATUS,
 } from './constants';
 
 const tempArr = [];
@@ -20,7 +20,6 @@ const initialState = {
   spendings: spendingsPlaceholder,
   recurrings: [],
   categories: [],
-  weeklyStats:[],
   currency: 'EUR',
   isLoading: true,
 };
@@ -30,7 +29,6 @@ const initialState = {
 // const aggregateSpendingByDate = (spendings, range, exchangeRates, baseCurrency) => {
 const aggregateSpendingByDate = (spendings, range) => {
   const spendingsFinal = [...spendingsPlaceholder];
-  spendingsFinal.weekTotal = 0;
 
   for (let j = 0, r = range.length; j < r; j += 1) {
     const arr = [];
@@ -46,10 +44,6 @@ const aggregateSpendingByDate = (spendings, range) => {
         spendingsFinal[k].total += parseFloat(spendings[i].amount);
       }
     }
-  }
-
-  for (let n = 0, l = spendingsFinal.length; n < l; n += 1) {
-    spendingsFinal.weekTotal += spendingsFinal[n].total;
   }
 
   return spendingsFinal;
@@ -117,9 +111,6 @@ const spendingsReducer = (state = initialState, action) =>
         break;
       case UPDATE_INVOICEFILE_REDUCER_STATUS:
         draft[action.spending.itemType+'s'] = setInvoicefile(state, action.spending, action.status);
-        break;
-      case GET_WEEKLY_STATS_SUCCESS:
-        draft.weeklyStats = action.weeklyStats;
         break;
       default:
         return state;

@@ -9,11 +9,17 @@ import localesDates from "@src/i18n/locales-dates";
 import Cookie from "js-cookie";
 import getMonth from "date-fns/getMonth";
 import getYear from "date-fns/getYear";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLongArrowAltUp,
+  faLongArrowAltDown,
+} from "@fortawesome/free-solid-svg-icons";
 
-
-const WeeklyStats = ({ weekTotal }) => {
+const WeeklyStats = () => {
   const user = useSelector(state => state.loginReducer.user);
+  const weeklyStats = useSelector(state => state.dashboardReducer.weeklyStats);
   const dateRange = useSelector(state => state.dateRangeReducer.dateRange);
+  const ceiling = 150; // hardcoded
 
   return (
     <StyledWeeklyStats>
@@ -26,15 +32,36 @@ const WeeklyStats = ({ weekTotal }) => {
           <span className="year">{getYear(dateRange.to)}</span>
         </div>
       </div>
-      <FormattedMessage { ...messages.currentWeekTotal } />:
+      <div className="ceiling">
+        <FormattedMessage {...messages.ceiling} />
+        <span className="ceiling-amount">{ceiling}</span>
+      </div>
       {
-        weekTotal && (
-          <FormattedNumber
-            value={weekTotal}
-            style="currency"
-            currency={user.baseCurrency}
-          />
-        )
+        weeklyStats ?
+          weeklyStats.map((weekSliceValue, i) =>
+            <div key={Math.floor(Math.random()*100)}>
+              <span>tranche {i}: </span>
+              {
+                weekSliceValue > ceiling ?
+                  <FontAwesomeIcon
+                    icon={faLongArrowAltUp}
+                    className="arrow up"
+                  />
+                  :
+                  <FontAwesomeIcon
+                    icon={faLongArrowAltDown}
+                    className="arrow down"
+                  />
+              }
+              <FormattedNumber
+                value={weekSliceValue}
+                style="currency"
+                currency={user.baseCurrency}
+              />
+            </div>
+          )
+        :
+        null
       }
     </StyledWeeklyStats>
   )

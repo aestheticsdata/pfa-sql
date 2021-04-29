@@ -73,7 +73,6 @@ const Spendings = () => {
           spendings.length > 0 && dateRange.range ?
             <div className="list-container">
               <SpendingDashboard
-                weekTotal={spendings.weekTotal}
                 recurring={recurrings}
                 deleteRecurring={deleteRecurring}
                 month={month}

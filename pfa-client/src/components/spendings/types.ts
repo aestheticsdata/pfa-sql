@@ -38,7 +38,7 @@ export type SpendingCompoundType = [SpendingType] & {
   total : number
 };
 
-export type SpendingsType = Array<SpendingCompoundType> & { weekTotal?: number };
+export type SpendingsType = Array<SpendingCompoundType>;
 
 interface SpendingsPartial {
   spendingsByDay: SpendingCompoundType;

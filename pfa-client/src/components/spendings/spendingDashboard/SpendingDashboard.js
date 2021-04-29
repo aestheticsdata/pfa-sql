@@ -10,14 +10,11 @@ const SpendingDashboard = ({
   user,
   month,
   deleteRecurring,
-  weekTotal,
   isLoading,
 }) => {
   return (
     <StyledSpendingDashboard>
-      <WeeklyStats
-        weekTotal={weekTotal}
-      />
+      <WeeklyStats />
       <div className="monthly-budget">
         <MonthlyBudget
           user={user}

@@ -24,6 +24,16 @@ const StyledWeeklyStats = styled.div`
       }
     }
   }
+  
+  .arrow {
+    font-size: 13px;
+    &.up {
+      color: ${colors.generalWarning};
+    }
+    &.down {
+      color: ${colors.generalOk};
+    }
+  }
 `;
 
 export default StyledWeeklyStats;

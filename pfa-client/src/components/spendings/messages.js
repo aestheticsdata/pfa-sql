@@ -55,10 +55,6 @@ export default defineMessages({
     id: `${scope}.recurrings`,
     defaultMessage: 'Recurrings',
   },
-  currentWeekTotal: {
-    id: `${scope}.currentWeekTotal`,
-    defaultMessage: 'Current week total',
-  },
   initialAmountSetSuccess: {
     id: `${scope}.initialAmountSetSuccess`,
     defaultMessage: 'Initial amount set',
@@ -106,5 +102,9 @@ export default defineMessages({
   totalsByDayRange: {
     id: `${scope}.totalsByDayRange`,
     defaultMessage: 'TOTAL BY DAY RANGE',
+  },
+  ceiling: {
+    id: `${scope}.ceiling`,
+    defaultMessage: 'Weekly ceiling :',
   }
 });
