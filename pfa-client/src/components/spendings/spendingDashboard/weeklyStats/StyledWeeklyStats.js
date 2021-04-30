@@ -34,6 +34,10 @@ const StyledWeeklyStats = styled.div`
       color: ${colors.generalOk};
     }
   }
+  
+  .current-week {
+    font-weight: 700;
+  }
 `;
 
 export default StyledWeeklyStats;

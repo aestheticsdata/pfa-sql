@@ -51,7 +51,6 @@ const useSpendingsHelpers = () => {
   };
 
   const getWeeklyStats = (start: Date) => {
-    console.log('start : ', start);
     dispatch(getWeeklyStatsAction(start));
   }
 

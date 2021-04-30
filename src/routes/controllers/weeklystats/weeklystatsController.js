@@ -21,12 +21,13 @@ const weeklystatsController = async (req, res) => {
       const ranges = [];
       const dayNumberFromMonthStart = getDay(startDate); // Sunday is 0
       const firstSlice = 7 - dayNumberFromMonthStart;
+      const numberOfDaysInMonth = getDaysInMonth(startDate);
       ranges.push(firstSlice);
-      const numberOfFullWeeks = Math.floor((getDaysInMonth(startDate) - firstSlice) / 7);
+      const numberOfFullWeeks = Math.floor((numberOfDaysInMonth - firstSlice) / 7);
       for (let i = 0, l = numberOfFullWeeks; i < l; i += 1) {
         ranges.push(7);
       }
-      const remainingNumberOfDays = getDaysInMonth(startDate) - (firstSlice + (7 * numberOfFullWeeks));
+      const remainingNumberOfDays = numberOfDaysInMonth - (firstSlice + (7 * numberOfFullWeeks));
       remainingNumberOfDays !== 0 && ranges.push(remainingNumberOfDays);
 
       const totalsByWeek = [];
