@@ -24,7 +24,7 @@ const colors = {
   generalWarningBackground: 'rgb(255,255,0)',
   warningDeleteBackground: 'rgb(255, 235, 59)',
   warningNoCurrenciesRates: 'rgb(255,16,14)',
-  generalOk: 'rgb(46,179,46)',
+  generalOK: 'rgb(46,179,46)',
   datePickerWrapper: 'rgb(83, 255, 131)',
   datePickerWrapperBackground: 'rgb(74, 107, 109)',
   categoryBorder: 'rgb(152, 152, 152)',

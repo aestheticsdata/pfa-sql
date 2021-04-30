@@ -18,9 +18,6 @@ const StyledSpendingDashboard = styled.div`
   display: flex;
   flex-flow: row;
   justify-content: space-around;
-  
-  .recurring-spendings-container {
-  }
 `;
 
 export default StyledSpendingDashboard;

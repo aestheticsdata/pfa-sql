@@ -1,19 +1,24 @@
-import {FormattedMessage, FormattedNumber} from "react-intl";
+import {
+  FormattedMessage,
+  FormattedNumber,
+} from "react-intl";
 import messages from "@components/spendings/messages";
 import StyledWeeklyStats from "@components/spendings/spendingDashboard/weeklyStats/StyledWeeklyStats";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import localesDates from "@src/i18n/locales-dates";
 import Cookie from "js-cookie";
 import getMonth from "date-fns/getMonth";
 import getYear from "date-fns/getYear";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faLongArrowAltDown, faLongArrowAltUp,} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLongArrowAltDown,
+  faLongArrowAltUp,
+} from "@fortawesome/free-solid-svg-icons";
 import getDay from "date-fns/getDay";
 import getDaysInMonth from "date-fns/getDaysInMonth";
 import startOfMonth from "date-fns/startOfMonth";
-import startOfWeek from "date-fns/startOfWeek";
-import endOfWeek from "date-fns/endOfWeek";
 import getDate from "date-fns/getDate";
+import { ReactComponent as Spinner } from "@src/assets/Wedges-3s-200px.svg";
 
 import {v1 as uuidv1} from 'uuid';
 
@@ -64,7 +69,7 @@ const WeeklyStats = () => {
 
   return (
     <StyledWeeklyStats>
-      <div className="header">
+      <div className="weekly-stats-header">
         <div>
           <FormattedMessage {...messages.totalsByDayRange} />
         </div>
@@ -73,49 +78,70 @@ const WeeklyStats = () => {
           <span className="year">{getYear(dateRange.to)}</span>
         </div>
       </div>
-      <div className="ceiling">
-        <FormattedMessage {...messages.ceiling} />
-        <span className="ceiling-amount">
-          <FormattedNumber
-            value={ceiling}
-            style="currency"
-            currency={user.baseCurrency}
-          />
-        </span>
+      <div className="weekly-stats-body">
+        <div className="ceiling">
+          <FormattedMessage {...messages.ceiling} />
+          <span className="ceiling-amount">
+            <FormattedNumber
+              value={ceiling}
+              style="currency"
+              currency={user.baseCurrency}
+            />
+          </span>
+        </div>
+        <div className="week-slices-container">
+        {
+          weeklyStats?.length > 0 ?
+            weeklyStats.map((weekSliceValue, i) =>
+              <div
+                key={uuidv1()}
+                className={`week-slice ${isCurrentWeek(weeklySlices[i], dateRange) ? 'current-week' : ''}`}
+              >
+                {isCurrentWeek(weeklySlices[i], dateRange)}
+                <span className="days-slice">
+                  {weeklySlices[i]} :
+                </span>
+                <div className="amount">
+                  <FormattedNumber
+                    value={weekSliceValue}
+                    style="currency"
+                    currency={user.baseCurrency}
+                  />
+                </div>
+                <div className="arrow">
+                  {
+                    weekSliceValue > ceiling ?
+                      <FontAwesomeIcon
+                        icon={faLongArrowAltUp}
+                        className="arrow up"
+                      />
+                      :
+                      <FontAwesomeIcon
+                        icon={faLongArrowAltDown}
+                        className="arrow down"
+                      />
+                  }
+                </div>
+                {
+                  weekSliceValue > ceiling &&
+                    <div className="exceeding-amount">
+                      +
+                      <FormattedNumber
+                        value={weekSliceValue - ceiling}
+                        style="currency"
+                        currency={user.baseCurrency}
+                      />
+                    </div>
+                }
+              </div>
+            )
+          :
+          <div className="spinner">
+            <Spinner width="60px" height="60px" />
+          </div>
+        }
+        </div>
       </div>
-      {
-        weeklyStats ?
-          weeklyStats.map((weekSliceValue, i) =>
-            <div
-              key={uuidv1()}
-              className={isCurrentWeek(weeklySlices[i], dateRange) ? 'current-week' : ''}
-            >
-              {isCurrentWeek(weeklySlices[i], dateRange)}
-              <span>
-                {weeklySlices[i]} :
-              </span>
-              {
-                weekSliceValue > ceiling ?
-                  <FontAwesomeIcon
-                    icon={faLongArrowAltUp}
-                    className="arrow up"
-                  />
-                  :
-                  <FontAwesomeIcon
-                    icon={faLongArrowAltDown}
-                    className="arrow down"
-                  />
-              }
-              <FormattedNumber
-                value={weekSliceValue}
-                style="currency"
-                currency={user.baseCurrency}
-              />
-            </div>
-          )
-        :
-        null
-      }
     </StyledWeeklyStats>
   )
 }

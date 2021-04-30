@@ -14,7 +14,9 @@ const SpendingDashboard = ({
 }) => {
   return (
     <StyledSpendingDashboard>
-      <WeeklyStats />
+      <div className="weekly-stats">
+        <WeeklyStats />
+      </div>
       <div className="monthly-budget">
         <MonthlyBudget
           user={user}

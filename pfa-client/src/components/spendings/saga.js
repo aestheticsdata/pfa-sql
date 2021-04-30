@@ -29,7 +29,7 @@ import {
   getRecurring,
   getCategories,
   getCategoriesSuccess,
-  getWeeklyStatsSuccess,
+  getWeeklyStatsSuccess, getWeeklyStats,
 } from './actions';
 
 import { updateCategoryError } from '@components/categories/actions';
@@ -87,6 +87,7 @@ export function* onCreateSpending(payload) {
     const dateRange = yield select(state => state.dateRangeReducer.dateRange);
     yield put(getSpendings(payload.spending.userID, dateRange));
     yield put(getCategories());
+    yield put(getWeeklyStats(startOfMonth(dateRange.from)));
   } catch (err) {
     console.log('error while creating spending', err);
   }
@@ -102,6 +103,7 @@ export function* onUpdateSpending(payload) {
     displayPopup({ text: intl.formatMessage({ ...messages.updateSuccess }) });
     const dateRange = yield select(state => state.dateRangeReducer.dateRange);
     yield put(getSpendings(userID, dateRange));
+    yield put(getWeeklyStats(startOfMonth(dateRange.from)));
   } catch (err) {
     console.log(err);
   }
@@ -116,6 +118,7 @@ export function* onDeleteSpending(payload) {
     const userID = yield select(state => state.loginReducer.user.id);
     const dateRange = yield select(state => state.dateRangeReducer.dateRange);
     yield put(getSpendings(userID, dateRange));
+    yield put(getWeeklyStats(startOfMonth(dateRange.from)));
   } catch (err) {
     console.log(`error while deleting spending :${err}`);
   }
