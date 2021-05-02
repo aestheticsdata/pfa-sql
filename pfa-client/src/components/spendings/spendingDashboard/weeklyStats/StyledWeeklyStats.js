@@ -36,7 +36,7 @@ const StyledWeeklyStats = styled.div`
     .ceiling {
       text-transform: uppercase;
       font-size: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     .week-slices-container {

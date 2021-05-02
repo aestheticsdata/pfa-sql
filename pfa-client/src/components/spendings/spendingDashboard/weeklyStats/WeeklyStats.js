@@ -3,24 +3,31 @@ import {
   FormattedNumber,
 } from "react-intl";
 import messages from "@components/spendings/messages";
+
 import StyledWeeklyStats from "@components/spendings/spendingDashboard/weeklyStats/StyledWeeklyStats";
+
 import { useSelector } from "react-redux";
+
 import localesDates from "@src/i18n/locales-dates";
+
 import Cookie from "js-cookie";
-import getMonth from "date-fns/getMonth";
-import getYear from "date-fns/getYear";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLongArrowAltDown,
   faLongArrowAltUp,
 } from "@fortawesome/free-solid-svg-icons";
+
 import getDay from "date-fns/getDay";
+import getMonth from "date-fns/getMonth";
+import getYear from "date-fns/getYear";
 import getDaysInMonth from "date-fns/getDaysInMonth";
 import startOfMonth from "date-fns/startOfMonth";
 import getDate from "date-fns/getDate";
+
 import { ReactComponent as Spinner } from "@src/assets/Wedges-3s-200px.svg";
 
-import {v1 as uuidv1} from 'uuid';
+import { v1 as uuidv1 } from 'uuid';
 
 
 const makeRange = (dateRange) => {
@@ -56,7 +63,13 @@ const makeSlices = ranges => {
   return slices;
 }
 
-const isCurrentWeek = (slice, dateRange) => +(slice.split(' - ')[0]) === getDate(dateRange.from);
+const isCurrentWeek = (slice, dateRange) => {
+  return typeof slice === 'string' ?
+    +(slice.split(' - ')[0]) === getDate(dateRange.from)
+    :
+    +(slice) === getDate(dateRange.from);
+}
+
 
 
 const WeeklyStats = () => {

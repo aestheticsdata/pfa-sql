@@ -3,7 +3,6 @@ import {
   Days,
   HoverRange
 } from "@components/datePickerWrapper/types";
-import queryString from "query-string";
 import formatISO from "date-fns/formatISO";
 import { history } from "@src/history";
 import { getWeekDays, getWeekRange } from "@components/datePickerWrapper/helpers";
@@ -26,11 +25,9 @@ const useDatePickerState = () => {
   }
 
   const handleDayChange = (date: Date) => {
-    const currentDate = queryString.parse(window.location.search).currentDate;
     const dateISO = formatISO(date, { representation: 'date' });
 
-    !currentDate && history.push('?currentDate=' + dateISO);
-    currentDate && history.push('?currentDate=' + dateISO);
+    history.push('?currentDate=' + dateISO);
 
     const weekRange = getWeekRange(date);
     const dateRange = getWeekDays(weekRange.from, date);
