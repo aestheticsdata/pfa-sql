@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
 
   try {
     const recurringsFromPreviousMonth = await prisma.$queryRaw(`
-        SELECT label, amount, itemType, currency, userID
+        SELECT label, amount, itemType, currency, userID, invoicefile
         FROM Recurrings
         WHERE dateFrom = '${previousMonthStart}'
           AND userID = '${req.body.userID}';

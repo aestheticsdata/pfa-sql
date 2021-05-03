@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     path: filepath,
     filename,
   } = req.file;
-
+console.log('req.body', req.body);
   sharp.cache(false);
 
   try {
@@ -40,12 +40,22 @@ module.exports = async (req, res) => {
 
     // save filename to db
     const resizedFilename = filename.slice(0, filename.search(/\./)) + '-r.' + fileExtension;
-    await prisma[req.body.itemType + 's'].update({
-      where: { ID: req.body.spendingID },
-      data: {
-        invoicefile: resizedFilename,
-      },
-    });
+    if (req.body.itemType === 'spending') {
+      await prisma.spendings.update({
+        where: { ID: req.body.spendingID },
+        data: {
+          invoicefile: resizedFilename,
+        },
+      });
+    }
+    if (req.body.itemType === 'recurring') {
+      await prisma.recurrings.updateMany({
+        where: { label: req.body.label},
+        data: {
+          invoicefile: resizedFilename,
+        },
+      })
+    }
 
     const [invoiceImageString, contentType] = await getImage(resizedFilename, req.body.userID);
     res.setHeader('content-type', contentType);

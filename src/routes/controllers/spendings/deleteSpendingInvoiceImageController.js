@@ -8,21 +8,28 @@ module.exports = async (req, res) => {
     ID: spendingID,
     itemType,
     userID,
+    invoicefile,
   } = req.body;
 
   try {
-    const spendingRecurring = await prisma[itemType + 's'].findFirst({
-      where: { ID: spendingID }
-    });
+    await unlink(uploadPath + userID + '/' + invoicefile);
 
-    await unlink(uploadPath + userID + '/' + spendingRecurring.invoicefile);
+    if (itemType === 'spending') {
+      await prisma['spendings'].update({
+        where: { ID: spendingID },
+        data: {
+          invoicefile: null,
+        },
+      });
+    }
 
-    await prisma[itemType + 's'].update({
-      where: { ID: spendingID },
-      data: {
-        invoicefile: null,
-      },
-    });
+    if (itemType === 'recurring') {
+      await prisma.$queryRaw(`
+        UPDATE Recurrings
+        SET invoicefile = NULL
+        WHERE invoicefile = '${invoicefile}';
+    `);
+    }
 
     res.status(200).json({ msg: 'INVOICE_IMAGE_DELETED'});
   } catch (e) {
