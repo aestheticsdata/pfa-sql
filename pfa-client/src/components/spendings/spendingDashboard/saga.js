@@ -1,13 +1,18 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 import { privateRequest } from '@helpers/requestHelper';
 import startOfMonth from 'date-fns/startOfMonth';
 
 import {
   GET_INITIAL_AMOUNT,
-  SET_INITIAL_AMOUNT, UPDATE_INITIAL_AMOUNT,
+  SET_INITIAL_AMOUNT,
+  SET_INITIAL_CEILING,
+  UPDATE_INITIAL_AMOUNT,
 } from './constants';
 
-import { getInitialAmountSuccess } from './actions';
+import {
+  getInitialAmountSuccess,
+  setInitialCeilingSuccess,
+} from './actions';
 import { displayPopup } from '@helpers/swalHelper';
 import { intl } from '@src/index';
 import messages from '../messages';
@@ -58,9 +63,27 @@ function* onUpdateInitialAmount(payload) {
   }
 }
 
+function* onSetInitialCeiling(payload) {
+  try {
+    const res = yield call(privateRequest,  `/dashboard/${payload.dashboardID}`, {
+      method: 'PUT',
+      data: {
+        userID: payload.userID,
+        ceiling: payload.ceiling,
+        ...payload.month,
+      }
+    });
+    displayPopup({ text: intl.formatMessage({ ...messages.initialCeilingSetSuccess }) });
+    yield put(setInitialCeilingSuccess(res.data));
+  } catch (e) {
+
+  }
+}
+
 export default function* defaultSaga() {
   yield takeLatest(GET_INITIAL_AMOUNT, onGetInitialAmout);
   yield takeLatest(SET_INITIAL_AMOUNT, onSetInitialAmount);
   yield takeLatest(UPDATE_INITIAL_AMOUNT, onUpdateInitialAmount);
+  yield takeLatest(SET_INITIAL_CEILING, onSetInitialCeiling);
 }
 

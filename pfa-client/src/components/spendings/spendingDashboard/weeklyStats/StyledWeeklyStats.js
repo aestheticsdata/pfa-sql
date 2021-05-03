@@ -34,9 +34,55 @@ const StyledWeeklyStats = styled.div`
     margin: 20px auto 20px auto;
 
     .ceiling {
+      display: flex;
       text-transform: uppercase;
       font-size: 12px;
       margin-bottom: 10px;
+      cursor: default;
+      user-select: none;
+      .label {
+        margin-top: 1px;
+      }
+      .ceiling-input {
+        margin-left: 5px;
+        color: ${colors.initialAmount};
+        font-weight: 700;
+        padding: 1px;
+        &.on {
+          cursor: pointer;
+          &:hover {
+            background-color: ${colors.initialAmountHover};
+          }
+        }
+      }
+      input {
+        // hack to remove in Chrome, input colors
+        // https://webagility.com/posts/the-ultimate-list-of-hacks-for-chromes-forced-yellow-background-on-autocompleted-inputs
+        // https://stackoverflow.com/questions/34551637/css-webkit-transition-not-working-on-input-type
+        // https://github.com/styled-components/styled-components/issues/492
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+          -webkit-transition-delay: 9999s;
+        }
+        // ////////////////////////////////////////
+        position: relative;
+        top: -2px;
+        color: ${colors.initialAmount};
+        font-size: 12px;
+        font-weight: 700;
+        width: 60px;
+        text-align: center;
+        background-color: transparent;
+        border-bottom: 1px solid ${colors.formsGlobalColor};
+        outline: none;
+        &:focus {
+          outline: none;
+          border-bottom: 1px solid ${colors.formsGlobalColor};
+          transition: all .2s ease;
+        }
+      }
     }
 
     .week-slices-container {
@@ -56,21 +102,35 @@ const StyledWeeklyStats = styled.div`
       }
 
       .arrow {
-        width: 20px;
+        width: 10px;
         font-size: 13px;
+        margin-right: 5px;
 
         &.up {
-          color: ${colors.generalWarning};
+          border-bottom: 1px solid ${colors.ceilingWarn};
+          color: ${colors.ceilingWarn};
+          &.excess {
+            color: ${colors.ceilingExcess}
+          }
         }
 
         &.down {
-          color: ${colors.generalOK};
+          border-top: 1px solid ${colors.ceilingOK};
+          color: ${colors.ceilingOK};
         }
       }
       
       .exceeding-amount {
         font-size: 12px;
-        color: ${colors.generalWarning};
+        color: ${colors.ceilingWarn};
+        &.excess {
+          color: ${colors.ceilingExcess};
+        }
+      }
+      .remaining-amount {
+        font-size: 12px;
+        color: ${colors.generalOK};
+        margin-left: 5px;
       }
 
       .current-week {

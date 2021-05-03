@@ -3,7 +3,6 @@ const getImage = require('./helpers/getImage');
 
 module.exports = async (req, res) => {
   try {
-    console.log('req.params', req.params);
     const { id: spendingID } = req.params;
     const { userID } = req.query;
 

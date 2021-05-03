@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
     })
     res.json({ success: true });
   } catch (e) {
-    console.log('err deleteing categories : ', e);
+    console.log('err deleting categories : ', e);
     res.status(500).json(e);
   }
 };

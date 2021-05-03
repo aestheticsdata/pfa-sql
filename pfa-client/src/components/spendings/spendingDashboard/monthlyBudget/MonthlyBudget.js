@@ -5,6 +5,7 @@ import {
   FormattedMessage,
   FormattedNumber,
 } from 'react-intl';
+import messages from '@components/spendings/messages';
 
 import {
   Formik,
@@ -13,7 +14,6 @@ import {
 } from 'formik';
 
 import StyledMonthlyBudget from './StyledMonthlyBudget';
-import messages from '@components/spendings/messages';
 
 import localesDates from '@src/i18n/locales-dates';
 
@@ -34,9 +34,7 @@ import Cookie from 'js-cookie';
 
 const MonthlyBudget = () => {
   const [isInputVisible, setIsInputVisible] = useState(false);
-
   const dispatch = useDispatch();
-
   const user = useSelector(state => state.loginReducer.user);
   const dateRange = useSelector(state => state.dateRangeReducer.dateRange);
   const initialAmount = useSelector(state => state.dashboardReducer.initialAmount);
@@ -107,7 +105,7 @@ const MonthlyBudget = () => {
               initialValues={{ initialAmount }}
               onSubmit={onSubmit}
             >
-              {({ isSubmitting, errors }) => (
+              {({ errors }) => (
                 <Form
                   onBlur={() => setIsInputVisible(false)}
                 >

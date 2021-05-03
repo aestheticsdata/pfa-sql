@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     path: filepath,
     filename,
   } = req.file;
-console.log('req.body', req.body);
+
   sharp.cache(false);
 
   try {

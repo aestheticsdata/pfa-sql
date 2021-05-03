@@ -15,11 +15,12 @@ model Categories {
 }
 
 model Dashboards {
-  ID            String   @id @db.Char(36)
-  dateFrom      DateTime @db.Date
-  dateTo        DateTime @db.Date
-  initialAmount Decimal  @db.Decimal(6, 2)
-  userID        String   @db.Char(36)
+  ID             String   @id @db.Char(36)
+  dateFrom       DateTime @db.Date
+  dateTo         DateTime @db.Date
+  initialAmount  Decimal  @db.Decimal(6, 2)
+  userID         String   @db.Char(36)
+  initialCeiling Decimal? @db.Decimal(6, 2)
 }
 
 model Recurrings {

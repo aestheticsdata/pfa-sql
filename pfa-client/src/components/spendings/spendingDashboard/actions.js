@@ -3,6 +3,9 @@ import {
   GET_INITIAL_AMOUNT_SUCCESS,
   SET_INITIAL_AMOUNT,
   UPDATE_INITIAL_AMOUNT,
+  SET_INITIAL_CEILING,
+  UPDATE_INITIAL_CEILING,
+  SET_INITIAL_CEILING_SUCCESS,
 } from './constants';
 
 export const getInitialAmount = (start, fromAsWeekStart, toAsWeekEnd) => {
@@ -14,10 +17,10 @@ export const getInitialAmount = (start, fromAsWeekStart, toAsWeekEnd) => {
   }
 };
 
-export const getInitialAmountSuccess = (initialAmount, monthlyBudget) => {
+export const getInitialAmountSuccess = (data, monthlyBudget) => {
   return {
     type: GET_INITIAL_AMOUNT_SUCCESS,
-    initialAmount,
+    data,
     monthlyBudget,
   };
 };
@@ -37,5 +40,22 @@ export const updateInitialAmount = (dashboardID, userID, amount) => {
     userID,
     dashboardID,
     amount,
+  };
+};
+
+export const setInitialCeiling = (dashboardID, userID, ceiling, month) => {
+  return {
+    type: SET_INITIAL_CEILING,
+    userID,
+    dashboardID,
+    ceiling,
+    month,
+  };
+};
+
+export const setInitialCeilingSuccess = (data) => {
+  return {
+    type: SET_INITIAL_CEILING_SUCCESS,
+    data,
   };
 };

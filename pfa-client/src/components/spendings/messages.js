@@ -55,6 +55,14 @@ export default defineMessages({
     id: `${scope}.recurrings`,
     defaultMessage: 'Recurrings',
   },
+  initialCeilingSetSuccess: {
+    id: `${scope}.initialCeilingSetSuccess`,
+    defaultMessage: 'Initial ceiling set',
+  },
+  initialCeiling: {
+    id: `${scope}.initialCeiling`,
+    defaultMessage: 'Ceiling',
+  },
   initialAmountSetSuccess: {
     id: `${scope}.initialAmountSetSuccess`,
     defaultMessage: 'Initial amount set',

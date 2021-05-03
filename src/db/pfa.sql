@@ -72,5 +72,6 @@ insert into Recurrings (ID, userID, dateFrom, dateTo, itemType, label, amount, c
 
 
 ALTER TABLE `Dashboards` ADD COLUMN `userID` char(36) collate utf8mb4_bin not null;
+ALTER TABLE `Dashboards` ADD COLUMN `initialCeiling` DECIMAL(6,2);
 
-INSERT INTO Dashboards (ID, userID, dateFrom, dateTo, initialAmount) VALUES ('845fab23-ccbe-49d9-a294-9f73bbabcaa6', '9bdcf470-8b22-11eb-885b-db61ad93209d', '2021-03-01', '2021-03-31', 3150);
+INSERT INTO Dashboards (ID, userID, dateFrom, dateTo, initialAmount, initialCeiling) VALUES ('845fab23-ccbe-49d9-a294-9f73bbabcaa6', '9bdcf470-8b22-11eb-885b-db61ad93209d', '2021-03-01', '2021-03-31', 3150, 170);

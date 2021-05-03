@@ -23,6 +23,7 @@ module.exports = async (req, res) => {
       });
     }
 
+    // could have used updateMany instead of raw query
     if (itemType === 'recurring') {
       await prisma.$queryRaw(`
         UPDATE Recurrings

@@ -40,6 +40,8 @@
   "app.components.Spendings.recurrings": "Dépenses fixes",
   "app.components.Spendings.initialAmountSetSuccess": "Montant initial enregistré",
   "app.components.Spendings.initialAmount": "Montant initial",
+  "app.components.Spendings.initialCeilingSetSuccess": "Plafond initial enregistré",
+  "app.components.Spendings.initialCeiling": "Plafond",
   "app.components.Spendings.remaining": "Restant",
   "app.components.Spendings.totalSpendingsOfMonth": "Total du mois",
   "app.components.Spendings.copyRecurringsFromLastMonth": "copier mois précédent",
