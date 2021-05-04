@@ -155,6 +155,7 @@ const WeeklyStats = () => {
                       type="text"
                       name="initialCeiling"
                       placeholder="initialCeiling"
+                      onKeyDown={e => {e.keyCode === 27 && setIsInputVisible(false)}}
                       innerRef={(el) => getField(el)}
                     />
                   </Form>
