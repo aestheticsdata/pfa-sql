@@ -3,7 +3,7 @@ const prisma = require('../../../db/dbInit');
 
 module.exports = async (req, res) => {
   try {
-    const spending = await prisma.spengins.findUnique({
+    const spending = await prisma.spendings.findUnique({
       where: {
         spendingID: req.params.id,
         userID: req.params.userID,
