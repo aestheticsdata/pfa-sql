@@ -1,10 +1,12 @@
 const prisma = require('../../../db/dbInit');
-const { format } = require('date-fns');
+const dateFormatter = require('./helpers/dateFormatter');
 
 module.exports = async (req, res) => {
-  const dateFormat = 'yyyy-MM-dd';
-  const from = format(new Date(req.query.from), dateFormat);
-  const to = format(new Date(req.query.to), dateFormat);
+  const {
+    from,
+    to,
+  } = dateFormatter(req);
+
   try {
     const chartsStats = await prisma.$queryRaw(`
       SELECT amount as value, name as label, color as bgcolor

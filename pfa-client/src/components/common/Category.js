@@ -1,4 +1,4 @@
-import adjustFontColor from "@components/spendings/spendingDayItem/spendingItem/helpers/adjustFontColor";
+import adjustFontColor from "@components/common/helpers/adjustFontColor";
 
 const getCategoryComponent = (item) => {
   return (
