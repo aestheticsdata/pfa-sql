@@ -1,9 +1,12 @@
 import StyledCharts from "@components/spendings/spendingDashboard/charts/StyledCharts";
 import StyledCategoryBar from './StyledCategoryBar';
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 import { privateRequest } from "@helpers/requestHelper";
 import { useSelector } from "react-redux";
-import adjustFontColor from "@components/common/helpers/adjustFontColor";
+import Tooltip from "@components/spendings/spendingDashboard/charts/Tooltip";
 
 
 const getMaxValue = data => Math.max(...data.map(category => +category.value));
@@ -17,7 +20,7 @@ const Charts = () => {
   const [maxv, setMaxv] = useState(0);
   const [total, setTotal] = useState(0);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const [categoryLabel, setCategoryLabel] = useState('');
+  const [categoryInfos, setCategoryInfos] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({x: 0, y: 0});
   const [weeklyCharts, setWeeklyCharts] = useState([]);
   const user = useSelector(state => state.loginReducer.user);
@@ -33,13 +36,14 @@ const Charts = () => {
   }
 
   useEffect(() => {
+    setMaxv(0);
     getCharts();
   }, [dateRange]);
 
   useEffect(() => {
     setMaxv(getMaxValue(weeklyCharts));
     setTotal(getTotal(weeklyCharts));
-  }, [weeklyCharts])
+  }, [weeklyCharts]);
 
   const getWidth = value => {
     let width;
@@ -53,7 +57,7 @@ const Charts = () => {
   }
 
   return (
-    <StyledCharts tooltipPos={tooltipPos}>
+    <StyledCharts tooltipPos={tooltipPos} >
       <div className="header">amount by categories</div>
       <div className="stats-container">
         {
@@ -74,28 +78,24 @@ const Charts = () => {
                       onMouseLeave={() => setIsTooltipVisible(false)}
                       onMouseMove={e => {
                         setTooltipPos({x: e.clientX, y: e.clientY});
-                        setCategoryLabel(category.label ?? 'uncategorized');
+                        setCategoryInfos(category);
                       }}
-                    >
-                      <span>{category.value}</span>
-                    </div>
+                    />
                   </StyledCategoryBar>
-                  <div className="percent-value">{Number((category.value / total) * 100).toFixed(1)}%</div>
+                  <div className="percent-value">
+                    {Number((category.value / total) * 100).toFixed(1)}%
+                  </div>
                 </div>
               )
             })
         }
         {
-          isTooltipVisible && (
-            <div
-              className="tooltip"
-              style={{
-                left: tooltipPos.x + 20 + 'px',
-                top: tooltipPos.y - 50 + 'px',
-              }}
-            >
-              {categoryLabel}
-            </div>
+          isTooltipVisible && categoryInfos && (
+           <Tooltip
+             tooltipPos={tooltipPos}
+             categoryInfos={categoryInfos}
+             currency={user.baseCurrency}
+           />
           )
         }
       </div>

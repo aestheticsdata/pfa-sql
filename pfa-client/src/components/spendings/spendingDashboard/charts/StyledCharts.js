@@ -14,7 +14,7 @@ const StyledCharts = styled.div`
   .stats-container {
     height: 232px;
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     
     .bar-container {
       display: flex;
@@ -22,17 +22,10 @@ const StyledCharts = styled.div`
       height: 20px;
       .percent-value {
         font-size: 10px;
+        font-weight: 600;
         margin-left: 4px;
         line-height: 1.9;
       }
-    }
-    
-    .tooltip {
-      position: absolute;
-      background-color: ${colors.grey1};
-      border-radius: 3px;
-      padding: 3px;
-      font-size: 11px;
     }
   }
 `;

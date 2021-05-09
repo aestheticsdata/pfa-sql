@@ -37,6 +37,7 @@ const colors = {
   invoiceImageIsPresent: 'rgba(215, 3, 62, 1)',
   invoiceImageIsPresentHover: 'rgb(108,1,28)',
   invoiceFileModalBackground: 'rgba(110, 110, 110, .85)',
+  tooltipChartsBackground: 'rgba(29, 29, 29, 0.9)',
 };
 
 export default colors;
