@@ -10,9 +10,7 @@ import {
   UPDATE_SPENDING,
   DELETE_SPENDING,
   GET_SPENDINGS,
-  GET_SPENDINGS_SUCCESS,
   GET_RECURRING,
-  GET_RECURRING_SUCCESS,
   GET_USERS,
   CREATE_RECURRING,
   UPDATE_RECURRING,
@@ -43,6 +41,11 @@ import { displayPopup } from '@helpers/swalHelper';
 import { intl } from '../../index';
 import messages from './messages';
 
+
+function* getDashboardAmount() {
+  const from = yield select(state => state.dateRangeReducer.dateRange.from);
+  yield put(getInitialAmount(null, from));
+}
 
 export function* onGetUser() {
   try {
@@ -88,6 +91,7 @@ export function* onCreateSpending(payload) {
     yield put(getSpendings(payload.spending.userID, dateRange));
     yield put(getCategories());
     yield put(getWeeklyStats(startOfMonth(dateRange.from)));
+    yield getDashboardAmount();
   } catch (err) {
     console.log('error while creating spending', err);
   }
@@ -104,6 +108,7 @@ export function* onUpdateSpending(payload) {
     const dateRange = yield select(state => state.dateRangeReducer.dateRange);
     yield put(getSpendings(userID, dateRange));
     yield put(getWeeklyStats(startOfMonth(dateRange.from)));
+    yield getDashboardAmount();
   } catch (err) {
     console.log(err);
   }
@@ -119,6 +124,7 @@ export function* onDeleteSpending(payload) {
     const dateRange = yield select(state => state.dateRangeReducer.dateRange);
     yield put(getSpendings(userID, dateRange));
     yield put(getWeeklyStats(startOfMonth(dateRange.from)));
+    yield getDashboardAmount();
   } catch (err) {
     console.log(`error while deleting spending :${err}`);
   }
@@ -172,6 +178,7 @@ export function* onCreateRecurring(payload) {
 
     const start = yield select(state => state.dateRangeReducer.dateRange.from);
     yield put(getRecurring(startOfMonth(start)));
+    yield getDashboardAmount();
   } catch (err) {
     console.log('error while creating recurring', err);
   }
@@ -187,6 +194,7 @@ export function* onUpdateRecurring(payload) {
 
     const start = yield select(state => state.dateRangeReducer.dateRange.from);
     yield put(getRecurring(startOfMonth(start)));
+    yield getDashboardAmount();
   } catch (err) {
     console.log(err);
   }
@@ -201,26 +209,9 @@ export function* onDeleteRecurring(payload) {
 
     const start = yield select(state => state.dateRangeReducer.dateRange.from);
     yield put(getRecurring(startOfMonth(start)));
+    yield getDashboardAmount();
   } catch (err) {
     console.log(`error while deleting recurring :${err}`);
-  }
-}
-
-export function* onGetSpendingSuccess() {
-  try {
-    const from = yield select(state => state.dateRangeReducer.dateRange.from);
-    yield put(getInitialAmount(null, from));
-  } catch (err) {
-    console.log('err : ', err);
-  }
-}
-
-export function* onGetRecurringSuccess() {
-  try {
-    const from = yield select(state => state.dateRangeReducer.dateRange.from);
-    yield put(getInitialAmount(startOfMonth(from), from));
-  } catch (err) {
-    console.log('err : ', err);
   }
 }
 
@@ -239,6 +230,7 @@ export function* onCopyRecurring(payload) {
     });
     const start = yield select(state => state.dateRangeReducer.dateRange.from);
     yield put(getRecurring(startOfMonth(start)));
+    yield getDashboardAmount();
   } catch (err) {
     console.log('err : ', err);
   }
@@ -256,8 +248,6 @@ export default function* defaultSaga() {
   yield takeLatest(DELETE_RECURRING, onDeleteRecurring);
   yield takeLatest(CREATE_RECURRING, onCreateRecurring);
   yield takeLatest(UPDATE_RECURRING, onUpdateRecurring);
-  yield takeLatest(GET_SPENDINGS_SUCCESS, onGetSpendingSuccess);
-  yield takeLatest(GET_RECURRING_SUCCESS, onGetRecurringSuccess);
   yield takeLatest(COPY_RECURRING, onCopyRecurring);
   yield takeLatest(GET_WEEKLY_STATS, onGetWeeklyStats);
 }

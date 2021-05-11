@@ -24,30 +24,7 @@ const SpendingDashboard = ({
         />
       </div>
       <div className="charts">
-        <Charts
-          data={[
-            {
-              label: 'alimentation',
-              value: '120',
-              bgcolor: "rgb(200, 30, 188)",
-            },
-            {
-              label: 'loisirs',
-              value: '50',
-              bgcolor: "rgb(30,166,200)",
-            },
-            {
-              label: 'foo',
-              value: '80',
-              bgcolor: "rgb(141,200,30)",
-            },
-            {
-              label: 'xyz',
-              value: '70',
-              bgcolor: "rgb(200,109,30)",
-            },
-          ]}
-        />
+        <Charts />
       </div>
       <div className="recurring-spendings-container">
         <SpendingDayItem

@@ -67,14 +67,10 @@ const MonthlyBudget = () => {
   };
 
   useEffect(() => {
-    if (user.id && dateRange.from) {
+    // if (user.id && dateRange.from) {
       // needed when coming from login but causes a 404 with componentDidUpadte. Is it still relevant with useEffect ?
-      getInitialAmount();
-    }
-  }, []);
-
-  useEffect(() => {
     getInitialAmount();
+    // }
   }, [dateRange]);
 
   return (
