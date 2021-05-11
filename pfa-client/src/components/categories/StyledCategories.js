@@ -6,7 +6,12 @@ const StyledCategories = styled.div`
   .category-container {
     position: relative;
     width: 360px;
-    background-color: ${colors.grey0};
+    background-color: ${colors.grey4};
+    background-image: linear-gradient(
+      35deg,
+      hsla(0, 0%, 100%, 0.1),
+      hsla(0, 0%, 100%, 0.5)
+    );
     margin: 10px;
     height: 33px;
     border-radius: 4px;

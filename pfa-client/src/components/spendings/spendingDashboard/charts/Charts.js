@@ -7,6 +7,11 @@ import {
 import { privateRequest } from "@helpers/requestHelper";
 import { useSelector } from "react-redux";
 import Tooltip from "@components/spendings/spendingDashboard/charts/Tooltip";
+import messages from "@components/spendings/messages";
+import { FormattedMessage } from "react-intl";
+import { getFormattedDate } from "@components/datePickerWrapper/helpers";
+import { getLang } from "@helpers/lang";
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
 const getMaxValue = data => Math.max(...data.map(category => +category.value));
@@ -25,6 +30,7 @@ const Charts = () => {
   const [weeklyCharts, setWeeklyCharts] = useState([]);
   const user = useSelector(state => state.loginReducer.user);
   const dateRange = useSelector(state => state.dateRangeReducer.dateRange);
+  const spendingsIsLoading = useSelector(state => state.spendingsReducer.isLoading);
 
   const getCharts = async () => {
     try {
@@ -36,9 +42,11 @@ const Charts = () => {
   }
 
   useEffect(() => {
-    setMaxv(0);
-    getCharts();
-  }, [dateRange]);
+    if (spendingsIsLoading === false) {
+      setMaxv(0);
+      getCharts();
+    }
+  }, [spendingsIsLoading]);
 
   useEffect(() => {
     setMaxv(getMaxValue(weeklyCharts));
@@ -58,37 +66,49 @@ const Charts = () => {
 
   return (
     <StyledCharts tooltipPos={tooltipPos} >
-      <div className="header">amount by categories</div>
+      <div className="header">
+        <div className="title">
+          <FormattedMessage {...messages.amountByCategoriesChartsTitle}/>
+        </div>
+        <div className={"date"}>
+          {getFormattedDate(new Date(dateRange.from), getLang())} -{' '}
+          {getFormattedDate(new Date(dateRange.to), getLang())}
+        </div>
+      </div>
       <div className="stats-container">
+        <TransitionGroup>
         {
           maxv !== 0 &&
             weeklyCharts.map(category => {
               return (
-                <div
-                  className="bar-container"
-                  key={category.label}
-                >
-                  <StyledCategoryBar
-                    bgcolor={category.bgcolor}
-                    width={getWidth(category.value)}
+                <CSSTransition key={category.label + '-csstransition'} timeout={300} classNames="transition-bar">
+                  <div
+                    className="bar-container"
+                    key={category.label}
                   >
-                    <div
-                      className="bar"
-                      onMouseEnter={() => setIsTooltipVisible(true)}
-                      onMouseLeave={() => setIsTooltipVisible(false)}
-                      onMouseMove={e => {
-                        setTooltipPos({x: e.clientX, y: e.clientY});
-                        setCategoryInfos(category);
-                      }}
-                    />
-                  </StyledCategoryBar>
-                  <div className="percent-value">
-                    {Number((category.value / total) * 100).toFixed(1)}%
+                    <StyledCategoryBar bgcolor={category.bgcolor} >
+                      <div
+                        className="bar"
+                        style={{
+                          width: getWidth(category.value)
+                        }}
+                        onMouseEnter={() => setIsTooltipVisible(true)}
+                        onMouseLeave={() => setIsTooltipVisible(false)}
+                        onMouseMove={e => {
+                          setTooltipPos({x: e.clientX, y: e.clientY});
+                          setCategoryInfos(category);
+                        }}
+                      />
+                    </StyledCategoryBar>
+                    <div className="percent-value">
+                      {Number((category.value / total) * 100).toFixed(1)}%
+                    </div>
                   </div>
-                </div>
+                </CSSTransition>
               )
             })
         }
+        </TransitionGroup>
         {
           isTooltipVisible && categoryInfos && (
            <Tooltip

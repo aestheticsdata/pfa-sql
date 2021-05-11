@@ -53,6 +53,8 @@
   "app.components.Spendings.chooseFile": "choose a file",
   "app.components.Spendings.totalsByDayRange": "TOTALS BY DAY RANGE",
   "app.components.Spendings.ceiling": "Weekly ceiling :",
+  "app.components.Spendings.uncategorized": "uncategorized",
+  "app.components.Spendings.amountByCategoriesChartsTitle": "Amount by categories",
 
   "app.components.SpendingsSort.SORT_BY_LABEL": "Label",
   "app.components.SpendingsSort.SORT_BY_CATEGORY": "Category",

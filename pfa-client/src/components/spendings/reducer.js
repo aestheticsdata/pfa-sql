@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 
 
 import {
+  GET_SPENDINGS,
   GET_SPENDINGS_SUCCESS,
   GET_RECURRING_SUCCESS,
   GET_CATEGORIES_SUCCESS,
@@ -99,6 +100,9 @@ const setInvoicefile = (state, spendingOrRecurring, status) => {
 const spendingsReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
+      case GET_SPENDINGS:
+        draft.isLoading = true;
+        break;
       case GET_SPENDINGS_SUCCESS:
         draft.isLoading = false;
         draft.spendings = aggregateSpendingByDate(action.spendings, action.dateRange);

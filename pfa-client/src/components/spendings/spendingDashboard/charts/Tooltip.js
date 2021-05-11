@@ -1,8 +1,11 @@
 import { FormattedNumber } from "react-intl";
-import adjustFontColor from "@components/common/helpers/adjustFontColor";
 import StyledChartTooltip from "@components/spendings/spendingDashboard/charts/StyledChartTooltip";
+import { useIntl } from 'react-intl';
+import messages from "@components/spendings/messages";
 
 const Tooltip = ({ tooltipPos, categoryInfos, currency }) => {
+  const intl = useIntl();
+
   return (
     <StyledChartTooltip
       tooltipPos={tooltipPos}
@@ -23,9 +26,13 @@ const Tooltip = ({ tooltipPos, categoryInfos, currency }) => {
           )
         }
       </div>
-      <div className="tooltip-label">
-        {categoryInfos?.label ?? 'uncatgeorized'}
-      </div>
+      {
+        categoryInfos && (
+          <div className="tooltip-category-label">
+            {categoryInfos?.label ?? intl.formatMessage({ ...messages.uncategorized })}
+          </div>
+        )
+      }
     </StyledChartTooltip>
   )
 };

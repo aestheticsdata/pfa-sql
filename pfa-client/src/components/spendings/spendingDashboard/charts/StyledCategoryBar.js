@@ -2,8 +2,15 @@ import styled from 'styled-components';
 
 const StyledCategoryBar = styled.div`
   background-color: ${props => props.bgcolor || '#fff'};
-  transition: width 1s ease-in-out;
-  width: ${props => props.width + 'px'};
+  ${props => props.bgcolor === null && `
+    background: repeating-linear-gradient(
+      135deg,
+      white,
+      white 10px,
+      #eee 10px,
+      #eee 11px
+    );
+  `}
   .bar {
     height: 100%;
     span {

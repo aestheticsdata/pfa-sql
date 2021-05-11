@@ -114,5 +114,13 @@ export default defineMessages({
   ceiling: {
     id: `${scope}.ceiling`,
     defaultMessage: 'Weekly ceiling :',
+  },
+  uncategorized: {
+    id: `${scope}.uncategorized`,
+    defaultMessage: 'uncategorized',
+  },
+  amountByCategoriesChartsTitle: {
+    id: `${scope}.amountByCategoriesChartsTitle`,
+    defaultMessage: 'Amount by categories',
   }
 });

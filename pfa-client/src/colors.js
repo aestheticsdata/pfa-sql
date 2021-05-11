@@ -4,6 +4,7 @@ const colors = {
   grey1: 'rgb(161,161,161)',
   grey2: 'rgb(110, 110, 110)',
   grey3: 'rgb(60, 60, 60)',
+  grey4: 'rgb(40, 40, 40)',
   formsGlobalColor: 'rgb(73,73,73)',
   formsGlobalColorHover: 'rgb(12,12,12)',
   blueNavy: 'rgb(59, 71, 85)',

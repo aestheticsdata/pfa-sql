@@ -53,6 +53,8 @@
   "app.components.Spendings.chooseFile": "sélectionnez un fichier",
   "app.components.Spendings.totalsByDayRange": "TOTAUX PAR PERIODE",
   "app.components.Spendings.ceiling": "Plafond hebdomadaire :",
+  "app.components.Spendings.uncategorized": "sans catégorie",
+  "app.components.Spendings.amountByCategoriesChartsTitle": "Montant par categories",
 
   "app.components.SpendingsSort.SORT_BY_LABEL": "Intitulé",
   "app.components.SpendingsSort.SORT_BY_CATEGORY": "Catégorie",
