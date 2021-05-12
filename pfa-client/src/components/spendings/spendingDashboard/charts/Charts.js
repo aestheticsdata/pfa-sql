@@ -12,6 +12,8 @@ import { FormattedMessage } from "react-intl";
 import { getFormattedDate } from "@components/datePickerWrapper/helpers";
 import { getLang } from "@helpers/lang";
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartBar } from "@fortawesome/free-solid-svg-icons";
 
 
 const getMaxValue = data => Math.max(...data.map(category => +category.value));
@@ -76,6 +78,13 @@ const Charts = () => {
         </div>
       </div>
       <div className="stats-container">
+        {
+          weeklyCharts.length === 0 && (
+            <div className="charts-icon">
+              <FontAwesomeIcon icon={faChartBar} />
+            </div>
+          )
+        }
         <TransitionGroup>
         {
           maxv !== 0 &&

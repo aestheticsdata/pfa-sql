@@ -29,6 +29,14 @@ const StyledCharts = styled.div`
     height: 185px;
     overflow: hidden;
     overflow-y: auto;
+    
+    .charts-icon {
+      display: flex;
+      justify-content: center;
+      font-size: 90px;
+      color: ${colors.grey01};
+      margin-top: 40px;
+    }
 
     .transition-bar-enter {
       opacity: 0.01;
