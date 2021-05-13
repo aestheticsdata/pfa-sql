@@ -6,7 +6,7 @@ const uploadMiddleware = require('./helpers/customMulter');
 const getSpendingsController = require('../controllers/spendings/getSpendingsController');
 const getSpendingController = require('../controllers/spendings/getSpendingController');
 const getSpendingInvoiceImageController = require('../controllers/spendings/getSpendingInvoiceImageController');
-const getSpendingsWeeklyChartsController = require('../controllers/spendings/getSpendingsWeeklyChartsController');
+const getSpendingsChartsController = require('../controllers/spendings/getSpendingsChartsController');
 const postSpendingController = require('../controllers/spendings/postSpendingController');
 const postSpendingInvoiceUploadController = require('../controllers/spendings/postSpendingInvoiceUploadController');
 const deleteSpendingInvoiceImageController = require('../controllers/spendings/deleteSpendingInvoiceImageController');
@@ -14,7 +14,7 @@ const updateSpendingController = require('../controllers/spendings/updateSpendin
 const deleteSpendingController = require('../controllers/spendings/deleteSpendingController');
 
 router.get('/', checkToken, getSpendingsController);
-router.get('/weeklyCharts', checkToken, getSpendingsWeeklyChartsController);
+router.get('/charts', checkToken, getSpendingsChartsController);
 router.get('/upload/:id', checkToken, getSpendingInvoiceImageController);
 router.get('/:id', checkToken, getSpendingController);
 

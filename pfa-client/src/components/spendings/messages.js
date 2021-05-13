@@ -119,8 +119,12 @@ export default defineMessages({
     id: `${scope}.uncategorized`,
     defaultMessage: 'uncategorized',
   },
-  amountByCategoriesChartsTitle: {
-    id: `${scope}.amountByCategoriesChartsTitle`,
+  amountByCategoriesWeeklyChartsTitle: {
+    id: `${scope}.amountByCategoriesWeeklyChartsTitle`,
     defaultMessage: 'Amount by categories',
-  }
+  },
+  amountByCategoriesMonthlyChartsTitle: {
+    id: `${scope}.amountByCategoriesMonthlyChartsTitle`,
+    defaultMessage: 'Monthly spreading',
+  },
 });

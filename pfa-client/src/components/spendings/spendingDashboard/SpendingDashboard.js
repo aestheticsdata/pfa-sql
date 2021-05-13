@@ -3,7 +3,8 @@ import StyledSpendingDashboard from '@components/spendings/spendingDashboard/Sty
 
 import MonthlyBudget from '@components/spendings/spendingDashboard/monthlyBudget/MonthlyBudget';
 import WeeklyStats from "@components/spendings/spendingDashboard/weeklyStats/WeeklyStats";
-import Charts from "@components/spendings/spendingDashboard/charts/Charts";
+import WeeklyCharts from "@components/spendings/spendingDashboard/weeklyCharts/WeeklyCharts";
+import MonthlyCharts from "@components/spendings/spendingDashboard/monthlyCharts/MonthlyCharts";
 
 
 const SpendingDashboard = ({
@@ -23,8 +24,11 @@ const SpendingDashboard = ({
           user={user}
         />
       </div>
-      <div className="charts">
-        <Charts />
+      <div className="monthly-charts">
+        <MonthlyCharts />
+      </div>
+      <div className="weekly-charts">
+        <WeeklyCharts />
       </div>
       <div className="recurring-spendings-container">
         <SpendingDayItem

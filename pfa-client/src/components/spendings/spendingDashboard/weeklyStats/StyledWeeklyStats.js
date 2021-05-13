@@ -8,7 +8,7 @@ const StyledWeeklyStats = styled.div`
   border: 1px solid #fff;
   border-radius: 3px;
 
-  .weekly-stats-header {
+  .header {
     width: 80%;
     font-weight: 800;
     margin: 10px auto;

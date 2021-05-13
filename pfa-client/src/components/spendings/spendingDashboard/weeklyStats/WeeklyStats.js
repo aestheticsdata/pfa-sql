@@ -5,6 +5,7 @@ import {
   FormattedMessage,
   FormattedNumber,
 } from "react-intl";
+import { useIntl } from 'react-intl';
 import messages from "@components/spendings/messages";
 
 import {
@@ -15,11 +16,7 @@ import {
 
 import StyledWeeklyStats from "@components/spendings/spendingDashboard/weeklyStats/StyledWeeklyStats";
 
-import localesDates from "@src/i18n/locales-dates";
-
 import { setInitialCeiling as setInitialCeilingAction } from '../actions';
-
-import Cookie from "js-cookie";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -31,14 +28,14 @@ import startOfMonth from 'date-fns/startOfMonth';
 import endOfMonth from 'date-fns/endOfMonth';
 import format from 'date-fns/format';
 import getDay from "date-fns/getDay";
-import getMonth from "date-fns/getMonth";
-import getYear from "date-fns/getYear";
 import getDaysInMonth from "date-fns/getDaysInMonth";
 import getDate from "date-fns/getDate";
 
 import { ReactComponent as Spinner } from "@src/assets/Wedges-3s-200px.svg";
 
 import { v1 as uuidv1 } from 'uuid';
+import WidgetHeader from "@components/spendings/spendingDashboard/common/WidgetHeader";
+import { WEEKLY } from "@components/spendings/spendingDashboard/common/widgetHeaderConstants";
 
 
 const makeRange = (dateRange) => {
@@ -95,6 +92,8 @@ const WeeklyStats = () => {
   const weeklySlices = makeSlices(ranges);
   const CEILING_WARN_LIMIT = 50;
 
+  const intl = useIntl();
+
   const onSubmit = (values, { setSubmitting }) => {
     const formattedMonth = {
       start: format(startOfMonth(dateRange.from), 'yyyy-MM-dd'),
@@ -115,15 +114,10 @@ const WeeklyStats = () => {
 
   return (
     <StyledWeeklyStats>
-      <div className="weekly-stats-header">
-        <div>
-          <FormattedMessage {...messages.totalsByDayRange} />
-        </div>
-        <div className="date">
-          <span className="month">{localesDates[Cookie.get('lang')].MONTHS[getMonth(dateRange.to)]}</span>
-          <span className="year">{getYear(dateRange.to)}</span>
-        </div>
-      </div>
+      <WidgetHeader
+        title={intl.formatMessage({...messages.totalsByDayRange})}
+        periodType={WEEKLY}
+      />
       <div className="weekly-stats-body">
         <div className="ceiling">
           <div className="label">

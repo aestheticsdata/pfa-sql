@@ -1,28 +1,15 @@
 import styled from 'styled-components';
 import colors from "@src/colors";
+import header from "@components/spendings/spendingDashboard/common/css/header";
 
-const StyledCharts = styled.div`
-  width: 300px;
-  height: 250px;
-  background-color: ${colors.grey0};
-  border: 1px solid #fff;
-  border-radius: 3px;
-  cursor: default;
-  user-select: none;
-  font-size: 11px;
-  
+const StyledCharts = styled.div` 
   .header {
-    width: 80%;
-    font-weight: 800;
-    margin: 10px auto;
+    ${header};
+  }
+
+  .spinner {
     text-align: center;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgb(110,110,110);
-    font-size: 13px;
-    text-transform: uppercase;
-    .date {
-      font-weight: initial;
-    }
+    padding-top: 60px;
   }
 
   .stats-container {

@@ -8,12 +8,10 @@ import { privateRequest } from "@helpers/requestHelper";
 import { useSelector } from "react-redux";
 import Tooltip from "@components/spendings/spendingDashboard/charts/Tooltip";
 import messages from "@components/spendings/messages";
-import { FormattedMessage } from "react-intl";
-import { getFormattedDate } from "@components/datePickerWrapper/helpers";
-import { getLang } from "@helpers/lang";
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartBar } from "@fortawesome/free-solid-svg-icons";
+import WidgetHeader from "@components/spendings/spendingDashboard/common/WidgetHeader";
 
 
 const getMaxValue = data => Math.max(...data.map(category => +category.value));
@@ -23,20 +21,19 @@ const widthOfContainer = 240; // 300 - (border width * 2)
 
 
 
-const Charts = () => {
+const Charts = ({ url, currency, title, periodType }) => {
   const [maxv, setMaxv] = useState(0);
   const [total, setTotal] = useState(0);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const [categoryInfos, setCategoryInfos] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({x: 0, y: 0});
+  const [categoryInfos, setCategoryInfos] = useState(null);
   const [weeklyCharts, setWeeklyCharts] = useState([]);
-  const user = useSelector(state => state.loginReducer.user);
-  const dateRange = useSelector(state => state.dateRangeReducer.dateRange);
+
   const spendingsIsLoading = useSelector(state => state.spendingsReducer.isLoading);
 
   const getCharts = async () => {
     try {
-      const charts = await privateRequest(`/spendings/weeklyCharts?userID=${user.id}&from=${dateRange.from}&to=${dateRange.to}`);
+      const charts = await privateRequest(url);
       setWeeklyCharts(charts.data);
     } catch (e) {
       console.log(e);
@@ -60,23 +57,15 @@ const Charts = () => {
     if (maxv !== 0) {
       width = (value * widthOfContainer) / maxv;
     }
-    // if (total !== 0) {
-    //   width = (value * widthOfContainer) / total;
-    // }
     return width;
   }
 
   return (
-    <StyledCharts tooltipPos={tooltipPos} >
-      <div className="header">
-        <div className="title">
-          <FormattedMessage {...messages.amountByCategoriesChartsTitle}/>
-        </div>
-        <div className={"date"}>
-          {getFormattedDate(new Date(dateRange.from), getLang())} -{' '}
-          {getFormattedDate(new Date(dateRange.to), getLang())}
-        </div>
-      </div>
+    <StyledCharts>
+      <WidgetHeader
+        title={title}
+        periodType={periodType}
+      />
       <div className="stats-container">
         {
           weeklyCharts.length === 0 && (
@@ -123,7 +112,7 @@ const Charts = () => {
            <Tooltip
              tooltipPos={tooltipPos}
              categoryInfos={categoryInfos}
-             currency={user.baseCurrency}
+             currency={currency}
            />
           )
         }
