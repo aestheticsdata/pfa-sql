@@ -86,7 +86,7 @@ const setInvoicefile = (state, spendingOrRecurring, status) => {
     let date;
     const stringToHyphen = s => s.replaceAll(' ', '-');
     date = format(new Date(itemType === 'spending' ? spendingOrRecurring.date : spendingOrRecurring.dateFrom), dateFormat);
-    const filename = itemType + '-' + stringToHyphen(spendingOrRecurring.label) + '-' + date + '-r.jpg';
+    const filename = itemType + '-' + stringToHyphen(spendingOrRecurring.label) + '-' + date + '-r.jpeg';
     if (itemType === 'recurring') {
       spendingsClone[_.findIndex(spendingsClone, o => o.ID === spendingOrRecurring.ID)].invoicefile = filename;
     } else {
