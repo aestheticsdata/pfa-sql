@@ -2,9 +2,15 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const path = require('path');
+const helmet = require('helmet');
 require('dotenv').config();
 
 
+app.use(helmet());
+// see https://stackoverflow.com/questions/67166472/cant-remove-x-powered-by-header-in-node-express
+// not very important to remve this header, see: https://github.com/expressjs/express/pull/2813#issuecomment-159270428
+// removing X-Powered-By: Express is not working with :
+app.use(helmet.hidePoweredBy());
 app.use(cors());
 
 if (process.env.PROD) {
