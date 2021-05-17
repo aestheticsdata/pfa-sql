@@ -21,7 +21,7 @@ const StyledSpendingDayItem = styled.div`
   height: ${props => props.recurringType ? containerHeightdashboard+'px' : containerHeight+'px'};
   background: ${colors.grey0};
   border: 1px solid ${colors.grey2};
-  float: ${props => props.recurringType ? 'none' : 'left'};
+  //float: ${props => props.recurringType ? 'none' : 'left'};
   margin: ${props => props.recurringType ? 'initial' : '20px 10px'};
   padding: 10px;
   border-radius: 5px;
