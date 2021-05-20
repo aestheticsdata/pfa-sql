@@ -29,7 +29,8 @@
     "devalt:server": "nodemon --watch './**/*.ts' --exec 'ts-node' src/server.ts",
     "server": "nodemon src/server.js",
     "client": "npm start --prefix pfa-client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "tsc --project ./"
   },
   "license": "MIT",
   "repository": "https://github.com/aestheticsdata/pfa.git",
