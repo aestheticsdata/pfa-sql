@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
 
   try {
     const recurringsSum = await prisma.recurrings.aggregate({
-      sum: {
+      _sum: {
         amount: true,
       },
       where: {
@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
     })
 
     const spendingsSum = await prisma.spendings.aggregate({
-      sum: {
+      _sum: {
         amount: true,
       },
       where: {
