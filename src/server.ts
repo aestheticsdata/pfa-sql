@@ -4,7 +4,9 @@ const cors = require('cors');
 const path = require('path');
 const helmet = require('helmet');
 require('dotenv').config();
+const OS = require('os');
 
+process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
 
 app.use(helmet());
 // see https://stackoverflow.com/questions/67166472/cant-remove-x-powered-by-header-in-node-express
