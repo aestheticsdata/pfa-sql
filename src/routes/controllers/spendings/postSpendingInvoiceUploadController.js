@@ -1,7 +1,7 @@
 const prisma = require('../../../db/dbInit');
 const sharp = require('sharp');
-import { access, unlink } from 'fs/promises';
-import { constants } from 'fs';
+const { access, unlink } = require('fs').promises;
+const { constants } = require('fs');
 const getImage = require('./helpers/getImage');
 
 

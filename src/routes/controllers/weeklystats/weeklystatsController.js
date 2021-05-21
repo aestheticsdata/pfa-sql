@@ -1,11 +1,11 @@
 const prisma = require('../../../db/dbInit');
 
-import endOfMonth from 'date-fns/endOfMonth';
-import getDay from 'date-fns/getDay';
-import format from 'date-fns/format';
-import getDaysInMonth from 'date-fns/getDaysInMonth'
-import getYear from 'date-fns/getYear';
-import getMonth from 'date-fns/getMonth';
+const endOfMonth = require('date-fns').endOfMonth;
+const getDay = require('date-fns').getDay;
+const format = require('date-fns').format;
+const getDaysInMonth = require('date-fns').getDaysInMonth;
+const getYear = require('date-fns').getYear;
+const getMonth = require('date-fns').getMonth;
 
 
 const weeklystatsController = async (req, res) => {

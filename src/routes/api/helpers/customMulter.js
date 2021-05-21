@@ -1,8 +1,8 @@
 const multer = require('multer');
-import {
+const {
   access,
   mkdir,
-} from 'fs/promises';
+} = require('fs').promises;
 const { format } = require('date-fns');
 const dateFormat = 'yyyy-MM-dd';
 

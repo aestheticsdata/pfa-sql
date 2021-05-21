@@ -1,4 +1,4 @@
-import { readFile } from "fs/promises";
+const { readFile } = require('fs').promises;
 const { uploadPath } = require('./constants');
 
 

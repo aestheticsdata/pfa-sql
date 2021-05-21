@@ -1,4 +1,4 @@
-import { unlink } from "fs/promises";
+const { unlink } = require('fs').promises;
 const prisma = require('../../../db/dbInit');
 const { uploadPath } = require('./helpers/constants');
 
