@@ -54,7 +54,7 @@
   "app.components.Spendings.totalsByDayRange": "TOTALS BY DAY RANGE",
   "app.components.Spendings.ceiling": "Weekly ceiling :",
   "app.components.Spendings.uncategorized": "uncategorized",
-  "app.components.Spendings.amountByCategoriesWeeklyChartsTitle": "Amount by categories",
+  "app.components.Spendings.amountByCategoriesWeeklyChartsTitle": "Weekly spreading",
   "app.components.Spendings.amountByCategoriesMonthlyChartsTitle": "Monthly spreading",
 
   "app.components.SpendingsSort.SORT_BY_LABEL": "Label",

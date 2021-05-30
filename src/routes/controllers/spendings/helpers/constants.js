@@ -1,1 +1,3 @@
-module.exports.uploadPath = process.cwd() + '/src/invoicesUpload/';
+const path = require('path');
+
+module.exports.uploadPath = path.join(__dirname, '../../../../', 'invoicesUpload/');

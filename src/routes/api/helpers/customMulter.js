@@ -3,10 +3,10 @@ const {
   access,
   mkdir,
 } = require('fs').promises;
+const { uploadPath } = require('../../controllers/spendings/helpers/constants');
 const { format } = require('date-fns');
 const dateFormat = 'yyyy-MM-dd';
 
-const uploadPath = process.cwd() + '/src/invoicesUpload/';
 
 const stringToHyphen = s => s.replaceAll(' ', '-');
 

@@ -7,6 +7,8 @@ import { intl } from '../index';
 import messages from './messages';
 
 
+const getRequestURL = (url) => window.location.host.search('pfa') !== -1 ? `api${url}` : url;
+
 const privateRequest = (url, options, config) => {
   const tokenBearer = {
     headers: {
@@ -42,11 +44,13 @@ const privateRequest = (url, options, config) => {
     // throw err;
   });
 
-  return axiosInstance(url, _.merge(options, tokenBearer));
+  const requestURL = getRequestURL(url);
+  return axiosInstance(requestURL, _.merge(options, tokenBearer));
 };
 
 const request = (url, options) => {
-  return axios(url, options);
+  const requestURL = getRequestURL(url);
+  return axios(requestURL, options);
 };
 
 export {

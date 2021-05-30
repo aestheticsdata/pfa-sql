@@ -121,7 +121,7 @@ export default defineMessages({
   },
   amountByCategoriesWeeklyChartsTitle: {
     id: `${scope}.amountByCategoriesWeeklyChartsTitle`,
-    defaultMessage: 'Amount by categories',
+    defaultMessage: 'Weekly spreading',
   },
   amountByCategoriesMonthlyChartsTitle: {
     id: `${scope}.amountByCategoriesMonthlyChartsTitle`,
