@@ -6,3 +6,7 @@ pfa-client/dist
 .env.prod
 /.env
 /src/invoicesUpload/*
+/zeroSSL-certificate-1991computer.com
+/zeroSSL-certificate-1991computer.com.zip
+/zeroSSL-certificate-pfa.1991computer.com
+/zeroSSL-certificate-pfa.1991computer.com.zip
