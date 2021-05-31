@@ -42,11 +42,11 @@ const NavBar = () => {
                     { ...messages.categories }
                   />
                 </NavLink>
-                <NavLink to='/stats' className="link" exact>
-                  <FormattedMessage
-                    { ...messages.stats }
-                  />
-                </NavLink>
+                {/*<NavLink to='/stats' className="link" exact>*/}
+                {/*  <FormattedMessage*/}
+                {/*    { ...messages.stats }*/}
+                {/*  />*/}
+                {/*</NavLink>*/}
               </div>
               {
                 context.displayDatePicker ?
@@ -81,6 +81,11 @@ const NavBar = () => {
             <NavLink to='/register' className="link" exact>
               <FormattedMessage
                 { ...messages.signUp }
+              />
+            </NavLink>
+            <NavLink to='/about' className="link" exact>
+              <FormattedMessage
+                { ...messages.about }
               />
             </NavLink>
           </>

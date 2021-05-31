@@ -25,6 +25,7 @@ import { PrivateRoute } from '@components/privateRoute/PrivateRoute';
 
 import GlobalContext, { globalContext } from "@src/globalContext";
 import { useState } from 'react';
+import About from "@components/about/About";
 
 
 const App = () => {
@@ -37,15 +38,16 @@ const App = () => {
           <ConnectedRouter history={history}>
             <NavBar/>
             <Switch>
-              <PrivateRoute exact path="/" component={Spendings}/>
-              <PrivateRoute exact path="/stats" component={Stats}/>
-              <PrivateRoute exact path="/categories" component={CategoriesListContainer}/>
-              <Route exact path="/login" component={Login}/>
-              <Route exact path="/logout" component={Logout}/>
-              <Route exact path="/register" component={Register}/>
-              <Route exact path="/forgotpassword" component={ForgotPassword}/>
-              <Route exact path="/changepassword" component={ChangePassword}/>
-              <Route exact path="*" component={NotFoundComponent}/>
+              <PrivateRoute exact path="/" component={Spendings} />
+              <PrivateRoute exact path="/stats" component={Stats} />
+              <PrivateRoute exact path="/categories" component={CategoriesListContainer} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/logout" component={Logout} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/forgotpassword" component={ForgotPassword} />
+              <Route exact path="/changepassword" component={ChangePassword} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="*" component={NotFoundComponent} />
             </Switch>
           </ConnectedRouter>
         </div>

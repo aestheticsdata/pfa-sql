@@ -23,6 +23,7 @@
   "app.components.Navbar.spendings": "Dépenses",
   "app.components.Navbar.categories": "Catégories",
   "app.components.Navbar.stats": "Statistiques",
+  "app.components.Navbar.about": "A propos",
   "app.components.Navbar.globalCurrency": "Devise",
 
   "app.components.Spendings.createSuccess": "Nouvelle dépense ajoutée",
@@ -70,6 +71,12 @@
   "app.components.navbar.UserMenu.changePassword": "Modifier le mot de passe",
   "app.components.navbar.UserMenu.changeBaseCurrency": "Changer la devise globale",
   "app.components.navbar.UserMenu.logout": "Déconnexion",
+
+  "app.components.About.title": "Cette application est hébergée chez OVH SAS",
+  "app.components.About.ovhAddress": "Siège social : 2 rue Kellermann - 59100 Roubaix - France Code APE 2620Z N° TVA : FR 22 424 761 419",
+  "app.components.About.ovhAPE": "Code APE 2620Z",
+  "app.components.About.ovhTVA": "N° TVA : FR 22 424 761 419",
+
 
   "app.components.langMenu.LangMenu.languageLabel": "Langue",
 

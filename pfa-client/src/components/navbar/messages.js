@@ -23,6 +23,10 @@ export default defineMessages({
     id: `${scope}.stats`,
     defaultMessage: 'Stats',
   },
+  about: {
+    id: `${scope}.about`,
+    defaultMessage: 'About',
+  },
   globalCurrency: {
     id: `${scope}.globalCurrency`,
     defaultMessage: 'Currency',
