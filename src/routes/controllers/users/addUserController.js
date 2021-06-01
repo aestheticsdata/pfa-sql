@@ -38,7 +38,6 @@ module.exports = async (req, res) => {
         bcrypt.hash(newUser.password, salt, async (err, hash) => {
           if (err) console.error('There was an error during hash', err);
           else {
-            console.log('user password', newUser.password);
             newUser.password = hash;
             user = await prisma.users.create({ data: newUser });
             signIn(res, user);
