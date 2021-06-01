@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const path = require('path');
 const helmet = require('helmet');
 require('dotenv').config();
 const OS = require('os');
+const cronMysql = require('./cron/cron-mysql');
 
 process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
 
@@ -16,7 +16,7 @@ app.use(helmet.hidePoweredBy());
 app.use(cors());
 
 if (process.env.PROD) {
-  app.use(express.static(path.join(__dirname, '../../public_html')));
+  cronMysql();
 }
 
 // Bodyparser Middleware
@@ -29,6 +29,7 @@ app.use('/recurrings', require('./routes/api/recurringSpendings'));
 app.use('/dashboard', require('./routes/api/dashboard'));
 app.use('/monthlystats', require('./routes/api/monthlybudgetstats'));
 app.use('/weeklystats', require('./routes/api/weeklystats'));
+
 
 const port = process.env.PORT || 5000;
 
