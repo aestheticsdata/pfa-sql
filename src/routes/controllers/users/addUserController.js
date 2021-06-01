@@ -1,6 +1,7 @@
 const signIn = require('./helpers/signInHelper');
 const bcrypt = require('bcryptjs');
 const prisma = require('../../../db/dbInit');
+const { v1: uuidv1 } = require('uuid');
 
 
 module.exports = async (req, res) => {
@@ -22,6 +23,7 @@ module.exports = async (req, res) => {
     if (user) { return res.status(400).json({ message: 'Email already exists' }); }
 
     const newUser = {
+      ID: uuidv1(),
       name,
       email,
       password,
@@ -36,6 +38,7 @@ module.exports = async (req, res) => {
         bcrypt.hash(newUser.password, salt, async (err, hash) => {
           if (err) console.error('There was an error during hash', err);
           else {
+            console.log('user password', newUser.password);
             newUser.password = hash;
             user = await prisma.users.create({ data: newUser });
             signIn(res, user);
