@@ -32,12 +32,12 @@ const NavBar = () => {
           <>
             <div className="flex-container">
               <div className="nav-link-container">
-                <NavLink to='/' className="link" exact>
+                <NavLink to='/' className="link spendings" exact>
                   <FormattedMessage
                     { ...messages.spendings }
                   />
                 </NavLink>
-                <NavLink to='/categories' className="link" exact>
+                <NavLink to='/categories' className="link categories" exact>
                   <FormattedMessage
                     { ...messages.categories }
                   />

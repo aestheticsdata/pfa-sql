@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import cssSizes from '@src/css-sizes';
 import colors from '@src/colors';
 import {
   buttonMixin,
@@ -20,7 +21,12 @@ const StyledSpendingModal = styled.div`
   border: 1px solid ${colors.spendingActionHover};
   border-radius: 5px;
   color: ${colors.blueNavy};
-  width: ${props => props.recurringType ? (containerWidthdashboard-22) + 'px' : (containerWidth-22) + 'px'};
+  @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+    width: 450px;
+  }
+  @media(min-width: ${cssSizes.responsiveMinWidth}px) {
+    width: ${props => props.recurringType ? (containerWidthdashboard-22) + 'px' : (containerWidth-22) + 'px'};
+  }
   height: ${props => props.recurringType ? (containerHeightdashboard-53)+'px' : (containerHeight-53)+'px'};
   padding: 0 10px;
   

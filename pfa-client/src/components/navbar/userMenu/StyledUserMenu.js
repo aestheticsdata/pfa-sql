@@ -1,9 +1,15 @@
 import styled from 'styled-components';
+import cssSizes from '@src/css-sizes';
 
 const StyledUserMenu = styled.div`
   position: absolute;
   background-color: transparent;
-  right: 100px;
+  @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+    right: 85px;
+  }
+  @media(min-width: ${cssSizes.responsiveMinWidth}px) {
+    right: 110px;
+  }
   top: 20px;
   width: 150px;
   height: 60px;

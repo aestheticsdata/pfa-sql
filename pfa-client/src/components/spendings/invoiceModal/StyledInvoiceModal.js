@@ -4,6 +4,9 @@ import { buttonMixin } from "@components/shared/sharedCSS/sharedFormsCSS";
 
 const StyledInvoiceModal = styled.div`
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1000;
   left: 0;
   right: 0;
@@ -13,8 +16,6 @@ const StyledInvoiceModal = styled.div`
 
   .modal-content {
     position: absolute;
-    top: 10%;
-    left: 35%;
     width: 500px;
     height: 420px;
     

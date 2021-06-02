@@ -1,20 +1,27 @@
 import styled from 'styled-components/macro';
-import cssSizes from '../../css-sizes';
+import cssSizes from '@src/css-sizes';
 // import logo from './logo.png';
-import colors from '../../colors';
+import colors from '@src/colors';
 
 const StyledNavBar = styled.div`
   position: fixed;
   width: 100%;
   z-index: 200;
-  //position: relative;
   background-color: ${colors.blueNavy};
   color: #aee4ff;
   height: ${cssSizes.navbarHeight}px;
   padding-top: 10px;
+  @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+    font-size: 12px;
+  }
 
   .logo {
-    display: inline-block;
+    @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+      display: none;
+    }
+    @media(min-width: ${cssSizes.responsiveMinWidth}px) {
+      display: inline-block;
+    }
     width: 40px;
     height: 40px;
     font-size: 37px;
@@ -34,6 +41,9 @@ const StyledNavBar = styled.div`
   }
 
   .base-currency {
+    @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+      display: none;
+    }
     position: absolute;
     top: 20px;
     right: 280px;
@@ -70,6 +80,18 @@ const StyledNavBar = styled.div`
     outline: none;
     color: white;
     text-decoration: none;
+    
+    &.spendings {
+      @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+        display: none;
+      }
+    }
+
+    &.categories {
+      @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+        display: none;
+      }
+    }
 
     &.active {
       color: #aee4ff;

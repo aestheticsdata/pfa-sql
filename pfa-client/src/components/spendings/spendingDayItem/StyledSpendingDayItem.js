@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/macro';
+import cssSizes from '@src/css-sizes';
 import colors from '@src/colors';
 
 export const containerWidth = 485;
@@ -17,11 +18,13 @@ const itemslistcontainer = css`
 `;
 
 const StyledSpendingDayItem = styled.div`
+  @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+    zoom: 0.8;
+  }
   width: ${props => props.recurringType ? containerWidthdashboard+'px' : containerWidth+'px' };
   height: ${props => props.recurringType ? containerHeightdashboard+'px' : containerHeight+'px'};
   background: ${colors.grey0};
   border: 1px solid ${colors.grey2};
-  //float: ${props => props.recurringType ? 'none' : 'left'};
   margin: ${props => props.recurringType ? 'initial' : '20px 10px'};
   padding: 10px;
   border-radius: 5px;
@@ -55,7 +58,12 @@ const StyledSpendingDayItem = styled.div`
       float: left;
       text-align: center;
       font-weight: 800;
-      width: ${containerWidth-50}px;
+      @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+        width: ${containerWidth-70}px;
+      }
+      @media(min-width: ${cssSizes.responsiveMinWidth}px) {
+        width: ${containerWidth-50}px;
+      }
       color: #0a313f;
       border: 1px solid ${colors.grey2};
       background-color: ${colors.grey1};

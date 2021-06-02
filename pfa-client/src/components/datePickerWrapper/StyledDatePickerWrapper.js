@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
-import colors from '../../colors';
+import colors from '@src/colors';
+import cssSizes from '@src/css-sizes';
 
 const StyledDatePickerWrapper = styled.div`
   position: relative;
@@ -17,7 +18,14 @@ const StyledDatePickerWrapper = styled.div`
     background-color: ${colors.datePickerWrapperBackground};
     margin-bottom: 5px;
     padding: 5px;
-    width: 215px;
+    @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+      width: 115px;
+      font-size: 9px;
+      margin-left: 5px;
+    }
+    @media(min-width: ${cssSizes.responsiveMinWidth}px) {
+      width: 215px;
+    }
     color: ${colors.datePickerWrapper};;
     user-select: none;
   }

@@ -4,7 +4,12 @@ import { paddingDashboard } from './spendingDashboard/StyledSpendingDashboard';
 
 const StyledSpendings = styled.div`
   position: relative;
-  top: ${cssSizes.navbarHeight + cssSizes.dashboardHeight}px;
+  @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+    top: ${cssSizes.navbarHeight}px;
+  }
+  @media(min-width: ${cssSizes.responsiveMinWidth}px) {
+    top: ${cssSizes.navbarHeight + cssSizes.dashboardHeight}px;
+  }
   padding-top: 10px;
 
   .list-container {
