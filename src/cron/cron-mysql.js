@@ -1,3 +1,4 @@
+// https://github.com/kelektiv/node-cron#readme
 const CronJob = require('cron').CronJob;
 
 
@@ -9,7 +10,7 @@ const mysqlDump = () => {
 
 module.exports = () => {
   new CronJob(
-    '0 0 */2 * * *', // warning: first star is second, it extends the classic cron syntax
+    '0 0 */12 * * *', // warning: first star is second, it extends the classic cron syntax
     mysqlDump,
     null,
     true,
