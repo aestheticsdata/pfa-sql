@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import cssSizes from "@src/css-sizes";
 import colors from "@src/colors";
 import { buttonMixin } from "@components/shared/sharedCSS/sharedFormsCSS";
 
@@ -16,7 +17,12 @@ const StyledInvoiceModal = styled.div`
 
   .modal-content {
     position: absolute;
-    width: 500px;
+    @media(max-width: ${cssSizes.responsiveMaxWidth}px) {
+      width: 95%;
+    }
+    @media(min-width: ${cssSizes.responsiveMinWidth}px) {
+      width: 500px;
+    }
     height: 420px;
     
     background-color: ${colors.grey0};

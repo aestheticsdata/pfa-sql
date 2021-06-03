@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,6 +10,7 @@ import InvoiceModal from "@components/spendings/invoiceModal/InvoiceModal";
 import getCategoryComponent from '@components/common/Category';
 
 import messages from '../../messages';
+import cssSizes from "@src/css-sizes";
 
 
 const SpendingItem = ({
@@ -22,8 +23,15 @@ const SpendingItem = ({
   const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
   const [isInvoiceModalVisible, setIsInvoiceModalVisible] = useState(false);
 
-  const onMouseOver = () => { setHover(true) };
-  const onMouseLeave = () => { setHover(false) };
+  const isMobile = window.matchMedia(`(max-width: ${cssSizes.responsiveMaxWidth}px)`).matches;
+
+  useEffect(() => {
+    console.log('isMobile', isMobile);
+    isMobile && setHover(true);
+  }, []);
+
+  const onMouseOver = () => { !isMobile && setHover(true) };
+  const onMouseLeave = () => { !isMobile && setHover(false) };
   const openEditModal = () => editCallback(spending);
 
   const hideConfirm = () => {
@@ -69,7 +77,7 @@ const SpendingItem = ({
         {
           isInvoiceModalVisible ?
             <InvoiceModal
-              handleClickOutside={() => { setHover(false); setIsInvoiceModalVisible(!isInvoiceModalVisible) }}
+              handleClickOutside={() => { !isMobile && setHover(false); setIsInvoiceModalVisible(!isInvoiceModalVisible) }}
               spending={spending}
             />
             :
