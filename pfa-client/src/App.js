@@ -2,6 +2,8 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import { useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 
@@ -19,17 +21,25 @@ import Register from '@components/register/Register';
 import Logout from '@components/logout/Logout';
 import ForgotPassword from '@components/forgotPassword/ForgotPassword';
 import ChangePassword from '@components/changePassword/ChangePassword';
+import About from "@components/about/About";
 import NotFoundComponent from '@components/notFoundComponent/NotFoundComponent';
 
 import { PrivateRoute } from '@components/privateRoute/PrivateRoute';
 
 import GlobalContext, { globalContext } from "@src/globalContext";
 import { useState } from 'react';
-import About from "@components/about/About";
+import Cookie from 'js-cookie';
 
 
 const App = () => {
   const [context, setContext] = useState(globalContext);
+
+  useEffect(() => {
+    if (!Cookie.get('lang')) {
+      history.push('/logout');
+    }
+  }, []);
+
   return (
     <GlobalContext.Provider value={{context, setContext}}>
       <Provider store={store}>

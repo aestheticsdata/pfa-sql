@@ -13,6 +13,7 @@ app.use(helmet());
 // not very important to remve this header, see: https://github.com/expressjs/express/pull/2813#issuecomment-159270428
 // removing X-Powered-By: Express is not working with :
 app.use(helmet.hidePoweredBy());
+
 app.use(cors());
 
 if (process.env.PROD) {
