@@ -26,7 +26,6 @@ const SpendingItem = ({
   const isMobile = window.matchMedia(`(max-width: ${cssSizes.responsiveMaxWidth}px)`).matches;
 
   useEffect(() => {
-    console.log('isMobile', isMobile);
     isMobile && setHover(true);
   }, []);
 
