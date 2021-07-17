@@ -1,21 +1,28 @@
-export const applyMinus = (s: string): string => {
-  if (s.indexOf('-') === -1) return s;
-  return s
+// see https://www.npmjs.com/package/round-tofixed ////
+const accurateFixed = (x: number, digits: number) => {
+  return +(Math.round(+(x + 'e' + digits)) + 'e-' + digits);
+}
+// ////////////////////////////////////////////////////
+
+export const applyMinus = (s: string): number => {
+  if (s.indexOf('-') === -1) return +s;
+  const result = s
     .split('-')
     .reduce((acc, curr, idx) => {
       if (idx === 0) return +curr;
       return acc - +curr;
-    }, 0)
-    .toFixed(2);
+    }, 0);
+  return accurateFixed(result, 2);
 }
 
-const mathExprEval = (expr: string): string => expr
+const mathExprEval = (expr: string): number => expr
   .split('+')
   .map(s => applyMinus(s))
-  .reduce((acc, curr) => acc + +curr, 0)
-  .toFixed(2);
+  .reduce((acc, curr) => acc + +curr, 0);
 
-export default mathExprEval;
+const toFixedEval = (expr: string) => accurateFixed(mathExprEval(expr), 2);
+
+export default toFixedEval;
 
 
 
