@@ -1,12 +1,18 @@
 import toFixedEval, { accurateFixed } from './mathExprEval';
 
-describe('mathExprEval', () => {
-  it('should return the correct thing', () => {
+describe('accurateFixed', () => {
+  it('should return the correct rounding', () => {
     expect(accurateFixed(12.39525, 2)).toEqual(12.4);
   });
+});
 
+describe('toFixedEval', () => {
   it('12+5 should be evaluated to 17', () => {
     expect(toFixedEval('12+5')).toEqual(17);
+  });
+
+  it('12-5 should be evaluated to 7', () => {
+    expect(toFixedEval('12-5')).toEqual(7);
   });
 
   it('12+5-4.23-1.98+6 should be evaluated to 17', () => {

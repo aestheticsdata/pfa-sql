@@ -23,6 +23,3 @@ const mathExprEval = (expr: string): number => expr
 const toFixedEval = (expr: string) => accurateFixed(mathExprEval(expr), 2);
 
 export default toFixedEval;
-
-
-
