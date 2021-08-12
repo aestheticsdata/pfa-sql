@@ -87,5 +87,13 @@
     "redux-devtools-extension": "^2.13.8",
     "styled-components.macro": "^1.0.0",
     "yup": "^0.32.9"
+  },
+  "jest": {
+    "baseUrl": "./src",
+    "moduleNameMapper": {
+      "@src(.*)$": "<rootDir>/src$1",
+      "@helpers(.*)$": "<rootDir>/src/helpers$1",
+      "@components(.*)$": "<rootDir>/src/components$1"
+    }
   }
 }

@@ -15,7 +15,7 @@ import {
 
 const tempArr = [];
 tempArr.total = 0;
-const spendingsPlaceholder = [tempArr, tempArr, tempArr, tempArr, tempArr, tempArr, tempArr];
+const spendingsPlaceholder = new Array(7).fill(tempArr);
 
 const initialState = {
   spendings: spendingsPlaceholder,

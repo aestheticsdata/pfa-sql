@@ -1,5 +1,5 @@
 // see https://www.npmjs.com/package/round-tofixed ////
-const accurateFixed = (x: number, digits: number) => {
+export const accurateFixed = (x: number, digits: number) => {
   return +(Math.round(+(x + 'e' + digits)) + 'e-' + digits);
 }
 // ////////////////////////////////////////////////////
