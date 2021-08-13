@@ -20,6 +20,6 @@ const mathExprEval = (expr: string): number => expr
   .map(s => applyMinus(s))
   .reduce((acc, curr) => acc + +curr, 0);
 
-const toFixedEval = (expr: string) => accurateFixed(mathExprEval(expr), 2);
+const toFixedEval = (expr: string): number => accurateFixed(mathExprEval(expr), 2);
 
 export default toFixedEval;
