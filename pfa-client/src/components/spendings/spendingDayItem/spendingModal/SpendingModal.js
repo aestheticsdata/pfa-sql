@@ -22,6 +22,8 @@ import {
 import messages from '../../messages';
 import StyledSpendingModal from './StyledSpendingModal';
 
+import toFixedEval from "@helpers/mathExprEval";
+
 
 const SpendingModal = ({
    date,
@@ -65,6 +67,7 @@ const SpendingModal = ({
   };
 
   const onSubmit = (values, { setSubmitting }) => {
+    const amountEvaluatedExpr = toFixedEval(values.amount);
     const spendingEdited = {
       // this format date is required to avoid inconsistency
       // when axios convert date in POST request
@@ -72,7 +75,7 @@ const SpendingModal = ({
       date: date ? format(date, 'yyyy-MM-dd') : null,
       // ///////////////////////////////////////////////////
       label: values.label,
-      amount: values.amount,
+      amount: amountEvaluatedExpr,
       category: selectedCategory,
       currency: user.baseCurrency,
       userID: user.id,
@@ -126,7 +129,7 @@ const SpendingModal = ({
                 placeholder={intl.formatMessage(messages.editModalSpendingLabelPlaceholder)}
               />
               <Field
-                type="number"
+                type="text"
                 name="amount"
                 placeholder={intl.formatMessage(messages.editModalSpendingAmountPlaceholder)}
               />
