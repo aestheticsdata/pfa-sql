@@ -32,6 +32,6 @@ describe('toFixedEval', () => {
   });
 
   it('abcd should return NaN', () => {
-    expect(toFixedEval('abcd')).toEqual(NaN);
+    expect(toFixedEval('abcd')).toBeNaN();
   });
 });

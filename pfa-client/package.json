@@ -89,7 +89,6 @@
     "yup": "^0.32.9"
   },
   "jest": {
-    "baseUrl": "./src",
     "moduleNameMapper": {
       "@src(.*)$": "<rootDir>/src$1",
       "@helpers(.*)$": "<rootDir>/src/helpers$1",
