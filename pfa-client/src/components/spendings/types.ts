@@ -32,7 +32,7 @@ export type SpendingType = {
   id?: number;
 };
 
-export type SpendingCompoundType = [SpendingType] & {
+export type SpendingCompoundType = SpendingType[] & {
   id: string;
   date: number;
   total : number

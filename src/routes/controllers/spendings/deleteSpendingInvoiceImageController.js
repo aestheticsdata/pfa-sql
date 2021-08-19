@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
     }
 
     res.status(200).json({ msg: 'INVOICE_IMAGE_DELETED'});
-  } catch (e) {
+  } catch (err) {
     res.status(500).json('error while deleting invoice image : ', e);
   }
 }

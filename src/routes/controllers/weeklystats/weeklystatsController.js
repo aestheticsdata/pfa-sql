@@ -67,7 +67,7 @@ const weeklystatsController = async (req, res) => {
     const weeklyStats = makeRange(monthSpending);
 
     res.status(200).json(weeklyStats);
-  } catch (e) {
+  } catch (err) {
     res.status(500).json({ msg: 'weeklyStats error : ' + e });
   }
 }

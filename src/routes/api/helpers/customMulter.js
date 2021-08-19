@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 
     try {
       await access(userDir);
-    } catch (e) {
+    } catch (err) {
       await mkdir(uploadPath + req.body.userID);
     } finally {
       cb(null, userDir);

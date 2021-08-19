@@ -28,6 +28,14 @@ describe('updateCategoryController', () => {
     }
   ];
 
+  const updatedObject = {
+    where: { ID: '123' },
+    data: {
+      name: 'alimentation',
+      color: '#fff',
+    },
+  }
+
   const res = {
     json: jest.fn(categories => { console.log('res: ', categories) }),
     status: _code => ({ json: err => err }),
@@ -37,11 +45,12 @@ describe('updateCategoryController', () => {
 
   it('should update the category and return some categories', async () => {
     prisma.categories = {
-      update: () => true,
+      update: jest.fn(() => true),
       findMany: () => categories,
     }
     await updateCategoryController(req, res);
 
+    expect(prisma.categories.update).toHaveBeenCalledWith(updatedObject);
     expect(res.json).toHaveBeenCalledWith(categories);
   });
 

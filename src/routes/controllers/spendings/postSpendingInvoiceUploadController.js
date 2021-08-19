@@ -60,7 +60,7 @@ module.exports = async (req, res) => {
     const [invoiceImageString, contentType] = await getImage(resizedFilename, req.body.userID);
     res.setHeader('content-type', contentType);
     res.send(invoiceImageString);
-  } catch (e) {
+  } catch (err) {
     res.status(500).json('error while writing file to db : ', e);
   }
 }

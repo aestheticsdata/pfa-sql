@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
     } else {
       res.status(200).json(null);
     }
-  } catch (e) {
+  } catch (err) {
     res.status(500).json('error while reading image : ', e);
   }
 };

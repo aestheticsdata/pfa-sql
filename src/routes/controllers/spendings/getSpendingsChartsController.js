@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
         ORDER BY amount DESC;
     `);
     res.status(200).json(chartsStats);
-  } catch (e) {
+  } catch (err) {
     res.status(500).json({ msg: 'error while getting charts : ', e});
   }
 };
