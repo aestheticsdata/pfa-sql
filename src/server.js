@@ -5,6 +5,7 @@ const helmet = require('helmet');
 require('dotenv').config();
 const OS = require('os');
 const cronMysql = require('./cron/cron-mysql');
+const errorHandlerMiddleware = require('./utils/errorHandlerMiddleware');
 
 process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
 
@@ -32,9 +33,8 @@ app.use('/dashboard', require('./routes/api/dashboard'));
 app.use('/monthlystats', require('./routes/api/monthlybudgetstats'));
 app.use('/weeklystats', require('./routes/api/weeklystats'));
 
-app.use(async (err, req, res, _next) => {
-  res.status(err.status).send({ error: err.message });
-});
+// below next is required but not used hence _next, see: https://stackoverflow.com/a/61464426/5671836
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5000;
 

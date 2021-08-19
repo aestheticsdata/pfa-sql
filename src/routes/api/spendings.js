@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const checkToken = require('./helpers/checkToken');
 const uploadMiddleware = require('./helpers/customMulter');
+const catchAsync = require('../../utils/catchAsync');
 
 
 const getSpendingsController = require('../controllers/spendings/getSpendingsController');
@@ -13,7 +14,7 @@ const deleteSpendingInvoiceImageController = require('../controllers/spendings/d
 const updateSpendingController = require('../controllers/spendings/updateSpendingController');
 const deleteSpendingController = require('../controllers/spendings/deleteSpendingController');
 
-router.get('/', checkToken, getSpendingsController);
+router.get('/', checkToken, catchAsync(getSpendingsController));
 router.get('/charts', checkToken, getSpendingsChartsController);
 router.get('/upload/:id', checkToken, getSpendingInvoiceImageController);
 router.get('/:id', checkToken, getSpendingController);
