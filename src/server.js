@@ -23,6 +23,7 @@ if (process.env.PROD) {
 // Bodyparser Middleware
 app.use(express.json());
 
+
 app.use('/users', require('./routes/api/users'));
 app.use('/categories', require('./routes/api/categories'));
 app.use('/spendings', require('./routes/api/spendings'));
@@ -31,6 +32,9 @@ app.use('/dashboard', require('./routes/api/dashboard'));
 app.use('/monthlystats', require('./routes/api/monthlybudgetstats'));
 app.use('/weeklystats', require('./routes/api/weeklystats'));
 
+app.use(async (err, req, res, _next) => {
+  res.status(err.status).send({ error: err.message });
+});
 
 const port = process.env.PORT || 5000;
 

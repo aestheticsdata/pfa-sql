@@ -4,9 +4,10 @@ const addUserController = require('../controllers/users/addUserController');
 const resetPasswordController = require('../controllers/users/resetPasswordController');
 const updateUserLangController = require('../controllers/users/updateUserLangController');
 const checkToken = require('./helpers/checkToken');
+const catchAsync = require('../../utils/catchAsync');
 
 
-router.post('/', signInController);
+router.post('/', catchAsync(signInController));
 router.post('/add', addUserController);
 router.post('/resetpassword', resetPasswordController);
 router.put('/:id', checkToken, updateUserLangController);

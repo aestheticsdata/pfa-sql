@@ -1,9 +1,10 @@
 const signIn = require('./helpers/signInHelper');
 const bcrypt = require('bcryptjs');
 const prisma = require('../../../db/dbInit');
+const createError = require('http-errors');
 
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   const { email, password } = req.body;
 
   // Simple validation
@@ -12,16 +13,11 @@ module.exports = async (req, res) => {
   }
 
   // Check for existing user
-  try {
-    const user = await prisma.users.findUnique({ where: { email } })
-    if (!user) return res.status(400).json({ message: 'User Does not exist' });
+  const user = await prisma.users.findUnique({ where: { email } });
+  if (!user) return next(createError(500, 'User does not exist'));
 
-    // Validate password
-    const isMatchPassword = await bcrypt.compare(password, user.password);
-    if (!isMatchPassword) return res.status(400).json({ message: 'Invalid credentials' });
-    signIn(res, user);
-
-  } catch (err) {
-    res.status(400).json(`Error while getting user : ${err}`)
-  }
+  // Validate password
+  const isMatchPassword = await bcrypt.compare(password, user.password);
+  if (!isMatchPassword) return next(createError(500, 'Invalid credentials'));
+  signIn(res, user);
 };
