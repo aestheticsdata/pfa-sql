@@ -3,10 +3,11 @@ const checkToken = require('./helpers/checkToken');
 const getCategoriesController = require('../controllers/categories/getCategoriesController');
 const updateCategoryController = require('../controllers/categories/updateCategoryController');
 const deleteCategoryController = require('../controllers/categories/deleteCategoryController');
+const catchAsync = require('../../utils/catchAsync');
 
 
 router.get('/', checkToken, getCategoriesController);
-router.put('/:id', checkToken, updateCategoryController);
+router.put('/:id', checkToken, catchAsync(updateCategoryController));
 router.delete('/:id', checkToken, deleteCategoryController);
 
 // router.post('/add', (req, res) => {

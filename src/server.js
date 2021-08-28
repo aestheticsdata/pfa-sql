@@ -33,7 +33,6 @@ app.use('/dashboard', require('./routes/api/dashboard'));
 app.use('/monthlystats', require('./routes/api/monthlybudgetstats'));
 app.use('/weeklystats', require('./routes/api/weeklystats'));
 
-// below next is required but not used hence _next, see: https://stackoverflow.com/a/61464426/5671836
 app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5000;

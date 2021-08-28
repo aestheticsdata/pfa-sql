@@ -1,5 +1,6 @@
 const prisma = require('../../../../db/dbInit');
 const updateCategoryController = require('../updateCategoryController');
+const createError = require('http-errors');
 
 jest.mock('prisma');
 
@@ -41,7 +42,6 @@ describe('updateCategoryController', () => {
     status: _code => ({ json: err => err }),
   };
 
-  const categoryError = new Error('category update error');
 
   it('should update the category and return some categories', async () => {
     prisma.categories = {
@@ -55,12 +55,22 @@ describe('updateCategoryController', () => {
   });
 
   it('should return an error', async () => {
+    // expect.assertions
+    // see: https://stackoverflow.com/questions/50816254/necessary-to-use-expect-assertions-if-youre-awaiting-any-async-function-calls
+    // see: https://stackoverflow.com/a/58103698/5671836
+    expect.hasAssertions();
+
+    const categoryErrorMessage = 'category update error';
     prisma.categories = {
-      update: () => {throw categoryError},
+      update: () => {throw createError(500, categoryErrorMessage)},
       findMany: () => categories,
     }
-    const result = await updateCategoryController(req, res);
-    expect(result).toEqual(categoryError);
+
+    try {
+      await updateCategoryController(req, res, () => {});
+    } catch (err) {
+      expect(err.message).toEqual(categoryErrorMessage);
+    }
   });
 });
 
