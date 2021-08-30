@@ -23,7 +23,7 @@ export function* onRegister(user) {
     });
     yield put(registerSuccess(res))
   } catch (err) {
-    yield put(registerFail(err.response.data.message));
+    yield put(registerFail(err.response.data.error));
   }
 }
 

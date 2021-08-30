@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
 
   // Simple validation
   if(!email || !password) {
-    return res.status(400).json({ msg: 'Please enter all fields' });
+    return next(createError(500, 'Please enter all fields'));
   }
 
   // Check for existing user

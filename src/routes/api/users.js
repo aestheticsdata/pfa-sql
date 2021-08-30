@@ -8,7 +8,7 @@ const catchAsync = require('../../utils/catchAsync');
 
 
 router.post('/', catchAsync(signInController));
-router.post('/add', addUserController);
+router.post('/add', catchAsync(addUserController));
 router.post('/resetpassword', resetPasswordController);
 router.put('/:id', checkToken, updateUserLangController);
 
