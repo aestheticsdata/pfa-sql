@@ -38,7 +38,7 @@ describe('updateCategoryController', () => {
   }
 
   const res = {
-    json: jest.fn(categories => { console.log('res: ', categories) }),
+    json: jest.fn(categories => categories),
     status: _code => ({ json: err => err }),
   };
 
@@ -64,7 +64,7 @@ describe('updateCategoryController', () => {
     prisma.categories = {
       update: () => {throw createError(500, categoryErrorMessage)},
       findMany: () => categories,
-    }
+    };
 
     try {
       await updateCategoryController(req, res, () => {});

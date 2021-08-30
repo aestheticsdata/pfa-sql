@@ -8,7 +8,7 @@ const catchAsync = require('../../utils/catchAsync');
 
 router.get('/', checkToken, getCategoriesController);
 router.put('/:id', checkToken, catchAsync(updateCategoryController));
-router.delete('/:id', checkToken, deleteCategoryController);
+router.delete('/:id', checkToken, catchAsync(deleteCategoryController));
 
 // router.post('/add', (req, res) => {
 //   const {
