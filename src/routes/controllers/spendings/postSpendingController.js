@@ -1,8 +1,9 @@
 const prisma = require('../../../db/dbInit');
 const { v1: uuidv1 } = require('uuid');
+const createError = require('http-errors');
 
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   const {
     userID,
     date,
@@ -13,27 +14,23 @@ module.exports = async (req, res) => {
   } = req.body;
 
   const createSpending = async (newCategoryID = null, existingCategory = null) => {
-    try {
-      await prisma.spendings.create({
-        data: {
-          ID: uuidv1(),
-          userID,
-          date: new Date(date),
-          label,
-          amount,
-          categoryID: newCategoryID ?? (existingCategory?.ID ?? category?.ID),
-          currency,
-          itemType: 'spending',
-        }
-      });
-      res.json('new spending added');
-    } catch (err) {
-      res.status(500).json(`Error: ${err}`)
-    }
+    await prisma.spendings.create({
+      data: {
+        ID: uuidv1(),
+        userID,
+        date: new Date(date),
+        label,
+        amount,
+        categoryID: newCategoryID ?? (existingCategory?.ID ?? category?.ID),
+        currency,
+        itemType: 'spending',
+      }
+    });
+    res.json('new spending added');
   };
 
   if (!amount || !label) {
-    return res.status(400).json({ msg: 'Please enter amount and label' });
+    return next(createError(500, 'Please enter amount and label'));
   }
 
   if (category.ID === null && category.color !== null) {
@@ -49,19 +46,15 @@ module.exports = async (req, res) => {
       await createSpending(null, existingCategory);
     } else {
       const newCategoryID = uuidv1();
-      try {
-        await prisma.categories.create({
-          data: {
-            ID: newCategoryID,
-            userID,
-            name: category.name,
-            color: category.color,
-          }
-        });
-        await createSpending(newCategoryID);
-      } catch (err) {
-        res.status(500).json(`Error creating new category: ${err}`);
-      }
+      await prisma.categories.create({
+        data: {
+          ID: newCategoryID,
+          userID,
+          name: category.name,
+          color: category.color,
+        }
+      });
+      await createSpending(newCategoryID);
     }
   } else {
     // no category created, just create a spending
