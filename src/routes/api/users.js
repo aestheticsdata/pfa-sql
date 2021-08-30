@@ -10,7 +10,7 @@ const catchAsync = require('../../utils/catchAsync');
 router.post('/', catchAsync(signInController));
 router.post('/add', catchAsync(addUserController));
 router.post('/resetpassword', catchAsync(resetPasswordController));
-router.put('/:id', checkToken, updateUserLangController);
+router.put('/:id', checkToken, catchAsync(updateUserLangController));
 
 module.exports = router;
 
