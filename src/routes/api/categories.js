@@ -6,7 +6,7 @@ const deleteCategoryController = require('../controllers/categories/deleteCatego
 const catchAsync = require('../../utils/catchAsync');
 
 
-router.get('/', checkToken, getCategoriesController);
+router.get('/', checkToken, catchAsync(getCategoriesController));
 router.put('/:id', checkToken, catchAsync(updateCategoryController));
 router.delete('/:id', checkToken, catchAsync(deleteCategoryController));
 
