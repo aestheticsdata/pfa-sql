@@ -1,13 +1,14 @@
 const router = require('express').Router();
 const checkToken = require('./helpers/checkToken');
+const catchAsync = require('../../utils/catchAsync');
 
 const getDashboardController = require('../controllers/dashboard/getDashboardController');
 const postDashboardController = require('../controllers/dashboard/postDashboardController');
 const updateDashboardController = require('../controllers/dashboard/updateDashboardController');
 
-router.get('/', checkToken, getDashboardController);
-router.post('/', checkToken, postDashboardController);
-router.put('/:id', checkToken, updateDashboardController);
+router.get('/', checkToken, catchAsync(getDashboardController));
+router.post('/', checkToken, catchAsync(postDashboardController));
+router.put('/:id', checkToken, catchAsync(updateDashboardController));
 
 module.exports = router;
 
