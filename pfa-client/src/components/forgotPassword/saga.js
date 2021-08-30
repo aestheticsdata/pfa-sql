@@ -31,7 +31,7 @@ export function* onResetPassword(payload) {
   } catch (err) {
     Swal.fire({
       title: intl.formatMessage({ ...messages.emailSentErrorTitle }),
-      text: err.response.data,
+      text: err.response.data.error,
       type: 'error',
       toast: true,
       position: 'top-end',
