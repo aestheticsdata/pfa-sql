@@ -1,8 +1,9 @@
 const prisma = require('../../../db/dbInit');
 const { v1: uuidv1 } = require('uuid');
+const createError = require('http-errors');
 
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   const {
     userID,
     start: dateFrom,
@@ -13,24 +14,21 @@ module.exports = async (req, res) => {
   } = req.body;
 
   if (!amount || !label) {
-    return res.status(400).json({ msg: 'Please enter amount and label' });
+    return next(createError(500, 'Please enter amount and label'));
   }
 
-  try {
-    await prisma.recurrings.create({
-      data: {
-        ID: uuidv1(),
-        userID,
-        dateFrom: new Date(dateFrom),
-        dateTo: new Date(dateTo),
-        label,
-        amount,
-        currency,
-        itemType: 'recurring',
-      },
-    });
-    res.json('new category added');
-  } catch (err) {
-    res.status(500).json(`Error creating new recurring: ${err}`);
-  }
+  await prisma.recurrings.create({
+    data: {
+      ID: uuidv1(),
+      userID,
+      dateFrom: new Date(dateFrom),
+      dateTo: new Date(dateTo),
+      label,
+      amount,
+      currency,
+      itemType: 'recurring',
+    },
+  });
+  res.json('new category added');
 };
+
