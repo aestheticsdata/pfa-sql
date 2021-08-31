@@ -16,15 +16,15 @@ const deleteSpendingController = require('../controllers/spendings/deleteSpendin
 
 router.get('/', checkToken, catchAsync(getSpendingsController));
 router.get('/charts', checkToken, catchAsync(getSpendingsChartsController));
-router.get('/upload/:id', checkToken, getSpendingInvoiceImageController);
-router.get('/:id', checkToken, getSpendingController);
+router.get('/upload/:id', checkToken, catchAsync(getSpendingInvoiceImageController));
+router.get('/:id', checkToken, catchAsync(getSpendingController));
 
 router.post('/', checkToken, catchAsync(postSpendingController));
-router.post('/upload', [checkToken, uploadMiddleware.single('invoiceImageUpload')], postSpendingInvoiceUploadController);
+router.post('/upload', [checkToken, uploadMiddleware.single('invoiceImageUpload')], catchAsync(postSpendingInvoiceUploadController));
 
-router.put('/upload', checkToken, deleteSpendingInvoiceImageController);
-router.put('/:id', checkToken, updateSpendingController);
+router.put('/upload', checkToken, catchAsync(deleteSpendingInvoiceImageController));
+router.put('/:id', checkToken, catchAsync(updateSpendingController));
 
-router.delete('/:id', checkToken, deleteSpendingController);
+router.delete('/:id', checkToken, catchAsync(deleteSpendingController));
 
 module.exports = router;
