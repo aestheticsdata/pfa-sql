@@ -37,7 +37,7 @@ const StyledWeeklyStats = styled.div`
       display: flex;
       text-transform: uppercase;
       font-size: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
       cursor: default;
       user-select: none;
       .label {
@@ -82,6 +82,17 @@ const StyledWeeklyStats = styled.div`
           border-bottom: 1px solid ${colors.formsGlobalColor};
           transition: all .2s ease;
         }
+      }
+    }
+    
+    .average-weekly-amount {
+      font-size: 12px;
+      margin-top: 5px;
+      text-transform: uppercase;
+      user-select: none; 
+      .average-value {
+        margin-left: 4px;
+        font-weight: 700;
       }
     }
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -63,13 +63,10 @@ const getSliceDates = (idx, ranges) => {
   return sliceStart === sliceEnd ? sliceStart : `${sliceStart} - ${sliceEnd}`;
 }
 
-const makeSlices = ranges => {
-  const slices = [];
-  for (let i = 0, l = ranges.length; i < l; i += 1) {
-    slices.push(getSliceDates(i, ranges));
-  }
-  return slices;
-}
+const makeSlices = ranges => ranges.reduce((acc, curr, idx, arr) => {
+    acc.push(getSliceDates(idx, arr));
+    return acc;
+  }, []);
 
 const isCurrentWeek = (slice, dateRange) => {
   return typeof slice === 'string' ?
@@ -82,6 +79,7 @@ const isCurrentWeek = (slice, dateRange) => {
 
 const WeeklyStats = () => {
   const [isInputVisible, setIsInputVisible] = useState(false);
+  const [averageWeeklyStatsAmount, setAverageWeeklyStatsAmount] = useState(0);
   const dispatch = useDispatch();
   const user = useSelector(state => state.loginReducer.user);
   const weeklyStats = useSelector(state => state.dashboardReducer.weeklyStats);
@@ -111,6 +109,12 @@ const WeeklyStats = () => {
       el.focus();
     }
   };
+
+  useEffect(() => {
+    if (weeklyStats.length > 0) {
+      setAverageWeeklyStatsAmount(Math.round(weeklyStats.reduce((acc, curr) => acc + curr, 0) / weeklyStats.length));
+    }
+  }, [weeklyStats]);
 
   return (
     <StyledWeeklyStats>
@@ -219,6 +223,17 @@ const WeeklyStats = () => {
             <Spinner width="60px" height="60px" />
           </div>
         }
+        </div>
+        <div className="average-weekly-amount">
+          <FormattedMessage {...messages.averageWeeklyStatsAmount} /> :
+          <span className="average-value">
+            <FormattedNumber
+              value={averageWeeklyStatsAmount}
+              style="currency"
+              currency={user.baseCurrency}
+              maximumFractionDigits={0}
+            />
+          </span>
         </div>
       </div>
     </StyledWeeklyStats>

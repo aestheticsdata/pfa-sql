@@ -127,4 +127,8 @@ export default defineMessages({
     id: `${scope}.amountByCategoriesMonthlyChartsTitle`,
     defaultMessage: 'Monthly spreading',
   },
+  averageWeeklyStatsAmount: {
+    id: `${scope}.averageWeeklyStatsAmount`,
+    defaultMessage: 'Average weekly spending',
+  }
 });

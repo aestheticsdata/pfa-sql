@@ -59,7 +59,7 @@ const DatePickerWrapper = () => {
   useOnClickOutside(ref, handleClickOutside);
 
   useEffect(() => {
-    const currentDate  = queryString.parse(window.location.search).currentDate;
+    const currentDate = queryString.parse(window.location.search).currentDate;
     currentDate ? handleDayChange(new Date(currentDate as string)) : handleDayChange(new Date());
   }, []);
 

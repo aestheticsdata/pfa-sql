@@ -57,6 +57,7 @@
   "app.components.Spendings.uncategorized": "uncategorized",
   "app.components.Spendings.amountByCategoriesWeeklyChartsTitle": "Weekly spreading",
   "app.components.Spendings.amountByCategoriesMonthlyChartsTitle": "Monthly spreading",
+  "app.components.Spendings.averageWeeklyStatsAmount": "Average weekly spending",
 
   "app.components.SpendingsSort.SORT_BY_LABEL": "Label",
   "app.components.SpendingsSort.SORT_BY_CATEGORY": "Category",

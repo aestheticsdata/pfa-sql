@@ -57,6 +57,7 @@
   "app.components.Spendings.uncategorized": "sans catégorie",
   "app.components.Spendings.amountByCategoriesWeeklyChartsTitle": "Repartition hebdomadaire",
   "app.components.Spendings.amountByCategoriesMonthlyChartsTitle": "Repartition mensuelle",
+  "app.components.Spendings.averageWeeklyStatsAmount": "Moyenne des dépenses par semaine",
 
   "app.components.SpendingsSort.SORT_BY_LABEL": "Intitulé",
   "app.components.SpendingsSort.SORT_BY_CATEGORY": "Catégorie",
