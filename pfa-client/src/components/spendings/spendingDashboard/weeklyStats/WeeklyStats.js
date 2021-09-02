@@ -112,7 +112,9 @@ const WeeklyStats = () => {
 
   useEffect(() => {
     if (weeklyStats.length > 0) {
-      setAverageWeeklyStatsAmount(Math.round(weeklyStats.reduce((acc, curr) => acc + curr, 0) / weeklyStats.length));
+      // filter(Boolean) removes 0 from array
+      const zeroedOutWeeklyStats = weeklyStats.filter(Boolean);
+      setAverageWeeklyStatsAmount(Math.round(zeroedOutWeeklyStats.reduce((acc, curr) => acc + curr, 0) / zeroedOutWeeklyStats.length));
     }
   }, [weeklyStats]);
 
