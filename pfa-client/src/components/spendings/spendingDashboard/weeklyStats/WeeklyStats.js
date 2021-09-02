@@ -36,6 +36,7 @@ import { ReactComponent as Spinner } from "@src/assets/Wedges-3s-200px.svg";
 import { v1 as uuidv1 } from 'uuid';
 import WidgetHeader from "@components/spendings/spendingDashboard/common/WidgetHeader";
 import { WEEKLY } from "@components/spendings/spendingDashboard/common/widgetHeaderConstants";
+import { accurateFixed } from "@helpers/mathExprEval";
 
 
 const makeRange = (dateRange) => {
@@ -114,7 +115,14 @@ const WeeklyStats = () => {
     if (weeklyStats.length > 0) {
       // filter(Boolean) removes 0 from array
       const zeroedOutWeeklyStats = weeklyStats.filter(Boolean);
-      setAverageWeeklyStatsAmount(Math.round(zeroedOutWeeklyStats.reduce((acc, curr) => acc + curr, 0) / zeroedOutWeeklyStats.length));
+      setAverageWeeklyStatsAmount(
+        accurateFixed(
+          zeroedOutWeeklyStats
+            .reduce((acc, curr) => acc + curr, 0)
+            / zeroedOutWeeklyStats.length,
+          1
+        )
+      );
     }
   }, [weeklyStats]);
 
@@ -233,7 +241,7 @@ const WeeklyStats = () => {
               value={averageWeeklyStatsAmount}
               style="currency"
               currency={user.baseCurrency}
-              maximumFractionDigits={0}
+              maximumFractionDigits={1}
             />
           </span>
         </div>
