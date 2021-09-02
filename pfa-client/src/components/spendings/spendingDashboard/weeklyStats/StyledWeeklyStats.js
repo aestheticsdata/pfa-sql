@@ -86,7 +86,7 @@ const StyledWeeklyStats = styled.div`
     }
     
     .average-weekly-amount {
-      font-size: 12px;
+      font-size: 11px;
       margin-top: 5px;
       text-transform: uppercase;
       user-select: none; 
