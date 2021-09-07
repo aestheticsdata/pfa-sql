@@ -67,7 +67,7 @@ const SpendingModal = ({
   };
 
   const onSubmit = (values, { setSubmitting }) => {
-    const amountEvaluatedExpr = toFixedEval(values.amount);
+    const amountEvaluatedExpr = toFixedEval(String(values.amount));
     const spendingEdited = {
       // this format date is required to avoid inconsistency
       // when axios convert date in POST request
