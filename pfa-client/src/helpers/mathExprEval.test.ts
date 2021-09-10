@@ -31,7 +31,11 @@ describe('toFixedEval', () => {
     expect(toFixedEval('5.6-1.2+38-2.13')).toEqual(40.27);
   });
 
-  it('abcd should return NaN', () => {
-    expect(toFixedEval('abcd')).toBeNaN();
+  it('abcd should return 0', () => {
+    expect(toFixedEval('abcd')).toEqual(0);
+  });
+
+  it ('1abc+2 should return 3', () => {
+    expect(toFixedEval('1abc+2')).toEqual(3);
   });
 });

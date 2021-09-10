@@ -1,3 +1,13 @@
+const reSanitizer = /[a-zA-Z@%*/_]*/g;
+
+// see https://stackoverflow.com/questions/69105871/regex-for-simple-arithmetic-expression
+const arithmeticRegex = /^\d+(?:\.\d+)?(?:[-+]\d+(?:\.\d+)?)*$/;
+const validateMathExpr = (expr: string) => (expr.match(arithmeticRegex) || []).join('');
+
+// filter extra character with regex
+// see https://stackoverflow.com/questions/31885080/regex-to-filter-out-certain-characters
+export const sanitizeMathExpr = (expr: string): string => validateMathExpr(expr.replace(reSanitizer, ''));
+
 // see https://www.npmjs.com/package/round-tofixed ////
 export const accurateFixed = (x: number, digits: number) => {
   return +(Math.round(+(x + 'e' + digits)) + 'e-' + digits);
@@ -20,6 +30,6 @@ const mathExprEval = (expr: string): number => expr
   .map(s => applyMinus(s))
   .reduce((acc, curr) => acc + +curr, 0);
 
-const toFixedEval = (expr: string): number => accurateFixed(mathExprEval(expr), 2);
+const toFixedEval = (expr: string): number => accurateFixed(mathExprEval(sanitizeMathExpr(expr)), 2);
 
 export default toFixedEval;
