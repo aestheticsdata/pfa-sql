@@ -2,6 +2,7 @@ import toFixedEval, {
   accurateFixed,
   validateMathExpr,
   sanitizeMathExpr,
+  applyMinus,
 } from './mathExprEval';
 
 describe('accurateFixed', () => {
@@ -60,4 +61,17 @@ describe('sanitizeMathExpr', () => {
   it('1@+_/*3%-2.05 should be sanitized to 1+3-2.05', () => {
     expect(sanitizeMathExpr('1@+_/*3%-2.05')).toEqual('1+3-2.05');
   });
-})
+});
+
+describe('applyMinus', () => {
+  it("'12' equals 12", () => {
+    expect(applyMinus('12')).toEqual(12);
+  });
+  it("'12-2' equals 10", () => {
+    expect(applyMinus('12-2')).toEqual(10);
+  });
+  it('should return a number type', () => {
+    expect(typeof applyMinus('12')).toBe("number");
+  });
+});
+
