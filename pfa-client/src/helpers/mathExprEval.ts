@@ -2,10 +2,9 @@ const reSanitizer = /[a-zA-Z@%*/_]*/g;
 
 // see https://stackoverflow.com/questions/69105871/regex-for-simple-arithmetic-expression
 const arithmeticRegex = /^\d+(?:\.\d+)?(?:[-+]\d+(?:\.\d+)?)*$/;
-const validateMathExpr = (expr: string) => (expr.match(arithmeticRegex) || []).join('');
+export const validateMathExpr = (expr: string) => (expr.match(arithmeticRegex) || []).join('');
 
-// filter extra character with regex
-// see https://stackoverflow.com/questions/31885080/regex-to-filter-out-certain-characters
+// filter extra characters with regex
 export const sanitizeMathExpr = (expr: string): string => validateMathExpr(expr.replace(reSanitizer, ''));
 
 // see https://www.npmjs.com/package/round-tofixed ////

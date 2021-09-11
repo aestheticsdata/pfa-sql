@@ -1,4 +1,8 @@
-import toFixedEval, { accurateFixed } from './mathExprEval';
+import toFixedEval, {
+  accurateFixed,
+  validateMathExpr,
+  sanitizeMathExpr,
+} from './mathExprEval';
 
 describe('accurateFixed', () => {
   it('should return the correct rounding', () => {
@@ -39,3 +43,21 @@ describe('toFixedEval', () => {
     expect(toFixedEval('1abc+2')).toEqual(3);
   });
 });
+
+describe('validateMathExpr', () => {
+  it('5.6-1.2+38-2.13 should be a valid math expression', () => {
+    expect(validateMathExpr('5.6-1.2+38-2.13')).toEqual('5.6-1.2+38-2.13');
+  });
+  it('1abc+3 should not be a valid math expression', () => {
+    expect(validateMathExpr('1abc+3')).toEqual('');
+  });
+});
+
+describe('sanitizeMathExpr', () => {
+  it('1abc+3 should be sanitized to 1+3', () => {
+    expect(sanitizeMathExpr('1abc+3')).toEqual('1+3');
+  });
+  it('1@+_/*3%-2.05 should be sanitized to 1+3-2.05', () => {
+    expect(sanitizeMathExpr('1@+_/*3%-2.05')).toEqual('1+3-2.05');
+  });
+})
