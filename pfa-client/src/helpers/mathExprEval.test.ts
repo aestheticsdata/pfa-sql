@@ -40,8 +40,20 @@ describe('toFixedEval', () => {
     expect(toFixedEval('abcd')).toEqual(0);
   });
 
-  it ('1abc+2 should return 3', () => {
+  it('1abc+2 should return 3', () => {
     expect(toFixedEval('1abc+2')).toEqual(3);
+  });
+
+  it('10-2- should return 0', () => {
+    expect(toFixedEval('10-2-')).toEqual(0);
+  });
+
+  it('-10 should heturn 0', () => {
+    expect(toFixedEval('-10')).toEqual(0);
+  });
+
+  it('10+ should heturn 0', () => {
+    expect(toFixedEval('10+')).toEqual(0);
   });
 });
 
@@ -51,6 +63,15 @@ describe('validateMathExpr', () => {
   });
   it('1abc+3 should not be a valid math expression', () => {
     expect(validateMathExpr('1abc+3')).toEqual('');
+  });
+  it('10-2- should return an empty string', () => {
+    expect(validateMathExpr('10-2-')).toEqual('');
+  });
+  it('-10 should return an empty string', () => {
+    expect(validateMathExpr('-10')).toEqual('');
+  });
+  it('10+ should return an empty string', () => {
+    expect(validateMathExpr('10+')).toEqual('');
   });
 });
 
