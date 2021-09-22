@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
-require('dotenv').config();
 const OS = require('os');
 const cronMysql = require('./cron/cron-mysql');
 const errorHandlerMiddleware = require('./utils/errorHandlerMiddleware');
+const invoicesImagesBackup = require('./invoicesImagesBackup/invoicesImagesBackup');
 
 process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
 
@@ -17,7 +17,8 @@ app.use(helmet.hidePoweredBy());
 
 app.use(cors());
 
-if (process.env.PROD) {
+if (JSON.parse(process.env.PROD)) {
+  invoicesImagesBackup();
   cronMysql();
 }
 
