@@ -1,7 +1,7 @@
 // https://github.com/kelektiv/node-cron#readme
 const CronJob = require('cron').CronJob;
 
-const sshCopy = require('../helpers/sshCopy');
+const sshCopy = require('../helpers/sshRaw').copy;
 
 const mysqlDump = () => {
   console.log('mysqlDump', new Date());

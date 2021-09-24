@@ -1,6 +1,6 @@
 const chokidar = require('chokidar');
 const { uploadPath } = require('../routes/controllers/spendings/helpers/constants');
-const sshCopy = require('../helpers/sshCopy');
+const sshCopy = require('../helpers/sshRaw').copy;
 
 module.exports = invoicesImagesBackup = () => {
   chokidar.watch(uploadPath, {

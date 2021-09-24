@@ -1,6 +1,7 @@
 const { unlink } = require('fs').promises;
 const prisma = require('../../../db/dbInit');
 const { uploadPath } = require('./helpers/constants');
+const sshDeleteFile = require('../../../helpers/sshRaw').deleteFile;
 
 
 module.exports = async (req, res, _next) => {
@@ -30,6 +31,8 @@ module.exports = async (req, res, _next) => {
       WHERE invoicefile = '${invoicefile}';
   `);
   }
+
+  sshDeleteFile(process.env.PFA_BACKUP_INVOICES_SERVER_PATH + userID + '/' + invoicefile);
 
   res.status(200).json({ msg: 'INVOICE_IMAGE_DELETED'});
 }
