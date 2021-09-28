@@ -16,7 +16,11 @@ const connection = fn => {
 
 module.exports.copy = (src, dest) => {
   const copy = conn => () => conn.sftp((err, sftp) => {
-    sftp.fastPut(src, dest, {}, error => { console.log('sftp error: ', error) });
+    // when sending pics from phone, copied image is 0 byte
+    // adding a 1 minute timeout fixes the issue
+    setTimeout(() => {
+      sftp.fastPut(src, dest, {}, error => { console.log('sftp error: ', error) });
+    }, 60000);
   });
   connection(copy);
 };
