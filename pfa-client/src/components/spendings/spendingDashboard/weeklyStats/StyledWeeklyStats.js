@@ -31,7 +31,7 @@ const StyledWeeklyStats = styled.div`
     display: flex;
     flex-direction: column;
     width: 80%;
-    margin: 20px auto 20px auto;
+    margin: 10px auto;
 
     .ceiling {
       display: flex;
