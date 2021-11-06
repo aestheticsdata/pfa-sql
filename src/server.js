@@ -17,7 +17,7 @@ app.use(helmet.hidePoweredBy());
 
 app.use(cors());
 
-if (JSON.parse(process.env.PROD)) {
+if (process.env.PROD) {
   invoicesImagesBackup();
   cronMysql();
 }

@@ -6,7 +6,7 @@ const config = {
   port: 22,
   username: process.env.DEBIAN_OVH_VPS_SSH_USER,
   // password: process.env.DEBIAN_OVH_VPS_SSH_PASSWORD,
-  privateKey: fs.readFileSync(process.env.DEBIAN_OVH_VPS_SSH_KEY_PATH),
+  privateKey: process.env.PROD && fs.readFileSync(process.env.DEBIAN_OVH_VPS_SSH_KEY_PATH),
 };
 
 const connection = fn => {
